@@ -53,35 +53,30 @@ namespace ndp_invest_helper
         }
     }
 
-    class SecuritiesManager
+    /// <summary>
+    /// База всех эмитентов и их ценных бумаг.
+    /// !!! Заметка себе на будущее, когда захочется рефакторинга под красивое ООП.
+    /// В теории все поля должны быть закрыты и доступны через ReadOnly интерфейсы
+    /// либо методы, но на практике это лишний геморрой и усложнение кода.
+    /// Тогда возвращаемые объекты Security, Issuer тоже должны быть Immutable.
+    /// Можно заморочиться, но смысла нет.
+    /// </summary>
+    static class SecuritiesManager
     {
-        private SectorsManager sectorsManager;
+        public static List<Issuer> Issuers;
+               
+        public static List<Security> Securities;
+               
+        public static Dictionary<string, Security> SecuritiesByIsin;
+               
+        public static Dictionary<string, Security> SecuritiesByTicker;
 
-        public List<Issuer> Issuers;
-
-        public List<Security> Securities = new List<Security>();
-
-        public Dictionary<string, Security> SecuritiesByIsin = new Dictionary<string, Security>();
-
-        public Dictionary<string, Security> SecuritiesByTicker = new Dictionary<string, Security>();
-
-        public SecuritiesManager(SectorsManager sectorsManager)
-        {
-            this.sectorsManager = sectorsManager;
-        }
-
-        public static SecuritiesManager FromXmlFile(
-            string filePath, SectorsManager sectorsManager
-            )
-        {
-            var securitiesManager = new SecuritiesManager(sectorsManager);
-            securitiesManager.ParseXmlFile(filePath);
-            return securitiesManager;
-        }
-
-        public void ParseXmlFile(string filePath)
+        public static void ParseXmlFile(string filePath)
         {
             Issuers = new List<Issuer>();
+            Securities = new List<Security>();
+            SecuritiesByIsin = new Dictionary<string, Security>();
+            SecuritiesByTicker = new Dictionary<string, Security>();
 
             var xRoot = XElement.Parse(File.ReadAllText(filePath));
 
@@ -94,7 +89,7 @@ namespace ndp_invest_helper
 
                 issuer.Countries = Utils.HandleComplexStringXmlAttribute(
                     xIssuer, "country");
-                Utils.HandleSectorAttribute(xIssuer, issuer.Sectors, sectorsManager);
+                Utils.HandleSectorAttribute(xIssuer, issuer.Sectors);
 
                 foreach (var xSecurity in xIssuer.Elements("security"))
                 {
@@ -111,7 +106,7 @@ namespace ndp_invest_helper
             }
         }
 
-        private Security ParseXmlSecurity(XElement xSecurity)
+        private static Security ParseXmlSecurity(XElement xSecurity)
         {
             // Разбираем общие параметры.
             Security security = null;
@@ -160,7 +155,7 @@ namespace ndp_invest_helper
                         Utils.HandleComplexStringXmlAttribute(xSecurity, "currency");
                     etf.WhatInside = 
                         Utils.HandleComplexStringXmlAttribute(xSecurity, "what_inside");
-                    Utils.HandleSectorAttribute(xSecurity, etf.Sectors, sectorsManager);
+                    Utils.HandleSectorAttribute(xSecurity, etf.Sectors);
                     break;
                 default:
                     break;
@@ -173,13 +168,13 @@ namespace ndp_invest_helper
         /// Правим данные в файле. Только для внутреннего использования.
         /// Заполняем страны.
         /// </summary>
-        internal void CorrectData(string filePath)
+        internal static void CorrectData(string filePath)
         {
             var xRoot = XElement.Parse(File.ReadAllText(filePath));
 
             foreach (var xIssuer in xRoot.Elements("issuer"))
             {
-                var issuer = this.Issuers.Find(x => x.Name == xIssuer.Attribute("name").Value);
+                var issuer = Issuers.Find(x => x.Name == xIssuer.Attribute("name").Value);
 
                 // Уже заполнено, но не вопросами.
                 if (issuer.Countries.Count > 0

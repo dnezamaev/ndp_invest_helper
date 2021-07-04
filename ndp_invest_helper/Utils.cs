@@ -76,14 +76,13 @@ namespace ndp_invest_helper
 
         public static void HandleSectorAttribute(
             XElement xTag,
-            Dictionary<Sector, decimal> destination,
-            SectorsManager sectorsManager)
+            Dictionary<Sector, decimal> destination)
         {
             var sectors = Utils.HandleComplexStringXmlAttribute(xTag, "sector");
 
             foreach (var item in sectors)
             {
-                var sector = sectorsManager.Sectors.Find(x => x.Id == item.Key);
+                var sector = SectorsManager.Sectors.Find(x => x.Id == item.Key);
 
                 if (sector == null)
                     continue;

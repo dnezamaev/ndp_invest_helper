@@ -9,8 +9,6 @@ namespace ndp_invest_helper
         public Dictionary<Security, SecurityInfo> Securities = 
             new Dictionary<Security, SecurityInfo>();
 
-        abstract public void ParseXmlFile(
-            string xmlReportFilePath, 
-            SecuritiesManager securitiesManager);
+        abstract public void ParseXmlFile(string xmlReportFilePath);
     }
 }

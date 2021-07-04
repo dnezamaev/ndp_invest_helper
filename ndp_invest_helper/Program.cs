@@ -13,13 +13,13 @@ namespace ndp_invest_helper
             var settings = Settings.ReadFromFile("settings.xml");
             CurrenciesManager.SetRates(settings);
 
-            var countriesManager = CountriesManager.FromXmlFile(@"data\info\countries.xml");
-            var sectorsManager = SectorsManager.FromXmlFile(@"data\info\sectors.xml");
-            var securitiesManager = SecuritiesManager.FromXmlFile(@"data\info\securities.xml", sectorsManager);
+            CountriesManager.ParseXmlFile(@"data\info\countries.xml");
+            SectorsManager.ParseXmlFile(@"data\info\sectors.xml");
+            SecuritiesManager.ParseXmlFile(@"data\info\securities.xml");
 
             var portfolio = new Portfolio(settings);
             var reportsDirPath = (args.Length == 0) ? @"data\reports\vtb" : args[0];
-            var reports = HandleReportsDirectory(reportsDirPath, securitiesManager);
+            var reports = HandleReportsDirectory(reportsDirPath);
             foreach (var report in reports)
                 portfolio.AddReport(report);
 
@@ -28,8 +28,7 @@ namespace ndp_invest_helper
             taskManager.ParseXmlFile(taskFilePath);
         }
 
-        static List<Report> HandleReportsDirectory(
-            string directoryPath, SecuritiesManager securitiesManager)
+        static List<Report> HandleReportsDirectory(string directoryPath)
         {
             var result = new List<Report>();
             var vtbDirectoryFiles = Directory.GetFiles(directoryPath);
@@ -37,7 +36,7 @@ namespace ndp_invest_helper
             foreach (var vtbReportFile in vtbDirectoryFiles)
             {
                 var vtbReport = new VtbReport();
-                vtbReport.ParseXmlFile(vtbReportFile, securitiesManager);
+                vtbReport.ParseXmlFile(vtbReportFile);
                 result.Add(vtbReport);
             }
 
@@ -64,15 +63,6 @@ namespace ndp_invest_helper
 
             //Console.WriteLine("Finished.");
             //Console.ReadKey();
-        }
-
-        static void CorrectData(
-            SecuritiesManager securitiesManager,
-            SectorsManager sectorsManager)
-        {
-            securitiesManager.CorrectData(@"data\info\securities.xml");
-            securitiesManager = new SecuritiesManager(sectorsManager);
-            securitiesManager.ParseXmlFile(@"data\info\securities.xml");
         }
     }
 }

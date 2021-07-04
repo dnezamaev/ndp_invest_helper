@@ -26,20 +26,13 @@ namespace ndp_invest_helper
         public string Name;
     }
 
-    class SectorsManager
+    static class SectorsManager
     {
-        public List<Sector> Sectors;
+        public static List<Sector> Sectors;
 
-        public int LevelsCount;
+        public static int LevelsCount;
 
-        public static SectorsManager FromXmlFile(string filePath)
-        {
-            var sectorsManager = new SectorsManager();
-            sectorsManager.ParseXmlFile(filePath);
-            return sectorsManager;
-        }
-
-        public void ParseXmlFile(string filePath)
+        public static void ParseXmlFile(string filePath)
         {
             Sectors = new List<Sector>();
             LevelsCount = 0;

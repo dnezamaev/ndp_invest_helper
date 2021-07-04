@@ -2,6 +2,44 @@
 
 <root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
+  <task name="Группировка по странам">
+    <group by="country" keep_only_keys="RU;US" />
+  </task>
+
+  <task name="Удаление отдельных акций" remove_tickers="SBERP" remove_isins="RU0007661625">
+    <group by="country" keep_only_keys="RU;US" />
+  </task>
+
+  <task name="Удаление отдельных акций" remove_tickers="SBERP;GAZP">
+    <group by="country" keep_only_keys="RU;US" />
+  </task>
+
+  <task name="Оставление отдельных акций" keep_only_tickers="SBERP;GAZP">
+    <group by="country" keep_only_keys="RU;US" />
+  </task>
+
+  <task name="Оставление отдельных акций" keep_only_tickers="SBERP" keep_only_isins="RU0007661625">
+    <group by="country" keep_only_keys="RU;US" />
+  </task>
+
+  <!--
+
+  <task name="Сортировка по долям" order_by="part">
+    <group by="currency" />
+  </task>
+
+  <task name="Сортировка по долям по убыванию" order_by="part;desc">
+    <group by="currency" />
+  </task>
+
+  <task name="Сортировка по именам валют" order_by="key">
+    <group by="currency" />
+  </task>
+
+  <task name="Сортировка по именам валют по убыванию" order_by="key;desc">
+    <group by="currency" />
+  </task>
+
   <task name="Группировка по типам">
     <group by="type" unpack_etf="yes" />
   </task>
@@ -20,11 +58,6 @@
     <group by="country" unpack_etf="yes" remove_keys="RU" />
   </task>
 
-  <!--
-  <task name="Группировка по валютам" hide_parts_less="1">
-    <group by="currency" />
-  </task>
-
   <task name="Группировка по странам. Скрывать меньших 1%" hide_parts_less="1">
     <group by="country" />
   </task>
@@ -37,6 +70,16 @@
     <group by="type" unpack_etf="yes" />
     <group by="country" />
   </task>
+
+  <task name="Проверка ошибочной ситуации на взаимоисключающие аттирбуты">
+    <group by="country" keep_only_keys="RU" remove_keys="US" />
+  </task>
+
+  <task name="Проверка ошибочной ситуации на взаимоисключающие аттирбуты" 
+        keep_only_tickers="" remove_isins="">
+    <group by="country" keep_only_keys="RU" />
+  </task>
+
   -->
 
 </root>

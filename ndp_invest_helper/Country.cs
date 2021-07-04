@@ -7,25 +7,18 @@ using System.Xml.Linq;
 
 namespace ndp_invest_helper
 {
-    class CountriesManager
+    static class CountriesManager
     {
-        public Dictionary<string, string> Countries = 
+        public static Dictionary<string, string> Countries = 
             new Dictionary<string, string>();
 
-        public Dictionary<string, HashSet<string>> ByDevelopment =
+        public static Dictionary<string, HashSet<string>> ByDevelopment =
             new Dictionary<string, HashSet<string>>();
 
-        public Dictionary<string, HashSet<string>> ByRegion =
+        public static Dictionary<string, HashSet<string>> ByRegion =
             new Dictionary<string, HashSet<string>>();
 
-        public static CountriesManager FromXmlFile(string filePath)
-        {
-            var countriesManager = new CountriesManager();
-            countriesManager.ParseXmlFile(filePath);
-            return countriesManager;
-        }
-
-        public void ParseXmlFile(string filePath)
+        public static void ParseXmlFile(string filePath)
         {
             var xRoot = XElement.Parse(File.ReadAllText(filePath));
 
@@ -47,6 +40,5 @@ namespace ndp_invest_helper
                     xLevel.Elements().Select(x => x.Attribute("key").Value).ToHashSet();
             }
         }
-
     }
 }

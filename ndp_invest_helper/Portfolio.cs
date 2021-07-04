@@ -13,6 +13,10 @@ namespace ndp_invest_helper
         public Dictionary<string, PortfolioAnalyticsItem> Analytics =
             new Dictionary<string, PortfolioAnalyticsItem>();
 
+        public string OrderBy = "key";
+
+        public bool OrderAscending = true;
+
         /// <summary>
         /// Флажочек, сигнализирующий о проблеме в файле с бумагами.
         /// </summary>
@@ -35,8 +39,50 @@ namespace ndp_invest_helper
             };
         }
 
+        public List<Security> GetSecurities()
+        {
+            var result = new List<Security>();
+
+            foreach (var item in Analytics)
+            {
+                result.AddRange(item.Value.Portfolio.Securities.Keys);
+            }
+
+            return result;
+        }
+
         /// <summary>
-        /// Удалить из аналитики несколько элементов и пересчитать доли.
+        /// Удалить из аналитики несколько бумаг.
+        /// </summary>
+        /// <param name="correctParts">Нужно ли пересчитывать доли.</param>
+        /// <param name="securities">Ключи элементов для удаления.</param>
+        public void RemoveSecurities(bool correctParts, params Security[] securities)
+        {
+            foreach (var item in Analytics)
+            {
+                foreach (var securityToRemove in securities)
+                {
+                    item.Value.Portfolio.RemoveSecurity(securityToRemove);
+                }
+            }
+
+            // Сумма по всем оставшимся элементам.
+            var total = Analytics.Sum(x => x.Value.Portfolio.Total);
+
+            // Корректируем доли.
+            if (correctParts)
+            {
+                foreach (var item in Analytics)
+                {
+                    item.Value.Part = total == 0 ? 0 :
+                        item.Value.Portfolio.Total / total;
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// Удалить из аналитики несколько элементов.
         /// </summary>
         /// <param name="correctParts">Нужно ли пересчитывать доли.</param>
         /// <param name="keys">Ключи элементов для удаления.</param>
@@ -55,7 +101,8 @@ namespace ndp_invest_helper
             {
                 foreach (var item in Analytics)
                 {
-                    item.Value.Part = item.Value.Portfolio.Total / total;
+                    item.Value.Part = total == 0 ? 0 :
+                        item.Value.Portfolio.Total / total;
                 }
             }
         }
@@ -96,8 +143,25 @@ namespace ndp_invest_helper
         public override string ToString()
         {
             var sb = new StringBuilder();
+            IEnumerable<KeyValuePair<string, PortfolioAnalyticsItem>> sorted = null;
+            
+            switch (OrderBy)
+            {
+                case "key":
+                    sorted = OrderAscending ? 
+                        Analytics.OrderBy(x => x.Key) :
+                        Analytics.OrderByDescending(x => x.Key);
+                    break;
+                case "part":
+                    sorted = OrderAscending ? 
+                        Analytics.OrderBy(x => x.Value.Part) :
+                        Analytics.OrderByDescending(x => x.Value.Part);
+                    break;
+                default:
+                    throw new ArgumentException("Неизвестный ключ сортировки  " + OrderBy);
+            }
 
-            foreach (var item in Analytics)
+            foreach (var item in sorted)
             {
                 sb.AppendLine(item.Key.ToString());
                 sb.AppendLine(item.Value.ToString());
@@ -217,6 +281,9 @@ namespace ndp_invest_helper
 
         public void RemoveSecurity(Security security)
         {
+            if (!securities.ContainsKey(security))
+                return;
+
             total -= securities[security].Total;
             securities.Remove(security);
         }

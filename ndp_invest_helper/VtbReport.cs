@@ -12,16 +12,12 @@ namespace ndp_invest_helper
     {
         private XNamespace xNamespace;
         private XElement xRoot;
-        private SecuritiesManager securitiesManager;
 
-        public override void ParseXmlFile(
-            string xmlReportFilePath, 
-            SecuritiesManager securitiesManager)
+        public override void ParseXmlFile(string xmlReportFilePath)
         {
             var xmlReportText = File.ReadAllText(xmlReportFilePath);
             xRoot = XElement.Parse(xmlReportText);
             xNamespace = xRoot.GetDefaultNamespace();
-            this.securitiesManager = securitiesManager;
 
             ParseCurrentSecurities();
         }
@@ -66,7 +62,7 @@ namespace ndp_invest_helper
                         NumberStyles.Any, CultureInfo.InvariantCulture);
                 }
 
-                var security = securitiesManager.SecuritiesByIsin[secIsin];
+                var security = SecuritiesManager.SecuritiesByIsin[secIsin];
                 var securityInfo = new SecurityInfo {
                     Price = secPrice,
                     Count = secCount 
