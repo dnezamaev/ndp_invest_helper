@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sectors>
+ <row id="1" level="1" name="Здравоохранение" parent_id="0"/>
+ <row id="2" level="1" name="Коммунальные услуги" parent_id="0"/>
+ <row id="3" level="1" name="Коммуникации" parent_id="0"/>
+ <row id="4" level="1" name="Недвижимость" parent_id="0"/>
+ <row id="5" level="1" name="Потребление (защитный)" parent_id="0"/>
+ <row id="6" level="1" name="Потребление (цикличный)" parent_id="0"/>
+ <row id="7" level="1" name="Промышленность" parent_id="0"/>
+ <row id="8" level="1" name="Страхование" parent_id="0"/>
+ <row id="9" level="1" name="Сырье" parent_id="0"/>
+ <row id="10" level="1" name="Технологии" parent_id="0"/>
+ <row id="11" level="1" name="Транспорт" parent_id="0"/>
+ <row id="12" level="1" name="Финансы" parent_id="0"/>
+ <row id="13" level="1" name="Энергетика" parent_id="0"/>
+ <row id="14" level="2" name="Медицинское оборудование" parent_id="1"/>
+ <row id="15" level="2" name="Производители лекарств" parent_id="1"/>
+ <row id="16" level="2" name="Медицинские инструменты и материалы" parent_id="1"/>
+ <row id="17" level="2" name="Диагностика и исследования" parent_id="1"/>
+ <row id="18" level="2" name="Медицинские учреждения" parent_id="1"/>
+ <row id="19" level="2" name="Медицинские информационные услуги" parent_id="1"/>
+ <row id="20" level="2" name="Планы здравоохранения" parent_id="1"/>
+ <row id="21" level="2" name="Производители дженериков" parent_id="1"/>
+ <row id="22" level="2" name="Медицинская дистрибуция" parent_id="1"/>
+ <row id="23" level="2" name="Фармацевтические ритейлеры" parent_id="1"/>
+ <row id="24" level="2" name="Биотехнологии" parent_id="1"/>
+ <row id="25" level="2" name="Коммунальные услуги - Разное" parent_id="2"/>
+ <row id="26" level="2" name="Газоснабжение" parent_id="2"/>
+ <row id="27" level="2" name="Водоснабжение" parent_id="2"/>
+ <row id="28" level="2" name="Производство возобновляемой энергии" parent_id="2"/>
+ <row id="29" level="2" name="Независимые производители электроэнергии" parent_id="2"/>
+ <row id="30" level="2" name="Электроснабжение" parent_id="2"/>
+ <row id="31" level="2" name="Трансляции" parent_id="3"/>
+ <row id="32" level="2" name="Телекоммуникации" parent_id="3"/>
+ <row id="33" level="2" name="Издательства" parent_id="3"/>
+ <row id="34" level="2" name="Электронные игры и мультимедиа" parent_id="3"/>
+ <row id="35" level="2" name="Развлекательный контент" parent_id="3"/>
+ <row id="36" level="2" name="Рекламные агентства" parent_id="3"/>
+ <row id="37" level="2" name="Интернет-контент и информация" parent_id="3"/>
+ <row id="38" level="2" name="Девелопмент" parent_id="4"/>
+ <row id="39" level="2" name="REIT - Специализированный" parent_id="4"/>
+ <row id="40" level="2" name="REIT - Разное" parent_id="4"/>
+ <row id="41" level="2" name="Недвижимость - Разное" parent_id="4"/>
+ <row id="42" level="2" name="Услуги в сфере недвижимости" parent_id="4"/>
+ <row id="43" level="2" name="REIT - Ипотека" parent_id="4"/>
+ <row id="44" level="2" name="REIT - Промышленность" parent_id="4"/>
+ <row id="45" level="2" name="REIT - Торговля" parent_id="4"/>
+ <row id="46" level="2" name="REIT - Офисы" parent_id="4"/>
+ <row id="47" level="2" name="REIT - Отели и мотели" parent_id="4"/>
+ <row id="48" level="2" name="REIT - Жилье" parent_id="4"/>
+ <row id="49" level="2" name="REIT - Медицинские учреждения" parent_id="4"/>
+ <row id="50" level="2" name="Пивоварни" parent_id="5"/>
+ <row id="51" level="2" name="Безалкогольные напитки" parent_id="5"/>
+ <row id="52" level="2" name="Продуктовые магазины" parent_id="5"/>
+ <row id="53" level="2" name="Табак" parent_id="5"/>
+ <row id="54" level="2" name="Образование и профессиональная подготовка" parent_id="5"/>
+ <row id="55" level="2" name="Дистрибуция продуктов питания" parent_id="5"/>
+ <row id="56" level="2" name="Товары для дома" parent_id="5"/>
+ <row id="57" level="2" name="Сельхозпродукция" parent_id="5"/>
+ <row id="58" level="2" name="Дискаунтеры" parent_id="5"/>
+ <row id="59" level="2" name="Кондитеры" parent_id="5"/>
+ <row id="60" level="2" name="Винодельни и винокурни" parent_id="5"/>
+ <row id="61" level="2" name="Упакованные продукты питания" parent_id="5"/>
+ <row id="62" level="2" name="Жилищное строительство" parent_id="6"/>
+ <row id="63" level="2" name="Автосалоны и дилерские центры" parent_id="6"/>
+ <row id="64" level="2" name="Туристические услуги" parent_id="6"/>
+ <row id="65" level="2" name="Гостиничный бизнес" parent_id="6"/>
+ <row id="66" level="2" name="Упаковка и контейнеры" parent_id="6"/>
+ <row id="67" level="2" name="Курорты и казино" parent_id="6"/>
+ <row id="68" level="2" name="Бытовые услуги" parent_id="6"/>
+ <row id="69" level="2" name="Рестораны" parent_id="6"/>
+ <row id="70" level="2" name="Торговля предметами роскоши" parent_id="6"/>
+ <row id="71" level="2" name="Автозапчасти" parent_id="6"/>
+ <row id="72" level="2" name="Обувь и аксессуары" parent_id="6"/>
+ <row id="73" level="2" name="Торговые центры" parent_id="6"/>
+ <row id="74" level="2" name="Торговля товарами для дома" parent_id="6"/>
+ <row id="75" level="2" name="Текстильное производство" parent_id="6"/>
+ <row id="76" level="2" name="Транспорт для отдыха" parent_id="6"/>
+ <row id="77" level="2" name="Интернет-торговля" parent_id="6"/>
+ <row id="78" level="2" name="Производство одежды" parent_id="6"/>
+ <row id="79" level="2" name="Автопроизводители" parent_id="6"/>
+ <row id="80" level="2" name="Игорный бизнес" parent_id="6"/>
+ <row id="81" level="2" name="Досуг" parent_id="6"/>
+ <row id="82" level="2" name="Торговля одеждой" parent_id="6"/>
+ <row id="83" level="2" name="Мебель и бытовая техника" parent_id="6"/>
+ <row id="84" level="2" name="Специализированная торговля" parent_id="6"/>
+ <row id="85" level="2" name="Консультационные услуги" parent_id="7"/>
+ <row id="86" level="2" name="Товары для очистки загрязнений" parent_id="7"/>
+ <row id="87" level="2" name="Инжиниринг и строительство" parent_id="7"/>
+ <row id="88" level="2" name="Специальное промышленное оборудование" parent_id="7"/>
+ <row id="89" level="2" name="Строительные изделия и оборудование" parent_id="7"/>
+ <row id="90" level="2" name="Инструменты и аксессуары" parent_id="7"/>
+ <row id="91" level="2" name="Услуги безопасности и защиты" parent_id="7"/>
+ <row id="92" level="2" name="Инфраструктурные операции" parent_id="7"/>
+ <row id="93" level="2" name="Сельхоз и строительная техника" parent_id="7"/>
+ <row id="94" level="2" name="Услуги по трудоустройству" parent_id="7"/>
+ <row id="95" level="2" name="Аэрокосмическая и оборонная промышленность" parent_id="7"/>
+ <row id="96" level="2" name="Металлические изделия" parent_id="7"/>
+ <row id="97" level="2" name="Промышленная дистрибуция" parent_id="7"/>
+ <row id="98" level="2" name="Аренда и лизинг" parent_id="7"/>
+ <row id="99" level="2" name="Электрооборудование и запчасти" parent_id="7"/>
+ <row id="100" level="2" name="Управление отходами" parent_id="7"/>
+ <row id="101" level="2" name="Конгломераты" parent_id="7"/>
+ <row id="102" level="2" name="Бизнес оборудование и материалы" parent_id="7"/>
+ <row id="103" level="2" name="Специализированные бизнес-услуги" parent_id="7"/>
+ <row id="104" level="2" name="Страховые брокеры" parent_id="8"/>
+ <row id="105" level="2" name="Страхование - Жизнь" parent_id="8"/>
+ <row id="106" level="2" name="Страхование - Специальное" parent_id="8"/>
+ <row id="107" level="2" name="Страхование - Разное" parent_id="8"/>
+ <row id="108" level="2" name="Страхование - Имущество и Несчастные случаи" parent_id="8"/>
+ <row id="109" level="2" name="Страхование - Перестрахование" parent_id="8"/>
+ <row id="110" level="2" name="Драгоценные металлы и минералы" parent_id="9"/>
+ <row id="111" level="2" name="Промышленные металлы и минералы" parent_id="9"/>
+ <row id="112" level="2" name="Коксующийся уголь" parent_id="9"/>
+ <row id="113" level="2" name="Бумага и бумажные изделия" parent_id="9"/>
+ <row id="114" level="2" name="Химикаты" parent_id="9"/>
+ <row id="115" level="2" name="Золото" parent_id="9"/>
+ <row id="116" level="2" name="Сталь" parent_id="9"/>
+ <row id="117" level="2" name="Специальные химические вещества" parent_id="9"/>
+ <row id="118" level="2" name="Медь" parent_id="9"/>
+ <row id="119" level="2" name="Алюминий" parent_id="9"/>
+ <row id="120" level="2" name="Древесина и пиломатериалы" parent_id="9"/>
+ <row id="121" level="2" name="Стройматериалы" parent_id="9"/>
+ <row id="122" level="2" name="Удобрения" parent_id="9"/>
+ <row id="123" level="2" name="Серебро" parent_id="9"/>
+ <row id="124" level="2" name="Оборудование для связи" parent_id="10"/>
+ <row id="125" level="2" name="Полупроводники - оборудование и материалы" parent_id="10"/>
+ <row id="126" level="2" name="Электроника и компьютерная дистрибуция" parent_id="10"/>
+ <row id="127" level="2" name="Полупроводники" parent_id="10"/>
+ <row id="128" level="2" name="ИТ-услуги" parent_id="10"/>
+ <row id="129" level="2" name="Электронные компоненты" parent_id="10"/>
+ <row id="130" level="2" name="Программное обеспечение - Прикладное" parent_id="10"/>
+ <row id="131" level="2" name="Компьютерное оборудование" parent_id="10"/>
+ <row id="132" level="2" name="Бытовая электроника" parent_id="10"/>
+ <row id="133" level="2" name="Солнечные батареи" parent_id="10"/>
+ <row id="134" level="2" name="Программное обеспечение - Системное" parent_id="10"/>
+ <row id="135" level="2" name="Научно-технические приборы" parent_id="10"/>
+ <row id="136" level="2" name="Авиакомпании" parent_id="11"/>
+ <row id="137" level="2" name="Железные дороги" parent_id="11"/>
+ <row id="138" level="2" name="Аэропорты" parent_id="11"/>
+ <row id="139" level="2" name="Грузоперевозки" parent_id="11"/>
+ <row id="140" level="2" name="Морские перевозки" parent_id="11"/>
+ <row id="141" level="2" name="Интегрированная доставка и логистика" parent_id="11"/>
+ <row id="142" level="2" name="Банки - Региональные" parent_id="12"/>
+ <row id="143" level="2" name="Управление активами" parent_id="12"/>
+ <row id="144" level="2" name="Финансовые конгломераты" parent_id="12"/>
+ <row id="145" level="2" name="Биржи и финансовые данные" parent_id="12"/>
+ <row id="146" level="2" name="Шелл компании" parent_id="12"/>
+ <row id="147" level="2" name="Ипотечное кредитование" parent_id="12"/>
+ <row id="148" level="2" name="Кредитные услуги" parent_id="12"/>
+ <row id="149" level="2" name="Банки - Международные" parent_id="12"/>
+ <row id="150" level="2" name="Фондовый рынок" parent_id="12"/>
+ <row id="151" level="2" name="Нефть и газ - Транспортировка" parent_id="13"/>
+ <row id="152" level="2" name="Нефть и газ - Интегрированные компании" parent_id="13"/>
+ <row id="153" level="2" name="Нефть и газ - Разведка и добыча" parent_id="13"/>
+ <row id="154" level="2" name="Нефть и газ - Оборудование и услуги" parent_id="13"/>
+ <row id="155" level="2" name="Уран" parent_id="13"/>
+ <row id="156" level="2" name="Энергетический уголь" parent_id="13"/>
+ <row id="157" level="2" name="Нефть и газ - Переработка и маркетинг" parent_id="13"/>
+ <row id="158" level="2" name="Нефть и газ - Бурение скважин" parent_id="13"/>
+</sectors>

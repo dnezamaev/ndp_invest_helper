@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ndp_invest_helper": {
+      "commandName": "Project",
+      "commandLineArgs": "e:\\invest\\reports\\last"
+    }
+  }
+}

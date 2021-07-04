@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+  <task name="Группировка по типам">
+    <group by="type" unpack_etf="yes" />
+  </task>
+
+  <task name="Группировка по типам с удалением налички">
+    <group by="type" unpack_etf="yes" remove_keys="cash" />
+  </task>
+
+  <task name="Группировка по типам с оставлением только акций">
+    <group by="type" unpack_etf="yes" keep_only_keys="share" />
+  </task>
+
+  <task name="Группировка с оставлением только зарубежных акций"
+        hide_parts_less="5">
+    <group by="type" unpack_etf="yes" keep_only_keys="share" />
+    <group by="country" unpack_etf="yes" remove_keys="RU" />
+  </task>
+
+  <!--
+  <task name="Группировка по валютам" hide_parts_less="1">
+    <group by="currency" />
+  </task>
+
+  <task name="Группировка по странам. Скрывать меньших 1%" hide_parts_less="1">
+    <group by="country" />
+  </task>
+
+  <task name="Группировка по странам">
+    <group by="country" />
+  </task>
+
+  <task name="Группировка по типам, потом по странам" hide_parts_less="1">
+    <group by="type" unpack_etf="yes" />
+    <group by="country" />
+  </task>
+  -->
+
+</root>

@@ -1,0 +1,1 @@
+ndp_invest_helper.exe > result.txt

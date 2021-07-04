@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<Settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <cash>
+    <currency Key="RUB" Value="2050000" />
+    <currency Key="USD" Value="4500" />
+    <currency Key="EUR" Value="3000" />
+  </cash>
+  <rates>
+    <currency Key="RUB" Value="1" />
+    <currency Key="USD" Value="72" />
+    <currency Key="EUR" Value="87" />
+  </rates>
+</Settings>

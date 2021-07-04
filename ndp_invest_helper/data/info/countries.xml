@@ -1,0 +1,554 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<root>
+  <countries>
+    <country key="AB" name="Абхазия"/>
+    <country key="AD" name="Андорра"/>
+    <country key="AE" name="Объединенные Арабские Эмираты"/>
+    <country key="AF" name="Афганистан"/>
+    <country key="AG" name="Антигуа и Барбуда"/>
+    <country key="AI" name="Ангилья"/>
+    <country key="AL" name="Албания"/>
+    <country key="AM" name="Армения"/>
+    <country key="AO" name="Ангола"/>
+    <country key="AQ" name="Антарктида"/>
+    <country key="AR" name="Аргентина"/>
+    <country key="AS" name="Американское Самоа"/>
+    <country key="AT" name="Австрия"/>
+    <country key="AU" name="Австралия"/>
+    <country key="AW" name="Аруба"/>
+    <country key="AX" name="Эландские острова"/>
+    <country key="AZ" name="Азербайджан"/>
+    <country key="BA" name="Босния и Герцеговина"/>
+    <country key="BB" name="Барбадос"/>
+    <country key="BD" name="Бангладеш"/>
+    <country key="BE" name="Бельгия"/>
+    <country key="BF" name="Буркина-Фасо"/>
+    <country key="BG" name="Болгария"/>
+    <country key="BH" name="Бахрейн"/>
+    <country key="BI" name="Бурунди"/>
+    <country key="BJ" name="Бенин"/>
+    <country key="BL" name="Сен-Бартельми"/>
+    <country key="BM" name="Бермуды"/>
+    <country key="BN" name="Бруней-Даруссалам"/>
+    <country key="BO" name="Боливия, Многонациональное Государство"/>
+    <country key="BQ" name="Бонайре, Саба и Синт-Эстатиус"/>
+    <country key="BR" name="Бразилия"/>
+    <country key="BS" name="Багамы"/>
+    <country key="BT" name="Бутан"/>
+    <country key="BV" name="Остров Буве"/>
+    <country key="BW" name="Ботсвана"/>
+    <country key="BY" name="Беларусь"/>
+    <country key="BZ" name="Белиз"/>
+    <country key="CA" name="Канада"/>
+    <country key="CC" name="Кокосовые (Килинг) острова"/>
+    <country key="CD" name="Конго, Демократическая Республика"/>
+    <country key="CF" name="Центрально-Африканская Республика"/>
+    <country key="CG" name="Конго"/>
+    <country key="CH" name="Швейцария"/>
+    <country key="CI" name="Кот д'Ивуар"/>
+    <country key="CK" name="Острова Кука"/>
+    <country key="CL" name="Чили"/>
+    <country key="CM" name="Камерун"/>
+    <country key="CN" name="Китай"/>
+    <country key="CO" name="Колумбия"/>
+    <country key="CR" name="Коста-Рика"/>
+    <country key="CU" name="Куба"/>
+    <country key="CV" name="Кабо-Верде"/>
+    <country key="CW" name="Кюрасао"/>
+    <country key="CX" name="Остров Рождества"/>
+    <country key="CY" name="Кипр"/>
+    <country key="CZ" name="Чешская Республика"/>
+    <country key="DE" name="Германия"/>
+    <country key="DJ" name="Джибути"/>
+    <country key="DK" name="Дания"/>
+    <country key="DM" name="Доминика"/>
+    <country key="DO" name="Доминиканская Республика"/>
+    <country key="DZ" name="Алжир"/>
+    <country key="EC" name="Эквадор"/>
+    <country key="EE" name="Эстония"/>
+    <country key="EG" name="Египет"/>
+    <country key="EH" name="Западная Сахара"/>
+    <country key="ER" name="Эритрея"/>
+    <country key="ES" name="Испания"/>
+    <country key="ET" name="Эфиопия"/>
+    <country key="FI" name="Финляндия"/>
+    <country key="FJ" name="Фиджи"/>
+    <country key="FK" name="Фолклендские острова (Мальвинские)"/>
+    <country key="FM" name="Микронезия, Федеративные Штаты"/>
+    <country key="FO" name="Фарерские острова"/>
+    <country key="FR" name="Франция"/>
+    <country key="GA" name="Габон"/>
+    <country key="GB" name="Соединенное Королевство"/>
+    <country key="GD" name="Гренада"/>
+    <country key="GE" name="Грузия"/>
+    <country key="GF" name="Французская Гвиана"/>
+    <country key="GG" name="Гернси"/>
+    <country key="GH" name="Гана"/>
+    <country key="GI" name="Гибралтар"/>
+    <country key="GL" name="Гренландия"/>
+    <country key="GM" name="Гамбия"/>
+    <country key="GN" name="Гвинея"/>
+    <country key="GP" name="Гваделупа"/>
+    <country key="GQ" name="Экваториальная Гвинея"/>
+    <country key="GR" name="Греция"/>
+    <country key="GS" name="Южная Джорджия и Южные Сандвичевы острова"/>
+    <country key="GT" name="Гватемала"/>
+    <country key="GU" name="Гуам"/>
+    <country key="GW" name="Гвинея-Бисау"/>
+    <country key="GY" name="Гайана"/>
+    <country key="HK" name="Гонконг"/>
+    <country key="HM" name="Остров Херд и острова Макдональд"/>
+    <country key="HN" name="Гондурас"/>
+    <country key="HR" name="Хорватия"/>
+    <country key="HT" name="Гаити"/>
+    <country key="HU" name="Венгрия"/>
+    <country key="ID" name="Индонезия"/>
+    <country key="IE" name="Ирландия"/>
+    <country key="IL" name="Израиль"/>
+    <country key="IM" name="Остров Мэн"/>
+    <country key="IN" name="Индия"/>
+    <country key="IO" name="Британская территория в Индийском океане"/>
+    <country key="IQ" name="Ирак"/>
+    <country key="IR" name="Иран, Исламская Республика"/>
+    <country key="IS" name="Исландия"/>
+    <country key="IT" name="Италия"/>
+    <country key="JE" name="Джерси"/>
+    <country key="JM" name="Ямайка"/>
+    <country key="JO" name="Иордания"/>
+    <country key="JP" name="Япония"/>
+    <country key="KE" name="Кения"/>
+    <country key="KG" name="Киргизия"/>
+    <country key="KH" name="Камбоджа"/>
+    <country key="KI" name="Кирибати"/>
+    <country key="KM" name="Коморы"/>
+    <country key="KN" name="Сент-Китс и Невис"/>
+    <country key="KP" name="Корея, Народно-Демократическая Республика"/>
+    <country key="KR" name="Корея, Республика"/>
+    <country key="KW" name="Кувейт"/>
+    <country key="KY" name="Острова Кайман"/>
+    <country key="KZ" name="Казахстан"/>
+    <country key="LA" name="Лаос"/>
+    <country key="LB" name="Ливан"/>
+    <country key="LC" name="Сент-Люсия"/>
+    <country key="LI" name="Лихтенштейн"/>
+    <country key="LK" name="Шри-Ланка"/>
+    <country key="LR" name="Либерия"/>
+    <country key="LS" name="Лесото"/>
+    <country key="LT" name="Литва"/>
+    <country key="LU" name="Люксембург"/>
+    <country key="LV" name="Латвия"/>
+    <country key="LY" name="Ливийская Арабская Джамахирия"/>
+    <country key="MA" name="Марокко"/>
+    <country key="MC" name="Монако"/>
+    <country key="MD" name="Молдова, Республика"/>
+    <country key="ME" name="Черногория"/>
+    <country key="MF" name="Сен-Мартен"/>
+    <country key="MG" name="Мадагаскар"/>
+    <country key="MH" name="Маршалловы острова"/>
+    <country key="MK" name="Республика Македония"/>
+    <country key="ML" name="Мали"/>
+    <country key="MM" name="Мьянма"/>
+    <country key="MN" name="Монголия"/>
+    <country key="MO" name="Макао"/>
+    <country key="MP" name="Северные Марианские острова"/>
+    <country key="MQ" name="Мартиника"/>
+    <country key="MR" name="Мавритания"/>
+    <country key="MS" name="Монтсеррат"/>
+    <country key="MT" name="Мальта"/>
+    <country key="MU" name="Маврикий"/>
+    <country key="MV" name="Мальдивы"/>
+    <country key="MW" name="Малави"/>
+    <country key="MX" name="Мексика"/>
+    <country key="MY" name="Малайзия"/>
+    <country key="MZ" name="Мозамбик"/>
+    <country key="NA" name="Намибия"/>
+    <country key="NC" name="Новая Каледония"/>
+    <country key="NE" name="Нигер"/>
+    <country key="NF" name="Остров Норфолк"/>
+    <country key="NG" name="Нигерия"/>
+    <country key="NI" name="Никарагуа"/>
+    <country key="NL" name="Нидерланды"/>
+    <country key="NO" name="Норвегия"/>
+    <country key="NP" name="Непал"/>
+    <country key="NR" name="Науру"/>
+    <country key="NU" name="Ниуэ"/>
+    <country key="NZ" name="Новая Зеландия"/>
+    <country key="OM" name="Оман"/>
+    <country key="OS" name="Южная Осетия"/>
+    <country key="PA" name="Панама"/>
+    <country key="PE" name="Перу"/>
+    <country key="PF" name="Французская Полинезия"/>
+    <country key="PG" name="Папуа-Новая Гвинея"/>
+    <country key="PH" name="Филиппины"/>
+    <country key="PK" name="Пакистан"/>
+    <country key="PL" name="Польша"/>
+    <country key="PM" name="Сент-Пьер и Микелон"/>
+    <country key="PN" name="Питкерн"/>
+    <country key="PR" name="Пуэрто-Рико"/>
+    <country key="PS" name="Палестинская территория, оккупированная"/>
+    <country key="PT" name="Португалия"/>
+    <country key="PW" name="Палау"/>
+    <country key="PY" name="Парагвай"/>
+    <country key="QA" name="Катар"/>
+    <country key="RE" name="Реюньон"/>
+    <country key="RO" name="Румыния"/>
+    <country key="RS" name="Сербия"/>
+    <country key="RU" name="Россия"/>
+    <country key="RW" name="Руанда"/>
+    <country key="SA" name="Саудовская Аравия"/>
+    <country key="SB" name="Соломоновы острова"/>
+    <country key="SC" name="Сейшелы"/>
+    <country key="SD" name="Судан"/>
+    <country key="SE" name="Швеция"/>
+    <country key="SG" name="Сингапур"/>
+    <country key="SH" name="Святая Елена, Остров вознесения, Тристан-да-Кунья"/>
+    <country key="SI" name="Словения"/>
+    <country key="SJ" name="Шпицберген и Ян Майен"/>
+    <country key="SK" name="Словакия"/>
+    <country key="SL" name="Сьерра-Леоне"/>
+    <country key="SM" name="Сан-Марино"/>
+    <country key="SN" name="Сенегал"/>
+    <country key="SO" name="Сомали"/>
+    <country key="SR" name="Суринам"/>
+    <country key="SS" name="Южный Судан"/>
+    <country key="ST" name="Сан-Томе и Принсипи"/>
+    <country key="SV" name="Эль-Сальвадор"/>
+    <country key="SX" name="Синт-Мартен"/>
+    <country key="SY" name="Сирийская Арабская Республика"/>
+    <country key="SZ" name="Эсватини"/>
+    <country key="TC" name="Острова Теркс и Кайкос"/>
+    <country key="TD" name="Чад"/>
+    <country key="TF" name="Французские Южные территории"/>
+    <country key="TG" name="Того"/>
+    <country key="TH" name="Таиланд"/>
+    <country key="TJ" name="Таджикистан"/>
+    <country key="TK" name="Токелау"/>
+    <country key="TL" name="Тимор-Лесте"/>
+    <country key="TM" name="Туркмения"/>
+    <country key="TN" name="Тунис"/>
+    <country key="TO" name="Тонга"/>
+    <country key="TR" name="Турция"/>
+    <country key="TT" name="Тринидад и Тобаго"/>
+    <country key="TV" name="Тувалу"/>
+    <country key="TW" name="Тайвань (Китай)"/>
+    <country key="TZ" name="Танзания, Объединенная Республика"/>
+    <country key="UA" name="Украина"/>
+    <country key="UG" name="Уганда"/>
+    <country key="UM" name="Малые Тихоокеанские отдаленные острова Соединенных Штатов"/>
+    <country key="US" name="Соединенные Штаты"/>
+    <country key="UY" name="Уругвай"/>
+    <country key="UZ" name="Узбекистан"/>
+    <country key="VA" name="Папский Престол (Государство — город Ватикан)"/>
+    <country key="VC" name="Сент-Винсент и Гренадины"/>
+    <country key="VE" name="Венесуэла Боливарианская Республика"/>
+    <country key="VG" name="Виргинские острова, Британские"/>
+    <country key="VI" name="Виргинские острова, США"/>
+    <country key="VN" name="Вьетнам"/>
+    <country key="VU" name="Вануату"/>
+    <country key="WF" name="Уоллис и Футуна"/>
+    <country key="WS" name="Самоа"/>
+    <country key="YE" name="Йемен"/>
+    <country key="YT" name="Майотта"/>
+    <country key="ZA" name="Южная Африка"/>
+    <country key="ZM" name="Замбия"/>
+    <country key="ZW" name="Зимбабве"/>
+  </countries>
+  <by_region>
+    <region key="Азия">
+      <country key="AB"/>
+      <country key="AE"/>
+      <country key="AF"/>
+      <country key="AM"/>
+      <country key="AZ"/>
+      <country key="BD"/>
+      <country key="BH"/>
+      <country key="BN"/>
+      <country key="BT"/>
+      <country key="CN"/>
+      <country key="CX"/>
+      <country key="CY"/>
+      <country key="GE"/>
+      <country key="HK"/>
+      <country key="ID"/>
+      <country key="IL"/>
+      <country key="IN"/>
+      <country key="IQ"/>
+      <country key="IR"/>
+      <country key="JO"/>
+      <country key="JP"/>
+      <country key="KG"/>
+      <country key="KH"/>
+      <country key="KP"/>
+      <country key="KR"/>
+      <country key="KW"/>
+      <country key="KZ"/>
+      <country key="LA"/>
+      <country key="LB"/>
+      <country key="LK"/>
+      <country key="MM"/>
+      <country key="MN"/>
+      <country key="MO"/>
+      <country key="MV"/>
+      <country key="MY"/>
+      <country key="NP"/>
+      <country key="OM"/>
+      <country key="OS"/>
+      <country key="PH"/>
+      <country key="PK"/>
+      <country key="PS"/>
+      <country key="QA"/>
+      <country key="SA"/>
+      <country key="SG"/>
+      <country key="SY"/>
+      <country key="TH"/>
+      <country key="TJ"/>
+      <country key="TL"/>
+      <country key="TM"/>
+      <country key="TR"/>
+      <country key="TW"/>
+      <country key="UZ"/>
+      <country key="VN"/>
+      <country key="YE"/>
+    </region>
+    <region key="Океания">
+      <country key="AS"/>
+      <country key="AU"/>
+      <country key="CC"/>
+      <country key="CK"/>
+      <country key="FJ"/>
+      <country key="FM"/>
+      <country key="GU"/>
+      <country key="IO"/>
+      <country key="KI"/>
+      <country key="MH"/>
+      <country key="MP"/>
+      <country key="NC"/>
+      <country key="NF"/>
+      <country key="NR"/>
+      <country key="NU"/>
+      <country key="NZ"/>
+      <country key="PF"/>
+      <country key="PG"/>
+      <country key="PN"/>
+      <country key="PW"/>
+      <country key="SB"/>
+      <country key="TK"/>
+      <country key="TO"/>
+      <country key="TV"/>
+      <country key="UM"/>
+      <country key="VU"/>
+      <country key="WF"/>
+      <country key="WS"/>
+    </region>
+    <region key="Европа">
+      <country key="AD"/>
+      <country key="AL"/>
+      <country key="AT"/>
+      <country key="AX"/>
+      <country key="BA"/>
+      <country key="BE"/>
+      <country key="BG"/>
+      <country key="BY"/>
+      <country key="CH"/>
+      <country key="CZ"/>
+      <country key="DE"/>
+      <country key="DK"/>
+      <country key="EE"/>
+      <country key="ES"/>
+      <country key="FI"/>
+      <country key="FO"/>
+      <country key="FR"/>
+      <country key="GB"/>
+      <country key="GG"/>
+      <country key="GI"/>
+      <country key="GR"/>
+      <country key="HR"/>
+      <country key="HU"/>
+      <country key="IE"/>
+      <country key="IM"/>
+      <country key="IS"/>
+      <country key="IT"/>
+      <country key="JE"/>
+      <country key="LI"/>
+      <country key="LT"/>
+      <country key="LU"/>
+      <country key="LV"/>
+      <country key="MC"/>
+      <country key="MD"/>
+      <country key="ME"/>
+      <country key="MK"/>
+      <country key="MT"/>
+      <country key="NL"/>
+      <country key="NO"/>
+      <country key="PL"/>
+      <country key="PT"/>
+      <country key="RO"/>
+      <country key="RS"/>
+      <country key="RU"/>
+      <country key="SE"/>
+      <country key="SI"/>
+      <country key="SJ"/>
+      <country key="SK"/>
+      <country key="SM"/>
+      <country key="UA"/>
+      <country key="VA"/>
+    </region>
+    <region key="Африка">
+      <country key="AO"/>
+      <country key="BF"/>
+      <country key="BI"/>
+      <country key="BJ"/>
+      <country key="BW"/>
+      <country key="CD"/>
+      <country key="CF"/>
+      <country key="CG"/>
+      <country key="CI"/>
+      <country key="CM"/>
+      <country key="CV"/>
+      <country key="DJ"/>
+      <country key="DZ"/>
+      <country key="EG"/>
+      <country key="EH"/>
+      <country key="ER"/>
+      <country key="ET"/>
+      <country key="GA"/>
+      <country key="GH"/>
+      <country key="GM"/>
+      <country key="GN"/>
+      <country key="GQ"/>
+      <country key="GW"/>
+      <country key="KE"/>
+      <country key="KM"/>
+      <country key="LR"/>
+      <country key="LS"/>
+      <country key="LY"/>
+      <country key="MA"/>
+      <country key="MG"/>
+      <country key="ML"/>
+      <country key="MR"/>
+      <country key="MU"/>
+      <country key="MW"/>
+      <country key="MZ"/>
+      <country key="NA"/>
+      <country key="NE"/>
+      <country key="NG"/>
+      <country key="RE"/>
+      <country key="RW"/>
+      <country key="SC"/>
+      <country key="SD"/>
+      <country key="SH"/>
+      <country key="SL"/>
+      <country key="SN"/>
+      <country key="SO"/>
+      <country key="SS"/>
+      <country key="ST"/>
+      <country key="SZ"/>
+      <country key="TD"/>
+      <country key="TG"/>
+      <country key="TN"/>
+      <country key="TZ"/>
+      <country key="UG"/>
+      <country key="YT"/>
+      <country key="ZA"/>
+      <country key="ZM"/>
+      <country key="ZW"/>
+    </region>
+    <region key="Америка">
+      <country key="AG"/>
+      <country key="AI"/>
+      <country key="AR"/>
+      <country key="AW"/>
+      <country key="BB"/>
+      <country key="BL"/>
+      <country key="BM"/>
+      <country key="BO"/>
+      <country key="BQ"/>
+      <country key="BR"/>
+      <country key="BS"/>
+      <country key="BZ"/>
+      <country key="CA"/>
+      <country key="CL"/>
+      <country key="CO"/>
+      <country key="CR"/>
+      <country key="CU"/>
+      <country key="CW"/>
+      <country key="DM"/>
+      <country key="DO"/>
+      <country key="EC"/>
+      <country key="FK"/>
+      <country key="GD"/>
+      <country key="GF"/>
+      <country key="GL"/>
+      <country key="GP"/>
+      <country key="GT"/>
+      <country key="GY"/>
+      <country key="HN"/>
+      <country key="HT"/>
+      <country key="JM"/>
+      <country key="KN"/>
+      <country key="KY"/>
+      <country key="LC"/>
+      <country key="MF"/>
+      <country key="MQ"/>
+      <country key="MS"/>
+      <country key="MX"/>
+      <country key="NI"/>
+      <country key="PA"/>
+      <country key="PE"/>
+      <country key="PM"/>
+      <country key="PR"/>
+      <country key="PY"/>
+      <country key="SR"/>
+      <country key="SV"/>
+      <country key="SX"/>
+      <country key="TC"/>
+      <country key="TT"/>
+      <country key="US"/>
+      <country key="UY"/>
+      <country key="VC"/>
+      <country key="VE"/>
+      <country key="VG"/>
+      <country key="VI"/>
+    </region>
+    <region key="Антарктика">
+      <country key="AQ"/>
+    </region>
+    <region key="???">
+      <country key="BV"/>
+      <country key="GS"/>
+      <country key="HM"/>
+      <country key="TF"/>
+    </region>
+  </by_region>
+  <by_development_level>
+    <level key="developed">
+      <country key="US" />
+      <country key="IT" />
+      <country key="JP"  />
+      <country key="ES" />
+      <country key="CA"  />
+      <country key="FR"  />
+      <country key="SE" />
+      <country key="BE" />
+      <country key="DK" />
+      <country key="FI" />
+      <country key="DE" />
+      <country key="IE" />
+      <country key="AU" />
+      <country key="HK" />
+      <country key="SG" />
+      <country key="NL" />
+      <country key="CH"  />
+      <country key="GB"  />
+    </level>
+    <level key="developing">
+      <country key="RU" />
+      <country key="CN" />
+      <country key="TW" />
+      <country key="KR" />
+      <country key="IN" />
+      <country key="BR" />
+    </level>
+  </by_development_level>
+</root>
