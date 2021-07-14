@@ -304,7 +304,24 @@
   </issuer>
   <issuer name="Акционерное общество ВТБ Капитал Управление активами" country="RU" sector="-1">
     <security isin="RU000A1002S8" ticker="VTBB" sec_type="etf" currency="RUB" />
-    <security isin="RU000A100E21" ticker="VTBA" sec_type="etf" currency="USD" />
+    <security isin="RU000A100E21" ticker="VTBA" sec_type="etf" currency="USD" >
+      <!-- https://www.vtbcapital-am.ru/products/bpif/vtbfam/structure/ 
+      на 12.07.2021 -->
+      <sector key="128" value="25.79" /> <!-- ИТ -->
+      <sector key="6" value="12.40" /> <!-- Потребительский сектор - прочее -->
+      <sector key="32" value="12.26" /> <!-- Связь и телекоммуникации -->
+      <sector key="12" value="10.07" /> <!-- Финансовый сектор -->
+      <sector key="1" value="12.86" /> <!-- Здравоохранение -->
+      <sector key="5" value="6.01" /> <!-- Потребительский сектор - ППН -->
+      <sector key="13" value="2.72" /> <!-- Энергетика -->
+      <sector key="7" value="8.35" /> <!-- Производство и сфера обслуживания -->
+      <sector key="9" value="2.50" /> <!-- Сырье и материалы -->
+      <sector key="2" value="2.50" /> <!-- Электроэнергетика -->
+      <sector key="10" value="1.80" /> <!-- Технологии -->
+      <sector key="38" value="2.59" /> <!-- Девелопмент / управление недвижимостью -->
+      <sector key="999" value="0.05" /> <!-- Other -->
+      <sector key="3" value="0.07" /> <!-- Communication -->
+    </security>
     <security isin="RU000A100HP7" ticker="VTBH" sec_type="etf" currency="USD" />
     <security isin="RU000A100HQ5" ticker="VTBE" sec_type="etf" currency="USD" what_inside="share" info="https://www.msci.com/documents/10199/97e25eb7-9bd0-4204-bea9-077095acf1d3">
       <country key="CN" value="34.46" />
@@ -313,11 +330,36 @@
       <country key="IN" value="10.82" />
       <country key="BR" value="5.19" />
       <country key="???" value="21.25" />
+      <!-- https://www.vtbcapital-am.ru/products/bpif/vtbfars/structure/
+      на 12.07.2021 -->
+      <sector key="128" value="15.87" /> <!-- ИТ -->
+      <sector key="32" value="8.29" /> <!-- Связь и телекоммуникации -->
+      <sector key="6" value="15.19" /> <!-- Потребительский сектор - прочее -->
+      <sector key="10" value="4.49" /> <!-- Технологии -->
+      <sector key="13" value="4.39" /> <!-- Энергетика -->
+      <sector key="9" value="9.00" /> <!-- Сырье и материалы -->
+      <sector key="12" value="17.25" /> <!-- Финансовый сектор -->
+      <sector key="38" value="2.65" /> <!-- Девелопмент / управление недвижимостью -->
+      <sector key="1" value="5.18" /> <!-- Здравоохранение -->
+      <sector key="5" value="6.69" /> <!-- Потребительский сектор - ППН -->
+      <sector key="7" value="6.02" /> <!-- Производство и сфера обслуживания -->
+      <sector key="3" value="0.77" /> <!-- Communication -->
+      <sector key="2" value="2.09" /> <!-- Электроэнергетика -->
+      <sector key="41" value="0.35" /> <!-- Real Estate -->
+      <sector key="999" value="0.03" /> <!-- Other -->
     </security>
     <security isin="RU000A101368" ticker="VTBU" sec_type="etf" currency="USD" />
     <security isin="RU000A1014L8" ticker="VTBM" sec_type="etf" currency="RUB" />
-    <security isin="RU000A101EJ5" ticker="VTBX" sec_type="etf" currency="RUB" country="RU" />
-    <security isin="RU000A101NZ2" ticker="VTBG" sec_type="etf" currency="USD" country="RU" what_inside="gold" />
+    <security isin="RU000A101EJ5" ticker="VTBX" sec_type="etf" currency="RUB" country="RU" >
+      <!-- по данным с сайта ВТБ на 10.07.2021 -->
+      <sector key="152" value="45.62" /> <!-- нефтянка: газпром, лукйол... -->
+      <sector key="142" value="16.66" /> <!-- банки: сбер, втб, мкб -->
+      <sector key="37" value="7.5" /> <!-- ИТ: яндекс... -->
+      <sector key="115" value="5" /> <!-- золото: полюс, полиметалл... -->
+      <sector key="111" value="12" /> <!-- металлы: нлмк, норникель, -->
+      <sector key="999" value="25" /> <!-- другое: лень заполнять -->
+    </security>
+    <security isin="RU000A101NZ2" ticker="VTBG" sec_type="etf" currency="USD" country="RU" what_inside="gold" sector="115" />
     <security isin="RU000A1024J1" ticker="VTBY" sec_type="etf" currency="EUR" />
     <security isin="RU000A0JR2C1" ticker="???" sec_type="etf" currency="???" />
     <security isin="RU000A0JR290" ticker="???" sec_type="etf" currency="???" />
@@ -588,76 +630,76 @@
     <security isin="RU000A101P27" ticker="???" sec_type="bond" currency="RUB" country="RU" />
     <security isin="RU000A1033B9" ticker="???" sec_type="bond" currency="RUB" country="RU" />
   </issuer>
-  <issuer name="Министерство финансов Российской Федерации" country="RU" sector="-1">
+  <issuer name="Министерство финансов Российской Федерации" country="RU" sector="801">
     <security isin="XS0767472458" ticker="???" sec_type="bond" currency="USD" />
     <security isin="XS0767473852" ticker="???" sec_type="bond" currency="USD" />
     <security isin="XS0971721450" ticker="???" sec_type="bond" currency="USD" />
     <security isin="XS0971721963" ticker="???" sec_type="bond" currency="USD" />
-    <security isin="RU000A0JWHA4" ticker="???" sec_type="bond" currency="USD" country="RU" />
-    <security isin="RU000A0JXTS9" ticker="???" sec_type="bond" currency="USD" country="RU" />
-    <security isin="RU000A0JXU14" ticker="???" sec_type="bond" currency="USD" country="RU" />
-    <security isin="RU000A0ZYYN4" ticker="???" sec_type="bond" currency="USD" country="RU" />
-    <security isin="RU000A1006S9" ticker="???" sec_type="bond" currency="USD" country="RU" />
-    <security isin="RU000A0ZZVE6" ticker="???" sec_type="bond" currency="EUR" country="RU" />
-    <security isin="RU000A102CK5" ticker="???" sec_type="bond" currency="EUR" country="RU" />
-    <security isin="RU000A102CL3" ticker="???" sec_type="bond" currency="EUR" country="RU" />
-    <security isin="RU000A1034K8" ticker="???" sec_type="bond" currency="EUR" country="RU" />
-    <security isin="RU000A100QS2" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A101CK7" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A0ZYCK6" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A101FA1" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A0JS3W6" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A0JSMA2" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A0JTJL3" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A0JTK38" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A0JU4L3" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A0JVW30" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A0JVW48" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A0JWM07" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A0JXB41" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A0JXFM1" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A0JXQF2" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A0ZYU88" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A0ZYUA9" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A0ZYUB7" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A0ZZYW2" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A1007F4" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A100A82" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A100EG3" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A100EF5" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A100MY9" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A1014N4" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A101F94" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A101QE0" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A1028E3" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A102BT8" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A0JV4L2" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A0JV4M0" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A0JV4P3" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A0JV4N8" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A0JV4Q1" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A0JX0H6" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A101KT1" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A101N52" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A1025A7" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A1025B5" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A1028D5" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A102A31" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A102A49" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A102BV4" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU0002867854" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU0002868001" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A0D0G29" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A0GN9A7" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A0JPLH5" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A0JRTL6" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A0JVMH1" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A0ZYZ26" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A102069" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A100SG3" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A1019F9" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A101WW0" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A102P00" ticker="???" sec_type="bond" currency="RUB" country="RU" />
+    <security isin="RU000A0JWHA4" ticker="???" sec_type="bond" currency="USD" />
+    <security isin="RU000A0JXTS9" ticker="???" sec_type="bond" currency="USD" />
+    <security isin="RU000A0JXU14" ticker="???" sec_type="bond" currency="USD" />
+    <security isin="RU000A0ZYYN4" ticker="???" sec_type="bond" currency="USD" />
+    <security isin="RU000A1006S9" ticker="???" sec_type="bond" currency="USD" />
+    <security isin="RU000A0ZZVE6" ticker="???" sec_type="bond" currency="EUR" />
+    <security isin="RU000A102CK5" ticker="???" sec_type="bond" currency="EUR" />
+    <security isin="RU000A102CL3" ticker="???" sec_type="bond" currency="EUR" />
+    <security isin="RU000A1034K8" ticker="???" sec_type="bond" currency="EUR" />
+    <security isin="RU000A100QS2" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A101CK7" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A0ZYCK6" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A101FA1" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A0JS3W6" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A0JSMA2" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A0JTJL3" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A0JTK38" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A0JU4L3" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A0JVW30" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A0JVW48" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A0JWM07" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A0JXB41" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A0JXFM1" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A0JXQF2" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A0ZYU88" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A0ZYUA9" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A0ZYUB7" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A0ZZYW2" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A1007F4" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A100A82" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A100EG3" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A100EF5" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A100MY9" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A1014N4" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A101F94" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A101QE0" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A1028E3" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A102BT8" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A0JV4L2" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A0JV4M0" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A0JV4P3" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A0JV4N8" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A0JV4Q1" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A0JX0H6" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A101KT1" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A101N52" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A1025A7" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A1025B5" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A1028D5" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A102A31" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A102A49" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A102BV4" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU0002867854" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU0002868001" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A0D0G29" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A0GN9A7" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A0JPLH5" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A0JRTL6" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A0JVMH1" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A0ZYZ26" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A102069" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A100SG3" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A1019F9" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A101WW0" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A102P00" ticker="???" sec_type="bond" currency="RUB" />
     <security isin="XS0088543193" ticker="???" sec_type="bond" currency="USD" />
     <security isin="US78307AAE38" ticker="???" sec_type="bond" currency="USD" />
     <security isin="XS0114288789" ticker="???" sec_type="bond" currency="USD" />
@@ -857,7 +899,7 @@
     <security isin="RU0009100945" ticker="BSPB" sec_type="share" currency="RUB" />
     <security isin="RU000A0JP0U9" ticker="???" sec_type="share" currency="RUB" />
   </issuer>
-  <issuer name="Полиметалл Интернэшнл плс (Polymetal International plc)" country="RU" sector="89">
+  <issuer name="Полиметалл Интернэшнл плс (Polymetal International plc)" country="RU" sector="115">
     <security isin="JE00B6T5S470" ticker="POLY" sec_type="share" currency="GBP" />
   </issuer>
   <issuer name="Правительство Белгородской области" country="RU" sector="-1">
@@ -1600,11 +1642,48 @@
   <issuer name="ФинЭкс Фандс айкав (FinEx Funds ICAV), управляющая компания ФинЭкс Инвестмент Менеджмент ЛЛП (FinEx Investment Management LLP)" country="US" sector="-1">
     <security isin="IE00BNYK7X86" ticker="FXTP" sec_type="etf" currency="USD" />
     <security isin="IE00B7L7CP77" ticker="FXRB" sec_type="etf" currency="RUB" />
-    <security isin="IE00BD3QJN10" ticker="FXDE" sec_type="etf" currency="EUR" country="DE" what_inside="share" />
-    <security isin="IE00BD3QHZ91" ticker="FXUS" sec_type="etf" currency="USD" country="US" what_inside="share" />
-    <security isin="IE00BD3QJ757" ticker="FXIT" sec_type="etf" currency="USD" country="US" what_inside="share" />
+    <security isin="IE00BD3QJN10" ticker="FXDE" sec_type="etf" currency="EUR" country="DE" what_inside="share" >
+      <sector key="2" value="3.85" /> <!-- Utilities -->
+      <sector key="12" value="14.61" /> <!-- Financials -->
+      <sector key="1" value="11.47" /> <!-- Health Care -->
+      <sector key="7" value="14.83" /> <!-- Industrials -->
+      <sector key="41" value="4.59" /> <!-- Real Estate -->
+      <sector key="9" value="8.05" /> <!-- Basic Materials -->
+      <sector key="6" value="3.27" /> <!-- Consumer Staples -->
+      <sector key="32" value="4.87" /> <!-- Communication Services -->
+      <sector key="5" value="17.98" /> <!-- Consumer Discretionary -->
+      <sector key="128" value="16.49" /> <!-- Information Technology -->
+    </security>
+    <security isin="IE00BD3QHZ91" ticker="FXUS" sec_type="etf" currency="USD" country="US" what_inside="share" >
+      <sector key="13" value="2.36" /> <!-- Energy -->
+      <sector key="2" value="2.70" /> <!-- Utilities -->
+      <sector key="12" value="9.84" /> <!-- Financials -->
+      <sector key="1" value="13.35" /> <!-- Health Care -->
+      <sector key="7" value="8.45" /> <!-- Industrials -->
+      <sector key="41" value="0.00" /> <!-- Real Estate -->
+      <sector key="999" value="2.55" /> <!-- Not Classified -->
+      <sector key="9" value="2.48" /> <!-- Basic Materials -->
+      <sector key="6" value="6.51" /> <!-- Consumer Staples -->
+      <sector key="32" value="11.34" /> <!-- Communication Services -->
+      <sector key="5" value="12.31" /> <!-- Consumer Discretionary -->
+      <sector key="128" value="28.11" /> <!-- Information Technology -->
+    </security>
+    <security isin="IE00BD3QJ757" ticker="FXIT" sec_type="etf" currency="USD" country="US" what_inside="share" sector="128" />
     <security isin="IE00BD5FH213" ticker="FXRU" sec_type="etf" currency="USD" />
-    <security isin="IE00BD3QFB18" ticker="FXCN" sec_type="etf" currency="USD" country="CN" what_inside="share" />
+    <security isin="IE00BD3QFB18" ticker="FXCN" sec_type="etf" currency="USD" country="CN" what_inside="share" >
+      <sector key="13" value="1.90" /> <!-- Energy -->
+      <sector key="2" value="1.41" /> <!-- Utilities -->
+      <sector key="12" value="14.23" /> <!-- Financials -->
+      <sector key="1" value="3.32" /> <!-- Health Care -->
+      <sector key="7" value="3.49" /> <!-- Industrials -->
+      <sector key="41" value="3.81" /> <!-- Real Estate -->
+      <sector key="999" value="0.13" /> <!-- Not Classified -->
+      <sector key="9" value="1.34" /> <!-- Basic Materials -->
+      <sector key="6" value="2.28" /> <!-- Consumer Staples -->
+      <sector key="32" value="25.20" /> <!-- Communication Services -->
+      <sector key="5" value="39.61" /> <!-- Consumer Discretionary -->
+      <sector key="128" value="3.29" /> <!-- Information Technology -->
+    </security>
     <security isin="IE00BK224M36" ticker="FXRW" sec_type="etf" currency="RUB" />
     <security isin="IE00BK224L29" ticker="FXWO" sec_type="etf" currency="USD" />
     <security isin="IE00BMDKNM37" ticker="FXDM" sec_type="etf" currency="USD" what_inside="share">
@@ -1625,6 +1704,17 @@
       <country key="NL" value="6.08" />
       <country key="CH" value="11.22" />
       <country key="GB" value="13.79" />
+      <sector key="13" value="5.11" /> <!-- Energy -->
+      <sector key="2" value="2.73" /> <!-- Utilities -->
+      <sector key="12" value="21.73" /> <!-- Financials -->
+      <sector key="1" value="12.42" /> <!-- Health Care -->
+      <sector key="7" value="13.61" /> <!-- Industrials -->
+      <sector key="41" value="0.74" /> <!-- Real Estate -->
+      <sector key="9" value="7.78" /> <!-- Basic Materials -->
+      <sector key="6" value="10.21" /> <!-- Consumer Staples -->
+      <sector key="32" value="4.89" /> <!-- Communication Services -->
+      <sector key="5" value="10.98" /> <!-- Consumer Discretionary -->
+      <sector key="128" value="9.80" /> <!-- Information Technology -->
     </security>
     <security isin="IE00BMDKNN44" ticker="FXFA" sec_type="etf" currency="USD" />
     <security isin="IE00BNC2D728" ticker="FXIM" sec_type="etf" currency="USD" />
@@ -2947,13 +3037,13 @@
     <security isin="RU000A0JNK34" ticker="???" sec_type="etf" currency="???" />
     <security isin="RU000A0JP4U1" ticker="???" sec_type="etf" currency="???" />
   </issuer>
-  <issuer name="Акционерное общество Коммерческая недвижимость Финансово-промышленной корпорации Гарант-Инвест" country="RU" sector="-1">
-    <security isin="RU000A102DZ1" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A102LS9" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A102X18" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A1005T9" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A1016U4" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A101V37" ticker="???" sec_type="bond" currency="RUB" country="RU" />
+  <issuer name="Акционерное общество Коммерческая недвижимость Финансово-промышленной корпорации Гарант-Инвест" country="RU" sector="38">
+    <security isin="RU000A102DZ1" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A102LS9" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A102X18" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A1005T9" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A1016U4" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A101V37" ticker="???" sec_type="bond" currency="RUB" />
   </issuer>
   <issuer name="Акционерное общество Лидер-Инвест" country="RU" sector="-1">
     <security isin="RU000A0ZYU39" ticker="???" sec_type="bond" currency="RUB" country="RU" />
@@ -3030,15 +3120,15 @@
     <security isin="RU000A0JS9X1" ticker="???" sec_type="bond" currency="RUB" country="RU" />
   </issuer>
   <issuer name="Акционерное общество Ситиматик" country="RU" sector="-1">
-    <security isin="RU000A0JU9K4" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A0JV0T3" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A0JWJF9" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A0ZZ2W9" ticker="???" sec_type="bond" currency="RUB" country="RU" />
+    <security isin="RU000A0JU9K4" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A0JV0T3" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A0JWJF9" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A0ZZ2W9" ticker="???" sec_type="bond" currency="RUB" />
   </issuer>
-  <issuer name="Акционерное общество СофтЛайн Трейд" country="RU" sector="-1">
-    <security isin="RU000A0ZZZU3" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A101LV5" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A1029T9" ticker="???" sec_type="bond" currency="RUB" country="RU" />
+  <issuer name="Акционерное общество СофтЛайн Трейд" country="RU" sector="128">
+    <security isin="RU000A0ZZZU3" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A101LV5" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A1029T9" ticker="???" sec_type="bond" currency="RUB" />
   </issuer>
   <issuer name="Акционерное общество ТРИНФИКО Холдингс" country="RU" sector="-1">
     <security isin="RU000A100790" ticker="???" sec_type="bond" currency="RUB" country="RU" />
@@ -3381,8 +3471,8 @@
     <security isin="RU000A0ZYCZ4" ticker="???" sec_type="bond" currency="RUB" country="RU" />
     <security isin="RU000A0ZZZV1" ticker="???" sec_type="bond" currency="RUB" country="RU" />
   </issuer>
-  <issuer name="Министерство финансов Республики Мордовия" country="RU" sector="-1">
-    <security isin="RU000A0JWSQ7" ticker="???" sec_type="bond" currency="RUB" country="RU" />
+  <issuer name="Министерство финансов Республики Мордовия" country="RU" sector="802">
+    <security isin="RU000A0JWSQ7" ticker="???" sec_type="bond" currency="RUB" />
   </issuer>
   <issuer name="Министерство финансов Республики Хакасия" country="RU" sector="-1">
     <security isin="RU000A0JWXQ7" ticker="???" sec_type="bond" currency="RUB" country="RU" />
@@ -3450,7 +3540,7 @@
   <issuer name="ООО Брайт Финанс" country="RU" sector="-1">
     <security isin="RU000A100725" ticker="???" sec_type="bond" currency="RUB" country="RU" />
   </issuer>
-  <issuer name="ООО Брусника. Строительство и девелопмент" country="RU" sector="-1">
+  <issuer name="ООО Брусника. Строительство и девелопмент" country="RU" sector="38">
     <security isin="RU000A101HU5" ticker="???" sec_type="bond" currency="RUB" country="RU" />
     <security isin="RU000A102Y58" ticker="???" sec_type="bond" currency="RUB" country="RU" />
   </issuer>
@@ -3934,11 +4024,11 @@
   <issuer name="ООО Хэдхантер" country="RU" sector="-1">
     <security isin="RU000A102GY7" ticker="???" sec_type="bond" currency="RUB" country="RU" />
   </issuer>
-  <issuer name="ООО ЭБИС" country="RU" sector="-1">
-    <security isin="RU000A100VY0" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A1014A1" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A102101" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A102ZS9" ticker="???" sec_type="bond" currency="RUB" country="RU" />
+  <issuer name="ООО ЭБИС" country="RU" sector="100">
+    <security isin="RU000A100VY0" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A1014A1" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A102101" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A102ZS9" ticker="???" sec_type="bond" currency="RUB" />
   </issuer>
   <issuer name="ООО ЭНЕРГОНИКА" country="RU" sector="-1">
     <security isin="RU000A102028" ticker="???" sec_type="bond" currency="RUB" country="RU" />
@@ -4019,7 +4109,7 @@
   <issuer name="ОАО Агрофирма – племзавод Победа" country="RU" sector="-1">
     <security isin="RU000A102S23" ticker="???" sec_type="bond" currency="RUB" country="RU" />
   </issuer>
-  <issuer name="ОАО Асфальтобетонный завод №1" country="RU" sector="-1">
+  <issuer name="ОАО Асфальтобетонный завод №1" country="RU" sector="121">
     <security isin="RU000A102LW1" ticker="???" sec_type="bond" currency="RUB" />
   </issuer>
   <issuer name="ОАО Белон" country="RU" sector="-1">
@@ -4378,9 +4468,9 @@
     <security isin="RU0009100408" ticker="???" sec_type="share" currency="RUB" country="RU" />
     <security isin="RU0009100416" ticker="???" sec_type="share" currency="RUB" country="RU" />
   </issuer>
-  <issuer name="ПАО Саратовский электроприборостроительный завод имени Серго Орджоникидзе" country="RU" sector="-1">
-    <security isin="RU000A1012K4" ticker="???" sec_type="bond" currency="RUB" country="RU" />
-    <security isin="RU000A102556" ticker="???" sec_type="bond" currency="RUB" country="RU" />
+  <issuer name="ПАО Саратовский электроприборостроительный завод имени Серго Орджоникидзе" country="RU" sector="135">
+    <security isin="RU000A1012K4" ticker="???" sec_type="bond" currency="RUB" />
+    <security isin="RU000A102556" ticker="???" sec_type="bond" currency="RUB" />
   </issuer>
   <issuer name="ПАО Саратовэнерго" country="RU" sector="-1">
     <security isin="RU0009100754" ticker="???" sec_type="share" currency="RUB" country="RU" />

@@ -2,3 +2,5 @@
 ndp_invest_helper/bin
 ndp_invest_helper/obj
 ndp_invest_helper/data/reports
+Parsers/bin
+Parsers/obj

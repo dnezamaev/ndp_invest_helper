@@ -184,13 +184,27 @@ namespace ndp_invest_helper
                     break;
 
                 case "sector":
-                    currentResult = currentPortfolio.GroupBySector();
+                    var xLevel = xAction.Attribute("level");
+                    var level = 1;
+                    if (xLevel != null)
+                    {
+                        var isParseOk = int.TryParse(xLevel.Value, out level);
+                        if (!isParseOk)
+                            throw new ArgumentException(string.Format(
+                                "Уровень группировки по секторам level " +
+                                "должен быть целочисленным значением, а указан {0} " +
+                                "в задании {1}", 
+                                xLevel.Value, xAction));
+                    }
+                    currentResult = currentPortfolio.GroupBySector(level);
                     break;
 
                 default:
                     throw new ArgumentException(string.Format(
                         "Неизвестный критерий группировки {0} в задании {1}", groupBy, xAction));
             }
+
+            currentResult.GrouppedBy = groupBy;
 
             #region remove_keys, keep_only_keys
 

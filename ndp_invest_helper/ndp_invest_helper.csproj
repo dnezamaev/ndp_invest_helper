@@ -4,6 +4,13 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>net35</TargetFramework>
     <StartupObject>ndp_invest_helper.Program</StartupObject>
+    <Version>1.0.1</Version>
+    <Authors>Незамаев Дмитрий Павлович</Authors>
+    <Copyright>Незамаев Дмитрий Павлович</Copyright>
+    <PackageProjectUrl>https://github.com/dnezamaev/ndp_invest_helper</PackageProjectUrl>
+    <Description>Анализ диверсификации портфеля</Description>
+    <RepositoryUrl>https://github.com/dnezamaev/ndp_invest_helper</RepositoryUrl>
+    <PackageLicenseExpression>GNU GPL3</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>

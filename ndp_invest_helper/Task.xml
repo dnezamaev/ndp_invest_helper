@@ -2,6 +2,12 @@
 
 <root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
+  <task name="Группировка по секторам">
+    <group by="sector" level="1"/>
+  </task>
+
+  <!--
+
   <task name="Группировка по странам">
     <group by="country" keep_only_keys="RU;US" />
   </task>
@@ -21,8 +27,6 @@
   <task name="Оставление отдельных акций" keep_only_tickers="SBERP" keep_only_isins="RU0007661625">
     <group by="country" keep_only_keys="RU;US" />
   </task>
-
-  <!--
 
   <task name="Сортировка по долям" order_by="part">
     <group by="currency" />

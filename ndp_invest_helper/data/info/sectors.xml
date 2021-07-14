@@ -158,4 +158,9 @@
  <row id="156" level="2" name="Энергетический уголь" parent_id="13"/>
  <row id="157" level="2" name="Нефть и газ - Переработка и маркетинг" parent_id="13"/>
  <row id="158" level="2" name="Нефть и газ - Бурение скважин" parent_id="13"/>
+ <row id="800" level="1" name="Государственное" parent_id="0"/>
+ <row id="801" level="2" name="Гособлигации" parent_id="800"/>
+ <row id="802" level="2" name="Муниципальные облигации" parent_id="800"/>
+ <row id="900" level="1" name="Другое" parent_id="0"/>
+ <row id="999" level="2" name="Другое" parent_id="900"/>
 </sectors>

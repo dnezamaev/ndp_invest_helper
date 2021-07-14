@@ -15,6 +15,8 @@ namespace ndp_invest_helper
 
         public string OrderBy = "key";
 
+        public string GrouppedBy = null;
+
         public bool OrderAscending = true;
 
         /// <summary>
@@ -130,9 +132,11 @@ namespace ndp_invest_helper
                 FoundNotUsedSecurities = true;
         }
 
+        public decimal Total { get => Analytics.Sum(x => x.Value.Portfolio.Total); }
+
         public void CalculateParts()
         {
-            var total = Analytics.Sum(x => x.Value.Portfolio.Total);
+            var total = Total;
 
             foreach (var item in Analytics)
             {
@@ -163,9 +167,44 @@ namespace ndp_invest_helper
 
             foreach (var item in sorted)
             {
-                sb.AppendLine(item.Key.ToString());
+                // Заголовок группы.
+                switch (GrouppedBy)
+                {
+                    case "country":
+                        sb.AppendFormat("{0} - {1}\n", 
+                            item.Key, CountriesManager.Countries[item.Key]);
+                        break;
+
+                    case "currency":
+                        sb.AppendLine(item.Key);
+                        break;
+
+                    case "type":
+                        sb.AppendLine(item.Key);
+                        break;
+
+                    case "sector":
+                        sb.AppendFormat("{0} - {1}\n", 
+                            item.Key, SectorsManager.ById[item.Key].Name);
+                        break;
+
+                    default:
+                        throw new ArgumentException(string.Format(
+                            "Неизвестный критерий группировки {0}", GrouppedBy));
+                }
+
+                // Основное содержимое.
                 sb.AppendLine(item.Value.ToString());
             }
+
+            if (FoundNotUsedSecurities)
+            {
+                sb.AppendLine("По этим бумагам нет сведений, они не были учтены в результатах группировки: ");
+                sb.AppendJoin("; ", NotUsedSecurities.Select(x => x.BestName));
+                sb.Append("\n\n");
+            }
+
+            sb.AppendFormat("Итого по учтенным бумагам: {0:0.00}\n\n", Total);
 
             return sb.ToString();
         }
@@ -272,9 +311,13 @@ namespace ndp_invest_helper
 
         public void AddSecurity(Security security, SecurityInfo securityInfo)
         {
+            // TODO: здесь непонятно как быть, если у текущей и добавляемой бумаг
+            // отличаются цены и коэффициенты коррекции.
+            // Возможно, стоит вычислять среднее взвешенное.
             var thisSecInfo = securities.GetValueOrDefault(security, new SecurityInfo());
             thisSecInfo.Count += securityInfo.Count;
-            thisSecInfo.Price += securityInfo.Price;
+            thisSecInfo.Price = securityInfo.Price;
+            thisSecInfo.Correction = securityInfo.Correction;
             securities[security] = thisSecInfo;
             this.total += securityInfo.Total;
         }
@@ -368,6 +411,7 @@ namespace ndp_invest_helper
                     analytics[currencyRecord.Key] = resultValue;
 
                     // Добавляем бумагу.
+                    // TODO: проверить учитываются ли доли?
                     resultValue.Portfolio.AddSecurity(security, securityInfo);
                 }
             }
@@ -512,7 +556,7 @@ namespace ndp_invest_helper
             return result;
         }
 
-        public PortfolioAnalyticsResult GroupBySector()
+        public PortfolioAnalyticsResult GroupBySector(int level = 1)
         {
             var result = new PortfolioAnalyticsResult();
             var analytics = result.Analytics;
@@ -530,15 +574,21 @@ namespace ndp_invest_helper
 
                 foreach (var sectorRecord in sectorsDict)
                 {
+                    var sector = sectorRecord.Key;
+
+                    if (level <sector.Level)
+                        sector = SectorsManager.GetParent(sector);
+
                     // Ищем существующую запись по этому сектору.
                     // Если ее нет, создаем пустую.
                     var resultValue = analytics.GetValueOrDefault(
-                        sectorRecord.Key.Id, new PortfolioAnalyticsItem());
+                        sector.Id, new PortfolioAnalyticsItem());
 
-                    analytics[sectorRecord.Key.Id] = resultValue;
+                    analytics[sector.Id] = resultValue;
 
                     // Добавляем бумагу и её стоимость в эту запись.
-                    resultValue.Portfolio.AddSecurity(security, securityInfo);
+                    resultValue.Portfolio.AddSecurity(security, 
+                        new SecurityInfo(securityInfo, sectorRecord.Value));
                 }
             }
 
