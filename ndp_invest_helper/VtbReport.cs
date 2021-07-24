@@ -37,7 +37,7 @@ namespace ndp_invest_helper
                 var secIsin = secNameStrings[2].Trim();
 
                 var xSecDetails = xSecurity.Descendants(xNamespace + "Подробности21").First();
-                var secCount = (int)decimal.Parse(xSecDetails.Attribute("remains_plan").Value, 
+                var secCount = (UInt64)decimal.Parse(xSecDetails.Attribute("remains_plan").Value, 
                     NumberStyles.Any, CultureInfo.InvariantCulture);
                 decimal secPrice;
                 // костыль для определения облигации

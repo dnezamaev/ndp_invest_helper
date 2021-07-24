@@ -58,13 +58,13 @@ namespace ndp_invest_helper
         /// </summary>
         /// <param name="correctParts">Нужно ли пересчитывать доли.</param>
         /// <param name="securities">Ключи элементов для удаления.</param>
-        public void RemoveSecurities(bool correctParts, params Security[] securities)
+        public void RemoveSecurities(bool correctParts, bool addCash, params Security[] securities)
         {
             foreach (var item in Analytics)
             {
                 foreach (var securityToRemove in securities)
                 {
-                    item.Value.Portfolio.RemoveSecurity(securityToRemove);
+                    item.Value.Portfolio.RemoveSecurity(securityToRemove, UInt64.MaxValue, addCash);
                 }
             }
 
@@ -82,6 +82,44 @@ namespace ndp_invest_helper
             }
         }
 
+        /// <summary>
+        /// Добавить/докупить бумагу в портфель.
+        /// </summary>
+        /// <param name="security">Бумага для добавления.</param>
+        /// <param name="count">Сколько бумаг добавить.</param>
+        /// <param name="price">По какой цене. Если бумага уже есть в портфеле,
+        /// то можно указать нулевую цену, тогда будет взята старая цена.
+        /// Если цена указана явно, то она будем применена и к старым бумагам.</param>
+        /// <param name="removeCash">Вычитать деньги, тем самым имитируя покупку.</param>
+        public void BuySecurity(Security security, UInt64 count, decimal price, bool removeCash)
+        {
+            foreach (var item in Analytics)
+            {
+                item.Value.Portfolio.AddSecurity(security, count, price, removeCash);
+            }
+
+            CalculateParts();
+        }
+
+        /// <summary>
+        /// Продать бумагу.
+        /// </summary>
+        /// <param name="security">Бумага для продажи.</param>
+        /// <param name="count">Количество бумаг для удаления.
+        /// Если указать больше, чем есть в портфеле, или null,
+        /// то бумага будет удалена полностью.</param>
+        /// <param name="addCash">Добавлять ли наличность от продажи в портфель.</param>
+        public void SellSecurity(Security security, UInt64? count, bool addCash)
+        {
+            foreach (var item in Analytics)
+            {
+                // Возможно, здесь стоит удалять пропорционально, а не весь сount???
+                // Хотя коэффициент коррекции должен это учитывать, по идее.
+                item.Value.Portfolio.RemoveSecurity(security, count, addCash);
+            }
+
+            CalculateParts();
+        }
 
         /// <summary>
         /// Удалить из аналитики несколько элементов.
@@ -132,6 +170,9 @@ namespace ndp_invest_helper
                 FoundNotUsedSecurities = true;
         }
 
+        /// <summary>
+        /// Общая оценка полученного результата.
+        /// </summary>
         public decimal Total { get => Analytics.Sum(x => x.Value.Portfolio.Total); }
 
         public void CalculateParts()
@@ -280,12 +321,15 @@ namespace ndp_invest_helper
             Dictionary<string, decimal> cash = null
             )
         {
+            // Копируем значения, чтобы избежать порчи исходного портфеля
+            // по ссылкам SecurityInfo.
             if (securities != null)
-                this.securities = new Dictionary<Security, SecurityInfo>(securities);
-            if (cash != null)
-                this.cash = new Dictionary<string, decimal>(cash);
+                foreach (var secKvp in securities)
+                    AddSecurity(secKvp.Key, secKvp.Value);
 
-            CalculateTotals();
+            if (cash != null)
+                foreach (var cashKvp in cash)
+                    AddCash(cashKvp.Key, cashKvp.Value);
         }
 
         public Portfolio(Portfolio porfolio)
@@ -297,9 +341,10 @@ namespace ndp_invest_helper
             foreach (var kvp in analytics.Analytics)
             {
                 foreach (var secKvp in kvp.Value.Portfolio.Securities)
-                {
                     AddSecurity(secKvp.Key, secKvp.Value);
-                }
+
+                foreach (var cashKvp in kvp.Value.Portfolio.Cash)
+                    AddCash(cashKvp.Key, cashKvp.Value);
             }
         }
 
@@ -322,19 +367,84 @@ namespace ndp_invest_helper
             this.total += securityInfo.Total;
         }
 
-        public void RemoveSecurity(Security security)
+        /// <summary>
+        /// Добавить/докупить бумагу в портфель.
+        /// </summary>
+        /// <param name="security">Бумага для добавления.</param>
+        /// <param name="count">Сколько бумаг добавить.</param>
+        /// <param name="price">По какой цене. Если бумага уже есть в портфеле,
+        /// то можно указать нулевую цену, тогда будет взята старая цена.
+        /// Если цена указана явно, то она будем применена и к старым бумагам.</param>
+        /// <param name="removeCash">Вычитать деньги, тем самым имитируя покупку.</param>
+        public void AddSecurity(Security security, UInt64 count, 
+            decimal price, bool removeCash)
+        {
+            SecurityInfo secInfo = null;
+
+            // Дополняем инфу о бумаге: корректируем цену, количество.
+            if (securities.TryGetValue(security, out secInfo))
+            {
+                // Бумага уже есть в портфеле.
+                secInfo.Count += count;
+
+                if (price != 0)
+                    secInfo.Price = price;
+            }
+            else // Бумаги нет в портфеле.
+            {
+                secInfo = new SecurityInfo()
+                {
+                    Price = price,
+                    Count = count
+                };
+            }
+
+            securities[security] = secInfo;
+
+            var secTotal = secInfo.Price * count;
+
+            if (removeCash)
+                AddCash("RUB", -secTotal);
+
+            total += secTotal;
+        }
+
+        /// <summary>
+        /// Удалить частично или полностью бумагу. Откорректировать оценку портфеля.
+        /// </summary>
+        /// <param name="security">Бумага для удаления.</param>
+        /// <param name="count">Количество бумаг для удаления.
+        /// Если указать больше, чем есть в портфеле, или null,
+        /// то бумага будет удалена полностью.</param>
+        /// <param name="addCash">Добавлять наличность от продажи, имитируя продажу.</param>
+        public void RemoveSecurity(Security security, UInt64? count, bool addCash)
         {
             if (!securities.ContainsKey(security))
                 return;
 
-            total -= securities[security].Total;
-            securities.Remove(security);
+            var secInfo = securities[security];
+
+            // Если передали null или больше, чем есть, то продаем все.
+            if (!count.HasValue || count > secInfo.Count)
+                count = secInfo.Count;
+
+            var secTotal = secInfo.Price * count.Value;
+            total -= secTotal;
+
+            if (addCash)
+                AddCash("RUB", secTotal);
+
+            secInfo.Count -= count.Value;
+
+            if (secInfo.Count == 0)
+                securities.Remove(security);
         }
 
         public void AddCash(string currency, decimal amount)
         {
             var value = cash.GetValueOrDefault(currency, 0);
             value += amount;
+            cash[currency] = value;
             var valueInRub = amount * CurrenciesManager.Rates[currency];
             cashTotal += valueInRub;
             this.total += valueInRub;
@@ -598,13 +708,23 @@ namespace ndp_invest_helper
             return result;
         }
 
-        private void CalculateTotals()
+        private decimal CalculateSecuritiesTotal()
         {
-            total = securities.Sum(x => x.Value.Total);
+            return total = securities.Sum(x => x.Value.Total);
+        }
 
+        private decimal CalculateCashTotal()
+        {
             // Подсчитываем весь кэш, переводя валюту в рубли.
-            cashTotal = cash.Sum(x => x.Value * CurrenciesManager.Rates[x.Key]);
+            return cashTotal = cash.Sum(x => x.Value * CurrenciesManager.Rates[x.Key]);
+        }
+
+        private decimal CalculateTotals()
+        {
+            CalculateSecuritiesTotal();
+            CalculateCashTotal();
             total += cashTotal;
+            return total;
         }
     }
 }

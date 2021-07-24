@@ -13,12 +13,12 @@ namespace ndp_invest_helper
             var settings = Settings.ReadFromFile("settings.xml");
             CurrenciesManager.SetRates(settings);
 
-            CountriesManager.ParseXmlFile(@"data\info\countries.xml");
-            SectorsManager.ParseXmlFile(@"data\info\sectors.xml");
-            SecuritiesManager.ParseXmlFile(@"data\info\securities.xml");
+            CountriesManager.ParseXmlFile(settings.Files.CountriesInfo);
+            SectorsManager.ParseXmlFile(settings.Files.SectorsInfo);
+            SecuritiesManager.ParseXmlFile(settings.Files.SecuritiesInfo);
 
             var portfolio = new Portfolio(settings);
-            var reportsDirPath = (args.Length == 0) ? @"data\reports\vtb" : args[0];
+            var reportsDirPath = (args.Length == 0) ? settings.Files.ReportsDir : args[0];
             var reports = HandleReportsDirectory(reportsDirPath);
             foreach (var report in reports)
                 portfolio.AddReport(report);

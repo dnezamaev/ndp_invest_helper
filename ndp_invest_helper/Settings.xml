@@ -2,13 +2,21 @@
 
 <Settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <cash>
-    <currency Key="RUB" Value="2050000" />
+    <currency Key="RUB" Value="2169000" />
     <currency Key="USD" Value="4500" />
     <currency Key="EUR" Value="3000" />
   </cash>
   <rates>
     <currency Key="RUB" Value="1" />
-    <currency Key="USD" Value="72" />
-    <currency Key="EUR" Value="87" />
+    <currency Key="USD" Value="74" />
+    <currency Key="EUR" Value="88" />
   </rates>
+
+  <files 
+    securities_info="data\info\securities.xml" 
+    countries_info="data\info\countries.xml" 
+    sectors_info="data\info\sectors.xml" 
+    reports_dir="data\reports\vtb" 
+    />
+
 </Settings>

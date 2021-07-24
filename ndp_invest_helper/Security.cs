@@ -47,7 +47,7 @@ namespace ndp_invest_helper
         /// <summary>
         /// Количество в портфеле, отчете и т.п.
         /// </summary>
-        public int Count;
+        public UInt64 Count;
 
         public decimal Price;
 

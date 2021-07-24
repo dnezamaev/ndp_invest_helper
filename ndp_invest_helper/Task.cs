@@ -124,14 +124,14 @@ namespace ndp_invest_helper
                 securitiesToRemove = securitiesInResult.Except(securitiesToKeep).ToList();
             }
 
-            currentResult.RemoveSecurities(true, securitiesToRemove.ToArray());
+            currentResult.RemoveSecurities(true, false, securitiesToRemove.ToArray());
 
             #endregion
 
             var xTaskName = xTask.Attribute("name");
             var taskName = (xTaskName != null) ? xTaskName.Value : ("\n" + xTask.ToString());
 
-            Console.Write("Результаты по заданию: {0} \n\n", taskName);
+            Console.Write("*** Результаты по заданию: {0} \n\n", taskName);
             Console.WriteLine(currentResult);
             Console.WriteLine();
         }
@@ -144,6 +144,10 @@ namespace ndp_invest_helper
             {
                 case "group":
                     HandleGroupByAction(xAction);
+                    break;
+                case "buy":
+                case "sell":
+                    HandleBuySellAction(xAction);
                     break;
                 default:
                     throw new ArgumentException(string.Format(
@@ -162,7 +166,7 @@ namespace ndp_invest_helper
             var groupBy = xGroupBy.Value.ToString().ToLower();
 
             // Проверяем первое ли это действие и был ли результат до него.
-            var currentPortfolio = (currentResult == null) ? 
+            var currentPortfolio = currentResult == null ?
                 portfolio : new Portfolio(currentResult);
 
             switch (groupBy)
@@ -231,6 +235,94 @@ namespace ndp_invest_helper
                 currentResult.RemoveKeys(true, keysToRemove);
 
             #endregion
+        }
+
+        /// <summary>
+        /// Покупка/продажа бумаг. 
+        /// Действие может быть только до группировки, 
+        /// иначе придется повторять последнюю группировку, пока такое ограничение. 
+        /// В будущем можно сохранять последнее задание группировки и повторять его. 
+        /// </summary>
+        /// <param name="xAction"></param>
+        private void HandleBuySellAction(XElement xAction)
+        {
+            if (currentResult == null)
+                currentResult = new PortfolioAnalyticsResult(portfolio);
+
+            var action = xAction.Name.ToString().ToLower();
+
+            var xIsin = xAction.Attribute("isin");
+            var xTicker = xAction.Attribute("ticker");
+            var xCount = xAction.Attribute("count");
+            var xPrice = xAction.Attribute("price");
+
+            if (xIsin == null && xTicker == null)
+                throw new ArgumentException(string.Format(
+                    "В действии {0} не хватает аттрибута isin или ticker.", xAction.ToString()));
+
+            // Количество нужно указывать только при покупке.
+            // При продаже можно опустить.
+            if (xCount == null && xAction.Name == "buy")
+                throw new ArgumentException(string.Format(
+                    "В действии {0} не хватает аттрибута count.", xAction.ToString()));
+
+            Security security = null;
+
+            if (xIsin != null) // Ищем по ISIN.
+            {
+                var isin = xIsin.Value.ToString();
+
+                if (!SecuritiesManager.SecuritiesByIsin.TryGetValue(isin, out security))
+                    throw new ArgumentException(string.Format(
+                        "В действии {0} указана неизвестная бумага {1}." +
+                        "Возможно, её стоит добавить в базу {2}, " +
+                        "либо проверить правильность указания isin.",
+                        xAction.ToString(), isin, Settings.Instance.Files.SecuritiesInfo));
+            }
+            else // Ищем по ticker.
+            {
+                var ticker = xTicker.Value.ToString();
+
+                if (!SecuritiesManager.SecuritiesByTicker.TryGetValue(ticker, out security))
+                    throw new ArgumentException(string.Format(
+                        "В действии {0} указана неизвестная бумага {1}." +
+                        "Возможно, её стоит добавить в базу {2}, " +
+                        "либо проверить правильность указания ticker.",
+                        xAction.ToString(), ticker, Settings.Instance.Files.SecuritiesInfo));
+            }
+
+            UInt64? count = null;
+
+            if (xCount != null)
+            {
+                UInt64 sell_count;
+                if (!UInt64.TryParse(xCount.Value.ToString(), out sell_count))
+                    throw new ArgumentException(string.Format(
+                        "В действии {0} указан аттрибут count={1}, " +
+                        "который не удалось преобразовать в целое число.",
+                        xAction.ToString(), xCount.Value.ToString()));
+                count = sell_count;
+            }
+
+            decimal price = 0;
+
+            if (xPrice != null)
+                if (!decimal.TryParse(xPrice.Value.ToString(), out price))
+                    throw new ArgumentException(string.Format(
+                        "В действии {0} указан аттрибут price={1}, " +
+                        "который не удалось преобразовать в число.",
+                        xAction.ToString(), xPrice.Value.ToString()));
+
+            var xUseCash = xAction.Attribute("correct_cash");
+            var useCash = true;
+
+            if (xUseCash != null)
+                useCash = xUseCash.Value.ToString() == "no";
+
+            if (action == "buy")
+                currentResult.BuySecurity(security, count.Value, price, useCash);
+            else
+                currentResult.SellSecurity(security, count, useCash);
         }
     }
 }

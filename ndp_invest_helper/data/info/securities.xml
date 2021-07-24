@@ -304,7 +304,7 @@
   </issuer>
   <issuer name="Акционерное общество ВТБ Капитал Управление активами" country="RU" sector="-1">
     <security isin="RU000A1002S8" ticker="VTBB" sec_type="etf" currency="RUB" />
-    <security isin="RU000A100E21" ticker="VTBA" sec_type="etf" currency="USD" >
+    <security isin="RU000A100E21" ticker="VTBA" sec_type="etf" currency="USD" what_inside="share" >
       <!-- https://www.vtbcapital-am.ru/products/bpif/vtbfam/structure/ 
       на 12.07.2021 -->
       <sector key="128" value="25.79" /> <!-- ИТ -->
@@ -350,7 +350,7 @@
     </security>
     <security isin="RU000A101368" ticker="VTBU" sec_type="etf" currency="USD" />
     <security isin="RU000A1014L8" ticker="VTBM" sec_type="etf" currency="RUB" />
-    <security isin="RU000A101EJ5" ticker="VTBX" sec_type="etf" currency="RUB" country="RU" >
+    <security isin="RU000A101EJ5" ticker="VTBX" sec_type="etf" currency="RUB" country="RU" what_inside="share" >
       <!-- по данным с сайта ВТБ на 10.07.2021 -->
       <sector key="152" value="45.62" /> <!-- нефтянка: газпром, лукйол... -->
       <sector key="142" value="16.66" /> <!-- банки: сбер, втб, мкб -->
