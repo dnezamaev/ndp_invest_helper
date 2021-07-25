@@ -304,7 +304,7 @@
   </issuer>
   <issuer name="Акционерное общество ВТБ Капитал Управление активами" country="RU" sector="-1">
     <security isin="RU000A1002S8" ticker="VTBB" sec_type="etf" currency="RUB" />
-    <security isin="RU000A100E21" ticker="VTBA" sec_type="etf" currency="USD" what_inside="share" >
+    <security isin="RU000A100E21" ticker="VTBA" sec_type="etf" currency="USD" what_inside="share" country="US">
       <!-- https://www.vtbcapital-am.ru/products/bpif/vtbfam/structure/ 
       на 12.07.2021 -->
       <sector key="128" value="25.79" /> <!-- ИТ -->
@@ -825,10 +825,37 @@
     <security isin="RU000A1011T7" ticker="TEUR" sec_type="etf" currency="EUR" />
     <security isin="RU000A1011U5" ticker="TRUR" sec_type="etf" currency="RUB" />
     <security isin="RU000A101X50" ticker="TGLD" sec_type="etf" currency="USD" />
+    <security isin="RU000A1039P6" ticker="TGRN" sec_type="etf" currency="USD" what_inside="share" >
+      <country key="US" value="48.71"/>
+      <country key="CN" value="12.86"/>
+      <country key="FR" value="9.59"/>
+      <country key="GB" value="6.43"/>
+      <country key="DK" value="5.05"/>
+      <country key="ES" value="4.56"/>
+      <country key="CL" value="2.74"/>
+      <country key="BE" value="2.69"/>
+      <country key="CA" value="2.44"/>
+      <country key="IL" value="2.29"/>
+      <country key="???" value="1.9"/>
+      <!-- Здесь всё очень неточно, т.к. у Тинькова нет конкретной информации по классическим отраслям. -->
+      <sector key="13" value ="37.19"/> <!--Зеленая энергетика-->
+      <sector key="6" value ="22.3"/> <!--Электротранспорт и комплектующие-->
+      <sector key="4" value ="21.65"/><!--Энергоэффективные здания-->
+      <sector key="7" value ="18.16"/><!--Материалы для эко-технологий-->
+    </security>
     <security isin="RU000A101X68" ticker="TECH" sec_type="etf" currency="USD" />
     <security isin="RU000A101X76" ticker="TMOS" sec_type="etf" currency="RUB" />
     <security isin="RU000A102EM7" ticker="TIPO" sec_type="etf" currency="USD" />
-    <security isin="RU000A102EK1" ticker="TBIO" sec_type="etf" currency="USD" />
+    <security isin="RU000A102EK1" ticker="TBIO" sec_type="etf" currency="USD" sector="1" what_inside="share" >
+      <country key="US" value="85.69"/>
+      <country key="GB" value="5.93"/>
+      <country key="CN" value="2.07"/>
+      <country key="DE" value="1.99"/>
+      <country key="FR" value="1.14"/>
+      <country key="IE" value="0.96"/>
+      <country key="CH" value="0.86"/>
+      <country key="???" value="1"/>
+    </security>
     <security isin="RU000A102EQ8" ticker="TSPX" sec_type="etf" currency="USD" />
     <security isin="RU000A102YC6" ticker="TSPV" sec_type="etf" currency="USD" />
   </issuer>
@@ -838,7 +865,29 @@
     <security isin="RU000A102E78" ticker="AKME" sec_type="etf" currency="RUB" />
     <security isin="RU000A102FK8" ticker="AKCH" sec_type="etf" currency="CNY" />
     <security isin="RU000A0ZZTQ4" ticker="AKNX" sec_type="etf" currency="USD" />
-    <security isin="RU000A100Q43" ticker="AKEU" sec_type="etf" currency="EUR" />
+    <security isin="RU000A100Q43" ticker="AKEU" sec_type="etf" currency="EUR" what_inside="share" >
+      <!--https://www.stoxx.com/index-details?symbol=SXXP-->
+      <country key="GB" value="22.6"/>
+      <country key="FR" value="16.8"/>
+      <country key="DE" value="15.9"/>
+      <country key="CH" value="14.5"/>
+      <country key="NL" value="6.6"/>
+      <country key="SE" value="6.1"/>
+      <country key="IT" value="4"/>
+      <country key="ES" value="3.7"/>
+      <country key="FI" value="1.8"/>
+      <sector key="1" value ="14.3"/>
+      <sector key="7" value ="13"/>
+      <sector key="5" value ="8.1"/>
+      <sector key="10" value ="7.5"/>
+      <sector key="12" value ="7.3"/>
+      <sector key="6" value ="6.4"/>
+      <sector key="5" value ="8.1"/>
+      <sector key="8" value ="4.7"/>
+      <sector key="13" value ="4.3"/>
+      <sector key="9" value ="4.3"/>
+      <sector key="2" value ="3.9"/>
+    </security>
     <security isin="RU000A101HY7" ticker="???" sec_type="etf" currency="???" />
     <security isin="RU000A101YY2" ticker="???" sec_type="etf" currency="???" />
   </issuer>

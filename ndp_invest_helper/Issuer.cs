@@ -89,7 +89,7 @@ namespace ndp_invest_helper
 
                 issuer.Countries = Utils.HandleComplexStringXmlAttribute(
                     xIssuer, "country");
-                Utils.HandleSectorAttribute(xIssuer, issuer.Sectors);
+                Utils.HandleSectorAttribute(xIssuer, issuer.Sectors, "999");
 
                 foreach (var xSecurity in xIssuer.Elements("security"))
                 {
@@ -155,7 +155,8 @@ namespace ndp_invest_helper
                         Utils.HandleComplexStringXmlAttribute(xSecurity, "currency");
                     etf.WhatInside = 
                         Utils.HandleComplexStringXmlAttribute(xSecurity, "what_inside");
-                    Utils.HandleSectorAttribute(xSecurity, etf.Sectors);
+
+                    Utils.HandleSectorAttribute(xSecurity, etf.Sectors, "999");
                     break;
                 default:
                     break;

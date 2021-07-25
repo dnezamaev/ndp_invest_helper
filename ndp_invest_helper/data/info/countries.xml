@@ -2,6 +2,7 @@
 
 <root>
   <countries>
+    <country key="???" name="Другие"/>
     <country key="AB" name="Абхазия"/>
     <country key="AD" name="Андорра"/>
     <country key="AE" name="Объединенные Арабские Эмираты"/>
@@ -519,6 +520,7 @@
       <country key="GS"/>
       <country key="HM"/>
       <country key="TF"/>
+      <country key="???"/>
     </region>
   </by_region>
   <by_development_level>

@@ -18,10 +18,16 @@ namespace ndp_invest_helper
         /// </summary>
         /// <param name="xTag">Тэг для разбора.</param>
         /// <param name="attributeName">Название аттрибута и подтэгов.</param>
+        /// <param name="subTagKey">Имя XML аттрибута с ключом.</param>
+        /// <param name="fillTo100">Дополнять до 100%, если не хватает.</param>
+        /// <param name="keyForUnknown">Ключ для незаполненной части.</param>
         public static Dictionary<string, decimal> HandleComplexStringXmlAttribute(
             XElement xTag,
             string attributeName, 
-            string subTagKey = "key")
+            string subTagKey = "key",
+            bool fillTo100 = true,
+            string keyForUnknown = "???"
+            )
         {
             var result = new Dictionary<string, decimal>();
 
@@ -33,13 +39,26 @@ namespace ndp_invest_helper
             }
             else // Нет аттрибута, смотрим вложенные тэги.
             {
+                // Общая сумма по найденным долям.
+                decimal partsSum = 0;
+
                 foreach (var xSubTag in xTag.Descendants(attributeName))
                 {
-                    result[xSubTag.Attribute(subTagKey).Value] =
-                        decimal.Parse(
+                    var part = decimal.Parse(
                          xSubTag.Attribute("value").Value,
                             NumberStyles.Any, CultureInfo.InvariantCulture
                             ) / 100;
+
+                    result[xSubTag.Attribute(subTagKey).Value] = part;
+                    partsSum += part;
+                }
+
+                if (partsSum < 1) // Сумма найденных долей оказалась меньше 100%.
+                {
+                    // Возможно, такой ключ уже есть, тогда надо учесть его текущее значение.
+                    var unknownPart = result.GetValueOrDefault(keyForUnknown, 0);
+                    unknownPart += 1 - partsSum;
+                    result[keyForUnknown] = unknownPart;
                 }
             }
 
@@ -76,9 +95,10 @@ namespace ndp_invest_helper
 
         public static void HandleSectorAttribute(
             XElement xTag,
-            Dictionary<Sector, decimal> destination)
+            Dictionary<Sector, decimal> destination,
+            string unknownSector)
         {
-            var sectors = Utils.HandleComplexStringXmlAttribute(xTag, "sector");
+            var sectors = HandleComplexStringXmlAttribute(xTag, "sector", "key", true, unknownSector);
 
             foreach (var item in sectors)
             {

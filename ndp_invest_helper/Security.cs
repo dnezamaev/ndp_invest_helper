@@ -49,6 +49,9 @@ namespace ndp_invest_helper
         /// </summary>
         public UInt64 Count;
 
+        /// <summary>
+        /// Цена в рублях.
+        /// </summary>
         public decimal Price;
 
         /// <summary>

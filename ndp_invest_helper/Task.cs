@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -7,10 +8,16 @@ using System.Xml.Linq;
 
 namespace ndp_invest_helper
 {
+    /// <summary>
+    /// Исполняет задачи из Task.xml
+    /// </summary>
     class TaskManager
     {
         private Portfolio portfolio;
+
         private PortfolioAnalyticsResult currentResult;
+
+        private bool printEachAction;
 
         public TaskManager(Portfolio portfolio)
         {
@@ -30,6 +37,16 @@ namespace ndp_invest_helper
         private void HandleTask(XElement xTask)
         {
             currentResult = null;
+            printEachAction = false;
+
+            var xPrintEachAction = xTask.Attribute("print_each_action");
+
+            if (xPrintEachAction != null)
+                printEachAction = xPrintEachAction.Value.ToString().ToLower() == "yes";
+
+            var xTaskName = xTask.Attribute("name");
+            var taskName = (xTaskName != null) ? xTaskName.Value : ("\n" + xTask.ToString());
+            Console.Write("*** Задание: {0} \n\n", taskName);
 
             // Обработка действий в задании.
             foreach (var xAction in xTask.Elements())
@@ -46,7 +63,10 @@ namespace ndp_invest_helper
             decimal hidePartsLess = 0; 
             var xHidePartsLess = xTask.Attribute("hide_parts_less");
             if (xHidePartsLess != null)
-                hidePartsLess = decimal.Parse(xHidePartsLess.Value.ToString()) / 100;
+                hidePartsLess = decimal.Parse(
+                    xHidePartsLess.Value.ToString(), 
+                    NumberStyles.Any, CultureInfo.InvariantCulture
+                    ) / 100;
 
             var keysToHide =
                 from item in currentResult.Analytics
@@ -124,16 +144,15 @@ namespace ndp_invest_helper
                 securitiesToRemove = securitiesInResult.Except(securitiesToKeep).ToList();
             }
 
-            currentResult.RemoveSecurities(true, false, securitiesToRemove.ToArray());
+            currentResult.RemoveSecurities(true, false, "RUB", securitiesToRemove.ToArray());
 
             #endregion
 
-            var xTaskName = xTask.Attribute("name");
-            var taskName = (xTaskName != null) ? xTaskName.Value : ("\n" + xTask.ToString());
-
-            Console.Write("*** Результаты по заданию: {0} \n\n", taskName);
-            Console.WriteLine(currentResult);
-            Console.WriteLine();
+            if (!printEachAction)
+            {
+                Console.WriteLine(currentResult);
+                Console.WriteLine();
+            }
         }
 
         private void HandleAction(XElement xAction)
@@ -144,10 +163,17 @@ namespace ndp_invest_helper
             {
                 case "group":
                     HandleGroupByAction(xAction);
+                    
+                    if (printEachAction)
+                        Console.Write("--- {0}\n{1}\n\n", xAction, currentResult);
                     break;
                 case "buy":
                 case "sell":
                     HandleBuySellAction(xAction);
+                    // TODO: выводить подробности сделки - что, почем и на какую сумму
+                    // для этого надо, чтобы методы редактирования портфеля возвращали
+                    // необходимые данные, которые нужно протащить до самого верха
+                    // по стеку вызовов
                     break;
                 default:
                     throw new ArgumentException(string.Format(
@@ -255,6 +281,7 @@ namespace ndp_invest_helper
             var xTicker = xAction.Attribute("ticker");
             var xCount = xAction.Attribute("count");
             var xPrice = xAction.Attribute("price");
+            var xCurrency = xAction.Attribute("currency");
 
             if (xIsin == null && xTicker == null)
                 throw new ArgumentException(string.Format(
@@ -307,7 +334,11 @@ namespace ndp_invest_helper
             decimal price = 0;
 
             if (xPrice != null)
-                if (!decimal.TryParse(xPrice.Value.ToString(), out price))
+                if (!decimal.TryParse(
+                    xPrice.Value.ToString(), 
+                    NumberStyles.Any, CultureInfo.InvariantCulture, 
+                    out price)
+                    )
                     throw new ArgumentException(string.Format(
                         "В действии {0} указан аттрибут price={1}, " +
                         "который не удалось преобразовать в число.",
@@ -319,10 +350,22 @@ namespace ndp_invest_helper
             if (xUseCash != null)
                 useCash = xUseCash.Value.ToString() == "no";
 
+            var currency = "RUB";
+
+            if (xCurrency != null)
+            {
+                currency = xCurrency.Value.ToString();
+                if (!CurrenciesManager.Rates.ContainsKey(currency))
+                    throw new ArgumentException(string.Format(
+                        "В действии {0} указан аттрибут currency={1}, " +
+                        "такая валюта не найдена, её стоит добавить в Settings.xml.",
+                        xAction.ToString(), currency));
+            }
+
             if (action == "buy")
-                currentResult.BuySecurity(security, count.Value, price, useCash);
+                currentResult.BuySecurity(security, count.Value, price, useCash, currency);
             else
-                currentResult.SellSecurity(security, count, useCash);
+                currentResult.SellSecurity(security, count, useCash, currency);
         }
     }
 }
