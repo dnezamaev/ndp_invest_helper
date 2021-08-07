@@ -6,7 +6,7 @@ using System.Xml.Linq;
 
 namespace ndp_invest_helper
 {
-    class Sector
+    public class Sector
     {
         /// <summary>
         /// Уникальный идентификатор сектора.
@@ -32,13 +32,17 @@ namespace ndp_invest_helper
         public string Name;
     }
 
-    static class SectorsManager
+    public static class SectorsManager
     {
         public static List<Sector> Sectors;
 
         public static Dictionary<string, Sector> ById;
 
         public static int LevelsCount;
+
+        public const string DefaultSectorId = "999";
+
+        public static Sector DefaultSector { get => ById[DefaultSectorId]; }
 
         public static Sector GetParent(Sector sector)
         {

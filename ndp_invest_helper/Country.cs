@@ -7,7 +7,7 @@ using System.Xml.Linq;
 
 namespace ndp_invest_helper
 {
-    static class CountriesManager
+    public static class CountriesManager
     {
         public static Dictionary<string, string> Countries = 
             new Dictionary<string, string>();

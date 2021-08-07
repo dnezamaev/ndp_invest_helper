@@ -5,19 +5,76 @@ using System.Text;
 
 namespace ndp_invest_helper
 {
+    public class GrouppingResults
+    {
+        private PortfolioAnalyticsResult
+            byCountry, byCurrency, bySector, byType;
+
+        public Portfolio Portfolio { get; set; }
+
+        public GrouppingResults(Portfolio portfolio, bool unpackEtf = true)
+        {
+            Portfolio = portfolio;
+            ByCountry = portfolio.GroupByCountry();
+            ByCurrency = portfolio.GroupByCurrency();
+            BySector = portfolio.GroupBySector();
+            ByType = portfolio.GroupByType(unpackEtf);
+        }
+
+        public PortfolioAnalyticsResult[] All
+        {
+            get
+            {
+                return new PortfolioAnalyticsResult[] { byCountry, byCurrency, bySector, byType };
+            }
+        }
+
+        public PortfolioAnalyticsResult ByCountry
+        {
+            get => byCountry;
+            set { byCountry = value; value.GrouppedBy = "country"; }
+        }
+
+
+        public PortfolioAnalyticsResult ByCurrency
+        {
+            get => byCurrency;
+            set { byCurrency = value; value.GrouppedBy = "currency"; }
+        }
+
+        public PortfolioAnalyticsResult BySector
+        {
+            get => bySector;
+            set { bySector = value; value.GrouppedBy = "sector"; }
+        }
+
+        public PortfolioAnalyticsResult ByType
+        {
+            get => byType;
+            set { byType = value; value.GrouppedBy = "type"; }
+        }
+    }
+
     /// <summary>
     /// Результат группировки портфеля.
     /// </summary>
-    class PortfolioAnalyticsResult
+    public class PortfolioAnalyticsResult
     {
         public Dictionary<string, PortfolioAnalyticsItem> Analytics =
             new Dictionary<string, PortfolioAnalyticsItem>();
 
-        public string OrderBy = "key";
+
+        /// <summary>
+        /// Критерий сортировки в ToString(): key/part - по ключу/доле
+        /// </summary>
+        public string OrderBy = "part";
 
         public string GrouppedBy = null;
 
-        public bool OrderAscending = true;
+        /// <summary>
+        /// Порядок сортировки в ToString(): key/part - по ключу/доле
+        /// </summary>
+        public bool OrderAscending = false;
 
         /// <summary>
         /// Флажочек, сигнализирующий о проблеме в файле с бумагами.
@@ -215,8 +272,8 @@ namespace ndp_invest_helper
                 switch (GrouppedBy)
                 {
                     case "country":
-                        sb.AppendFormat("{0} - {1}\n", 
-                            item.Key, CountriesManager.Countries[item.Key]);
+                        sb.AppendLine(string.Format("{0} - {1}", 
+                            item.Key, CountriesManager.Countries[item.Key]));
                         break;
 
                     case "currency":
@@ -228,8 +285,8 @@ namespace ndp_invest_helper
                         break;
 
                     case "sector":
-                        sb.AppendFormat("{0} - {1}\n", 
-                            item.Key, SectorsManager.ById[item.Key].Name);
+                        sb.AppendLine(string.Format("{0} - {1}", 
+                            item.Key, SectorsManager.ById[item.Key].Name));
                         break;
 
                     default:
@@ -244,11 +301,13 @@ namespace ndp_invest_helper
             if (FoundNotUsedSecurities)
             {
                 sb.AppendLine("По этим бумагам нет сведений, они не были учтены в результатах группировки: ");
-                sb.AppendJoin("; ", NotUsedSecurities.Select(x => x.BestName));
-                sb.Append("\n\n");
+                sb.AppendJoin("; ", NotUsedSecurities.Select(x => x.BestFriendlyName));
+                sb.AppendLine();
+                sb.AppendLine();
             }
 
-            sb.AppendFormat("Итого по учтенным бумагам: {0:0.00}\n\n", Total);
+            sb.AppendLine(string.Format("Итого по учтенным бумагам: {0:0.00}", Total));
+            sb.AppendLine();
 
             return sb.ToString();
         }
@@ -257,7 +316,7 @@ namespace ndp_invest_helper
     /// <summary>
     /// Результат группировки портфеля по выбранному критерию.
     /// </summary>
-    class PortfolioAnalyticsItem
+    public class PortfolioAnalyticsItem
     {
         public Portfolio Portfolio = new Portfolio();
 
@@ -267,10 +326,10 @@ namespace ndp_invest_helper
         {
             var sb = new StringBuilder();
 
-            sb.AppendFormat("Part = {0:0.00}%\n", Part * 100);
-            sb.AppendFormat("Total = {0:0.00}\n", Portfolio.Total);
+            sb.AppendLine(string.Format("Доля = {0:0.00}%", Part * 100));
+            sb.AppendLine(string.Format("Сумма = {0:0.00}", Portfolio.Total));
             sb.AppendJoin("; ", Portfolio.Securities.Select(
-                x => string.Format("{0} ({1:0.00})", x.Key.BestName, x.Value.Total)));
+                x => string.Format("{0} ({1:0.00})", x.Key.BestFriendlyName, x.Value.Total)));
 
             if (Portfolio.CashTotal != 0)
                 sb.AppendFormat("; наличные {0:0.00}", Portfolio.CashTotal);
@@ -281,7 +340,7 @@ namespace ndp_invest_helper
         }
     }
 
-    class Portfolio
+    public class Portfolio
     {
         private Dictionary<Security, SecurityInfo> securities =
             new Dictionary<Security, SecurityInfo>();
@@ -305,7 +364,7 @@ namespace ndp_invest_helper
         /// </summary>
         public decimal CashTotal
         {
-            get { return cash.Sum(kvp => CurrenciesManager.Rates[kvp.Key] * kvp.Value); }
+            get { return cash.Sum(kvp => CurrenciesManager.CurrencyRates[kvp.Key] * kvp.Value); }
         }
 
         /// <summary>
@@ -350,9 +409,9 @@ namespace ndp_invest_helper
             }
         }
 
-        public Portfolio(Settings settings)
+        public Portfolio()
         {
-            cash = settings.Cash.ToDictionary(x => x.Key, x => x.Value);
+            cash = new Dictionary<string, decimal>(CurrenciesManager.Cash);
         }
 
         public void AddSecurity(Security security, SecurityInfo securityInfo)
@@ -382,7 +441,7 @@ namespace ndp_invest_helper
             decimal price, bool removeCash, string currency)
         {
             SecurityInfo secInfo = null;
-            decimal rubPrice = CurrenciesManager.Rates[currency] * price; // Цена 1 бумаги в рублях.
+            decimal rubPrice = CurrenciesManager.CurrencyRates[currency] * price; // Цена 1 бумаги в рублях.
 
             // Дополняем инфу о бумаге: корректируем цену, количество.
             if (securities.TryGetValue(security, out secInfo))
@@ -402,7 +461,7 @@ namespace ndp_invest_helper
                 if (price == 0)
                     throw new ArgumentException(
                         "Не указана цена покупки {0}, при этом бумаги нет в портфеле.",
-                        security.BestName);
+                        security.BestFriendlyName);
 
                 secInfo = new SecurityInfo()
                 {
@@ -414,7 +473,7 @@ namespace ndp_invest_helper
             securities[security] = secInfo;
 
             var rubTotal = rubPrice * count; // Сумма сделки в рублях.
-            var currencyTotal = rubTotal / CurrenciesManager.Rates[currency]; // Сумма сделки в валюте.
+            var currencyTotal = rubTotal / CurrenciesManager.CurrencyRates[currency]; // Сумма сделки в валюте.
 
             if (removeCash)
                 AddCash(currency, -currencyTotal);
@@ -444,7 +503,7 @@ namespace ndp_invest_helper
 
             var rubPrice = secInfo.Price; // Цена 1 бумаги в рублях.
             var rubTotal = rubPrice * count.Value; // Сумма сделки в рублях.
-            var currencyTotal = rubTotal / CurrenciesManager.Rates[currency]; // Сумма сделки в валюте.
+            var currencyTotal = rubTotal / CurrenciesManager.CurrencyRates[currency]; // Сумма сделки в валюте.
 
             securitiesTotal -= rubTotal;
 
@@ -546,8 +605,10 @@ namespace ndp_invest_helper
             // Учитваем наличку.
             foreach (var cashRecord in cash)
             {
-                analytics[cashRecord.Key].Portfolio.AddCash(
-                    cashRecord.Key, cashRecord.Value);
+                var resultValue = analytics.GetValueOrSetDefault(
+                    cashRecord.Key, new PortfolioAnalyticsItem());
+
+                resultValue.Portfolio.AddCash(cashRecord.Key, cashRecord.Value);
             }
 
             result.CalculateParts();

@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+  <issuer name="Газпромбанк (Акционерное общество)" country="RU" sector="-1">
+    <security isin="RU000A101TK1" ticker="???" sec_type="bond" currency="RUB" country="RU" />
+  </issuer>
+
+  <issuer name="empty attributes issuer">
+    <security isin="empty share" sec_type="share">
+    <security isin="empty etf" sec_type="etf">
+    </security>
+  </issuer>
+
+  <!-- Проверка приоритета аттрибута и вложенных тегов. -->
+  <issuer name="issuer full attributes" country="RU" sector="1">
+
+    <security isin="empty country security" sec_type="etf" 
+      currency="USD" country="US" sector="2" what_inside="share">
+
+      <country key="CN" value="50" />
+      <sector key="3" value="50" />
+      <currency key="CUR1" value="50" />
+      <what_inside key="share" value="50" />
+
+    </security>
+
+    <security isin="test override security" ticker="etf 1" sec_type="etf" 
+      currency="USD" country="US" sector="2" what_inside="share">
+
+      <country key="CN" value="50" />
+      <country key="TW" value="25" />
+      <country key="KR" value="10" />
+      <country key="???" value="5" />
+
+      <sector key="3" value="50" />
+      <sector key="4" value="25" />
+      <sector key="5" value="10" />
+      <sector key="999" value="5" />
+
+      <currency key="CUR1" value="50" />
+      <currency key="CUR2" value="25" />
+      <currency key="CUR2" value="10" />
+      <currency key="CUR3" value="5" />
+
+      <what_inside key="share" value="50" />
+      <what_inside key="bond" value="25" />
+      <what_inside key="gold" value="10" />
+      <what_inside key="cash" value="5" />
+
+    </security>
+  </issuer>
+
+</root>

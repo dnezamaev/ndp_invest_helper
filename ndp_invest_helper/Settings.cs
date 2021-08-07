@@ -13,6 +13,13 @@ namespace ndp_invest_helper
     [Serializable]
     public class Settings
     {
+        public static bool WriteLog { 
+            get => Instance.Options.WriteLog == "yes"; 
+            set => Instance.Options.WriteLog = (value ? "yes" : "no"); 
+        }
+
+        public static string LogFile { get => Instance.Files.Log; }
+
         /// <summary>
         /// Последний прочитанный ReadFromFile() объект.
         /// </summary>
@@ -23,10 +30,10 @@ namespace ndp_invest_helper
         [Serializable]
         public class Currency
         {
-            [XmlAttribute]
+            [XmlAttribute(AttributeName = "key")]
             public string Key { get; set; }
 
-            [XmlAttribute]
+            [XmlAttribute(AttributeName = "value")]
             public decimal Value { get; set; }
         }
 
@@ -44,24 +51,36 @@ namespace ndp_invest_helper
 
             [XmlAttribute(AttributeName = "reports_dir")]
             public string ReportsDir;
+
+            [XmlAttribute(AttributeName = "task_output")]
+            public string TaskOutput;
+
+            [XmlAttribute(AttributeName = "log")]
+            public string Log;
         }
 
         [XmlElement(ElementName = "files")]
         public FilePaths Files;
 
-        /// <summary>
-        /// Внебиржевые деньги в чистом виде: наличность, депозиты и т.п.
-        /// </summary>
-        [XmlArray(ElementName = "cash")]
-        [XmlArrayItem(ElementName = "currency")]
-        public List<Currency> Cash = new List<Currency>();
+        [Serializable]
+        public class OptionsType
+        {
+            [XmlAttribute(AttributeName = "write_log")]
+            public string WriteLog;
+
+            [XmlAttribute(AttributeName = "show_difference_from")]
+            public string ShowDifferenceFrom;
+        }
+
+        [XmlElement(ElementName = "options")]
+        public OptionsType Options;
 
         /// <summary>
         /// Курсы валют к рублю.
         /// </summary>
-        [XmlArray(ElementName = "rates")]
+        [XmlArray(ElementName = "currency_rates")]
         [XmlArrayItem(ElementName = "currency")]
-        public List<Currency> Rates = new List<Currency>();
+        public List<Currency> CurrencyRates = new List<Currency>();
 
         public static Settings ReadFromFile(string xmlFilePath)
         {

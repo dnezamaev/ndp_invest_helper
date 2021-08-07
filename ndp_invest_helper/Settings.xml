@@ -1,22 +1,50 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 
 <Settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <cash>
-    <currency Key="RUB" Value="2169000" />
-    <currency Key="USD" Value="4500" />
-    <currency Key="EUR" Value="3000" />
-  </cash>
-  <rates>
-    <currency Key="RUB" Value="1" />
-    <currency Key="USD" Value="74" />
-    <currency Key="EUR" Value="88" />
-  </rates>
 
-  <files 
-    securities_info="data\info\securities.xml" 
-    countries_info="data\info\countries.xml" 
-    sectors_info="data\info\sectors.xml" 
-    reports_dir="data\reports\vtb" 
+	<!--Курсы валют.-->
+	<currency_rates>
+		<currency key="RUB" value="1" />
+		<currency key="USD" value="74" />
+		<currency key="EUR" value="88" />
+	</currency_rates>
+
+	<!--
+	Используемые файлы.
+	
+    securities_info: список бумаг, эмитентов, фондов
+    countries_info: список стран
+    sectors_info: список отраслей
+    reports_dir: директория с отчетами брокеров
+    task_output: файл для записи результатов выполнения задач
+    log: файл журнала
+    -->
+	<files
+	  securities_info = "data\info\securities.xml"
+	  countries_info = "data\info\countries.xml"
+	  sectors_info = "data\info\sectors.xml"
+
+	  reports_dir = "data\reports"
+
+	  task_output = "task.txt"
+	  log = "log.txt"
+    />
+
+	<!--
+	Настройки приложения.
+
+    write_log: 
+		писать ли журнал действий в файл из files.log? "yes" - писать, иначе - нет
+
+	show_difference_from: 
+		"origin" - показывать изменения по сравнению с изначальным состоянием портфеля.
+			Полезно, если совершено несколько сделок, 
+			и нужно посмотреть их накопленный эффект на портфель.
+		"last_deal" - показывать изменения по сравнению с результатом предыдущей cделки. 
+    -->
+	<options
+	    write_log = "yes"
+		show_difference_from = "origin"
     />
 
 </Settings>

@@ -19,19 +19,25 @@ namespace ndp_invest_helper
 
         private bool printEachAction;
 
+        private StringBuilder output;
+
         public TaskManager(Portfolio portfolio)
         {
             this.portfolio = portfolio;
         }
 
-        public void ParseXmlFile(string filePath)
+        public PortfolioAnalyticsResult ParseXmlFile(string filePath, StringBuilder output)
         {
+            this.output = output;
+
             var xRoot = XElement.Parse(File.ReadAllText(filePath));
 
             foreach (var xTask in xRoot.Elements("task"))
             {
                 HandleTask(xTask);
             }
+
+            return currentResult;
         }
 
         private void HandleTask(XElement xTask)
@@ -46,7 +52,7 @@ namespace ndp_invest_helper
 
             var xTaskName = xTask.Attribute("name");
             var taskName = (xTaskName != null) ? xTaskName.Value : ("\n" + xTask.ToString());
-            Console.Write("*** Задание: {0} \n\n", taskName);
+            output.AppendFormat("*** Задание: {0} \n\n", taskName);
 
             // Обработка действий в задании.
             foreach (var xAction in xTask.Elements())
@@ -150,8 +156,8 @@ namespace ndp_invest_helper
 
             if (!printEachAction)
             {
-                Console.WriteLine(currentResult);
-                Console.WriteLine();
+                output.AppendLine(currentResult.ToString());
+                output.AppendLine();
             }
         }
 
@@ -165,7 +171,7 @@ namespace ndp_invest_helper
                     HandleGroupByAction(xAction);
                     
                     if (printEachAction)
-                        Console.Write("--- {0}\n{1}\n\n", xAction, currentResult);
+                        output.AppendFormat("--- {0}\n{1}\n\n", xAction, currentResult);
                     break;
                 case "buy":
                 case "sell":
@@ -355,7 +361,7 @@ namespace ndp_invest_helper
             if (xCurrency != null)
             {
                 currency = xCurrency.Value.ToString();
-                if (!CurrenciesManager.Rates.ContainsKey(currency))
+                if (!CurrenciesManager.CurrencyRates.ContainsKey(currency))
                     throw new ArgumentException(string.Format(
                         "В действии {0} указан аттрибут currency={1}, " +
                         "такая валюта не найдена, её стоит добавить в Settings.xml.",

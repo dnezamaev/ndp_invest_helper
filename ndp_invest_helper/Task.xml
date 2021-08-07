@@ -10,14 +10,16 @@
   </task>
 
   <task name="После сделок" hide_parts_less="1" print_each_action="yes">
-    <sell ticker="VTBX" note="~5k RUB"/>
-    <sell ticker="YNDX" note="~116k RUB"/>
+    <sell ticker="YNDX" note="~5k RUB"/>
+    <sell ticker="VTBX" note="~116k RUB"/>
     <buy ticker="TGRN" count="8880" price="6.756" note="~60k RUB"/>
     <buy ticker="TBIO" count="8000" price="7.5" note="~60k RUB"/>
+    <!--
     <buy ticker="TGRN" count="5458"  price="0.0916" currency="USD" note="~500 USD"/>
     <buy ticker="TBIO" count="4703"  price="0.1063" currency="USD" note="~500 USD"/>
     <buy ticker="AKEU" count="80" price="12.64" currency="EUR" note="~1000 EUR"/>
     <buy ticker="FXDE" count="55" currency="EUR" note="~2000 EUR"/>
+    -->
     <group by="currency" unpack_etf="yes" />
     <group by="country" unpack_etf="yes" />
     <group by="type" unpack_etf="yes" />

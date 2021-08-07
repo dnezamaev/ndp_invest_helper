@@ -10,39 +10,83 @@ namespace ndp_invest_helper
     /// <summary>
     /// Статическая информация о ценной бумаге.
     /// </summary>
-    class Security
+    public class Security
     {
         public string Isin;
         public string Ticker;
+        public string Name;
         public Issuer Issuer;
 
-        public string BestName
+        /// <summary>
+        /// Лучшее уникальное имя бумаги для отображения.
+        /// Порядок: Name, Ticker, Isin.
+        /// </summary>
+        public string BestUniqueFriendlyName
         {
             get
             {
-                if (!String.IsNullOrEmpty(Ticker) && Ticker != "???")
+                if (!string.IsNullOrEmpty(Name))
+                    return Name;
+
+                if (!string.IsNullOrEmpty(Ticker) && Ticker != "???")
                     return Ticker;
-                else if (this is Share || this is Bond)
+
+                return Isin;
+            }
+        }
+
+        /// <summary>
+        /// Лучшее имя бумаги для отображения.
+        /// Порядок: Name, Ticker, Issuer.Name, Isin.
+        /// </summary>
+        public string BestFriendlyName
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(Name))
+                    return Name;
+
+                if (!string.IsNullOrEmpty(Ticker) && Ticker != "???")
+                    return Ticker;
+
+                if (this is Share || this is Bond)
                     return Issuer.Name;
-                else
-                    return Isin;
+
+                return Isin;
+            }
+        }
+
+        /// <summary>
+        /// Полное наименование бумаги включая ISIN, Ticker, Name, Issuer.Name.
+        /// </summary>
+        public string FullName
+        {
+            get
+            {
+                var sb = new StringBuilder(Isin);
+
+                if (!string.IsNullOrEmpty(Ticker) && Ticker != "???")
+                    sb.AppendFormat(" {0}", Ticker);
+
+                if (!string.IsNullOrEmpty(Name))
+                    sb.AppendFormat(" {0}", Name);
+
+                sb.AppendFormat(" {0}", Issuer.Name);
+
+                return sb.ToString();
             }
         }
 
         public override string ToString()
         {
-            var sb = new StringBuilder();
-
-            sb.AppendFormat("{0} {1}", Isin, Ticker);
-
-            return sb.ToString();
+            return FullName;
         }
     }
 
     /// <summary>
     /// Динамическая информация о ценной бумаге.
     /// </summary>
-    class SecurityInfo
+    public class SecurityInfo
     {
         /// <summary>
         /// Количество в портфеле, отчете и т.п.
@@ -79,7 +123,7 @@ namespace ndp_invest_helper
         }
     }
 
-    class Share : Security 
+    public class Share : Security 
     {
         public string Currency;
 
@@ -89,7 +133,7 @@ namespace ndp_invest_helper
         }
     }
 
-    class Bond : Security
+    public class Bond : Security
     {
         public string Currency;
 
@@ -99,7 +143,7 @@ namespace ndp_invest_helper
         }
     }
 
-    class ETF : Security
+    public class ETF : Security
     {
         public Dictionary<Sector, decimal> Sectors = new Dictionary<Sector, decimal>();
 

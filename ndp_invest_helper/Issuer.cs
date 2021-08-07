@@ -6,7 +6,7 @@ using System.Xml.Linq;
 
 namespace ndp_invest_helper
 {
-    class Issuer
+    public class Issuer
     {
         public string Name;
 
@@ -61,8 +61,10 @@ namespace ndp_invest_helper
     /// Тогда возвращаемые объекты Security, Issuer тоже должны быть Immutable.
     /// Можно заморочиться, но смысла нет.
     /// </summary>
-    static class SecuritiesManager
+    public static class SecuritiesManager
     {
+        private static string parsedFilePath;
+
         public static List<Issuer> Issuers;
                
         public static List<Security> Securities;
@@ -71,14 +73,24 @@ namespace ndp_invest_helper
                
         public static Dictionary<string, Security> SecuritiesByTicker;
 
-        public static void ParseXmlFile(string filePath)
+        public static Dictionary<string, string> SecTypeFriendlyNames = 
+            new Dictionary<string, string>
+            {
+                { "cash", "Деньги" },
+                { "share", "Акции" },
+                { "bond", "Облигации" },
+                { "etf", "Фонды" },
+                { "gold", "Золото" },
+            };
+
+        public static void ParseXmlText(string xmlText)
         {
             Issuers = new List<Issuer>();
             Securities = new List<Security>();
             SecuritiesByIsin = new Dictionary<string, Security>();
             SecuritiesByTicker = new Dictionary<string, Security>();
 
-            var xRoot = XElement.Parse(File.ReadAllText(filePath));
+            var xRoot = XElement.Parse(xmlText);
 
             foreach (var xIssuer in xRoot.Elements("issuer"))
             {
@@ -106,13 +118,41 @@ namespace ndp_invest_helper
             }
         }
 
+        public static void ParseXmlFile(string filePath)
+        {
+            parsedFilePath = filePath;
+            ParseXmlText(File.ReadAllText(filePath));
+        }
+
         private static Security ParseXmlSecurity(XElement xSecurity)
         {
             // Разбираем общие параметры.
             Security security = null;
-            var sec_type = xSecurity.Attribute("sec_type").Value;
-            var isin = xSecurity.Attribute("isin").Value;
-            var ticker = xSecurity.Attribute("ticker").Value;
+
+            var xSecType = xSecurity.Attribute("sec_type");
+
+            if (xSecType == null)
+                throw new ArgumentException(string.Format(
+                    "В файле {0} найдена ценная бумага без обязательного аттрибута sec_type {2}.",
+                    parsedFilePath, xSecurity.ToString()));
+
+
+            var secType = xSecType.Value;
+
+            var xIsin = xSecurity.Attribute("isin");
+
+            if (xIsin == null)
+                throw new ArgumentException(string.Format(
+                    "В файле {0} найдена ценная бумага без обязательного аттрибута isin {2}.",
+                    parsedFilePath, xSecurity.ToString()));
+
+            var isin = xIsin.Value;
+
+            var ticker = "";
+            var xTicker = xSecurity.Attribute("ticker");
+
+            if (xTicker != null)
+                ticker = xTicker.Value;
 
             var currency = "???";
             var xCurrency = xSecurity.Attribute("currency");
@@ -120,7 +160,7 @@ namespace ndp_invest_helper
                 currency = xCurrency.Value;
 
             // Разбираем бумаги по типам - акции, облигации, ПИФы.
-            switch (sec_type)
+            switch (secType)
             {
                 case "share":
                     security = new Share()
@@ -156,7 +196,7 @@ namespace ndp_invest_helper
                     etf.WhatInside = 
                         Utils.HandleComplexStringXmlAttribute(xSecurity, "what_inside");
 
-                    Utils.HandleSectorAttribute(xSecurity, etf.Sectors, "999");
+                    Utils.HandleSectorAttribute(xSecurity, etf.Sectors, SectorsManager.DefaultSectorId);
                     break;
                 default:
                     break;
