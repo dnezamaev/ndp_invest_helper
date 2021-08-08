@@ -45,7 +45,6 @@
   <ItemGroup>
     <Compile Include="Country.cs" />
     <Compile Include="Currency.cs" />
-    <Compile Include="Issuer.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

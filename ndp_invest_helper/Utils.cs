@@ -101,11 +101,35 @@ namespace ndp_invest_helper
                 var sector = SectorsManager.Sectors.Find(x => x.Id == item.Key);
 
                 if (sector == null)
-                    continue;
+                    throw new ArgumentException(string.Format(
+                        "Обнаружен неизвестный сектор {0} в теге {1}",
+                        item.Key, xTag.ToString()));
 
                 destination[sector] = item.Value;
             }
 
+        }
+
+        public static Dictionary<Sector, decimal> HandleSectorAttribute(
+            XElement xTag,
+            string unknownSector)
+        {
+            var result = new Dictionary<Sector, decimal>();
+            var sectors = HandleComplexStringXmlAttribute(xTag, "sector", true, unknownSector);
+
+            foreach (var item in sectors)
+            {
+                var sector = SectorsManager.Sectors.Find(x => x.Id == item.Key);
+
+                if (sector == null)
+                    throw new ArgumentException(string.Format(
+                        "Обнаружен неизвестный сектор {0} в теге {1}",
+                        item.Key, xTag.ToString()));
+
+                result[sector] = item.Value;
+            }
+
+            return result;
         }
 
     }

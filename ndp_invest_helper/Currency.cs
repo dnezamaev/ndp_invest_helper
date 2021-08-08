@@ -7,7 +7,7 @@ using System.Xml.Linq;
 
 namespace ndp_invest_helper
 {
-    class CurrenciesManager
+    public class CurrenciesManager
     {
         public static Dictionary<string, decimal> CurrencyRates;
 

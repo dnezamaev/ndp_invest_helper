@@ -76,17 +76,6 @@ namespace ndp_invest_helper
         /// </summary>
         public bool OrderAscending = false;
 
-        /// <summary>
-        /// Флажочек, сигнализирующий о проблеме в файле с бумагами.
-        /// </summary>
-        public static bool FoundNotUsedSecurities = false;
-
-        /// <summary>
-        /// Бумаги с недозаполненной информацией по принципу:
-        /// если не попала ни в одну группу.
-        /// </summary>
-        public List<Security> NotUsedSecurities = new List<Security>();
-
         public PortfolioAnalyticsResult() { }
 
         public PortfolioAnalyticsResult(Portfolio portfolio)
@@ -208,10 +197,13 @@ namespace ndp_invest_helper
         }
 
         /// <summary>
-        /// Ищем бумаги с недозаполненной информацией.
+        /// Ищем бумаги с недозаполненной информацией. 
+        /// Они не попали в результат, хотя присутствуют в портфеле.
         /// </summary>
         /// <param name="allSecurities">Список всех проанализированных бумаг.</param>
-        public void FindNotUsedSecurities(IEnumerable<Security> allSecurities)
+        /// <returns>Бумаги с недозаполненной информацией по принципу:
+        /// если не попала ни в одну группу.  </returns>
+        public List<Security> FindNotUsedSecurities(IEnumerable<Security> allSecurities)
         {
             // Полный список бумаг в портфеле.
             // Из него будем вычитать хорошие бумаги (найденные в группах),
@@ -223,11 +215,8 @@ namespace ndp_invest_helper
                 badSecuritiesInGroup.RemoveAll(
                     x => analyticsRecord.Value.Portfolio.Securities.ContainsKey(x));
             }
-            // Добавляем плохие в итоговое множество.
-            NotUsedSecurities = badSecuritiesInGroup;
 
-            if (NotUsedSecurities.Count > 0)
-                FoundNotUsedSecurities = true;
+            return badSecuritiesInGroup;
         }
 
         /// <summary>
@@ -296,14 +285,6 @@ namespace ndp_invest_helper
 
                 // Основное содержимое.
                 sb.AppendLine(item.Value.ToString());
-            }
-
-            if (FoundNotUsedSecurities)
-            {
-                sb.AppendLine("По этим бумагам нет сведений, они не были учтены в результатах группировки: ");
-                sb.AppendJoin("; ", NotUsedSecurities.Select(x => x.BestFriendlyName));
-                sb.AppendLine();
-                sb.AppendLine();
             }
 
             sb.AppendLine(string.Format("Итого по учтенным бумагам: {0:0.00}", Total));
@@ -382,8 +363,8 @@ namespace ndp_invest_helper
             Dictionary<string, decimal> cash = null
             )
         {
-            // Копируем значения, чтобы избежать порчи исходного портфеля
-            // по ссылкам SecurityInfo.
+            // Копируем значения, чтобы избежать порчи
+            // исходного портфеля по ссылкам SecurityInfo.
             if (securities != null)
                 foreach (var secKvp in securities)
                     AddSecurity(secKvp.Key, secKvp.Value);
@@ -419,12 +400,15 @@ namespace ndp_invest_helper
             // TODO: здесь непонятно как быть, если у текущей и добавляемой бумаг
             // отличаются цены и коэффициенты коррекции.
             // Возможно, стоит вычислять среднее взвешенное.
-            var thisSecInfo = securities.GetValueOrDefault(security, new SecurityInfo());
+            var thisSecInfo = securities.GetValueOrSetDefault(security, new SecurityInfo());
+
+            var oldTotal = thisSecInfo.Total;
             thisSecInfo.Count += securityInfo.Count;
             thisSecInfo.Price = securityInfo.Price;
             thisSecInfo.Correction = securityInfo.Correction;
-            securities[security] = thisSecInfo;
-            this.securitiesTotal += securityInfo.Total;
+            var newTotal = thisSecInfo.Total;
+
+            securitiesTotal += newTotal - oldTotal;
         }
 
         /// <summary>
@@ -560,6 +544,20 @@ namespace ndp_invest_helper
             }
         }
 
+        private void CheckNotUsedSecurities(PortfolioAnalyticsResult result)
+        {
+            var notUsed = result.FindNotUsedSecurities(Securities.Keys);
+
+            if (notUsed.Count == 0)
+                return;
+
+            var sb = new StringBuilder("Обнаружены бумаги с недозаполеннной информацией: ");
+            var isins = notUsed.Select(x => x.Isin);
+            sb.AppendJoin(", ", isins);
+
+            throw new ArgumentException(sb.ToString());
+        }
+
         public PortfolioAnalyticsResult GroupByCurrency()
         {
             var result = new PortfolioAnalyticsResult();
@@ -571,38 +569,22 @@ namespace ndp_invest_helper
                 var security = portfolioSecurity.Key;
                 var securityInfo = portfolioSecurity.Value;
 
-                // Данные из файла issuers.xml.
-                Dictionary<string, decimal> currenciesDict = null;
-                if (security is ETF)
-                    currenciesDict = (security as ETF).Currencies;
-                else
-                {
-                    var currency = security is Share ?
-                        (security as Share).Currency :
-                        (security as Bond).Currency;
-
-                    currenciesDict = new Dictionary<string, decimal>
-                    {
-                        { currency, 1 }
-                    };
-                }
-
-                foreach (var currencyRecord in currenciesDict)
+                foreach (var currencyRecord in security.Currencies)
                 {
                     // Ищем существующую запись по этой валюте.
                     // Если ее нет, создаем пустую.
-                    var resultValue = analytics.GetValueOrDefault(
+                    var resultValue = analytics.GetValueOrSetDefault(
                         currencyRecord.Key, new PortfolioAnalyticsItem());
 
-                    analytics[currencyRecord.Key] = resultValue;
-
-                    // Добавляем бумагу.
+                    // Добавляем бумагу с коэффициентом коррекции.
+                    // Создаем копию securitryInfo, чтобы не портить запись в исходном портфеле.
                     // TODO: проверить учитываются ли доли?
-                    resultValue.Portfolio.AddSecurity(security, securityInfo);
+                    resultValue.Portfolio.AddSecurity(security, 
+                        new SecurityInfo(securityInfo, currencyRecord.Value));
                 }
             }
 
-            // Учитваем наличку.
+            // Учитываем наличку.
             foreach (var cashRecord in cash)
             {
                 var resultValue = analytics.GetValueOrSetDefault(
@@ -611,46 +593,38 @@ namespace ndp_invest_helper
                 resultValue.Portfolio.AddCash(cashRecord.Key, cashRecord.Value);
             }
 
+            // Расчитываем доли.
             result.CalculateParts();
-            result.FindNotUsedSecurities(Securities.Keys);
+
+            // Проверяем, что не упустили бумаги с недозаполненной инофрмацией.
+            CheckNotUsedSecurities(result);
 
             return result;
         }
 
         public PortfolioAnalyticsResult GroupByCountry()
         {
+            // Логика та же, что у группировки по валютам, см. комменты там.
             var result = new PortfolioAnalyticsResult();
             var analytics = result.Analytics;
 
-            // Сначала считаем общую сумму по каждой стране.
             foreach (var portfolioSecurity in Securities)
             {
                 var security = portfolioSecurity.Key;
                 var securityInfo = portfolioSecurity.Value;
 
-                // Данные из файла issuers.xml.
-                var countriesDict = security is ETF
-                    ? (security as ETF).Countries
-                    : security.Issuer.Countries;
-
-                foreach (var countryRecord in countriesDict)
+                foreach (var countryRecord in security.Countries)
                 {
-                    // Ищем существующую запись по этой стране.
-                    // Если ее нет, создаем пустую.
-                    var resultValue = analytics.GetValueOrDefault(
+                    var resultValue = analytics.GetValueOrSetDefault(
                         countryRecord.Key, new PortfolioAnalyticsItem());
 
-                    analytics[countryRecord.Key] = resultValue;
-
-                    // Добавляем бумагу и её стоимость в эту запись
-                    // с коррекцией на долю.
                     resultValue.Portfolio.AddSecurity(security, 
                         new SecurityInfo(securityInfo, countryRecord.Value));
                 }
             }
 
             result.CalculateParts();
-            result.FindNotUsedSecurities(Securities.Keys);
+            CheckNotUsedSecurities(result);
 
             return result;
         }
@@ -666,14 +640,6 @@ namespace ndp_invest_helper
         /// what_inside у ETF в файле Securities.xml, если unpackEtf == true.</returns>
         public PortfolioAnalyticsResult GroupByType(bool unpackEtf)
         {
-            // Словарь соответствия типов C# и типов в аттрибутах securities.xml.
-            // На случай рефакторинга, чтобы не побилась зависимость при переименовании типа.
-            var typesDict = new Dictionary<Type, string> {
-                { typeof(Share), "share" },
-                { typeof(Bond),  "bond" },
-                { typeof(ETF),    "etf" },
-            };
-
             var result = new PortfolioAnalyticsResult();
             var analytics = result.Analytics;
             analytics["cash"] = new PortfolioAnalyticsItem
@@ -684,12 +650,12 @@ namespace ndp_invest_helper
             PortfolioAnalyticsItem analyticsItem;
 
             // Разбираем бумаги по типам.
-            foreach (var type in typesDict.Keys)
+            foreach (var type in SecuritiesManager.TypesDictionary.Keys)
             {
                 // Выбираем бумаги с типом совпадающим текущему type.
-                var foundSecurities =
-                    Securities.Where(x => x.Key.GetType() == type).ToDictionary(
-                    x => x.Key, x => x.Value);
+                var foundSecurities = Securities.
+                    Where(x => x.Key.GetType() == type).
+                    ToDictionary(x => x.Key, x => x.Value);
 
                 // Заполняем результат, считаем долю, сумму.
                 analyticsItem = new PortfolioAnalyticsItem()
@@ -698,14 +664,14 @@ namespace ndp_invest_helper
                 };
 
                 // Преобразуем тип в строку из словаря и используем её как ключ.
-                var key = typesDict[type];
+                var key = SecuritiesManager.TypesDictionary[type];
                 analytics[key] = analyticsItem;
             }
 
             // Раскидываем ETF по другим активам, если надо.
             if (unpackEtf)
             {
-                var etfAnalytics = analytics[typesDict[typeof(ETF)]];
+                var etfAnalytics = analytics[SecuritiesManager.TypesDictionary[typeof(ETF)]];
 
                 // Проходимся по всем фондам.
                 foreach (var securityItem in etfAnalytics.Portfolio.Securities)
@@ -718,28 +684,26 @@ namespace ndp_invest_helper
                         // Элемент результата (словаря по типам), в который идет фонд.
                         // Если такого нет, то создаем.
                         var analyticsItemDestination =
-                            analytics.GetValueOrDefault(
+                            analytics.GetValueOrSetDefault(
                                 whatInside.Key,
                                 new PortfolioAnalyticsItem());
 
                         // Учитываем поправку в итоговой цене.
-                        var correctedSecInfo = new SecurityInfo(securityItem.Value);
-                        correctedSecInfo.Correction = whatInside.Value;
+                        var correctedSecInfo = new SecurityInfo(
+                            securityItem.Value, whatInside.Value);
 
                         // Добавляем в список бумаг.
                         analyticsItemDestination.Portfolio.AddSecurity(
                             securityItem.Key, correctedSecInfo);
-
-                        analytics[whatInside.Key] = analyticsItemDestination;
                     }
                 }
 
                 // Теперь фонды в чистом виде нам не нужны.
-                analytics.Remove(typesDict[typeof(ETF)]);
+                analytics.Remove(SecuritiesManager.TypesDictionary[typeof(ETF)]);
             }
 
             result.CalculateParts();
-            result.FindNotUsedSecurities(Securities.Keys);
+            CheckNotUsedSecurities(result);
 
             return result;
         }
@@ -749,39 +713,28 @@ namespace ndp_invest_helper
             var result = new PortfolioAnalyticsResult();
             var analytics = result.Analytics;
 
-            // Сначала считаем общую сумму по каждому сектору.
             foreach (var portfolioSecurity in Securities)
             {
                 var security = portfolioSecurity.Key;
                 var securityInfo = portfolioSecurity.Value;
 
-                // Данные из файла issuers.xml.
-                var sectorsDict = security is ETF
-                    ? (security as ETF).Sectors
-                    : security.Issuer.Sectors;
-
-                foreach (var sectorRecord in sectorsDict)
+                foreach (var sectorRecord in security.Sectors)
                 {
                     var sector = sectorRecord.Key;
 
-                    if (level <sector.Level)
+                    if (level < sector.Level)
                         sector = SectorsManager.GetParent(sector);
 
-                    // Ищем существующую запись по этому сектору.
-                    // Если ее нет, создаем пустую.
-                    var resultValue = analytics.GetValueOrDefault(
+                    var resultValue = analytics.GetValueOrSetDefault(
                         sector.Id, new PortfolioAnalyticsItem());
 
-                    analytics[sector.Id] = resultValue;
-
-                    // Добавляем бумагу и её стоимость в эту запись.
                     resultValue.Portfolio.AddSecurity(security, 
                         new SecurityInfo(securityInfo, sectorRecord.Value));
                 }
             }
 
             result.CalculateParts();
-            result.FindNotUsedSecurities(Securities.Keys);
+            CheckNotUsedSecurities(result);
 
             return result;
         }

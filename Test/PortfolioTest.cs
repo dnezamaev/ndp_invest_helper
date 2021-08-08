@@ -2,6 +2,7 @@
 using System;
 using ndp_invest_helper;
 using System.Xml.Linq;
+using System.Collections.Generic;
 
 namespace Test
 {
@@ -54,64 +55,82 @@ namespace Test
             Assert.AreEqual(0.3M, resultBoth["key3"]);
             Assert.AreEqual(0.5M, resultBoth["???"]);
         }
-        
 
-        /// <summary>
-        /// Если у эмитента и бумаги нет одного из обязательных аттрибутов,
-        /// должно быть исключение.
-        /// </summary>
         [TestMethod]
         public void TestIssuerAndSecurity()
         {
             #region Xml text.
-            var xmlText_Full = @"
+            var xmlText = @"
                 <root>
                 <issuer name = 'full attributes issuer' 
                     country = 'issuer country' 
+                    currency = 'issuer currency' 
                     sector = '1'
                 >
+
                     <country key = 'issuer inner country 1' value = '20' />
                     <country key = 'issuer inner country 2' value = '80' />
 
-                    <sector key = 'issuer inner sector 1' value = '20' />
-                    <sector key = 'issuer inner sector 2' value = '80' />
+                    <currency key = 'issuer inner currency 1' value = '20' />
+                    <currency key = 'issuer inner currency 2' value = '80' />
+
+                    <sector key = '2' value = '20' />
+                    <sector key = '3' value = '80' />
 
                     <security 
                         isin = 'full attributes etf' 
                         sec_type = 'etf' 
                         currency = 'etf currency' 
                         country = 'US' 
-                        sector = '2' 
+                        sector = '4' 
                         what_inside = 'share'
                     >
                         <currency key = 'CUR1' value = '10' />
                         <country key = 'CN' value = '20' />
-                        <sector key = '3' value = '30' />
+                        <sector key = '5' value = '30' />
                         <what_inside  key = 'bond' value = '40' />
                     </security>
 
-                    <security isin = 'empty attributes etf' ticker = 'EMPTY' sec_type = 'etf' />
+                    <security isin = 'empty attributes bond' ticker = 'EMPTY' sec_type = 'bond' />
+
+                    <security isin = 'bond with currency' sec_type = 'bond' currency = 'bond currency' />
 
                 </issuer>
                 </root>
             ";
             #endregion
 
-            SecuritiesManager.ParseXmlText(xmlText_Full);
+            SecuritiesManager.ParseXmlText(xmlText);
 
             // У эмитента свои страны и сектора, приоритет у вложенных тегов перед аттрибутами.
             Assert.AreEqual(1, SecuritiesManager.Issuers.Count);
             var issuer = SecuritiesManager.Issuers[0];
             Assert.AreEqual("full attributes issuer", issuer.Name);
+
+            Assert.AreEqual(2, issuer.Currencies.Count);
+            Assert.IsTrue(issuer.Currencies.ContainsKey("issuer inner currency 1"));
+            Assert.IsTrue(issuer.Currencies.ContainsKey("issuer inner currency 2"));
+            Assert.AreEqual(0.2M, issuer.Currencies["issuer inner currency 1"]);
+            Assert.AreEqual(0.8M, issuer.Currencies["issuer inner currency 2"]);
+
             Assert.AreEqual(2, issuer.Countries.Count);
             Assert.IsTrue(issuer.Countries.ContainsKey("issuer inner country 1"));
             Assert.IsTrue(issuer.Countries.ContainsKey("issuer inner country 2"));
             Assert.AreEqual(0.2M, issuer.Countries["issuer inner country 1"]);
             Assert.AreEqual(0.8M, issuer.Countries["issuer inner country 2"]);
 
-            // С заполненной бумагой аналогично, у неё свои характеристики,
+            Assert.AreEqual(2, issuer.Sectors.Count);
+            Assert.IsTrue(issuer.Sectors.ContainsKey(SectorsManager.ById["2"]));
+            Assert.IsTrue(issuer.Sectors.ContainsKey(SectorsManager.ById["3"]));
+            Assert.AreEqual(0.2M, issuer.Sectors[SectorsManager.ById["2"]]);
+            Assert.AreEqual(0.8M, issuer.Sectors[SectorsManager.ById["3"]]);
+
+            // С заполненным фондом аналогично, у него свои характеристики,
             // переопределяющие эмитента.
-            Assert.AreEqual(2, SecuritiesManager.Securities.Count);
+            const int SecuritiesCount = 3;
+            Assert.AreEqual(SecuritiesCount, SecuritiesManager.Securities.Count);
+            Assert.AreEqual(SecuritiesCount, issuer.Securities.Count);
+
             var security = SecuritiesManager.SecuritiesByIsin["full attributes etf"];
             Assert.IsInstanceOfType(security, typeof(ETF));
             var fullEtf = security as ETF;
@@ -129,9 +148,9 @@ namespace Test
             Assert.AreEqual(0.8M, fullEtf.Countries["???"]);
 
             Assert.AreEqual(2, fullEtf.Sectors.Count);
-            Assert.IsTrue(fullEtf.Sectors.ContainsKey(SectorsManager.ById["3"]));
+            Assert.IsTrue(fullEtf.Sectors.ContainsKey(SectorsManager.ById["5"]));
             Assert.IsTrue(fullEtf.Sectors.ContainsKey(SectorsManager.DefaultSector));
-            Assert.AreEqual(0.3M, fullEtf.Sectors[SectorsManager.ById["3"]]);
+            Assert.AreEqual(0.3M, fullEtf.Sectors[SectorsManager.ById["5"]]);
             Assert.AreEqual(0.7M, fullEtf.Sectors[SectorsManager.DefaultSector]);
 
             Assert.AreEqual(2, fullEtf.WhatInside.Count);
@@ -140,19 +159,107 @@ namespace Test
             Assert.AreEqual(0.4M, fullEtf.WhatInside["bond"]);
             Assert.AreEqual(0.6M, fullEtf.WhatInside["???"]);
 
-            var emptyEtf = SecuritiesManager.SecuritiesByTicker["EMPTY"];
+            // У пустой бумаги характеристики берутся от эмитента.
+            var emptySec = SecuritiesManager.SecuritiesByTicker["EMPTY"];
 
+            Assert.AreEqual(2, emptySec.Countries.Count);
+            Assert.IsTrue(emptySec.Countries.ContainsKey("issuer inner country 1"));
+            Assert.IsTrue(emptySec.Countries.ContainsKey("issuer inner country 2"));
+            Assert.AreEqual(0.2M, emptySec.Countries["issuer inner country 1"]);
+            Assert.AreEqual(0.8M, emptySec.Countries["issuer inner country 2"]);
+
+            Assert.AreEqual(2, emptySec.Sectors.Count);
+            Assert.IsTrue(emptySec.Sectors.ContainsKey(SectorsManager.ById["2"]));
+            Assert.IsTrue(emptySec.Sectors.ContainsKey(SectorsManager.ById["3"]));
+            Assert.AreEqual(0.2M, emptySec.Sectors[SectorsManager.ById["2"]]);
+            Assert.AreEqual(0.8M, emptySec.Sectors[SectorsManager.ById["3"]]);
+
+            var currencyBond = SecuritiesManager.SecuritiesByIsin["bond with currency"];
+
+            Assert.AreEqual(1, currencyBond.Currencies.Count);
+            Assert.IsTrue(currencyBond.Currencies.ContainsKey("bond currency"));
+            Assert.AreEqual(1M, currencyBond.Currencies["bond currency"]);
         }
 
-        /// <summary>
-        /// Проверка приоритета аттрибута и вложенных тегов.
-        /// </summary>
         [TestMethod]
-        public void TestOverrideSecurityAttributes()
+        public void TestGroupping()
         {
-            SecuritiesManager.ParseXmlFile(@"data\info\securities.xml");
-            var security = SecuritiesManager.SecuritiesByIsin["test override security"] as ETF;
-            Assert.AreEqual(security.Countries.Count, 4);
+            #region Xml text.
+            var xmlText_Full = @"
+                <root>
+                <issuer name = 'issuer' >
+
+                    <security 
+                        isin = 'etf1' 
+                        sec_type = 'etf' 
+                        currency = 'cur1' 
+                        country = 'cnt1' 
+                        sector = '1' 
+                        what_inside = 'share'
+                    />
+
+                    <security isin = 'etf2' sec_type = 'etf' >
+                        <currency key = 'cur1' value = '10' />
+                        <currency key = 'cur2' value = '50' />
+                        <country key = 'cnt1' value = '10' />
+                        <country key = 'cnt2' value = '50' />
+                        <sector key = '1' value = '10' />
+                        <sector key = '2' value = '50' />
+                        <what_inside key = 'share' value = '10' />
+                        <what_inside key = 'bond' value = '50' />
+                        <what_inside key = 'gold' value = '10' />
+                    </security>
+
+                </issuer>
+
+                <issuer name = 'empty'>
+                    <security isin = 'empty' sec_type = 'share'/>
+                </issuer>
+
+                </root>
+            ";
+            #endregion
+
+            CurrenciesManager.CurrencyRates = new Dictionary<string, decimal>
+            {
+                { "cur1", 1 },
+                { "cur2", 1 },
+            };
+
+            SecuritiesManager.ParseXmlText(xmlText_Full);
+            var etf1 = SecuritiesManager.SecuritiesByIsin["etf1"];
+            var etf2 = SecuritiesManager.SecuritiesByIsin["etf2"];
+
+
+            var portfolio = new Portfolio(
+                new Dictionary<Security, SecurityInfo>
+                {
+                    { etf1, new SecurityInfo { Count = 1, Price = 1000 } },
+                    { etf2, new SecurityInfo { Count = 1, Price = 1000 } }
+                },
+                new Dictionary<string, decimal>
+                {
+                    { "cur1", 100 },
+                    { "cur2", 100 },
+                }
+                );
+
+            var group = new GrouppingResults(portfolio);
+            var grCurrency = group.ByCurrency;
+            var grCountry = group.ByCountry;
+            var grType = group.ByType;
+            var grSector = group.BySector;
+
+            var anCurrency = group.ByCurrency.Analytics;
+            var anCountry = group.ByCountry.Analytics;
+            var anType = group.ByType.Analytics;
+            var anSector = group.BySector.Analytics;
+
+            Assert.AreEqual(3, anCurrency.Count);
+            Assert.IsTrue(anCurrency.ContainsKey("cur1"));
+            Assert.IsTrue(anCurrency.ContainsKey("cur2"));
+            Assert.IsTrue(anCurrency.ContainsKey("???"));
         }
+
     }
 }
