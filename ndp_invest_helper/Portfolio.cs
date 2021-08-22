@@ -571,6 +571,11 @@ namespace ndp_invest_helper
 
                 this.securitiesTotal += portfolioValue.Total;
             }
+
+            foreach (var cashRecord in report.Cash)
+            {
+                AddCash(cashRecord.Key, cashRecord.Value);
+            }
         }
 
         private void CheckNotUsedSecurities(PortfolioAnalyticsResult result)
