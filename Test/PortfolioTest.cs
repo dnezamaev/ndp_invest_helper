@@ -3,6 +3,7 @@ using System;
 using ndp_invest_helper;
 using System.Xml.Linq;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Test
 {
@@ -230,19 +231,31 @@ namespace Test
             var etf1 = SecuritiesManager.SecuritiesByIsin["etf1"];
             var etf2 = SecuritiesManager.SecuritiesByIsin["etf2"];
 
-
-            var portfolio = new Portfolio(
+            var secDict = 
                 new Dictionary<Security, SecurityInfo>
                 {
-                    { etf1, new SecurityInfo { Count = 1, Price = 1000 } },
-                    { etf2, new SecurityInfo { Count = 1, Price = 1000 } }
-                },
+                    { etf1, new SecurityInfo { Count = 10, Price = 1000 } },
+                    { etf2, new SecurityInfo { Count = 10, Price = 1000 } }
+                };
+
+            var cashDict =
                 new Dictionary<string, decimal>
                 {
                     { "cur1", 100 },
                     { "cur2", 100 },
-                }
-                );
+                };
+
+            var portfolio = new Portfolio(secDict, cashDict);
+
+            var cashTotal = cashDict.Sum(x => x.Value);
+            var secTotal = secDict.Sum(x => x.Value.Total);
+            var total = cashTotal + secTotal;
+
+            Assert.AreEqual(cashTotal, portfolio.CashTotal);
+            Assert.AreEqual(total, portfolio.Total);
+
+            Assert.AreEqual(secDict.Count, portfolio.Securities.Count);
+            Assert.AreEqual(cashDict.Count, portfolio.Cash.Count);
 
             var group = new GrouppingResults(portfolio);
             var grCurrency = group.ByCurrency;
@@ -259,6 +272,66 @@ namespace Test
             Assert.IsTrue(anCurrency.ContainsKey("cur1"));
             Assert.IsTrue(anCurrency.ContainsKey("cur2"));
             Assert.IsTrue(anCurrency.ContainsKey("???"));
+            Assert.AreEqual(
+                (100 + 10 * 1000 * 1 + 10 * 1000 * 0.1M) / total, 
+                anCurrency["cur1"].Part);
+            Assert.AreEqual(
+                (100 + 10 * 1000 * 0.5M) / total, 
+                anCurrency["cur2"].Part);
+            Assert.AreEqual(
+                (10 * 1000 * 0.4M) / total, 
+                anCurrency["???"].Part);
+
+            Assert.AreEqual(3, anCountry.Count);
+            Assert.IsTrue(anCountry.ContainsKey("cnt1"));
+            Assert.IsTrue(anCountry.ContainsKey("cnt2"));
+            Assert.IsTrue(anCountry.ContainsKey("???"));
+            Assert.AreEqual(
+                (10 * 1000 * 1 + 10 * 1000 * 0.1M) / secTotal,
+                anCountry["cnt1"].Part);
+            Assert.AreEqual(
+                (10 * 1000 * 0.5M) / secTotal,
+                anCountry["cnt2"].Part);
+            Assert.AreEqual(
+                (10 * 1000 * 0.4M) / secTotal,
+                anCountry["???"].Part);
+
+            Assert.AreEqual(3, anSector.Count);
+            Assert.IsTrue(anSector.ContainsKey("1"));
+            Assert.IsTrue(anSector.ContainsKey("2"));
+            Assert.IsTrue(anSector.ContainsKey("900"));
+            Assert.AreEqual(
+                (10 * 1000 * 1 + 10 * 1000 * 0.1M) / secTotal,
+                anSector["1"].Part);
+            Assert.AreEqual(
+                (10 * 1000 * 0.5M) / secTotal,
+                anSector["2"].Part);
+            Assert.AreEqual(
+                (10 * 1000 * 0.4M) / secTotal,
+                anSector["900"].Part);
+
+            Assert.AreEqual(5, anType.Count);
+            Assert.IsTrue(anType.ContainsKey("share"));
+            Assert.IsTrue(anType.ContainsKey("bond"));
+            Assert.IsTrue(anType.ContainsKey("gold"));
+            Assert.IsTrue(anType.ContainsKey("cash"));
+            Assert.IsTrue(anType.ContainsKey("???"));
+            Assert.AreEqual(
+                (10 * 1000 * 1 + 10 * 1000 * 0.1M) / total,
+                anType["share"].Part);
+            Assert.AreEqual(
+                (10 * 1000 * 0.5M) / total,
+                anType["bond"].Part);
+            Assert.AreEqual(
+                (10 * 1000 * 0.1M) / total,
+                anType["gold"].Part);
+            Assert.AreEqual(
+                (100 + 100M) / total,
+                anType["cash"].Part);
+            Assert.AreEqual(
+                (10 * 1000 * 0.3M) / total,
+                anType["???"].Part);
+
         }
 
     }

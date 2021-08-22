@@ -39,7 +39,14 @@ namespace ndp_invest_helper
                 var xSecDetails = xSecurity.Descendants(xNamespace + "Подробности21").First();
                 var secCount = (UInt64)decimal.Parse(xSecDetails.Attribute("remains_plan").Value, 
                     NumberStyles.Any, CultureInfo.InvariantCulture);
+                var secCurrency = xSecDetails.Attribute("currency_ISO").Value;
+
+                // В отчете используется старый код рубля.
+                if (secCurrency == "RUR")
+                    secCurrency = "RUB";
+
                 decimal secPrice;
+
                 // костыль для определения облигации
                 // можно заменить на анализ тэга предка bond_type1="ОБЛИГАЦИЯ"
                 // Но пока нет смысла, этот чудо формат может измениться в любой момент.
@@ -61,6 +68,8 @@ namespace ndp_invest_helper
                     secPrice = decimal.Parse(xSecDetails.Attribute("bond_price1").Value,
                         NumberStyles.Any, CultureInfo.InvariantCulture);
                 }
+
+                secPrice *= CurrenciesManager.CurrencyRates[secCurrency];
 
                 var security = SecuritiesManager.SecuritiesByIsin[secIsin];
                 var securityInfo = new SecurityInfo {

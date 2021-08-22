@@ -22,13 +22,49 @@ namespace ndp_invest_helper
             InitializeComponent();
         }
 
-        private Portfolio FirstPortfolio {  get => grouppingResults[0].Portfolio; }
+        #region Properties
 
-        private Portfolio CurrentPortfolio { get => grouppingResults.Last().Portfolio; }
+        public Portfolio FirstPortfolio {  get => grouppingResults[0].Portfolio; }
 
-        private GrouppingResults FirstResult { get => grouppingResults[0]; }
+        public Portfolio CurrentPortfolio { get => grouppingResults.Last().Portfolio; }
 
-        private GrouppingResults CurrentResult { get => grouppingResults.Last(); }
+        public GrouppingResults FirstResult { get => grouppingResults[0]; }
+
+        public GrouppingResults CurrentResult { get => grouppingResults.Last(); }
+
+        /// <summary>
+        /// Выбранная в comboBox_BuySellSecurity бумага.
+        /// </summary>
+        public Security SelectedSecurity
+        {
+            get { return comboBox_BuySell_Security.SelectedValue as Security; }
+        }
+
+        /// <summary>
+        /// Информация о выбранной в comboBox_BuySellSecurity бумаге из портфеля.
+        /// Либо null, если такой бумаги в портфеле CurrentPortfolio нет.
+        /// </summary>
+        public SecurityInfo SelectedSecurityInfo
+        {
+            get
+            {
+                SecurityInfo secInfo;
+                CurrentPortfolio.Securities.TryGetValue(SelectedSecurity, out secInfo);
+                return secInfo;
+            }
+        }
+
+        /// <summary>
+        /// Выбранная в comboBox_BuySell_Currency валюта.
+        /// </summary>
+        public string SelectedCurrency 
+        { 
+            get => comboBox_BuySell_Currency.SelectedItem.ToString(); 
+        }
+
+        #endregion
+
+        #region Methods
 
         private void LoadXmlData()
         {
@@ -179,6 +215,20 @@ namespace ndp_invest_helper
             comboBox_BuySell_Currency.DataSource = CurrenciesManager.CurrencyRates.Keys.ToList();
         }
 
+        private void ExecuteTasks()
+        {
+            var taskFilePath = "task.xml"; 
+            var taskManager = new TaskManager(FirstPortfolio);
+            var taskOutput = new StringBuilder();
+            taskManager.ParseXmlFile(taskFilePath, taskOutput);
+            File.WriteAllText(Settings.Instance.Files.TaskOutput, taskOutput.ToString());
+            toolStripStatusLabel1.Text = "Задание выполнено, результаты записаны в output.txt";
+        }
+
+        #endregion
+
+        #region Event handlers
+
         private void MainForm_Load(object sender, EventArgs e)
         {
             toolStripMenuItem_Log.Checked = Settings.WriteLog;
@@ -187,6 +237,12 @@ namespace ndp_invest_helper
             LoadPortfolio();
             FillGroupControls();
             FillBuySellCombos();
+        }
+
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (Settings.WriteLog)
+                File.WriteAllText(Settings.LogFile, log.ToString());
         }
 
         private void dataGridView_RowEnter(object sender, DataGridViewCellEventArgs e)
@@ -205,11 +261,36 @@ namespace ndp_invest_helper
             listBox_GroupStocks.Items.AddRange(securities.ToArray());
         }
 
+        #region Right part
+
+        private void listBox_GroupStocks_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            comboBox_BuySell_Security.SelectedItem = listBox_GroupStocks.SelectedItem;
+        }
+
+        private void listBox_Deals_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // TODO: show groupping after selected deal.
+        }
+
+        #endregion
+
+        #region Buy/Sell
+
         private void buttonBuySell_Click(object sender, EventArgs e)
         {
-            var security = (Security)comboBox_BuySell_Security.SelectedValue;
-            var price = numericUpDown_BuySell_Price.Value;
-            var currency = (string)comboBox_BuySell_Currency.SelectedValue;
+            if (sender != buttonBuy && sender != buttonSell)
+                throw new ArgumentException("Unknown button");
+
+            var deal = new Deal()
+            {
+                Security = (Security)comboBox_BuySell_Security.SelectedValue,
+                Price = numericUpDown_BuySell_Price.Value,
+                Currency = (string)comboBox_BuySell_Currency.SelectedValue,
+                Buy = sender == buttonBuy,
+                UseCash = true
+            };
+
             var countDecimal = numericUpDown_BuySell_Count.Value;
 
             if ( (countDecimal % 1) != 0 )
@@ -218,89 +299,89 @@ namespace ndp_invest_helper
                     "Количество должно быть целым числом, а указано {0}", countDecimal));
             }
 
-            var countUlong = (ulong)countDecimal;
-            var total = price * countUlong;
+            deal.Count = (ulong)countDecimal;
 
             var newPortfolio = new Portfolio(CurrentPortfolio);
-
-            if (sender == buttonBuy)
-                newPortfolio.AddSecurity(security, countUlong, price, true, currency);
-            else if (sender == buttonSell)
-                newPortfolio.RemoveSecurity(security, countUlong, true, currency);
-            else
-                throw new ArgumentException("Unknown button");
+            newPortfolio.MakeDeal(deal);
 
             grouppingResults.Add(new GrouppingResults(newPortfolio));
 
             FillGroupControls();
 
-            toolStripStatusLabel1.Text = "Сделка совершена.";
+            listBox_Deals.Items.Add(deal);
 
-            Log(string.Format(
-                "{0} {1} {2} шт. по цене {3:n2} на сумму {4:n2}.",
+            var logText = string.Format(
+                "{0} {1} {2} шт. по цене {3:n2} {4} на сумму {5:n2} {4}.",
                 sender == buttonBuy ? "Покупка" : "Продажа",
-                security.BestFriendlyName, countUlong, price, total
-                ));
+                deal.Security.BestUniqueFriendlyName, deal.Count, deal.Price, 
+                deal.Currency, deal.Total
+                );
+
+            Log(logText);
+            toolStripStatusLabel1.Text = "Сделка совершена. " + logText;
         }
 
         private void comboBox_BuySellSecurity_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var security = (Security)comboBox_BuySell_Security.SelectedValue;
-            SecurityInfo secInfo;
+            var secInfo = SelectedSecurityInfo;
 
-            if (CurrentPortfolio.Securities.TryGetValue(security, out secInfo))
+            if (secInfo != null)
             {
+                numericUpDown_BuySell_Price.Value = 
+                    secInfo.PriceInCurrency(SelectedCurrency);
+
                 numericUpDown_BuySell_Count.Value = secInfo.Count;
-                numericUpDown_BuySell_Price.Value = secInfo.Price;
             }
         }
 
         private void numericUpDown_BuySell_Count_ValueChanged(object sender, EventArgs e)
         {
-            FillBuySellTotalLabel();
+            numericUpDown_BuySell_Total.Increment = numericUpDown_BuySell_Price.Value;
+
+            numericUpDown_BuySell_Total.Value = 
+                numericUpDown_BuySell_Count.Value * numericUpDown_BuySell_Price.Value;
         }
 
-        private void FillBuySellTotalLabel()
+        private void comboBox_BuySell_Currency_SelectedIndexChanged(object sender, EventArgs e)
         {
-            label_BuySell_Total.Text = string.Format(
-                "{0:n2} {1}",
-                numericUpDown_BuySell_Count.Value * numericUpDown_BuySell_Price.Value,
-                comboBox_BuySell_Currency.Text);
+            var secInfo = SelectedSecurityInfo;
+
+            if (secInfo != null)
+            {
+                numericUpDown_BuySell_Price.Value = secInfo.PriceInCurrency(
+                    comboBox_BuySell_Currency.SelectedItem.ToString());
+            }
         }
 
-        private void listBox_GroupStocks_SelectedIndexChanged(object sender, EventArgs e)
+        private void numericUpDown_BuySell_Total_ValueChanged(object sender, EventArgs e)
         {
-            comboBox_BuySell_Security.SelectedItem = listBox_GroupStocks.SelectedItem;
+            // Округляем количество в меньшую сторону до целого.
+            numericUpDown_BuySell_Count.Value =
+                (UInt64)(numericUpDown_BuySell_Total.Value 
+                / numericUpDown_BuySell_Price.Value);
+
+            // Пересчитываем Итого с учетом округленного количества.
+            numericUpDown_BuySell_Total.Value =
+                numericUpDown_BuySell_Price.Value 
+                * numericUpDown_BuySell_Count.Value;
         }
+
+        #endregion
+
+        #region Main menu
 
         private void toolStripMenuItem_RunTask_Click(object sender, EventArgs e)
         {
             ExecuteTasks();
         }
 
-        private void ExecuteTasks()
-        {
-            var taskFilePath = "task.xml"; 
-            var taskManager = new TaskManager(FirstPortfolio);
-            var taskOutput = new StringBuilder();
-            taskManager.ParseXmlFile(taskFilePath, taskOutput);
-            File.WriteAllText(Settings.Instance.Files.TaskOutput, taskOutput.ToString());
-            toolStripStatusLabel1.Text = "Задание выполнено, результаты записаны в output.txt";
-        }
-
         private void toolStripMenuItem_About_Click(object sender, EventArgs e)
         {
             MessageBox.Show(
-                "ndp_invest_helper - бесплатный анализатор диверсификации портфеля с открытым кодом.\n" + 
-                "Автор - Незамаев Дмитрий (dnezamaev@gmail.com).\n" +
-                "Подробное описание в файле README.txt.\n" +
+                "ndp_invest_helper - бесплатный анализатор диверсификации портфеля с открытым кодом.\n\n" + 
+                "Автор - Незамаев Дмитрий (dnezamaev@gmail.com).\n\n" +
+                "Подробное описание в файле README.txt.\n\n" +
                 "Лицензия GPL3.");
-        }
-
-        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            if (Settings.WriteLog)
-                File.WriteAllText(Settings.LogFile, log.ToString());
         }
 
         private void toolStripMenuItem_Log_CheckStateChanged(object sender, EventArgs e)
@@ -315,7 +396,13 @@ namespace ndp_invest_helper
 
             grouppingResults.RemoveAt(grouppingResults.Count - 1);
 
+            listBox_Deals.Items.RemoveAt(listBox_Deals.Items.Count - 1);
+
             FillGroupControls();
         }
+
+        #endregion
+
+        #endregion
     }
 }

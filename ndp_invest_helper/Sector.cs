@@ -38,17 +38,44 @@ namespace ndp_invest_helper
 
         public static Dictionary<string, Sector> ById;
 
+        /// <summary>
+        /// Количество уровней вложенности.
+        /// </summary>
         public static int LevelsCount;
 
-        public const string DefaultSectorId = "999";
+        /// <summary>
+        /// Номер сектора по умолчанию для неизвестных секторов.
+        /// Первый уровень вложенности.
+        /// </summary>
+        public const string DefaultSectorIdLevel1 = "900";
 
-        public static Sector DefaultSector { get => ById[DefaultSectorId]; }
+        /// <summary>
+        /// Номер сектора по умолчанию для неизвестных секторов.
+        /// Второй уровень вложенности.
+        /// </summary>
+        public const string DefaultSectorIdLevel2 = "999";
 
+        /// <summary>
+        /// Сектор по умолчанию для неизвестных секторов.
+        /// </summary>
+        public static Sector DefaultSector { get => ById[DefaultSectorIdLevel2]; }
+
+        /// <summary>
+        /// Получить родительский сектор на один уровень выше.
+        /// </summary>
+        /// <param name="sector">Сектор, для которого ищем родителя.</param>
+        /// <returns>Родительский сектор.</returns>
         public static Sector GetParent(Sector sector)
         {
             return ById[sector.ParentId];
         }
 
+        /// <summary>
+        /// Получить родительский сектор указанного уровеня.
+        /// </summary>
+        /// <param name="sector">Сектор, для которого ищем родителя.</param>
+        /// <param name="parentLevel">Уровень родителя.</param>
+        /// <returns>Родительский сектор.</returns>
         public static Sector GetParent(Sector sector, int parentLevel)
         {
             while (parentLevel < sector.Level)

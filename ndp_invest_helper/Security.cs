@@ -266,6 +266,17 @@ namespace ndp_invest_helper
         public decimal Price;
 
         /// <summary>
+        /// Цена в валюте. Курс валюты должен быть заполнен в currencies.xml,
+        /// иначе будет исключение, что ключ не найден.
+        /// </summary>
+        /// <param name="currency">Код валюты по ISO 4217.</param>
+        /// <returns>Пересчитанная в валюте цена.</returns>
+        public decimal PriceInCurrency(string currency)
+        {
+            return  Price / CurrenciesManager.CurrencyRates[currency];
+        }
+
+        /// <summary>
         /// Коэффициент коррекции для итоговой суммы. 
         /// Нужен при группировке фондов с разбором содержимого.
         /// </summary>
@@ -412,7 +423,7 @@ namespace ndp_invest_helper
                     xIssuer, "country");
                 issuer.Currencies = Utils.HandleComplexStringXmlAttribute(
                     xIssuer, "currency");
-                Utils.HandleSectorAttribute(xIssuer, issuer.Sectors, SectorsManager.DefaultSectorId);
+                Utils.HandleSectorAttribute(xIssuer, issuer.Sectors, SectorsManager.DefaultSectorIdLevel2);
 
                 // Разбираем бумаги эмитента и заполняем словари быстрого доступа.
                 foreach (var xSecurity in xIssuer.Elements("security"))
@@ -487,7 +498,7 @@ namespace ndp_invest_helper
                     // У фондов в составе может быть несколько стран, валют, секторов экономики.
                     // У акций, облигаций тоже, но информация ним хранится в эмитентах.
                     security = new ETF(
-                        Utils.HandleSectorAttribute(xSecurity, SectorsManager.DefaultSectorId),
+                        Utils.HandleSectorAttribute(xSecurity, SectorsManager.DefaultSectorIdLevel2),
                         Utils.HandleComplexStringXmlAttribute(xSecurity, "country"),
                         Utils.HandleComplexStringXmlAttribute(xSecurity, "currency"),
                         Utils.HandleComplexStringXmlAttribute(xSecurity, "what_inside")

@@ -28,14 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridView_GroupsByCountry = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn_CountryKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn_CountryValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -45,8 +45,8 @@
             this.comboBox_BuySell_Currency = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.label_BuySell_Total = new System.Windows.Forms.Label();
             this.numericUpDown_BuySell_Price = new System.Windows.Forms.NumericUpDown();
+            this.comboBox_BuySell_Security = new SergeUtils.EasyCompletionComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.numericUpDown_BuySell_Count = new System.Windows.Forms.NumericUpDown();
             this.dataGridView_GroupsByCurrency = new System.Windows.Forms.DataGridView();
@@ -71,7 +71,11 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.comboBox_BuySell_Security = new SergeUtils.EasyCompletionComboBox();
+            this.tabControl_Right = new System.Windows.Forms.TabControl();
+            this.tabPage_GroupContent = new System.Windows.Forms.TabPage();
+            this.tabPage_Deals = new System.Windows.Forms.TabPage();
+            this.listBox_Deals = new System.Windows.Forms.ListBox();
+            this.numericUpDown_BuySell_Total = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_GroupsByCountry)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_BuySell_Price)).BeginInit();
@@ -82,6 +86,10 @@
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            this.tabControl_Right.SuspendLayout();
+            this.tabPage_GroupContent.SuspendLayout();
+            this.tabPage_Deals.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_BuySell_Total)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView_GroupsByCountry
@@ -90,27 +98,27 @@
             this.dataGridView_GroupsByCountry.AllowUserToDeleteRows = false;
             this.dataGridView_GroupsByCountry.AllowUserToResizeRows = false;
             this.dataGridView_GroupsByCountry.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView_GroupsByCountry.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_GroupsByCountry.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.dataGridView_GroupsByCountry.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_GroupsByCountry.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn_CountryKey,
             this.dataGridViewTextBoxColumn_CountryValue,
             this.dataGridViewTextBoxColumn_CountryDifference});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView_GroupsByCountry.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView_GroupsByCountry.DefaultCellStyle = dataGridViewCellStyle10;
             this.dataGridView_GroupsByCountry.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView_GroupsByCountry.Location = new System.Drawing.Point(3, 3);
             this.dataGridView_GroupsByCountry.Name = "dataGridView_GroupsByCountry";
@@ -181,13 +189,14 @@
             this.comboBox_BuySell_Currency.Name = "comboBox_BuySell_Currency";
             this.comboBox_BuySell_Currency.Size = new System.Drawing.Size(103, 32);
             this.comboBox_BuySell_Currency.TabIndex = 6;
+            this.comboBox_BuySell_Currency.SelectedIndexChanged += new System.EventHandler(this.comboBox_BuySell_Currency_SelectedIndexChanged);
             // 
             // groupBox1
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.numericUpDown_BuySell_Total);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.label_BuySell_Total);
             this.groupBox1.Controls.Add(this.numericUpDown_BuySell_Price);
             this.groupBox1.Controls.Add(this.comboBox_BuySell_Security);
             this.groupBox1.Controls.Add(this.label1);
@@ -211,16 +220,6 @@
             this.label2.TabIndex = 11;
             this.label2.Text = "на сумму";
             // 
-            // label_BuySell_Total
-            // 
-            this.label_BuySell_Total.AutoSize = true;
-            this.label_BuySell_Total.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_BuySell_Total.Location = new System.Drawing.Point(823, 83);
-            this.label_BuySell_Total.Name = "label_BuySell_Total";
-            this.label_BuySell_Total.Size = new System.Drawing.Size(21, 24);
-            this.label_BuySell_Total.TabIndex = 10;
-            this.label_BuySell_Total.Text = "0";
-            // 
             // numericUpDown_BuySell_Price
             // 
             this.numericUpDown_BuySell_Price.DecimalPlaces = 6;
@@ -236,6 +235,20 @@
             this.numericUpDown_BuySell_Price.TabIndex = 9;
             this.numericUpDown_BuySell_Price.ThousandsSeparator = true;
             this.numericUpDown_BuySell_Price.ValueChanged += new System.EventHandler(this.numericUpDown_BuySell_Count_ValueChanged);
+            // 
+            // comboBox_BuySell_Security
+            // 
+            this.comboBox_BuySell_Security.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox_BuySell_Security.DisplayMember = "FullName";
+            this.comboBox_BuySell_Security.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBox_BuySell_Security.FormattingEnabled = true;
+            this.comboBox_BuySell_Security.Location = new System.Drawing.Point(157, 26);
+            this.comboBox_BuySell_Security.MatchingMethod = SergeUtils.StringMatchingMethod.SubString;
+            this.comboBox_BuySell_Security.Name = "comboBox_BuySell_Security";
+            this.comboBox_BuySell_Security.Size = new System.Drawing.Size(835, 31);
+            this.comboBox_BuySell_Security.TabIndex = 8;
+            this.comboBox_BuySell_Security.SelectedIndexChanged += new System.EventHandler(this.comboBox_BuySellSecurity_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -267,27 +280,27 @@
             this.dataGridView_GroupsByCurrency.AllowUserToDeleteRows = false;
             this.dataGridView_GroupsByCurrency.AllowUserToResizeRows = false;
             this.dataGridView_GroupsByCurrency.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView_GroupsByCurrency.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_GroupsByCurrency.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
             this.dataGridView_GroupsByCurrency.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_GroupsByCurrency.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn_CurrencyKey,
             this.dataGridViewTextBoxColumn_CurrencyValue,
             this.dataGridViewTextBoxColumn_CurrencyDifference});
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView_GroupsByCurrency.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView_GroupsByCurrency.DefaultCellStyle = dataGridViewCellStyle12;
             this.dataGridView_GroupsByCurrency.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView_GroupsByCurrency.Location = new System.Drawing.Point(3, 328);
             this.dataGridView_GroupsByCurrency.Name = "dataGridView_GroupsByCurrency";
@@ -333,27 +346,27 @@
             this.dataGridView_GroupsBySector.AllowUserToDeleteRows = false;
             this.dataGridView_GroupsBySector.AllowUserToResizeRows = false;
             this.dataGridView_GroupsBySector.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView_GroupsBySector.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle13.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_GroupsBySector.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle13;
             this.dataGridView_GroupsBySector.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_GroupsBySector.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn_SectorKey,
             this.dataGridViewTextBoxColumn_SectorValue,
             this.dataGridViewTextBoxColumn_SectorDifference});
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView_GroupsBySector.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle14.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView_GroupsBySector.DefaultCellStyle = dataGridViewCellStyle14;
             this.dataGridView_GroupsBySector.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView_GroupsBySector.Location = new System.Drawing.Point(373, 3);
             this.dataGridView_GroupsBySector.Name = "dataGridView_GroupsBySector";
@@ -399,27 +412,27 @@
             this.dataGridView_GroupsByType.AllowUserToDeleteRows = false;
             this.dataGridView_GroupsByType.AllowUserToResizeRows = false;
             this.dataGridView_GroupsByType.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView_GroupsByType.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle15.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_GroupsByType.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle15;
             this.dataGridView_GroupsByType.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_GroupsByType.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn_TypeKey,
             this.dataGridViewTextBoxColumn_TypeValue,
             this.dataGridViewTextBoxColumn_TypeDifference});
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView_GroupsByType.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle16.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView_GroupsByType.DefaultCellStyle = dataGridViewCellStyle16;
             this.dataGridView_GroupsByType.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView_GroupsByType.Location = new System.Drawing.Point(373, 328);
             this.dataGridView_GroupsByType.Name = "dataGridView_GroupsByType";
@@ -461,15 +474,14 @@
             // 
             // listBox_GroupStocks
             // 
-            this.listBox_GroupStocks.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.listBox_GroupStocks.DisplayMember = "BestUniqueFriendlyName";
+            this.listBox_GroupStocks.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listBox_GroupStocks.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listBox_GroupStocks.FormattingEnabled = true;
             this.listBox_GroupStocks.ItemHeight = 19;
-            this.listBox_GroupStocks.Location = new System.Drawing.Point(754, 31);
+            this.listBox_GroupStocks.Location = new System.Drawing.Point(3, 3);
             this.listBox_GroupStocks.Name = "listBox_GroupStocks";
-            this.listBox_GroupStocks.Size = new System.Drawing.Size(256, 650);
+            this.listBox_GroupStocks.Size = new System.Drawing.Size(254, 615);
             this.listBox_GroupStocks.TabIndex = 11;
             this.listBox_GroupStocks.SelectedIndexChanged += new System.EventHandler(this.listBox_GroupStocks_SelectedIndexChanged);
             // 
@@ -483,21 +495,21 @@
             this.toolStripMenuItem_About});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1022, 30);
+            this.menuStrip1.Size = new System.Drawing.Size(1022, 28);
             this.menuStrip1.TabIndex = 12;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // toolStripMenuItem_RunTask
             // 
             this.toolStripMenuItem_RunTask.Name = "toolStripMenuItem_RunTask";
-            this.toolStripMenuItem_RunTask.Size = new System.Drawing.Size(158, 26);
+            this.toolStripMenuItem_RunTask.Size = new System.Drawing.Size(158, 24);
             this.toolStripMenuItem_RunTask.Text = "Выполнить task.xml";
             this.toolStripMenuItem_RunTask.Click += new System.EventHandler(this.toolStripMenuItem_RunTask_Click);
             // 
             // toolStripMenuItem_CancelDeal
             // 
             this.toolStripMenuItem_CancelDeal.Name = "toolStripMenuItem_CancelDeal";
-            this.toolStripMenuItem_CancelDeal.Size = new System.Drawing.Size(140, 26);
+            this.toolStripMenuItem_CancelDeal.Size = new System.Drawing.Size(140, 24);
             this.toolStripMenuItem_CancelDeal.Text = "Отменить сделку";
             this.toolStripMenuItem_CancelDeal.Click += new System.EventHandler(this.toolStripMenuItem_CancelDeal_Click);
             // 
@@ -506,7 +518,7 @@
             this.toolStripMenuItem_settings.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem_Log});
             this.toolStripMenuItem_settings.Name = "toolStripMenuItem_settings";
-            this.toolStripMenuItem_settings.Size = new System.Drawing.Size(98, 26);
+            this.toolStripMenuItem_settings.Size = new System.Drawing.Size(98, 24);
             this.toolStripMenuItem_settings.Text = "Настройки";
             // 
             // toolStripMenuItem_Log
@@ -520,7 +532,7 @@
             // toolStripMenuItem_About
             // 
             this.toolStripMenuItem_About.Name = "toolStripMenuItem_About";
-            this.toolStripMenuItem_About.Size = new System.Drawing.Size(118, 26);
+            this.toolStripMenuItem_About.Size = new System.Drawing.Size(118, 24);
             this.toolStripMenuItem_About.Text = "О программе";
             this.toolStripMenuItem_About.Click += new System.EventHandler(this.toolStripMenuItem_About_Click);
             // 
@@ -561,28 +573,77 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(740, 650);
             this.tableLayoutPanel1.TabIndex = 14;
             // 
-            // comboBox_BuySell_Security
+            // tabControl_Right
             // 
-            this.comboBox_BuySell_Security.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.tabControl_Right.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox_BuySell_Security.DisplayMember = "FullName";
-            this.comboBox_BuySell_Security.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox_BuySell_Security.FormattingEnabled = true;
-            this.comboBox_BuySell_Security.Location = new System.Drawing.Point(157, 26);
-            this.comboBox_BuySell_Security.MatchingMethod = SergeUtils.StringMatchingMethod.SubString;
-            this.comboBox_BuySell_Security.Name = "comboBox_BuySell_Security";
-            this.comboBox_BuySell_Security.Size = new System.Drawing.Size(835, 31);
-            this.comboBox_BuySell_Security.TabIndex = 8;
-            this.comboBox_BuySell_Security.SelectedIndexChanged += new System.EventHandler(this.comboBox_BuySellSecurity_SelectedIndexChanged);
+            this.tabControl_Right.Controls.Add(this.tabPage_GroupContent);
+            this.tabControl_Right.Controls.Add(this.tabPage_Deals);
+            this.tabControl_Right.Location = new System.Drawing.Point(754, 31);
+            this.tabControl_Right.Name = "tabControl_Right";
+            this.tabControl_Right.SelectedIndex = 0;
+            this.tabControl_Right.Size = new System.Drawing.Size(268, 650);
+            this.tabControl_Right.TabIndex = 15;
+            // 
+            // tabPage_GroupContent
+            // 
+            this.tabPage_GroupContent.Controls.Add(this.listBox_GroupStocks);
+            this.tabPage_GroupContent.Location = new System.Drawing.Point(4, 25);
+            this.tabPage_GroupContent.Name = "tabPage_GroupContent";
+            this.tabPage_GroupContent.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage_GroupContent.Size = new System.Drawing.Size(260, 621);
+            this.tabPage_GroupContent.TabIndex = 0;
+            this.tabPage_GroupContent.Text = "Состав";
+            this.tabPage_GroupContent.UseVisualStyleBackColor = true;
+            // 
+            // tabPage_Deals
+            // 
+            this.tabPage_Deals.Controls.Add(this.listBox_Deals);
+            this.tabPage_Deals.Location = new System.Drawing.Point(4, 25);
+            this.tabPage_Deals.Name = "tabPage_Deals";
+            this.tabPage_Deals.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage_Deals.Size = new System.Drawing.Size(260, 621);
+            this.tabPage_Deals.TabIndex = 1;
+            this.tabPage_Deals.Text = "Сделки";
+            this.tabPage_Deals.UseVisualStyleBackColor = true;
+            // 
+            // listBox_Deals
+            // 
+            this.listBox_Deals.DisplayMember = "FriendlyName";
+            this.listBox_Deals.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listBox_Deals.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listBox_Deals.FormattingEnabled = true;
+            this.listBox_Deals.ItemHeight = 19;
+            this.listBox_Deals.Location = new System.Drawing.Point(3, 3);
+            this.listBox_Deals.Name = "listBox_Deals";
+            this.listBox_Deals.Size = new System.Drawing.Size(254, 615);
+            this.listBox_Deals.TabIndex = 12;
+            this.listBox_Deals.SelectedIndexChanged += new System.EventHandler(this.listBox_Deals_SelectedIndexChanged);
+            // 
+            // numericUpDown_BuySell_Total
+            // 
+            this.numericUpDown_BuySell_Total.DecimalPlaces = 6;
+            this.numericUpDown_BuySell_Total.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numericUpDown_BuySell_Total.Location = new System.Drawing.Point(823, 82);
+            this.numericUpDown_BuySell_Total.Maximum = new decimal(new int[] {
+            -727379969,
+            232,
+            0,
+            0});
+            this.numericUpDown_BuySell_Total.Name = "numericUpDown_BuySell_Total";
+            this.numericUpDown_BuySell_Total.Size = new System.Drawing.Size(169, 30);
+            this.numericUpDown_BuySell_Total.TabIndex = 12;
+            this.numericUpDown_BuySell_Total.ThousandsSeparator = true;
+            this.numericUpDown_BuySell_Total.ValueChanged += new System.EventHandler(this.numericUpDown_BuySell_Total_ValueChanged);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1022, 846);
+            this.Controls.Add(this.tabControl_Right);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.listBox_GroupStocks);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -603,6 +664,10 @@
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
+            this.tabControl_Right.ResumeLayout(false);
+            this.tabPage_GroupContent.ResumeLayout(false);
+            this.tabPage_Deals.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_BuySell_Total)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -622,7 +687,6 @@
         private System.Windows.Forms.DataGridView dataGridView_GroupsByCurrency;
         private System.Windows.Forms.DataGridView dataGridView_GroupsBySector;
         private System.Windows.Forms.DataGridView dataGridView_GroupsByType;
-        private System.Windows.Forms.Label label_BuySell_Total;
         private System.Windows.Forms.ListBox listBox_GroupStocks;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.MenuStrip menuStrip1;
@@ -646,6 +710,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn_TypeDifference;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_CancelDeal;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.TabControl tabControl_Right;
+        private System.Windows.Forms.TabPage tabPage_GroupContent;
+        private System.Windows.Forms.TabPage tabPage_Deals;
+        private System.Windows.Forms.ListBox listBox_Deals;
+        private System.Windows.Forms.NumericUpDown numericUpDown_BuySell_Total;
     }
 }
 

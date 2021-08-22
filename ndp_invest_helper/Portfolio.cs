@@ -5,6 +5,25 @@ using System.Text;
 
 namespace ndp_invest_helper
 {
+    public class Deal
+    {
+        public Security Security;
+        public decimal Price;
+        public string Currency;
+        public UInt64 Count;
+        public bool UseCash;
+        public bool Buy;
+
+        public decimal Total { get => Price * Count; }
+
+        public string FriendlyName 
+        { 
+            get => string.Format(
+            "{0} {1}{2}",
+            Security.BestUniqueFriendlyName, Buy ? '+' : '-', Count);
+        }
+    }
+
     public class GrouppingResults
     {
         private PortfolioAnalyticsResult
@@ -393,6 +412,16 @@ namespace ndp_invest_helper
         public Portfolio()
         {
             cash = new Dictionary<string, decimal>(CurrenciesManager.Cash);
+        }
+
+        public void MakeDeal(Deal deal)
+        {
+            if (deal.Buy)
+                AddSecurity(deal.Security, deal.Count, deal.Price, 
+                    deal.UseCash, deal.Currency);
+            else 
+                RemoveSecurity(deal.Security, deal.Count, 
+                    deal.UseCash, deal.Currency);
         }
 
         public void AddSecurity(Security security, SecurityInfo securityInfo)

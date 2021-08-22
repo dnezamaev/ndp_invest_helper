@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<!-- 
+code, number, name_en - ISO 4217
+rate - курс к рублю
+-->
+<root>
+<currency code="AED" number="784" rate="" name_en="United Arab Emirates dirham" />
+<currency code="AFN" number="971" rate="" name_en="Afghan afghani" />
+<currency code="ALL" number="8	" rate="" name_en="Albanian lek" />
+<currency code="AMD" number="51 " rate="" name_en="Armenian dram" />
+<currency code="ANG" number="532" rate="" name_en="Netherlands Antillean guilder" />
+<currency code="AOA" number="973" rate="" name_en="Angolan kwanza" />
+<currency code="ARS" number="32 " rate="" name_en="Argentine peso" />
+<currency code="AUD" number="36 " rate="" name_en="Australian dollar" />
+<currency code="AWG" number="533" rate="" name_en="Aruban florin" />
+<currency code="AZN" number="944" rate="" name_en="Azerbaijani manat" />
+<currency code="BAM" number="977" rate="" name_en="Bosnia and Herzegovina convertible mark" />
+<currency code="BBD" number="52 " rate="" name_en="Barbados dollar" />
+<currency code="BDT" number="50 " rate="" name_en="Bangladeshi taka" />
+<currency code="BGN" number="975" rate="" name_en="Bulgarian lev" />
+<currency code="BHD" number="48 " rate="" name_en="Bahraini dinar" />
+<currency code="BIF" number="108" rate="" name_en="Burundian franc" />
+<currency code="BMD" number="60 " rate="" name_en="Bermudian dollar" />
+<currency code="BND" number="96 " rate="" name_en="Brunei dollar" />
+<currency code="BOB" number="68 " rate="" name_en="Boliviano" />
+<currency code="BOV" number="984" rate="" name_en="Bolivian Mvdol (funds code)" />
+<currency code="BRL" number="986" rate="" name_en="Brazilian real" />
+<currency code="BSD" number="44 " rate="" name_en="Bahamian dollar" />
+<currency code="BTN" number="64 " rate="" name_en="Bhutanese ngultrum" />
+<currency code="BWP" number="72 " rate="" name_en="Botswana pula" />
+<currency code="BYN" number="933" rate="" name_en="Belarusian ruble" />
+<currency code="BZD" number="84 " rate="" name_en="Belize dollar" />
+<currency code="CAD" number="124" rate="" name_en="Canadian dollar" />
+<currency code="CDF" number="976" rate="" name_en="Congolese franc" />
+<currency code="CHE" number="947" rate="" name_en="WIR Euro (complementary currency)" />
+<currency code="CHF" number="756" rate="" name_en="Swiss franc" />
+<currency code="CHW" number="948" rate="" name_en="WIR Franc (complementary currency)" />
+<currency code="CLF" number="990" rate="" name_en="Unidad de Fomento (funds code)" />
+<currency code="CLP" number="152" rate="" name_en="Chilean peso" />
+<currency code="CNY" number="156" rate="" name_en="Chinese yuan" />
+<currency code="COP" number="170" rate="" name_en="Colombian peso" />
+<currency code="COU" number="970" rate="" name_en="Unidad de Valor Real (UVR) (funds code)[7]" />
+<currency code="CRC" number="188" rate="" name_en="Costa Rican colon" />
+<currency code="CUC" number="931" rate="" name_en="Cuban convertible peso" />
+<currency code="CUP" number="192" rate="" name_en="Cuban peso" />
+<currency code="CVE" number="132" rate="" name_en="Cape Verde escudo" />
+<currency code="CZK" number="203" rate="" name_en="Czech koruna" />
+<currency code="DJF" number="262" rate="" name_en="Djiboutian franc" />
+<currency code="DKK" number="208" rate="" name_en="Danish krone" />
+<currency code="DOP" number="214" rate="" name_en="Dominican peso" />
+<currency code="DZD" number="12 " rate="" name_en="Algerian dinar" />
+<currency code="EGP" number="818" rate="" name_en="Egyptian pound" />
+<currency code="ERN" number="232" rate="" name_en="Eritrean nakfa" />
+<currency code="ETB" number="230" rate="" name_en="Ethiopian birr" />
+<currency code="EUR" number="978" rate="88" name_en="Euro" />
+<currency code="FJD" number="242" rate="" name_en="Fiji dollar" />
+<currency code="FKP" number="238" rate="" name_en="Falkland Islands pound" />
+<currency code="GBP" number="826" rate="" name_en="Pound sterling" />
+<currency code="GEL" number="981" rate="" name_en="Georgian lari" />
+<currency code="GHS" number="936" rate="" name_en="Ghanaian cedi" />
+<currency code="GIP" number="292" rate="" name_en="Gibraltar pound" />
+<currency code="GMD" number="270" rate="" name_en="Gambian dalasi" />
+<currency code="GNF" number="324" rate="" name_en="Guinean franc" />
+<currency code="GTQ" number="320" rate="" name_en="Guatemalan quetzal" />
+<currency code="GYD" number="328" rate="" name_en="Guyanese dollar" />
+<currency code="HKD" number="344" rate="" name_en="Hong Kong dollar" />
+<currency code="HNL" number="340" rate="" name_en="Honduran lempira" />
+<currency code="HRK" number="191" rate="" name_en="Croatian kuna" />
+<currency code="HTG" number="332" rate="" name_en="Haitian gourde" />
+<currency code="HUF" number="348" rate="" name_en="Hungarian forint" />
+<currency code="IDR" number="360" rate="" name_en="Indonesian rupiah" />
+<currency code="ILS" number="376" rate="" name_en="Israeli new shekel" />
+<currency code="INR" number="356" rate="" name_en="Indian rupee" />
+<currency code="IQD" number="368" rate="" name_en="Iraqi dinar" />
+<currency code="IRR" number="364" rate="" name_en="Iranian rial" />
+<currency code="ISK" number="352" rate="" name_en="Icelandic króna" />
+<currency code="JMD" number="388" rate="" name_en="Jamaican dollar" />
+<currency code="JOD" number="400" rate="" name_en="Jordanian dinar" />
+<currency code="JPY" number="392" rate="" name_en="Japanese yen" />
+<currency code="KES" number="404" rate="" name_en="Kenyan shilling" />
+<currency code="KGS" number="417" rate="" name_en="Kyrgyzstani som" />
+<currency code="KHR" number="116" rate="" name_en="Cambodian riel" />
+<currency code="KMF" number="174" rate="" name_en="Comoro franc" />
+<currency code="KPW" number="408" rate="" name_en="North Korean won" />
+<currency code="KRW" number="410" rate="" name_en="South Korean won" />
+<currency code="KWD" number="414" rate="" name_en="Kuwaiti dinar" />
+<currency code="KYD" number="136" rate="" name_en="Cayman Islands dollar" />
+<currency code="KZT" number="398" rate="" name_en="Kazakhstani tenge" />
+<currency code="LAK" number="418" rate="" name_en="Lao kip" />
+<currency code="LBP" number="422" rate="" name_en="Lebanese pound" />
+<currency code="LKR" number="144" rate="" name_en="Sri Lankan rupee" />
+<currency code="LRD" number="430" rate="" name_en="Liberian dollar" />
+<currency code="LSL" number="426" rate="" name_en="Lesotho loti" />
+<currency code="LYD" number="434" rate="" name_en="Libyan dinar" />
+<currency code="MAD" number="504" rate="" name_en="Moroccan dirham" />
+<currency code="MDL" number="498" rate="" name_en="Moldovan leu" />
+<currency code="MGA" number="969" rate="" name_en="Malagasy ariary" />
+<currency code="MKD" number="807" rate="" name_en="Macedonian denar" />
+<currency code="MMK" number="104" rate="" name_en="Myanmar kyat" />
+<currency code="MNT" number="496" rate="" name_en="Mongolian tögrög" />
+<currency code="MOP" number="446" rate="" name_en="Macanese pataca" />
+<currency code="MRO" number="478" rate="" name_en="Mauritanian ouguiya" />
+<currency code="MUR" number="480" rate="" name_en="Mauritian rupee" />
+<currency code="MVR" number="462" rate="" name_en="Maldivian rufiyaa" />
+<currency code="MWK" number="454" rate="" name_en="Malawian kwacha" />
+<currency code="MXN" number="484" rate="" name_en="Mexican peso" />
+<currency code="MXV" number="979" rate="" name_en="Mexican Unidad de Inversion(UDI) (funds code)" />
+<currency code="MYR" number="458" rate="" name_en="Malaysian ringgit" />
+<currency code="MZN" number="943" rate="" name_en="Mozambican metical" />
+<currency code="NAD" number="516" rate="" name_en="Namibian dollar" />
+<currency code="NGN" number="566" rate="" name_en="Nigerian naira" />
+<currency code="NIO" number="558" rate="" name_en="Nicaraguan córdoba" />
+<currency code="NOK" number="578" rate="" name_en="Norwegian krone" />
+<currency code="NPR" number="524" rate="" name_en="Nepalese rupee" />
+<currency code="NZD" number="554" rate="" name_en="New Zealand dollar" />
+<currency code="OMR" number="512" rate="" name_en="Omani rial" />
+<currency code="PAB" number="590" rate="" name_en="Panamanian balboa" />
+<currency code="PEN" number="604" rate="" name_en="Peruvian Sol" />
+<currency code="PGK" number="598" rate="" name_en="Papua New Guinean kina" />
+<currency code="PHP" number="608" rate="" name_en="Philippine peso" />
+<currency code="PKR" number="586" rate="" name_en="Pakistani rupee" />
+<currency code="PLN" number="985" rate="" name_en="Polish złoty" />
+<currency code="PYG" number="600" rate="" name_en="Paraguayan guaraní" />
+<currency code="QAR" number="634" rate="" name_en="Qatari riyal" />
+<currency code="RON" number="946" rate="" name_en="Romanian leu" />
+<currency code="RSD" number="941" rate="" name_en="Serbian dinar" />
+<currency code="RUB" number="643" rate="1" name_en="Russian ruble" />
+<currency code="RWF" number="646" rate="" name_en="Rwandan franc" />
+<currency code="SAR" number="682" rate="" name_en="Saudi riyal" />
+<currency code="SBD" number="90 " rate="" name_en="Solomon Islands dollar" />
+<currency code="SCR" number="690" rate="" name_en="Seychelles rupee" />
+<currency code="SDG" number="938" rate="" name_en="Sudanese pound" />
+<currency code="SEK" number="752" rate="" name_en="Swedish krona/kronor" />
+<currency code="SGD" number="702" rate="" name_en="Singapore dollar" />
+<currency code="SHP" number="654" rate="" name_en="Saint Helena pound" />
+<currency code="SLL" number="694" rate="" name_en="Sierra Leonean leone" />
+<currency code="SOS" number="706" rate="" name_en="Somali shilling" />
+<currency code="SRD" number="968" rate="" name_en="Surinamese dollar" />
+<currency code="SSP" number="728" rate="" name_en="South Sudanese pound" />
+<currency code="STD" number="678" rate="" name_en="São Tomé and Príncipe dobra" />
+<currency code="SVC" number="222" rate="" name_en="Salvadoran colón" />
+<currency code="SYP" number="760" rate="" name_en="Syrian pound" />
+<currency code="SZL" number="748" rate="" name_en="Swazi lilangeni" />
+<currency code="THB" number="764" rate="" name_en="Thai baht" />
+<currency code="TJS" number="972" rate="" name_en="Tajikistani somoni" />
+<currency code="TMT" number="934" rate="" name_en="Turkmenistan manat" />
+<currency code="TND" number="788" rate="" name_en="Tunisian dinar" />
+<currency code="TOP" number="776" rate="" name_en="Tongan paʻanga" />
+<currency code="TRY" number="949" rate="" name_en="Turkish lira" />
+<currency code="TTD" number="780" rate="" name_en="Trinidad and Tobago dollar" />
+<currency code="TWD" number="901" rate="" name_en="New Taiwan dollar" />
+<currency code="TZS" number="834" rate="" name_en="Tanzanian shilling" />
+<currency code="UAH" number="980" rate="" name_en="Ukrainian hryvnia" />
+<currency code="UGX" number="800" rate="" name_en="Ugandan shilling" />
+<currency code="USD" number="840" rate="74" name_en="United States dollar" />
+<currency code="USN" number="997" rate="" name_en="United States dollar (next day) (funds code)" />
+<currency code="UYI" number="940" rate="" name_en="Uruguay Peso en Unidades Indexadas (URUIURUI) (funds code)" />
+<currency code="UYU" number="858" rate="" name_en="Uruguayan peso" />
+<currency code="UZS" number="860" rate="" name_en="Uzbekistan som" />
+<currency code="VEF" number="937" rate="" name_en="Venezuelan bolívar" />
+<currency code="VND" number="704" rate="" name_en="Vietnamese đồng" />
+<currency code="VUV" number="548" rate="" name_en="Vanuatu vatu" />
+<currency code="WST" number="882" rate="" name_en="Samoan tala" />
+<currency code="XAF" number="950" rate="" name_en="CFA franc BEAC" />
+<currency code="XAG" number="961" rate="" name_en="Silver (one troy ounce)" />
+<currency code="XAU" number="959" rate="" name_en="Gold (one troy ounce)" />
+<currency code="XBA" number="955" rate="" name_en="European Composite Unit(EURCO) (bond market unit)" />
+<currency code="XBB" number="956" rate="" name_en="European Monetary Unit(E.M.U.-6) (bond market unit)" />
+<currency code="XBC" number="957" rate="" name_en="European Unit of Account 9(E.U.A.-9) (bond market unit)" />
+<currency code="XBD" number="958" rate="" name_en="European Unit of Account 17(E.U.A.-17) (bond market unit)" />
+<currency code="XCD" number="951" rate="" name_en="East Caribbean dollar" />
+<currency code="XDR" number="960" rate="" name_en="Special drawing rights" />
+<currency code="XOF" number="952" rate="" name_en="CFA franc BCEAO" />
+<currency code="XPD" number="964" rate="" name_en="Palladium (one troy ounce)" />
+<currency code="XPF" number="953" rate="" name_en="CFP franc(franc Pacifique)" />
+<currency code="XPT" number="962" rate="" name_en="Platinum (one troy ounce)" />
+<currency code="XSU" number="994" rate="" name_en="SUCRE" />
+<currency code="XTS" number="963" rate="" name_en="Code reserved for testing purposes" />
+<currency code="XUA" number="965" rate="" name_en="ADB Unit of Account" />
+<currency code="XXX" number="999" rate="" name_en="No currency" />
+<currency code="YER" number="886" rate="" name_en="Yemeni rial" />
+<currency code="ZAR" number="710" rate="" name_en="South African rand" />
+<currency code="ZMW" number="967" rate="" name_en="Zambian kwacha" />
+<currency code="ZWL" number="932" rate="" name_en="Zimbabwean dollar A/10" />
+</root>
