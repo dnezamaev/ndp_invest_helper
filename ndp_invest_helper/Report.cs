@@ -8,11 +8,26 @@ namespace ndp_invest_helper
 {
     public abstract class Report
     {
+        /// <summary>
+        /// Обнаруженные в отчете бумаги.
+        /// </summary>
         public Dictionary<Security, SecurityInfo> Securities = 
             new Dictionary<Security, SecurityInfo>();
 
+        /// <summary>
+        /// Обнаруженная в отчете наличность.
+        /// </summary>
         public Dictionary<string, decimal> Cash = new Dictionary<string, decimal>();
 
+        /// <summary>
+        /// Обнаруженные в отчете бумаги, о которых нет информации в базе.
+        /// </summary>
+        public HashSet<Security> UnknownSecurities = new HashSet<Security>();
+
+        /// <summary>
+        /// Разобрать файл отчета.
+        /// </summary>
+        /// <param name="xmlReportFilePath"></param>
         abstract public void ParseXmlFile(string xmlReportFilePath);
     }
 

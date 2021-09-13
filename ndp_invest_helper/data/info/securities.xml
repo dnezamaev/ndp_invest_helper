@@ -1689,6 +1689,19 @@
     <security isin="RU000A0ZZR33" ticker="???" sec_type="bond" currency="RUB" country="RU" />
   </issuer>
   <issuer name="ФинЭкс Фандс айкав (FinEx Funds ICAV), управляющая компания ФинЭкс Инвестмент Менеджмент ЛЛП (FinEx Investment Management LLP)" country="US">
+    <security isin="IE00BNYK7W79" ticker="FXES" sec_type="etf" currency="USD" what_inside="share">
+      <sector key="6" value="4.4" /> <!-- Consumer Staples -->
+      <sector key="32" value="66.8" /> <!-- Communication Services -->
+      <sector key="128" value="28.8" /> <!-- Information Technology -->
+      <country key="US" value="46.3" />
+      <country key="CN" value="16.4" />
+      <country key="JP" value="17.7" />
+      <country key="FR" value="1.6" />
+      <country key="PL" value="1.2" />
+      <country key="SE" value="2.5" />
+      <country key="TW" value="9.5" />
+      <country key="KR" value="4.7" />
+    </security>
     <security isin="IE00BNYK7X86" ticker="FXTP" sec_type="etf" currency="USD" />
     <security isin="IE00B7L7CP77" ticker="FXRB" sec_type="etf" currency="RUB" />
     <security isin="IE00BD3QJN10" ticker="FXDE" sec_type="etf" currency="EUR" country="DE" what_inside="share" >
@@ -1766,9 +1779,20 @@
       <sector key="128" value="9.80" /> <!-- Information Technology -->
     </security>
     <security isin="IE00BMDKNN44" ticker="FXFA" sec_type="etf" currency="USD" />
-    <security isin="IE00BNC2D728" ticker="FXIM" sec_type="etf" currency="USD" />
+    <security isin="IE00BNC2D728" ticker="FXIM" sec_type="etf" currency="USD" country="US" what_inside="share" sector="128" />
     <security isin="IE00BL3DYX33" ticker="FXMM" sec_type="etf" currency="RUB" />
-    <security isin="IE00BQ1Y6480" ticker="FXRL" sec_type="etf" currency="RUB" />
+    <security isin="IE00BQ1Y6480" ticker="FXRL" sec_type="etf" currency="USD" country="RU" what_inside="share">
+      <sector key="13" value="38.67" /> <!-- Energy -->
+      <sector key="2" value="2.27" /> <!-- Utilities -->
+      <sector key="12" value="21.17" /> <!-- Financials -->
+      <sector key="7" value="0.20" /> <!-- Industrials -->
+      <sector key="41" value="0.23" /> <!-- Real Estate -->
+      <sector key="9" value="19.00" /> <!-- Basic Materials -->
+      <sector key="6" value="4.49" /> <!-- Consumer Staples -->
+      <sector key="32" value="12.89" /> <!-- Communication Services -->
+      <sector key="5" value="0.94" /> <!-- Consumer Discretionary -->
+      <sector key="128" value="0.15" /> <!-- Information Technology -->
+    </security>
     <security isin="IE00BL3DYW26" ticker="FXTB" sec_type="etf" currency="USD" />
   </issuer>
   <issuer name="ФинЭкс Физикли Бэкт Фандз айкав (FinEx Physically Backed Funds ICAV) управляющая компания ФинЭкс Инвестмент Менеджмент ЛЛП (FinEx Investment Management LLP)" country="KZ">
@@ -4161,8 +4185,8 @@
   <issuer name="ОАО Асфальтобетонный завод №1" country="RU" sector="121">
     <security isin="RU000A102LW1" ticker="???" sec_type="bond" currency="RUB" />
   </issuer>
-  <issuer name="ОАО Белон" country="RU">
-    <security isin="RU000A0J2QG8" ticker="???" sec_type="share" currency="RUB" country="RU" />
+  <issuer name="ОАО Белон" country="RU" sector="112">
+    <security isin="RU000A0J2QG8" ticker="BLNG" sec_type="share" currency="RUB"/>
   </issuer>
   <issuer name="ОАО Верхнебаканский цементный завод" country="RU">
     <security isin="RU000A0ZYLK7" ticker="???" sec_type="bond" currency="RUB" country="RU" />

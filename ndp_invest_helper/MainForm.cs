@@ -81,19 +81,64 @@ namespace ndp_invest_helper
         {
             var portfolio = new Portfolio();
             var reports = HandleReportsDirectory(Settings.Instance.Files.ReportsDir);
+            var unknownSecurities = new HashSet<Security>();
+            var incompleteSecurities = new HashSet<Security>();
+
             foreach (var report in reports)
+            {
+                foreach (var security in report.Securities.Keys)
+                    if (!security.IsCompleted)
+                        incompleteSecurities.Add(security);
+
+                foreach (var security in report.UnknownSecurities)
+                    unknownSecurities.Add(security);
+
                 portfolio.AddReport(report);
+            }
 
             grouppingResults.Add(new GrouppingResults(portfolio));
+
+            var sb = new StringBuilder();
+
+            if (unknownSecurities.Count != 0)
+            {
+                sb.AppendLine("Найдены неизвестные бумаги, они будут проигнорированы.");
+                foreach (var security in unknownSecurities)
+                {
+                    sb.AppendLine(security.BestUniqueFriendlyName);
+                }
+            }
+
+            if (incompleteSecurities.Count != 0)
+            {
+                sb.AppendLine("Найдены недозаполненные бумаги, они будут проигнорированы.");
+                foreach (var security in incompleteSecurities)
+                {
+                    sb.AppendLine(security.BestUniqueFriendlyName);
+                }
+            }
+
+            if (unknownSecurities.Count != 0 || incompleteSecurities.Count != 0)
+            {
+                sb.AppendLine("Рекомендуется дополнить базу Securities.xml.");
+                richTextBox_Log.Text += sb.ToString();
+                richTextBox_Log.ForeColor = Color.Red;
+                toolStripStatusLabel1.Text = "!!! ВНИМАНИЕ: обнаружены ошибки, подробности в логе справа.";
+                tabControl_Right.SelectedTab = tabPage_Messages;
+            }
         }
 
         private List<Report> HandleReportsDirectory(string directoryPath)
         {
-            var cashReport = new CashReport();
-            cashReport.ParseXmlFile(directoryPath + "\\cash.xml");
-
             var result = new List<Report>();
-            result.Add(cashReport);
+
+            var cashFile = directoryPath + "\\cash.xml";
+            if (File.Exists(cashFile))
+            {
+                var cashReport = new CashReport();
+                cashReport.ParseXmlFile(cashFile);
+                result.Add(cashReport);
+            }
 
             foreach (var reportFile in Directory.GetFiles(directoryPath + "\\vtb"))
             {
@@ -381,7 +426,8 @@ namespace ndp_invest_helper
                 "ndp_invest_helper - бесплатный анализатор диверсификации портфеля с открытым кодом.\n\n" + 
                 "Автор - Незамаев Дмитрий (dnezamaev@gmail.com).\n\n" +
                 "Подробное описание в файле README.txt.\n\n" +
-                "Лицензия GPL3.");
+                "Лицензия GPL3.\n\n" +
+                "Версия " + System.Reflection.Assembly.GetEntryAssembly().GetName().Version.ToString());
         }
 
         private void toolStripMenuItem_Log_CheckStateChanged(object sender, EventArgs e)

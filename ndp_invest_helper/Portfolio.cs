@@ -557,6 +557,10 @@ namespace ndp_invest_helper
         {
             foreach (var reportRecord in report.Securities)
             {
+                // Игнорируем недозаполеннные бумаги.
+                if (!reportRecord.Key.IsCompleted)
+                    continue;
+
                 var portfolioValue = this.Securities.GetValueOrDefault(
                     reportRecord.Key, new SecurityInfo());
 

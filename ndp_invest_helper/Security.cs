@@ -43,6 +43,22 @@ namespace ndp_invest_helper
         /// </summary>
         public Issuer Issuer;
 
+        /// <summary>
+        /// Является ли бумага полностью заполненной в базе Securities.xml по всем параметрам.
+        /// </summary>
+        public bool IsCompleted
+        {
+            get
+            {
+                return !(
+                    Countries.Count == 0 ||
+                    Currencies.Count == 0 ||
+                    Sectors.Count == 0 ||
+                    (this is ETF && (this as ETF).WhatInside.Count == 0)
+                    );
+            }
+        }
+
         #region Виртуальные свойства с аттрибутами бумаг для экономии памяти.
         // Приоритет:
         // 1. аттрибуты фонда, у него свои реальные аттрибуты

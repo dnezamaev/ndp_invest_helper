@@ -20,6 +20,7 @@ namespace Parsers
             HandleFile(@"data\fxdm_sectors.txt", FinexParser.EtfSectors);
             HandleFile(@"data\fxcn_sectors.txt", FinexParser.EtfSectors);
             HandleFile(@"data\fxde_sectors.txt", FinexParser.EtfSectors);
+            HandleFile(@"data\FXRL_sectors.txt", FinexParser.EtfSectors);
         }
 
         static void HandleFile(string filePath, Func<string, string> handler)

@@ -71,13 +71,21 @@ namespace ndp_invest_helper
 
                 secPrice *= CurrenciesManager.CurrencyRates[secCurrency];
 
-                var security = SecuritiesManager.SecuritiesByIsin[secIsin];
-                var securityInfo = new SecurityInfo {
+                var securityInfo = new SecurityInfo
+                {
                     Price = secPrice,
-                    Count = secCount 
+                    Count = secCount
                 };
 
-                Securities[security] = securityInfo;
+                Security security;
+                if (SecuritiesManager.SecuritiesByIsin.TryGetValue(secIsin, out security))
+                {
+                    Securities[security] = securityInfo;
+                }
+                else // такой бумаги нет в базе, добавляем в неизвестные
+                {
+                    UnknownSecurities.Add(new Security { Isin = secIsin });
+                }
             }
         }
     }
