@@ -13,9 +13,11 @@ namespace ndp_invest_helper
         private XNamespace xNamespace;
         private XElement xRoot;
 
-        public override void ParseXmlFile(string xmlReportFilePath)
+        public override void ParseFile(string filePath)
         {
-            var xmlReportText = File.ReadAllText(xmlReportFilePath);
+            FilePath = filePath;
+
+            var xmlReportText = File.ReadAllText(filePath);
             xRoot = XElement.Parse(xmlReportText);
             xNamespace = xRoot.GetDefaultNamespace();
 

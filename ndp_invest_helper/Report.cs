@@ -9,6 +9,11 @@ namespace ndp_invest_helper
     public abstract class Report
     {
         /// <summary>
+        /// Путь к файлу отчета.
+        /// </summary>
+        public string FilePath;
+
+        /// <summary>
         /// Обнаруженные в отчете бумаги.
         /// </summary>
         public Dictionary<Security, SecurityInfo> Securities = 
@@ -27,13 +32,12 @@ namespace ndp_invest_helper
         /// <summary>
         /// Разобрать файл отчета.
         /// </summary>
-        /// <param name="xmlReportFilePath"></param>
-        abstract public void ParseXmlFile(string xmlReportFilePath);
+        abstract public void ParseFile(string filePath);
     }
 
     public class CashReport : Report
     {
-        public override void ParseXmlFile(string xmlReportFilePath)
+        public override void ParseFile(string xmlReportFilePath)
         {
             var xRoot = XElement.Parse(System.IO.File.ReadAllText(xmlReportFilePath));
 

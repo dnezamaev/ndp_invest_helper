@@ -66,7 +66,7 @@ namespace ndp_invest_helper
 
         #region Methods
 
-        private void LoadXmlData()
+        private void LoadCommonData()
         {
             var settings = Settings.Instance;
 
@@ -80,7 +80,7 @@ namespace ndp_invest_helper
         private void LoadPortfolio()
         {
             var portfolio = new Portfolio();
-            var reports = HandleReportsDirectory(Settings.Instance.Files.ReportsDir);
+            var reports = LoadReports(Settings.Instance.Files.ReportsDir);
             var unknownSecurities = new HashSet<Security>();
             var incompleteSecurities = new HashSet<Security>();
 
@@ -128,23 +128,34 @@ namespace ndp_invest_helper
             }
         }
 
-        private List<Report> HandleReportsDirectory(string directoryPath)
+        private List<Report> LoadReports(string directoryPath)
         {
             var result = new List<Report>();
+
+            if (!Directory.Exists(directoryPath))
+                throw new ArgumentException(
+                    "Не удалось найти рабочий каталог с отчетами " + directoryPath);
 
             var cashFile = directoryPath + "\\cash.xml";
             if (File.Exists(cashFile))
             {
                 var cashReport = new CashReport();
-                cashReport.ParseXmlFile(cashFile);
+                cashReport.ParseFile(cashFile);
                 result.Add(cashReport);
             }
 
             foreach (var reportFile in Directory.GetFiles(directoryPath + "\\vtb"))
             {
                 var vtbReport = new VtbReport();
-                vtbReport.ParseXmlFile(reportFile);
+                vtbReport.ParseFile(reportFile);
                 result.Add(vtbReport);
+            }
+
+            foreach (var reportFile in Directory.GetFiles(directoryPath + "\\tinkoff"))
+            {
+                var tinkoffReport = new TinkoffReport();
+                tinkoffReport.ParseFile(reportFile);
+                result.Add(tinkoffReport);
             }
 
             return result;
@@ -159,7 +170,10 @@ namespace ndp_invest_helper
             }
         }
 
-        private void FillDataGridView(
+        /// <summary>
+        /// Заполняет таблицы группировки по разным критериям.
+        /// </summary>
+        private void FillGroupsDataGridView (
             DataGridView dataGridView, 
             PortfolioAnalyticsResult newResult,
             PortfolioAnalyticsResult oldResult,
@@ -240,16 +254,16 @@ namespace ndp_invest_helper
                 }
             }
 
-            FillDataGridView(dataGridView_GroupsByCountry,
+            FillGroupsDataGridView(dataGridView_GroupsByCountry,
                 CurrentResult.ByCountry, oldResult.ByCountry, CountriesManager.Countries);
 
-            FillDataGridView(dataGridView_GroupsByCurrency,
+            FillGroupsDataGridView(dataGridView_GroupsByCurrency,
                 CurrentResult.ByCurrency, oldResult.ByCurrency, null);
 
-            FillDataGridView(dataGridView_GroupsBySector,
+            FillGroupsDataGridView(dataGridView_GroupsBySector,
                 CurrentResult.BySector, oldResult.BySector, sectorNames);
 
-            FillDataGridView(dataGridView_GroupsByType,
+            FillGroupsDataGridView(dataGridView_GroupsByType,
                 CurrentResult.ByType, oldResult.ByType,
                 SecuritiesManager.SecTypeFriendlyNames);
         }
@@ -278,10 +292,19 @@ namespace ndp_invest_helper
         {
             toolStripMenuItem_Log.Checked = Settings.WriteLog;
 
-            LoadXmlData();
-            LoadPortfolio();
-            FillGroupControls();
-            FillBuySellCombos();
+//            try
+//            {
+                LoadCommonData();
+                LoadPortfolio();
+                FillGroupControls();
+                FillBuySellCombos();
+//            }
+//            catch (Exception exc)
+//            {
+//                MessageBox.Show(exc.Message, "Произошла ошибка.");
+//                Log(exc.ToString());
+//                Close();
+//            }
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -290,7 +313,10 @@ namespace ndp_invest_helper
                 File.WriteAllText(Settings.LogFile, log.ToString());
         }
 
-        private void dataGridView_RowEnter(object sender, DataGridViewCellEventArgs e)
+        /// <summary>
+        /// Обработчик выделения строки в таблице с группами.
+        /// </summary>
+        private void dataGridView_Group_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
             var dataGridView = sender as DataGridView;
             var analyticsResult = dataGridView.Tag as PortfolioAnalyticsResult;
@@ -299,18 +325,41 @@ namespace ndp_invest_helper
             if (key == null)
                 return;
 
-            var securities = analyticsResult.Analytics[key].Portfolio.Securities.Keys.ToList();
-            securities.Sort((x, y) => x.BestFriendlyName.CompareTo(y.BestFriendlyName));
+            var portfolio = analyticsResult.Analytics[key].Portfolio;
+            var securities = portfolio.Securities.ToList();
 
-            listBox_GroupStocks.Items.Clear();
-            listBox_GroupStocks.Items.AddRange(securities.ToArray());
+            dataGridView_GroupContent.Tag = dataGridView;
+            dataGridView_GroupContent.Rows.Clear();
+
+            // Заполняет таблицу с составом группы.
+            foreach (var security in securities)
+            {
+                var rowIndex = dataGridView_GroupContent.Rows.Add();
+                var row = dataGridView_GroupContent.Rows[rowIndex];
+                row.SetValues(
+                    security.Key.BestUniqueFriendlyName,
+                    security.Value.Total / portfolio.Total);
+                row.Tag = security;
+            }
+
+            dataGridView_GroupContent.Sort(
+                dataGridView_GroupContent.Columns[1], ListSortDirection.Descending);
+
+            dataGridView_GroupContent.ClearSelection();
         }
 
         #region Right part
 
-        private void listBox_GroupStocks_SelectedIndexChanged(object sender, EventArgs e)
+        private void dataGridView_GroupContent_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
-            comboBox_BuySell_Security.SelectedItem = listBox_GroupStocks.SelectedItem;
+            var dataGridView = sender as DataGridView;
+            var rowTag = dataGridView.Rows[e.RowIndex].Tag;
+
+            if (rowTag == null)
+                return;
+
+            var security = ((KeyValuePair<Security, SecurityInfo>)rowTag).Key;
+            comboBox_BuySell_Security.SelectedItem = security;
         }
 
         private void listBox_Deals_SelectedIndexChanged(object sender, EventArgs e)

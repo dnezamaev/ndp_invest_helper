@@ -36,6 +36,8 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridView_GroupsByCountry = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn_CountryKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn_CountryValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -62,7 +64,6 @@
             this.dataGridViewTextBoxColumn_TypeKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn_TypeValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn_TypeDifference = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.listBox_GroupStocks = new System.Windows.Forms.ListBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem_RunTask = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem_CancelDeal = new System.Windows.Forms.ToolStripMenuItem();
@@ -74,6 +75,9 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tabControl_Right = new System.Windows.Forms.TabControl();
             this.tabPage_GroupContent = new System.Windows.Forms.TabPage();
+            this.dataGridView_GroupContent = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage_Deals = new System.Windows.Forms.TabPage();
             this.listBox_Deals = new System.Windows.Forms.ListBox();
             this.tabPage_Messages = new System.Windows.Forms.TabPage();
@@ -91,6 +95,7 @@
             this.tableLayoutPanel1.SuspendLayout();
             this.tabControl_Right.SuspendLayout();
             this.tabPage_GroupContent.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_GroupContent)).BeginInit();
             this.tabPage_Deals.SuspendLayout();
             this.tabPage_Messages.SuspendLayout();
             this.SuspendLayout();
@@ -135,7 +140,7 @@
             this.dataGridView_GroupsByCountry.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView_GroupsByCountry.Size = new System.Drawing.Size(364, 319);
             this.dataGridView_GroupsByCountry.TabIndex = 0;
-            this.dataGridView_GroupsByCountry.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_RowEnter);
+            this.dataGridView_GroupsByCountry.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_Group_RowEnter);
             // 
             // dataGridViewTextBoxColumn_CountryKey
             // 
@@ -333,7 +338,7 @@
             this.dataGridView_GroupsByCurrency.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView_GroupsByCurrency.Size = new System.Drawing.Size(364, 319);
             this.dataGridView_GroupsByCurrency.TabIndex = 8;
-            this.dataGridView_GroupsByCurrency.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_RowEnter);
+            this.dataGridView_GroupsByCurrency.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_Group_RowEnter);
             // 
             // dataGridViewTextBoxColumn_CurrencyKey
             // 
@@ -399,7 +404,7 @@
             this.dataGridView_GroupsBySector.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView_GroupsBySector.Size = new System.Drawing.Size(364, 319);
             this.dataGridView_GroupsBySector.TabIndex = 9;
-            this.dataGridView_GroupsBySector.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_RowEnter);
+            this.dataGridView_GroupsBySector.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_Group_RowEnter);
             // 
             // dataGridViewTextBoxColumn_SectorKey
             // 
@@ -465,7 +470,7 @@
             this.dataGridView_GroupsByType.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView_GroupsByType.Size = new System.Drawing.Size(364, 319);
             this.dataGridView_GroupsByType.TabIndex = 10;
-            this.dataGridView_GroupsByType.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_RowEnter);
+            this.dataGridView_GroupsByType.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_Group_RowEnter);
             // 
             // dataGridViewTextBoxColumn_TypeKey
             // 
@@ -490,19 +495,6 @@
             this.dataGridViewTextBoxColumn_TypeDifference.MinimumWidth = 6;
             this.dataGridViewTextBoxColumn_TypeDifference.Name = "dataGridViewTextBoxColumn_TypeDifference";
             this.dataGridViewTextBoxColumn_TypeDifference.ReadOnly = true;
-            // 
-            // listBox_GroupStocks
-            // 
-            this.listBox_GroupStocks.DisplayMember = "BestUniqueFriendlyName";
-            this.listBox_GroupStocks.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBox_GroupStocks.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listBox_GroupStocks.FormattingEnabled = true;
-            this.listBox_GroupStocks.ItemHeight = 19;
-            this.listBox_GroupStocks.Location = new System.Drawing.Point(3, 3);
-            this.listBox_GroupStocks.Name = "listBox_GroupStocks";
-            this.listBox_GroupStocks.Size = new System.Drawing.Size(254, 615);
-            this.listBox_GroupStocks.TabIndex = 11;
-            this.listBox_GroupStocks.SelectedIndexChanged += new System.EventHandler(this.listBox_GroupStocks_SelectedIndexChanged);
             // 
             // menuStrip1
             // 
@@ -607,7 +599,7 @@
             // 
             // tabPage_GroupContent
             // 
-            this.tabPage_GroupContent.Controls.Add(this.listBox_GroupStocks);
+            this.tabPage_GroupContent.Controls.Add(this.dataGridView_GroupContent);
             this.tabPage_GroupContent.Location = new System.Drawing.Point(4, 25);
             this.tabPage_GroupContent.Name = "tabPage_GroupContent";
             this.tabPage_GroupContent.Padding = new System.Windows.Forms.Padding(3);
@@ -615,6 +607,63 @@
             this.tabPage_GroupContent.TabIndex = 0;
             this.tabPage_GroupContent.Text = "Состав";
             this.tabPage_GroupContent.UseVisualStyleBackColor = true;
+            // 
+            // dataGridView_GroupContent
+            // 
+            this.dataGridView_GroupContent.AllowUserToAddRows = false;
+            this.dataGridView_GroupContent.AllowUserToDeleteRows = false;
+            this.dataGridView_GroupContent.AllowUserToResizeRows = false;
+            this.dataGridView_GroupContent.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_GroupContent.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            this.dataGridView_GroupContent.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_GroupContent.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2});
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView_GroupContent.DefaultCellStyle = dataGridViewCellStyle10;
+            this.dataGridView_GroupContent.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView_GroupContent.Location = new System.Drawing.Point(3, 3);
+            this.dataGridView_GroupContent.Name = "dataGridView_GroupContent";
+            this.dataGridView_GroupContent.ReadOnly = true;
+            this.dataGridView_GroupContent.RowHeadersVisible = false;
+            this.dataGridView_GroupContent.RowHeadersWidth = 51;
+            this.dataGridView_GroupContent.RowTemplate.DefaultCellStyle.Format = "N2";
+            this.dataGridView_GroupContent.RowTemplate.DefaultCellStyle.NullValue = null;
+            this.dataGridView_GroupContent.RowTemplate.Height = 24;
+            this.dataGridView_GroupContent.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.dataGridView_GroupContent.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView_GroupContent.Size = new System.Drawing.Size(254, 615);
+            this.dataGridView_GroupContent.TabIndex = 1;
+            this.dataGridView_GroupContent.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_GroupContent_RowEnter);
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.FillWeight = 50F;
+            this.dataGridViewTextBoxColumn1.HeaderText = "Бумага";
+            this.dataGridViewTextBoxColumn1.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.FillWeight = 25F;
+            this.dataGridViewTextBoxColumn2.HeaderText = "Доля";
+            this.dataGridViewTextBoxColumn2.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
             // 
             // tabPage_Deals
             // 
@@ -692,6 +741,7 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tabControl_Right.ResumeLayout(false);
             this.tabPage_GroupContent.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_GroupContent)).EndInit();
             this.tabPage_Deals.ResumeLayout(false);
             this.tabPage_Messages.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -713,7 +763,6 @@
         private System.Windows.Forms.DataGridView dataGridView_GroupsByCurrency;
         private System.Windows.Forms.DataGridView dataGridView_GroupsBySector;
         private System.Windows.Forms.DataGridView dataGridView_GroupsByType;
-        private System.Windows.Forms.ListBox listBox_GroupStocks;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_RunTask;
@@ -743,6 +792,9 @@
         private System.Windows.Forms.NumericUpDown numericUpDown_BuySell_Total;
         private System.Windows.Forms.TabPage tabPage_Messages;
         private System.Windows.Forms.RichTextBox richTextBox_Log;
+        private System.Windows.Forms.DataGridView dataGridView_GroupContent;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
     }
 }
 
