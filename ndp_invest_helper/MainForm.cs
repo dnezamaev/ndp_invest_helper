@@ -1,26 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
+using ndp_invest_helper.Models;
+
 namespace ndp_invest_helper
 {
     public partial class MainForm : Form
     {
-        private List<GrouppingResults> grouppingResults = new List<GrouppingResults>();
+        private InvestManager investManager;
 
-        private StringBuilder log = new StringBuilder();
+        private List<GrouppingResults> grouppingResults;
+
+        private StringBuilder log;
 
         public MainForm()
         {
             InitializeComponent();
+
+            log = new StringBuilder();
+            grouppingResults = new List<GrouppingResults>();
         }
+
+
+        private static (CommonDataSources enumValue, string menuItemText)[]
+            CommonDataSourceMenuItems = new []
+            {
+                (CommonDataSources.SqliteDb, "База Sqlite"),
+                (CommonDataSources.XmlFiles, "Файлы XML")
+            };
 
         #region Properties
 
@@ -48,6 +61,9 @@ namespace ndp_invest_helper
         {
             get
             {
+                if (SelectedSecurity == null)
+                    return null;
+
                 SecurityInfo secInfo;
                 CurrentPortfolio.Securities.TryGetValue(SelectedSecurity, out secInfo);
                 return secInfo;
@@ -66,21 +82,10 @@ namespace ndp_invest_helper
 
         #region Methods
 
-        private void LoadCommonData()
-        {
-            var settings = Settings.Instance;
-
-            CurrenciesManager.SetRates(settings);
-
-            CountriesManager.ParseXmlFile(settings.Files.CountriesInfo);
-            SectorsManager.ParseXmlFile(settings.Files.SectorsInfo);
-            SecuritiesManager.ParseXmlFile(settings.Files.SecuritiesInfo);
-        }
-
         private void LoadPortfolio()
         {
             var portfolio = new Portfolio();
-            var reports = LoadReports(Settings.Instance.Files.ReportsDir);
+            var reports = LoadReports(Settings.ReportsDirectory);
             var unknownSecurities = new HashSet<Security>();
             var incompleteSecurities = new HashSet<Security>();
 
@@ -125,6 +130,23 @@ namespace ndp_invest_helper
                 richTextBox_Log.ForeColor = Color.Red;
                 toolStripStatusLabel1.Text = "!!! ВНИМАНИЕ: обнаружены ошибки, подробности в логе справа.";
                 tabControl_Right.SelectedTab = tabPage_Messages;
+            }
+
+            FillFilter();
+        }
+
+        private void FillFilter()
+        {
+            var portfolio = CurrentPortfolio;
+
+            foreach (var security in portfolio.Securities)
+            {
+                listView_Filter.Items.Add(new ListViewItem
+                {
+                    Tag = security.Key,
+                    Text = security.Key.BestUniqueFriendlyName,
+                    Checked = true,
+                });
             }
         }
 
@@ -234,22 +256,22 @@ namespace ndp_invest_helper
 
             if (grouppingResults.Count > 1)
             {
-                switch (Settings.Instance.Options.ShowDifferenceFrom)
+                switch (Settings.ShowDifferenceFrom)
                 {
-                    case "origin":
+                    case PortfolioDifferenceSource.Origin:
                         oldResult = FirstResult;
                         break;
 
-                    case "last_deal":
+                    case PortfolioDifferenceSource.LastDeal:
                         // Предпоследний результат.
                         oldResult = grouppingResults[grouppingResults.Count - 2];
                         break;
 
                     default:
                         throw new ArgumentException(
-                            "В settings.xml для параметра show_difference_from" +
-                            " указано недопустимоео значение" +
-                            Settings.Instance.Options.ShowDifferenceFrom);
+                            "Для параметра ShowDifferenceFrom " +
+                            "указано недопустимое значение " +
+                            Settings.ShowDifferenceFrom);
 
                 }
             }
@@ -271,17 +293,22 @@ namespace ndp_invest_helper
         private void FillBuySellCombos()
         {
             comboBox_BuySell_Security.DataSource = SecuritiesManager.Securities;
-            comboBox_BuySell_Currency.DataSource = CurrenciesManager.CurrencyRates.Keys.ToList();
+            comboBox_BuySell_Currency.DataSource = CurrenciesManager.RatesToRub.Keys.ToList();
+        }
+
+        private void FillDbEditorCombo()
+        {
+            comboBox_DbEditor_Security.DataSource = SecuritiesManager.Securities;
         }
 
         private void ExecuteTasks()
         {
-            var taskFilePath = "task.xml"; 
             var taskManager = new TaskManager(FirstPortfolio);
             var taskOutput = new StringBuilder();
-            taskManager.ParseXmlFile(taskFilePath, taskOutput);
-            File.WriteAllText(Settings.Instance.Files.TaskOutput, taskOutput.ToString());
-            toolStripStatusLabel1.Text = "Задание выполнено, результаты записаны в output.txt";
+            taskManager.ParseXmlFile(Settings.TaskInputFile, taskOutput);
+            File.WriteAllText(Settings.TaskOutputFile, taskOutput.ToString());
+            toolStripStatusLabel1.Text = 
+                $"Задание выполнено, результаты записаны в {Settings.TaskOutputFile}";
         }
 
         #endregion
@@ -290,14 +317,29 @@ namespace ndp_invest_helper
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            investManager = new InvestManager();
+
             toolStripMenuItem_Log.Checked = Settings.WriteLog;
 
-//            try
-//            {
-                LoadCommonData();
-                LoadPortfolio();
+            // Fill menu items for common data sources.
+            toolStripComboBox_CommonDataSource.Items.AddRange
+                (CommonDataSourceMenuItems.Select(x => x.menuItemText).ToArray());
+
+            // Select menu item based on settings.
+            toolStripComboBox_CommonDataSource.SelectedItem =
+                CommonDataSourceMenuItems.First
+                (x => x.enumValue == Settings.CommonDataSource)
+                .menuItemText;
+
+
+            //tabControl_Main.SelectedTab = tabPage_Main_DbEditor;
+
+            //            try
+            //            {
+            LoadPortfolio();
                 FillGroupControls();
                 FillBuySellCombos();
+                FillDbEditorCombo();
 //            }
 //            catch (Exception exc)
 //            {
@@ -311,10 +353,12 @@ namespace ndp_invest_helper
         {
             if (Settings.WriteLog)
                 File.WriteAllText(Settings.LogFile, log.ToString());
+
+            Settings.Save();
         }
 
         /// <summary>
-        /// Обработчик выделения строки в таблице с группами.
+        /// Обработчик выбора строки в таблице с группами.
         /// </summary>
         private void dataGridView_Group_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
@@ -331,14 +375,15 @@ namespace ndp_invest_helper
             dataGridView_GroupContent.Tag = dataGridView;
             dataGridView_GroupContent.Rows.Clear();
 
-            // Заполняет таблицу с составом группы.
+            // Заполняем таблицу с составом группы.
             foreach (var security in securities)
             {
                 var rowIndex = dataGridView_GroupContent.Rows.Add();
                 var row = dataGridView_GroupContent.Rows[rowIndex];
+
                 row.SetValues(
                     security.Key.BestUniqueFriendlyName,
-                    security.Value.Total / portfolio.Total);
+                    security.Value.Total / portfolio.Total * 100);
                 row.Tag = security;
             }
 
@@ -367,6 +412,47 @@ namespace ndp_invest_helper
             // TODO: show groupping after selected deal.
         }
 
+        private void comboBox_DbEditor_Security_SelectedIndexChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void linkLabel_DbEditor_Countries_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
+        }
+
+        /// <summary>
+        /// Обработчик выделения строк в таблице с группами.
+        /// </summary>
+        private void dataGridView_Groups_SelectionChanged(object sender, EventArgs e)
+        {
+            var dataGridView = sender as DataGridView;
+
+            // Считаем сумму по выделенным группам.
+            decimal partsSum = 0;
+            foreach (DataGridViewRow selectedRow in dataGridView.SelectedRows)
+            {
+                if (selectedRow.Cells[1].Value == null)
+                    return; // Обработчик вызван до заполнения таблицы.
+
+                partsSum += (decimal)selectedRow.Cells[1].Value;
+            }
+            richTextBox_Info.Text = $"Выделенные: {partsSum:0.00}%";
+        }
+
+        private void toolStripComboBox_CommonDataSource_SelectedIndexChanged
+            (object sender, EventArgs e)
+        {
+            Settings.CommonDataSource = CommonDataSourceMenuItems
+                [toolStripComboBox_CommonDataSource.SelectedIndex].enumValue;
+
+            investManager.LoadCommonData();
+        }
+
+        private void toolStripMenuItem_XmlToSqlite_Click(object sender, EventArgs e)
+        {
+            investManager.XmlToSqlite();
+        }
         #endregion
 
         #region Buy/Sell

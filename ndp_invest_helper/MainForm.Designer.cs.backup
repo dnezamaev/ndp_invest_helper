@@ -55,14 +55,10 @@
             this.dataGridViewTextBoxColumn_TypeValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn_TypeDifference = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.действияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem_CancelDeal = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem_RunTask = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem_XmlToSqlite = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem_CancelDeal = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem_settings = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem_Log = new System.Windows.Forms.ToolStripMenuItem();
-            this.источникДанныхToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripComboBox_CommonDataSource = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripMenuItem_About = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -88,7 +84,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.linkLabel_DbEditor_Countries = new System.Windows.Forms.LinkLabel();
-            this.dataGridView_DbEditor = new System.Windows.Forms.DataGridView();
+            this.dataGridView_DbEditor_Parts = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.comboBox_DbEditor_AddNew = new SergeUtils.EasyCompletionComboBox();
@@ -115,7 +111,7 @@
             this.tabPage_Main_Analytics.SuspendLayout();
             this.tabPage_Main_DbEditor.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_DbEditor)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_DbEditor_Parts)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView_GroupsByCountry
@@ -140,7 +136,7 @@
             this.dataGridView_GroupsByCountry.RowTemplate.Height = 24;
             this.dataGridView_GroupsByCountry.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dataGridView_GroupsByCountry.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_GroupsByCountry.Size = new System.Drawing.Size(392, 314);
+            this.dataGridView_GroupsByCountry.Size = new System.Drawing.Size(637, 314);
             this.dataGridView_GroupsByCountry.TabIndex = 0;
             this.dataGridView_GroupsByCountry.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_Group_RowEnter);
             this.dataGridView_GroupsByCountry.SelectionChanged += new System.EventHandler(this.dataGridView_Groups_SelectionChanged);
@@ -217,7 +213,7 @@
             this.groupBox1.Controls.Add(this.buttonBuy);
             this.groupBox1.Location = new System.Drawing.Point(6, 642);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1104, 134);
+            this.groupBox1.Size = new System.Drawing.Size(1594, 134);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             // 
@@ -273,7 +269,7 @@
             this.comboBox_BuySell_Security.Location = new System.Drawing.Point(157, 26);
             this.comboBox_BuySell_Security.MatchingMethod = SergeUtils.StringMatchingMethod.SubString;
             this.comboBox_BuySell_Security.Name = "comboBox_BuySell_Security";
-            this.comboBox_BuySell_Security.Size = new System.Drawing.Size(941, 31);
+            this.comboBox_BuySell_Security.Size = new System.Drawing.Size(1921, 31);
             this.comboBox_BuySell_Security.TabIndex = 8;
             this.comboBox_BuySell_Security.SelectedIndexChanged += new System.EventHandler(this.comboBox_BuySellSecurity_SelectedIndexChanged);
             // 
@@ -323,7 +319,7 @@
             this.dataGridView_GroupsByCurrency.RowTemplate.Height = 24;
             this.dataGridView_GroupsByCurrency.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dataGridView_GroupsByCurrency.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_GroupsByCurrency.Size = new System.Drawing.Size(392, 314);
+            this.dataGridView_GroupsByCurrency.Size = new System.Drawing.Size(637, 314);
             this.dataGridView_GroupsByCurrency.TabIndex = 8;
             this.dataGridView_GroupsByCurrency.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_Group_RowEnter);
             this.dataGridView_GroupsByCurrency.SelectionChanged += new System.EventHandler(this.dataGridView_Groups_SelectionChanged);
@@ -364,7 +360,7 @@
             this.dataGridViewTextBoxColumn_SectorValue,
             this.dataGridViewTextBoxColumn_SectorDifference});
             this.dataGridView_GroupsBySector.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView_GroupsBySector.Location = new System.Drawing.Point(401, 3);
+            this.dataGridView_GroupsBySector.Location = new System.Drawing.Point(646, 3);
             this.dataGridView_GroupsBySector.Name = "dataGridView_GroupsBySector";
             this.dataGridView_GroupsBySector.ReadOnly = true;
             this.dataGridView_GroupsBySector.RowHeadersVisible = false;
@@ -374,7 +370,7 @@
             this.dataGridView_GroupsBySector.RowTemplate.Height = 24;
             this.dataGridView_GroupsBySector.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dataGridView_GroupsBySector.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_GroupsBySector.Size = new System.Drawing.Size(393, 314);
+            this.dataGridView_GroupsBySector.Size = new System.Drawing.Size(638, 314);
             this.dataGridView_GroupsBySector.TabIndex = 9;
             this.dataGridView_GroupsBySector.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_Group_RowEnter);
             this.dataGridView_GroupsBySector.SelectionChanged += new System.EventHandler(this.dataGridView_Groups_SelectionChanged);
@@ -415,7 +411,7 @@
             this.dataGridViewTextBoxColumn_TypeValue,
             this.dataGridViewTextBoxColumn_TypeDifference});
             this.dataGridView_GroupsByType.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView_GroupsByType.Location = new System.Drawing.Point(401, 323);
+            this.dataGridView_GroupsByType.Location = new System.Drawing.Point(646, 323);
             this.dataGridView_GroupsByType.Name = "dataGridView_GroupsByType";
             this.dataGridView_GroupsByType.ReadOnly = true;
             this.dataGridView_GroupsByType.RowHeadersVisible = false;
@@ -425,7 +421,7 @@
             this.dataGridView_GroupsByType.RowTemplate.Height = 24;
             this.dataGridView_GroupsByType.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dataGridView_GroupsByType.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_GroupsByType.Size = new System.Drawing.Size(393, 314);
+            this.dataGridView_GroupsByType.Size = new System.Drawing.Size(638, 314);
             this.dataGridView_GroupsByType.TabIndex = 10;
             this.dataGridView_GroupsByType.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_Group_RowEnter);
             this.dataGridView_GroupsByType.SelectionChanged += new System.EventHandler(this.dataGridView_Groups_SelectionChanged);
@@ -459,7 +455,8 @@
             this.menuStrip1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.действияToolStripMenuItem,
+            this.toolStripMenuItem_RunTask,
+            this.toolStripMenuItem_CancelDeal,
             this.toolStripMenuItem_settings,
             this.toolStripMenuItem_About});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -468,40 +465,24 @@
             this.menuStrip1.TabIndex = 12;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // действияToolStripMenuItem
+            // toolStripMenuItem_RunTask
             // 
-            this.действияToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem_CancelDeal,
-            this.toolStripMenuItem_RunTask,
-            this.toolStripMenuItem_XmlToSqlite});
-            this.действияToolStripMenuItem.Name = "действияToolStripMenuItem";
-            this.действияToolStripMenuItem.Size = new System.Drawing.Size(105, 24);
-            this.действияToolStripMenuItem.Text = "Действия";
+            this.toolStripMenuItem_RunTask.Name = "toolStripMenuItem_RunTask";
+            this.toolStripMenuItem_RunTask.Size = new System.Drawing.Size(183, 24);
+            this.toolStripMenuItem_RunTask.Text = "Выполнить task.xml";
+            this.toolStripMenuItem_RunTask.Click += new System.EventHandler(this.toolStripMenuItem_RunTask_Click);
             // 
             // toolStripMenuItem_CancelDeal
             // 
             this.toolStripMenuItem_CancelDeal.Name = "toolStripMenuItem_CancelDeal";
-            this.toolStripMenuItem_CancelDeal.Size = new System.Drawing.Size(265, 26);
+            this.toolStripMenuItem_CancelDeal.Size = new System.Drawing.Size(171, 24);
             this.toolStripMenuItem_CancelDeal.Text = "Отменить сделку";
-            // 
-            // toolStripMenuItem_RunTask
-            // 
-            this.toolStripMenuItem_RunTask.Name = "toolStripMenuItem_RunTask";
-            this.toolStripMenuItem_RunTask.Size = new System.Drawing.Size(265, 26);
-            this.toolStripMenuItem_RunTask.Text = "Выполнить task.xml";
-            // 
-            // toolStripMenuItem_XmlToSqlite
-            // 
-            this.toolStripMenuItem_XmlToSqlite.Name = "toolStripMenuItem_XmlToSqlite";
-            this.toolStripMenuItem_XmlToSqlite.Size = new System.Drawing.Size(265, 26);
-            this.toolStripMenuItem_XmlToSqlite.Text = "Импорт базы из XML";
-            this.toolStripMenuItem_XmlToSqlite.Click += new System.EventHandler(this.toolStripMenuItem_XmlToSqlite_Click);
+            this.toolStripMenuItem_CancelDeal.Click += new System.EventHandler(this.toolStripMenuItem_CancelDeal_Click);
             // 
             // toolStripMenuItem_settings
             // 
             this.toolStripMenuItem_settings.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem_Log,
-            this.источникДанныхToolStripMenuItem});
+            this.toolStripMenuItem_Log});
             this.toolStripMenuItem_settings.Name = "toolStripMenuItem_settings";
             this.toolStripMenuItem_settings.Size = new System.Drawing.Size(114, 24);
             this.toolStripMenuItem_settings.Text = "Настройки";
@@ -510,24 +491,9 @@
             // 
             this.toolStripMenuItem_Log.CheckOnClick = true;
             this.toolStripMenuItem_Log.Name = "toolStripMenuItem_Log";
-            this.toolStripMenuItem_Log.Size = new System.Drawing.Size(238, 26);
-            this.toolStripMenuItem_Log.Text = "Вести журнал?";
+            this.toolStripMenuItem_Log.Size = new System.Drawing.Size(208, 26);
+            this.toolStripMenuItem_Log.Text = "Вести журнал";
             this.toolStripMenuItem_Log.CheckStateChanged += new System.EventHandler(this.toolStripMenuItem_Log_CheckStateChanged);
-            // 
-            // источникДанныхToolStripMenuItem
-            // 
-            this.источникДанныхToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripComboBox_CommonDataSource});
-            this.источникДанныхToolStripMenuItem.Name = "источникДанныхToolStripMenuItem";
-            this.источникДанныхToolStripMenuItem.Size = new System.Drawing.Size(238, 26);
-            this.источникДанныхToolStripMenuItem.Text = "Источник данных";
-            // 
-            // toolStripComboBox_CommonDataSource
-            // 
-            this.toolStripComboBox_CommonDataSource.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.toolStripComboBox_CommonDataSource.Name = "toolStripComboBox_CommonDataSource";
-            this.toolStripComboBox_CommonDataSource.Size = new System.Drawing.Size(121, 28);
-            this.toolStripComboBox_CommonDataSource.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBox_CommonDataSource_SelectedIndexChanged);
             // 
             // toolStripMenuItem_About
             // 
@@ -571,7 +537,7 @@
             this.tableLayoutPanel_Analytics.RowCount = 2;
             this.tableLayoutPanel_Analytics.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel_Analytics.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel_Analytics.Size = new System.Drawing.Size(797, 640);
+            this.tableLayoutPanel_Analytics.Size = new System.Drawing.Size(1287, 640);
             this.tableLayoutPanel_Analytics.TabIndex = 14;
             // 
             // tabControl_Right
@@ -585,7 +551,7 @@
             this.tabControl_Right.Controls.Add(this.tabPage_Info);
             this.tabControl_Right.Controls.Add(this.tabPage_Filters);
             this.tabControl_Right.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tabControl_Right.Location = new System.Drawing.Point(803, 3);
+            this.tabControl_Right.Location = new System.Drawing.Point(1293, 3);
             this.tabControl_Right.Multiline = true;
             this.tabControl_Right.Name = "tabControl_Right";
             this.tabControl_Right.SelectedIndex = 0;
@@ -774,7 +740,7 @@
             // 
             this.tabPage_Main_DbEditor.Controls.Add(this.label3);
             this.tabPage_Main_DbEditor.Controls.Add(this.groupBox2);
-            this.tabPage_Main_DbEditor.Controls.Add(this.dataGridView_DbEditor);
+            this.tabPage_Main_DbEditor.Controls.Add(this.dataGridView_DbEditor_Parts);
             this.tabPage_Main_DbEditor.Controls.Add(this.comboBox_DbEditor_AddNew);
             this.tabPage_Main_DbEditor.Controls.Add(this.comboBox_DbEditor_Security);
             this.tabPage_Main_DbEditor.Location = new System.Drawing.Point(33, 4);
@@ -815,27 +781,27 @@
             this.linkLabel_DbEditor_Countries.Text = "Страны";
             this.linkLabel_DbEditor_Countries.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_DbEditor_Countries_LinkClicked);
             // 
-            // dataGridView_DbEditor
+            // dataGridView_DbEditor_Parts
             // 
-            this.dataGridView_DbEditor.AllowUserToAddRows = false;
-            this.dataGridView_DbEditor.AllowUserToResizeRows = false;
-            this.dataGridView_DbEditor.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView_DbEditor.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView_DbEditor.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridView_DbEditor_Parts.AllowUserToAddRows = false;
+            this.dataGridView_DbEditor_Parts.AllowUserToResizeRows = false;
+            this.dataGridView_DbEditor_Parts.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView_DbEditor_Parts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_DbEditor_Parts.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn3,
             this.dataGridViewTextBoxColumn4});
-            this.dataGridView_DbEditor.Location = new System.Drawing.Point(3, 180);
-            this.dataGridView_DbEditor.Name = "dataGridView_DbEditor";
-            this.dataGridView_DbEditor.ReadOnly = true;
-            this.dataGridView_DbEditor.RowHeadersVisible = false;
-            this.dataGridView_DbEditor.RowHeadersWidth = 51;
-            this.dataGridView_DbEditor.RowTemplate.DefaultCellStyle.Format = "N2";
-            this.dataGridView_DbEditor.RowTemplate.DefaultCellStyle.NullValue = null;
-            this.dataGridView_DbEditor.RowTemplate.Height = 24;
-            this.dataGridView_DbEditor.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dataGridView_DbEditor.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_DbEditor.Size = new System.Drawing.Size(1104, 314);
-            this.dataGridView_DbEditor.TabIndex = 10;
+            this.dataGridView_DbEditor_Parts.Location = new System.Drawing.Point(3, 180);
+            this.dataGridView_DbEditor_Parts.Name = "dataGridView_DbEditor_Parts";
+            this.dataGridView_DbEditor_Parts.ReadOnly = true;
+            this.dataGridView_DbEditor_Parts.RowHeadersVisible = false;
+            this.dataGridView_DbEditor_Parts.RowHeadersWidth = 51;
+            this.dataGridView_DbEditor_Parts.RowTemplate.DefaultCellStyle.Format = "N2";
+            this.dataGridView_DbEditor_Parts.RowTemplate.DefaultCellStyle.NullValue = null;
+            this.dataGridView_DbEditor_Parts.RowTemplate.Height = 24;
+            this.dataGridView_DbEditor_Parts.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.dataGridView_DbEditor_Parts.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView_DbEditor_Parts.Size = new System.Drawing.Size(1104, 314);
+            this.dataGridView_DbEditor_Parts.TabIndex = 10;
             // 
             // dataGridViewTextBoxColumn3
             // 
@@ -863,7 +829,7 @@
             this.comboBox_DbEditor_AddNew.Location = new System.Drawing.Point(272, 130);
             this.comboBox_DbEditor_AddNew.MatchingMethod = SergeUtils.StringMatchingMethod.SubString;
             this.comboBox_DbEditor_AddNew.Name = "comboBox_DbEditor_AddNew";
-            this.comboBox_DbEditor_AddNew.Size = new System.Drawing.Size(835, 31);
+            this.comboBox_DbEditor_AddNew.Size = new System.Drawing.Size(1325, 31);
             this.comboBox_DbEditor_AddNew.TabIndex = 13;
             // 
             // comboBox_DbEditor_Security
@@ -921,7 +887,7 @@
             this.tabPage_Main_DbEditor.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_DbEditor)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_DbEditor_Parts)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -943,6 +909,7 @@
         private System.Windows.Forms.DataGridView dataGridView_GroupsByType;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_RunTask;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_About;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
@@ -960,6 +927,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn_TypeKey;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn_TypeValue;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn_TypeDifference;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_CancelDeal;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel_Analytics;
         private System.Windows.Forms.TabControl tabControl_Right;
         private System.Windows.Forms.TabPage tabPage_GroupContent;
@@ -979,7 +947,7 @@
         private SergeUtils.EasyCompletionComboBox comboBox_DbEditor_AddNew;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.LinkLabel linkLabel_DbEditor_Countries;
-        private System.Windows.Forms.DataGridView dataGridView_DbEditor;
+        private System.Windows.Forms.DataGridView dataGridView_DbEditor_Parts;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.TabPage tabPage_Info;
@@ -988,12 +956,6 @@
         private System.Windows.Forms.ListView listView_Filter;
         private System.Windows.Forms.ComboBox comboBox_FilterType;
         private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.ToolStripMenuItem источникДанныхToolStripMenuItem;
-        private System.Windows.Forms.ToolStripComboBox toolStripComboBox_CommonDataSource;
-        private System.Windows.Forms.ToolStripMenuItem действияToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_CancelDeal;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_RunTask;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_XmlToSqlite;
     }
 }
 

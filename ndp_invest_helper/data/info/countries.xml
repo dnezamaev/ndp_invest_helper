@@ -524,7 +524,7 @@
     </region>
   </by_region>
   <by_development_level>
-    <level key="developed">
+    <level key="Развитые">
       <country key="US" />
       <country key="IT" />
       <country key="JP"  />
@@ -544,7 +544,7 @@
       <country key="CH"  />
       <country key="GB"  />
     </level>
-    <level key="developing">
+    <level key="Развивающиеся">
       <country key="RU" />
       <country key="CN" />
       <country key="TW" />

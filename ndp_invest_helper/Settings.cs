@@ -1,104 +1,110 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Xml;
-using System.Xml.Schema;
-using System.Xml.Serialization;
 
 namespace ndp_invest_helper
 {
+    public enum PortfolioDifferenceSource
+    {
+        Origin, LastDeal
+    }
+
+    public enum CommonDataSources
+    {
+        XmlFiles, SqliteDb
+    }
+
     [Serializable]
     public class Settings
     {
-        public static bool WriteLog { 
-            get => Instance.Options.WriteLog == "yes"; 
-            set => Instance.Options.WriteLog = (value ? "yes" : "no"); 
+        public const string
+            SecuritiesXmlFile = "securities.xml",
+            CountriesXmlFile = "countries.xml",
+            CurrenciesXmlFile = "currencies.xml",
+            SectorsXmlFile = "sectors.xml",
+            SqliteDatabaseFile = "sqlite.db",
+            SqliteDatabaseCreateScriptFile = "db_create.sql",
+            LogFile = "log.txt",
+            TaskInputFile = "task.xml",
+            TaskOutputFile = "task.txt";
+
+        public static string ReportsDirectory
+        {
+            get => UserSettings.BrokerReportsDirectory;
+            set => UserSettings.BrokerReportsDirectory = value;
         }
 
-        public static string LogFile { get => Instance.Files.Log; }
-
-        /// <summary>
-        /// Последний прочитанный ReadFromFile() объект.
-        /// </summary>
-        public static Settings Instance { get => instance; }
-
-        private static Settings instance;
-
-        [Serializable]
-        public class Currency
+        public static string CommonDataDirectory
         {
-            [XmlAttribute(AttributeName = "key")]
-            public string Key { get; set; }
-
-            [XmlAttribute(AttributeName = "value")]
-            public decimal Value { get; set; }
+            get => UserSettings.CommonDataDirectory;
+            set => UserSettings.CommonDataDirectory = value;
         }
 
-        [Serializable]
-        public class FilePaths
+        private static (CommonDataSources enumValue, string settingString)[]
+            CommonDataSourcesToString = new[]
+            {
+                (CommonDataSources.SqliteDb, "SqliteDb"),
+                (CommonDataSources.XmlFiles, "XmlFiles")
+            };
+
+        public static CommonDataSources CommonDataSource
         {
-            [XmlAttribute(AttributeName = "securities_info")]
-            public string SecuritiesInfo;
+            get
+            {
+                return CommonDataSourcesToString.First
+                    (x => x.settingString == Properties.Settings.Default.CommonDataSource)
+                    .enumValue;
+            }
 
-            [XmlAttribute(AttributeName = "countries_info")]
-            public string CountriesInfo;
-
-            [XmlAttribute(AttributeName = "sectors_info")]
-            public string SectorsInfo;
-
-            [XmlAttribute(AttributeName = "reports_dir")]
-            public string ReportsDir;
-
-            [XmlAttribute(AttributeName = "task_output")]
-            public string TaskOutput;
-
-            [XmlAttribute(AttributeName = "log")]
-            public string Log;
+            set
+            {
+                Properties.Settings.Default.CommonDataSource =
+                    CommonDataSourcesToString.First(x => x.enumValue == value)
+                    .settingString;
+            }
         }
 
-        [XmlElement(ElementName = "files")]
-        public FilePaths Files;
+        private static (PortfolioDifferenceSource enumValue, string settingString)[]
+            PortfolioDifferenceSourceToString = new[]
+            {
+                (PortfolioDifferenceSource.LastDeal, "Origin"),
+                (PortfolioDifferenceSource.Origin, "LastDeal")
+            };
 
-        [Serializable]
-        public class OptionsType
+        public static PortfolioDifferenceSource ShowDifferenceFrom
         {
-            [XmlAttribute(AttributeName = "write_log")]
-            public string WriteLog;
+            get
+            {
+                return PortfolioDifferenceSourceToString.First
+                    (x => x.settingString == Properties.Settings.Default.ShowDifferenceFrom)
+                    .enumValue;
+            }
 
-            [XmlAttribute(AttributeName = "show_difference_from")]
-            public string ShowDifferenceFrom;
+            set
+            {
+                Properties.Settings.Default.CommonDataSource =
+                    PortfolioDifferenceSourceToString.First(x => x.enumValue == value)
+                    .settingString;
+            }
         }
 
-        [XmlElement(ElementName = "options")]
-        public OptionsType Options;
-
-        /// <summary>
-        /// Курсы валют к рублю.
-        /// </summary>
-        [XmlArray(ElementName = "currency_rates")]
-        [XmlArrayItem(ElementName = "currency")]
-        public List<Currency> CurrencyRates = new List<Currency>();
-
-        public static Settings ReadFromFile(string xmlFilePath)
+        public static bool WriteLog
         {
-            var xmlSerializer = new XmlSerializer(typeof(Settings));
-            var streamReader = new StreamReader(xmlFilePath);
-            var settings = (Settings)xmlSerializer.Deserialize(streamReader);
-            instance = settings;
-            streamReader.Close();
-
-            return settings;
+            get => UserSettings.WriteLog;
+            set => UserSettings.WriteLog = value;
         }
 
-        public void WriteToFile(string xmlFilePath)
+        // TODO: find way to save config to same place as exe.
+        public static void Save()
         {
-            var xmlSerializer = new XmlSerializer(typeof(Settings));
-            var streamWriter = new StreamWriter(xmlFilePath);
-            xmlSerializer.Serialize(streamWriter, this);
-            streamWriter.Close();
+            // Shows actual config location.
+            //var path = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal).FilePath;
+
+            Properties.Settings.Default.Save();
+        }
+
+        private static Properties.Settings UserSettings
+        {
+            get => Properties.Settings.Default; 
         }
     }
 }

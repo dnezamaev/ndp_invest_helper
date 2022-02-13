@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.IO;
 using System.Text;
 using System.Xml.Linq;
@@ -84,11 +85,34 @@ namespace ndp_invest_helper
             return sector;
         }
 
-        public static void ParseXmlFile(string filePath)
+        private static void Init()
         {
             Sectors = new List<Sector>();
             ById = new Dictionary<string, Sector>();
             LevelsCount = 0;
+        }
+
+        public static void LoadFromDatabase(DatabaseManager database)
+        {
+            Init();
+
+            Sectors = database.GetFullTable<Models.EconomySector>("EconomySectors")
+                .Select(x =>
+                new Sector
+                {
+                    Id = x.Id.ToString(),
+                    Level = (int)x.Level,
+                    Name = x.NameRus,
+                    ParentId = x.ParentId.ToString()
+                }
+                ).ToList();
+
+            ById = Sectors.ToDictionary(k => k.Id, v => v);
+        }
+
+        public static void LoadFromXmlFile(string filePath)
+        {
+            Init();
 
             var xRoot = XElement.Parse(File.ReadAllText(filePath));
 

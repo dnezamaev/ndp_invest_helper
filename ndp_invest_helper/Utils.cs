@@ -18,15 +18,17 @@ namespace ndp_invest_helper
         /// Если вложенных тегов нет, тогда ищем проверяется аттрибут attributeName, 
         /// его значение используется как ключ и 1 как значение. 
         /// </summary>
+        /// <param name="destination">Куда писать результат.</param>
         /// <param name="xTag">Тэг для разбора.</param>
         /// <param name="attributeName">Название аттрибута и подтегов.</param>
         /// <param name="fillTo100">Дополнять до 100%, если не хватает.</param>
         /// <param name="keyForUnknown">Ключ для незаполненной части.</param>
         /// <param name="subTagKey">Имя аттрибута с ключом у подтегов.</param>
         /// <param name="subTagValue">Имя аттрибута со значением у подтегов.</param>
-        public static Dictionary<string, decimal> HandleComplexStringXmlAttribute(
+        public static void HandleComplexStringXmlAttribute(
+            Dictionary<string, decimal> destination,
             XElement xTag,
-            string attributeName, 
+            string attributeName,
             bool fillTo100 = true,
             string keyForUnknown = "???",
             string subTagKey = "key",
@@ -48,8 +50,6 @@ namespace ndp_invest_helper
             //     { "key3", 0.3} - из второго вложенного тега
             //     { "???", 0.5} - дополнение до 100%
 
-            var result = new Dictionary<string, decimal>();
-
             var children = xTag.Elements(attributeName).ToArray();
 
             if (children.Length == 0) // Нет вложенных тегов.
@@ -59,9 +59,9 @@ namespace ndp_invest_helper
 
                 // Если есть, то добавляем его как 100%.
                 if (xAttribute != null) 
-                    result[xAttribute.Value] = 1;
+                    destination[xAttribute.Value] = 1;
 
-                return result;
+                return;
             }
 
             decimal partsSum = 0; // Общая сумма по найденным долям.
@@ -74,24 +74,40 @@ namespace ndp_invest_helper
                         NumberStyles.Any, CultureInfo.InvariantCulture
                         ) / 100;
 
-                result[xSubTag.Attribute(subTagKey).Value] = part;
+                destination[xSubTag.Attribute(subTagKey).Value] = part;
                 partsSum += part;
             }
 
             if (fillTo100 && partsSum < 1M) // Сумма найденных долей оказалась меньше 100%.
             {
                 // Возможно, такой ключ уже есть, тогда надо учесть его текущее значение.
-                var unknownPart = result.GetValueOrDefault(keyForUnknown, 0);
+                var unknownPart = destination.GetValueOrDefault(keyForUnknown, 0);
                 unknownPart += 1 - partsSum;
-                result[keyForUnknown] = unknownPart;
+                destination[keyForUnknown] = unknownPart;
             }
+        }
+
+        public static Dictionary<string, decimal> HandleComplexStringXmlAttribute(
+            XElement xTag,
+            string attributeName, 
+            bool fillTo100 = true,
+            string keyForUnknown = "???",
+            string subTagKey = "key",
+            string subTagValue = "value"
+            )
+        {
+            var result = new Dictionary<string, decimal>();
+
+            HandleComplexStringXmlAttribute(
+                result, xTag, attributeName, fillTo100, keyForUnknown,
+                subTagKey, subTagValue);
 
             return result;
         }
 
         public static void HandleSectorAttribute(
-            XElement xTag,
             Dictionary<Sector, decimal> destination,
+            XElement xTag,
             string unknownSector)
         {
             var sectors = HandleComplexStringXmlAttribute(xTag, "sector", true, unknownSector);

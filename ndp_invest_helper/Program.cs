@@ -13,10 +13,8 @@ namespace ndp_invest_helper
         [STAThread]
         static void Main(string[] args)
         {
-            var settings = Settings.ReadFromFile("settings.xml");
-
             if (args.Length != 0)
-                settings.Files.ReportsDir = args[0];
+                Settings.ReportsDirectory = args[0];
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

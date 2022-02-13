@@ -5,6 +5,8 @@ using System.Xml.Linq;
 using System.Collections.Generic;
 using System.Linq;
 
+using ndp_invest_helper.Models;
+
 namespace Test
 {
     [TestClass]
@@ -13,8 +15,8 @@ namespace Test
         [TestInitialize]
         public void Initialize()
         {
-            CountriesManager.ParseXmlFile(@"data\info\countries.xml");
-            SectorsManager.ParseXmlFile(@"data\info\sectors.xml");
+            CountriesManager.LoadFromXmlFile(@"data\info\countries.xml");
+            SectorsManager.LoadFromXmlFile(@"data\info\sectors.xml");
         }
 
         [TestMethod]
@@ -106,7 +108,7 @@ namespace Test
             // У эмитента свои страны и сектора, приоритет у вложенных тегов перед аттрибутами.
             Assert.AreEqual(1, SecuritiesManager.Issuers.Count);
             var issuer = SecuritiesManager.Issuers[0];
-            Assert.AreEqual("full attributes issuer", issuer.Name);
+            Assert.AreEqual("full attributes issuer", issuer.NameRus);
 
             Assert.AreEqual(2, issuer.Currencies.Count);
             Assert.IsTrue(issuer.Currencies.ContainsKey("issuer inner currency 1"));
@@ -221,7 +223,7 @@ namespace Test
             ";
             #endregion
 
-            CurrenciesManager.CurrencyRates = new Dictionary<string, decimal>
+            CurrenciesManager.RatesToRub = new Dictionary<string, decimal>
             {
                 { "cur1", 1 },
                 { "cur2", 1 },

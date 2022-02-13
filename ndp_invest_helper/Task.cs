@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 
+using ndp_invest_helper.Models;
+
 namespace ndp_invest_helper
 {
     /// <summary>
@@ -310,7 +312,7 @@ namespace ndp_invest_helper
                         "В действии {0} указана неизвестная бумага {1}." +
                         "Возможно, её стоит добавить в базу {2}, " +
                         "либо проверить правильность указания isin.",
-                        xAction.ToString(), isin, Settings.Instance.Files.SecuritiesInfo));
+                        xAction.ToString(), isin, Settings.SecuritiesXmlFile));
             }
             else // Ищем по ticker.
             {
@@ -321,7 +323,7 @@ namespace ndp_invest_helper
                         "В действии {0} указана неизвестная бумага {1}." +
                         "Возможно, её стоит добавить в базу {2}, " +
                         "либо проверить правильность указания ticker.",
-                        xAction.ToString(), ticker, Settings.Instance.Files.SecuritiesInfo));
+                        xAction.ToString(), ticker, Settings.SecuritiesXmlFile));
             }
 
             UInt64? count = null;
@@ -361,7 +363,7 @@ namespace ndp_invest_helper
             if (xCurrency != null)
             {
                 currency = xCurrency.Value.ToString();
-                if (!CurrenciesManager.CurrencyRates.ContainsKey(currency))
+                if (!CurrenciesManager.RatesToRub.ContainsKey(currency))
                     throw new ArgumentException(string.Format(
                         "В действии {0} указан аттрибут currency={1}, " +
                         "такая валюта не найдена, её стоит добавить в Settings.xml.",

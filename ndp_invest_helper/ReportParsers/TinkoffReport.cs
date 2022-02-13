@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using ndp_invest_helper.Models;
+
 namespace ndp_invest_helper
 {
     class TinkoffReport : Report
@@ -44,7 +46,7 @@ namespace ndp_invest_helper
                     var secPrice = decimal.Parse(cells[8].InnerText);
                     var secCurrency = cells[9].InnerText;
 
-                    secPrice *= CurrenciesManager.CurrencyRates[secCurrency];
+                    secPrice *= CurrenciesManager.RatesToRub[secCurrency];
 
                     var securityInfo = new SecurityInfo
                     {

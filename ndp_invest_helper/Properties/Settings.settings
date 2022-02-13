@@ -1,7 +1,21 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ndp_invest_helper.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="CommonDataSource" Type="System.String" Scope="User">
+      <Value Profile="(Default)">SqliteDb</Value>
+    </Setting>
+    <Setting Name="BrokerReportsDirectory" Type="System.String" Scope="User">
+      <Value Profile="(Default)">data\reports</Value>
+    </Setting>
+    <Setting Name="WriteLog" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="ShowDifferenceFrom" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Origin</Value>
+    </Setting>
+    <Setting Name="CommonDataDirectory" Type="System.String" Scope="User">
+      <Value Profile="(Default)">data\info</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>

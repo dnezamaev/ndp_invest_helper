@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using ndp_invest_helper.Models;
+
 namespace ndp_invest_helper
 {
     public class Deal
@@ -364,7 +366,7 @@ namespace ndp_invest_helper
         /// </summary>
         public decimal CashTotal
         {
-            get { return cash.Sum(kvp => CurrenciesManager.CurrencyRates[kvp.Key] * kvp.Value); }
+            get { return cash.Sum(kvp => CurrenciesManager.RatesToRub[kvp.Key] * kvp.Value); }
         }
 
         /// <summary>
@@ -411,7 +413,6 @@ namespace ndp_invest_helper
 
         public Portfolio()
         {
-            cash = new Dictionary<string, decimal>(CurrenciesManager.Cash);
         }
 
         public void MakeDeal(Deal deal)
@@ -454,7 +455,7 @@ namespace ndp_invest_helper
             decimal price, bool removeCash, string currency)
         {
             SecurityInfo secInfo = null;
-            decimal rubPrice = CurrenciesManager.CurrencyRates[currency] * price; // Цена 1 бумаги в рублях.
+            decimal rubPrice = CurrenciesManager.RatesToRub[currency] * price; // Цена 1 бумаги в рублях.
 
             // Дополняем инфу о бумаге: корректируем цену, количество.
             if (securities.TryGetValue(security, out secInfo))
@@ -486,7 +487,7 @@ namespace ndp_invest_helper
             securities[security] = secInfo;
 
             var rubTotal = rubPrice * count; // Сумма сделки в рублях.
-            var currencyTotal = rubTotal / CurrenciesManager.CurrencyRates[currency]; // Сумма сделки в валюте.
+            var currencyTotal = rubTotal / CurrenciesManager.RatesToRub[currency]; // Сумма сделки в валюте.
 
             if (removeCash)
                 AddCash(currency, -currencyTotal);
@@ -516,7 +517,7 @@ namespace ndp_invest_helper
 
             var rubPrice = secInfo.Price; // Цена 1 бумаги в рублях.
             var rubTotal = rubPrice * count.Value; // Сумма сделки в рублях.
-            var currencyTotal = rubTotal / CurrenciesManager.CurrencyRates[currency]; // Сумма сделки в валюте.
+            var currencyTotal = rubTotal / CurrenciesManager.RatesToRub[currency]; // Сумма сделки в валюте.
 
             securitiesTotal -= rubTotal;
 
@@ -557,6 +558,10 @@ namespace ndp_invest_helper
         {
             foreach (var reportRecord in report.Securities)
             {
+                // Иногда в отчетах попадаются пустые позиции. Игнорируем их.
+                if (reportRecord.Value.Count == 0)
+                    continue;
+
                 // Игнорируем недозаполеннные бумаги.
                 if (!reportRecord.Key.IsCompleted)
                     continue;

@@ -6,6 +6,8 @@ using System.Text;
 using System.Xml.Linq;
 using System.IO;
 
+using ndp_invest_helper.Models;
+
 namespace ndp_invest_helper
 {
     class VtbReport : Report
@@ -71,7 +73,7 @@ namespace ndp_invest_helper
                         NumberStyles.Any, CultureInfo.InvariantCulture);
                 }
 
-                secPrice *= CurrenciesManager.CurrencyRates[secCurrency];
+                secPrice *= CurrenciesManager.RatesToRub[secCurrency];
 
                 var securityInfo = new SecurityInfo
                 {

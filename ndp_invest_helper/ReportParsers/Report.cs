@@ -4,6 +4,8 @@ using System.Globalization;
 using System.Text;
 using System.Xml.Linq;
 
+using ndp_invest_helper.Models;
+
 namespace ndp_invest_helper
 {
     public abstract class Report

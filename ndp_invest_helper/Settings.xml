@@ -2,29 +2,29 @@
 
 <Settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
-	<!--Курсы валют.-->
-	<currency_rates>
-		<currency key="RUB" value="1" />
-		<currency key="USD" value="74" />
-		<currency key="EUR" value="88" />
-	</currency_rates>
-
 	<!--
 	Используемые файлы.
 	
     securities_info: список бумаг, эмитентов, фондов
     countries_info: список стран
     sectors_info: список отраслей
+    info_dir: директория с общей информацией по бумагам
     reports_dir: директория с отчетами брокеров
     task_output: файл для записи результатов выполнения задач
     log: файл журнала
+		database: файл локальной базы данных по бумагам
+	  db_create_script: файл со скриптом создания пустой базы
     -->
 	<files
-	  securities_info = "data\info\securities.xml"
-	  countries_info = "data\info\countries.xml"
-	  sectors_info = "data\info\sectors.xml"
-
 	  reports_dir = "data\reports"
+
+	  info_dir = "data\info"
+	  securities_info = "securities.xml"
+	  countries_info = "countries.xml"
+	  currencies_info = "currencies.xml"
+	  sectors_info = "sectors.xml"
+		database = "sqlite.db"
+	  db_create_script = "db_create.sql"
 
 	  task_output = "task.txt"
 	  log = "log.txt"
@@ -41,10 +41,15 @@
 			Полезно, если совершено несколько сделок, 
 			и нужно посмотреть их накопленный эффект на портфель.
 		"last_deal" - показывать изменения по сравнению с результатом предыдущей cделки. 
+
+  data_source - источник данных по бумагам:
+	  "database" - база
+		"xml" - набор xml файлов
     -->
 	<options
-	    write_log = "yes"
+	  write_log = "yes"
 		show_difference_from = "origin"
+		data_source = "database"
     />
 
 </Settings>
