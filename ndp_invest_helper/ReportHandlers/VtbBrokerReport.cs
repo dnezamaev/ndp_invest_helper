@@ -10,7 +10,7 @@ using ndp_invest_helper.Models;
 
 namespace ndp_invest_helper
 {
-    class VtbReport : Report
+    class VtbBrokerReport : BrokerReport
     {
         private XNamespace xNamespace;
         private XElement xRoot;

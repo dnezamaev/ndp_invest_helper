@@ -9,7 +9,7 @@ using ndp_invest_helper.Models;
 
 namespace ndp_invest_helper
 {
-    class TinkoffReport : Report
+    class TinkoffBrokerReport : BrokerReport
     {
         private SheetData sheetData;
         private List<Row> rows;

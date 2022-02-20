@@ -203,6 +203,25 @@ namespace ndp_invest_helper.Models
     }
 
     /// <summary>
+    /// Типы акций - обыкновенная, привилегированная и т.п.
+    /// </summary>
+    public enum ShareType
+    {
+        /// <summary>
+        /// Не удалось определить.
+        /// </summary>
+        Unknown,
+        /// <summary>
+        /// Обыкновенная.
+        /// </summary>
+        Common,
+        /// <summary>
+        /// Привилегированная.
+        /// </summary>
+        Preferred
+    }
+
+    /// <summary>
     /// Акция или депозитарная расписка.
     /// </summary>
     public class Share : Security 

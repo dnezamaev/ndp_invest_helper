@@ -554,7 +554,7 @@ namespace ndp_invest_helper
         /// <summary>
         /// Добавить бумаги из отчета банка в портфель.
         /// </summary>
-        public void AddReport(Report report)
+        public void AddReport(BrokerReport report)
         {
             foreach (var reportRecord in report.Securities)
             {

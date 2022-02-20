@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
 using ndp_invest_helper.Models;
+using ndp_invest_helper.ReportHandlers;
 
 namespace ndp_invest_helper
 {
@@ -15,16 +15,11 @@ namespace ndp_invest_helper
     {
         private InvestManager investManager;
 
-        private List<GrouppingResults> grouppingResults;
-
-        private StringBuilder log;
-
         public MainForm()
         {
             InitializeComponent();
 
-            log = new StringBuilder();
-            grouppingResults = new List<GrouppingResults>();
+            investManager = new InvestManager();
         }
 
 
@@ -37,13 +32,19 @@ namespace ndp_invest_helper
 
         #region Properties
 
-        public Portfolio FirstPortfolio {  get => grouppingResults[0].Portfolio; }
 
-        public Portfolio CurrentPortfolio { get => grouppingResults.Last().Portfolio; }
+        private List<GrouppingResults> GrouppingResults
+        {
+            get => investManager.GrouppingResults;
+        }
 
-        public GrouppingResults FirstResult { get => grouppingResults[0]; }
+        public Portfolio FirstPortfolio {  get => GrouppingResults[0].Portfolio; }
 
-        public GrouppingResults CurrentResult { get => grouppingResults.Last(); }
+        public Portfolio CurrentPortfolio { get => GrouppingResults.Last().Portfolio; }
+
+        public GrouppingResults FirstResult { get => GrouppingResults[0]; }
+
+        public GrouppingResults CurrentResult { get => GrouppingResults.Last(); }
 
         /// <summary>
         /// Выбранная в comboBox_BuySellSecurity бумага.
@@ -82,59 +83,6 @@ namespace ndp_invest_helper
 
         #region Methods
 
-        private void LoadPortfolio()
-        {
-            var portfolio = new Portfolio();
-            var reports = LoadReports(Settings.ReportsDirectory);
-            var unknownSecurities = new HashSet<Security>();
-            var incompleteSecurities = new HashSet<Security>();
-
-            foreach (var report in reports)
-            {
-                foreach (var security in report.Securities.Keys)
-                    if (!security.IsCompleted)
-                        incompleteSecurities.Add(security);
-
-                foreach (var security in report.UnknownSecurities)
-                    unknownSecurities.Add(security);
-
-                portfolio.AddReport(report);
-            }
-
-            grouppingResults.Add(new GrouppingResults(portfolio));
-
-            var sb = new StringBuilder();
-
-            if (unknownSecurities.Count != 0)
-            {
-                sb.AppendLine("Найдены неизвестные бумаги, они будут проигнорированы.");
-                foreach (var security in unknownSecurities)
-                {
-                    sb.AppendLine(security.BestUniqueFriendlyName);
-                }
-            }
-
-            if (incompleteSecurities.Count != 0)
-            {
-                sb.AppendLine("Найдены недозаполненные бумаги, они будут проигнорированы.");
-                foreach (var security in incompleteSecurities)
-                {
-                    sb.AppendLine(security.BestUniqueFriendlyName);
-                }
-            }
-
-            if (unknownSecurities.Count != 0 || incompleteSecurities.Count != 0)
-            {
-                sb.AppendLine("Рекомендуется дополнить базу Securities.xml.");
-                richTextBox_Log.Text += sb.ToString();
-                richTextBox_Log.ForeColor = Color.Red;
-                toolStripStatusLabel1.Text = "!!! ВНИМАНИЕ: обнаружены ошибки, подробности в логе справа.";
-                tabControl_Right.SelectedTab = tabPage_Messages;
-            }
-
-            FillFilter();
-        }
-
         private void FillFilter()
         {
             var portfolio = CurrentPortfolio;
@@ -150,56 +98,16 @@ namespace ndp_invest_helper
             }
         }
 
-        private List<Report> LoadReports(string directoryPath)
-        {
-            var result = new List<Report>();
-
-            if (!Directory.Exists(directoryPath))
-                throw new ArgumentException(
-                    "Не удалось найти рабочий каталог с отчетами " + directoryPath);
-
-            var cashFile = directoryPath + "\\cash.xml";
-            if (File.Exists(cashFile))
-            {
-                var cashReport = new CashReport();
-                cashReport.ParseFile(cashFile);
-                result.Add(cashReport);
-            }
-
-            foreach (var reportFile in Directory.GetFiles(directoryPath + "\\vtb"))
-            {
-                var vtbReport = new VtbReport();
-                vtbReport.ParseFile(reportFile);
-                result.Add(vtbReport);
-            }
-
-            foreach (var reportFile in Directory.GetFiles(directoryPath + "\\tinkoff"))
-            {
-                var tinkoffReport = new TinkoffReport();
-                tinkoffReport.ParseFile(reportFile);
-                result.Add(tinkoffReport);
-            }
-
-            return result;
-        }
-
-        private void Log(string text)
-        {
-            if (Settings.WriteLog)
-            {
-                log.AppendLine(text);
-                log.AppendLine();
-            }
-        }
-
         /// <summary>
         /// Заполняет таблицы группировки по разным критериям.
         /// </summary>
-        private void FillGroupsDataGridView (
+        private void FillGroupsDataGridView 
+        (
             DataGridView dataGridView, 
             PortfolioAnalyticsResult newResult,
             PortfolioAnalyticsResult oldResult,
-            Dictionary<string, string> keyFriendlyNames)
+            Dictionary<string, string> keyFriendlyNames
+        )
         {
             dataGridView.Rows.Clear();
 
@@ -243,7 +151,7 @@ namespace ndp_invest_helper
 
             dataGridView.ClearSelection();
 
-            Log(newResult.ToString());
+            LogAddText(newResult.ToString());
         }
 
         private void FillGroupControls()
@@ -254,7 +162,7 @@ namespace ndp_invest_helper
 
             GrouppingResults oldResult = FirstResult;
 
-            if (grouppingResults.Count > 1)
+            if (GrouppingResults.Count > 1)
             {
                 switch (Settings.ShowDifferenceFrom)
                 {
@@ -264,7 +172,7 @@ namespace ndp_invest_helper
 
                     case PortfolioDifferenceSource.LastDeal:
                         // Предпоследний результат.
-                        oldResult = grouppingResults[grouppingResults.Count - 2];
+                        oldResult = GrouppingResults[GrouppingResults.Count - 2];
                         break;
 
                     default:
@@ -301,14 +209,44 @@ namespace ndp_invest_helper
             comboBox_DbEditor_Security.DataSource = SecuritiesManager.Securities;
         }
 
-        private void ExecuteTasks()
+        private void HandleBadReportSecurities()
         {
-            var taskManager = new TaskManager(FirstPortfolio);
-            var taskOutput = new StringBuilder();
-            taskManager.ParseXmlFile(Settings.TaskInputFile, taskOutput);
-            File.WriteAllText(Settings.TaskOutputFile, taskOutput.ToString());
-            toolStripStatusLabel1.Text = 
-                $"Задание выполнено, результаты записаны в {Settings.TaskOutputFile}";
+            var unknownSecurities = investManager.UnknownSecurities;
+            var incompleteSecurities = investManager.IncompleteSecurities;
+
+            var sb = new StringBuilder();
+
+            if (unknownSecurities.Count != 0)
+            {
+                sb.AppendLine("Найдены неизвестные бумаги, они будут проигнорированы.");
+                foreach (var security in unknownSecurities)
+                {
+                    sb.AppendLine(security.BestUniqueFriendlyName);
+                }
+            }
+
+            if (incompleteSecurities.Count != 0)
+            {
+                sb.AppendLine("Найдены недозаполненные бумаги, они будут проигнорированы.");
+                foreach (var security in incompleteSecurities)
+                {
+                    sb.AppendLine(security.BestUniqueFriendlyName);
+                }
+            }
+
+            if (unknownSecurities.Count != 0 || incompleteSecurities.Count != 0)
+            {
+                sb.AppendLine("Рекомендуется дополнить базу Securities.xml.");
+                richTextBox_Log.Text += sb.ToString();
+                richTextBox_Log.ForeColor = Color.Red;
+                toolStripStatusLabel1.Text = "!!! ВНИМАНИЕ: обнаружены ошибки, подробности в логе справа.";
+                tabControl_Right.SelectedTab = tabPage_Messages;
+            }
+        }
+
+        private void LogAddText(string text)
+        {
+
         }
 
         #endregion
@@ -317,7 +255,11 @@ namespace ndp_invest_helper
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            investManager = new InvestManager();
+            textBox_Misc_SelectSharesOfficerReport.Text 
+                = @"e:\декларация_госслужащих\test.txt";
+            tabControl_Main.SelectedIndex = 2;
+            numericUpDown_AutoClickerStartDelaySec.Value = 5;
+            button_Misc_StartAutoOfficerReport_Click(button_Misc_StartAutoOfficerShares, null);
 
             toolStripMenuItem_Log.Checked = Settings.WriteLog;
 
@@ -331,12 +273,14 @@ namespace ndp_invest_helper
                 (x => x.enumValue == Settings.CommonDataSource)
                 .menuItemText;
 
-
             //tabControl_Main.SelectedTab = tabPage_Main_DbEditor;
 
-            //            try
-            //            {
-            LoadPortfolio();
+            //try
+            //{
+                investManager.LoadPortfolio();
+
+                HandleBadReportSecurities();
+                FillFilter();
                 FillGroupControls();
                 FillBuySellCombos();
                 FillDbEditorCombo();
@@ -351,8 +295,7 @@ namespace ndp_invest_helper
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (Settings.WriteLog)
-                File.WriteAllText(Settings.LogFile, log.ToString());
+            investManager.LogSave();
 
             Settings.Save();
         }
@@ -484,7 +427,7 @@ namespace ndp_invest_helper
             var newPortfolio = new Portfolio(CurrentPortfolio);
             newPortfolio.MakeDeal(deal);
 
-            grouppingResults.Add(new GrouppingResults(newPortfolio));
+            GrouppingResults.Add(new GrouppingResults(newPortfolio));
 
             FillGroupControls();
 
@@ -497,7 +440,7 @@ namespace ndp_invest_helper
                 deal.Currency, deal.Total
                 );
 
-            Log(logText);
+            LogAddText(logText);
             toolStripStatusLabel1.Text = "Сделка совершена. " + logText;
         }
 
@@ -552,7 +495,9 @@ namespace ndp_invest_helper
 
         private void toolStripMenuItem_RunTask_Click(object sender, EventArgs e)
         {
-            ExecuteTasks();
+            investManager.ExecuteTasks();
+            toolStripStatusLabel1.Text = 
+                $"Задание выполнено, результаты записаны в {Settings.TaskOutputFile}";
         }
 
         private void toolStripMenuItem_About_Click(object sender, EventArgs e)
@@ -572,10 +517,10 @@ namespace ndp_invest_helper
 
         private void toolStripMenuItem_CancelDeal_Click(object sender, EventArgs e)
         {
-            if (grouppingResults.Count < 2)
+            if (GrouppingResults.Count < 2)
                 return;
 
-            grouppingResults.RemoveAt(grouppingResults.Count - 1);
+            GrouppingResults.RemoveAt(GrouppingResults.Count - 1);
 
             listBox_Deals.Items.RemoveAt(listBox_Deals.Items.Count - 1);
 
@@ -585,5 +530,164 @@ namespace ndp_invest_helper
         #endregion
 
         #endregion
+
+        private string SelectFileWithDialog
+        (
+            string filter = "Text files|*.txt|All files|*.*"
+        )
+        {
+            var file_dialog = new OpenFileDialog();
+            file_dialog.Filter = filter;
+
+            if (file_dialog.ShowDialog() != DialogResult.OK)
+                return null;
+
+            return file_dialog.FileName;
+        }
+
+        private void button_Misc_SelectGovReport_Click(object sender, EventArgs e)
+        {
+            var selectedFile = SelectFileWithDialog();
+
+            if (selectedFile == null)
+                return;
+
+            // TextBox where to store file path.
+            TextBox textBoxFilePath;
+
+            if (sender == button_Misc_SelectSharesOffcerReport)
+            {
+                textBoxFilePath = textBox_Misc_SelectSharesOfficerReport;
+            }
+            else if (sender == button_Misc_SelectOthersOfficerReport)
+            {
+                textBoxFilePath = textBox_Misc_SelectOthersOfficerReport;
+            }
+            else
+                throw new NotImplementedException("Неизвестная кнопка.");
+
+            textBoxFilePath.Text = selectedFile;
+        }
+
+        private int AutoClickerStartDelaySec
+        {
+            get => (int)numericUpDown_AutoClickerStartDelaySec.Value;
+        }
+
+        private int AutoClickerInputDelayMs
+        {
+            get => (int)numericUpDown_AutoClickerDelayMs.Value;
+        }
+
+        private void button_Misc_StartAutoOfficerReport_Click(object sender, EventArgs e)
+        {
+            if (sender == button_Misc_StartAutoOfficerOthers)
+            {
+                MessageBox.Show("Эта функция пока не реализована");
+                return;
+            }
+
+            if (backgroundWorker_OfficerReportFiller.IsBusy) // already started
+            {
+                backgroundWorker_OfficerReportFiller.CancelAsync();
+                return; // cancel working task
+            }
+
+            if 
+            ( MessageBox.Show
+                (
+                $"После закрытия этого сообщения нажмите на любую ячейку " +
+                $"в последней строке таблицы 5.1 в течение " +
+                $"{AutoClickerStartDelaySec} сек.\n\n" +
+                $"Вы готовы приступить?",
+                "ВНИМАНИЕ", 
+                MessageBoxButtons.YesNo
+                )
+                != DialogResult.Yes
+            )
+            {
+                return; // user is not ready
+            }
+
+            (sender as Button).Text = "Отмена";
+
+            backgroundWorker_OfficerReportFiller.RunWorkerAsync
+                (
+                new OfficerReportClicker
+                    (
+                    AutoClickerInputDelayMs,
+                    AutoClickerStartDelaySec,
+                    OnClickerProgress,
+                    CheckTaskCanceled,
+                    sender == button_Misc_StartAutoOfficerShares ? 
+                        AutoClickerTask.Shares : 
+                        AutoClickerTask.Others
+                    )
+                );
+        }
+
+        private void backgroundWorker_OfficerReportFiller_DoWork(object sender, DoWorkEventArgs e)
+        {
+            var clicker = e.Argument as OfficerReportClicker;
+            e.Result = clicker; // clicker is result and argument
+
+            var filePath = textBox_Misc_SelectSharesOfficerReport.Text;
+
+            var officerReport = new VtbOfficerReport();
+            officerReport.ParseFile(filePath);
+
+            try
+            {
+                clicker.Start(officerReport);
+            }
+            catch (ClickerCancelException)
+            {
+                backgroundWorker_OfficerReportFiller.CancelAsync();
+            }
+        }
+
+        private void backgroundWorker_OfficerReportFiller_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            switch ((AutoClickerStatus)e.UserState)
+            {
+                case AutoClickerStatus.FocusingWindow:
+                    label_OfficerReportClickerState.Text =
+                        $"До запуска осталось " +
+                        $"{AutoClickerStartDelaySec - e.ProgressPercentage} сек.";
+                    break;
+                case AutoClickerStatus.Clicking:
+                    label_OfficerReportClickerState.Text =
+                        $"Заполнено бумаг: {e.ProgressPercentage}.";
+                    break;
+            }
+        }
+
+        private void backgroundWorker_OfficerReportFiller_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            var button =
+                (e.Result as OfficerReportClicker).Task == AutoClickerTask.Shares ?
+                button_Misc_StartAutoOfficerShares :
+                button_Misc_StartAutoOfficerOthers;
+
+            button.Text = "Запуск";
+
+            if (e.Cancelled)
+            {
+                label_OfficerReportClickerState.Text = "Отмена";
+                return;
+            }
+
+            MessageBox.Show("Заполнение завершено.");
+        }
+
+        private void OnClickerProgress(int progress, ReportHandlers.AutoClickerStatus status)
+        {
+            backgroundWorker_OfficerReportFiller.ReportProgress(progress, status);
+        }
+
+        private bool CheckTaskCanceled()
+        {
+            return backgroundWorker_OfficerReportFiller.CancellationPending;
+        }
     }
 }

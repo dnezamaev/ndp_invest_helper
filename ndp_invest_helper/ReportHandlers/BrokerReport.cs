@@ -8,7 +8,7 @@ using ndp_invest_helper.Models;
 
 namespace ndp_invest_helper
 {
-    public abstract class Report
+    public abstract class BrokerReport
     {
         /// <summary>
         /// Путь к файлу отчета.
@@ -37,7 +37,7 @@ namespace ndp_invest_helper
         abstract public void ParseFile(string filePath);
     }
 
-    public class CashReport : Report
+    public class CashReport : BrokerReport
     {
         public override void ParseFile(string xmlReportFilePath)
         {

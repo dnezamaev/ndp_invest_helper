@@ -4,6 +4,21 @@ using System.Collections.Generic;
 namespace ndp_invest_helper.Models
 {
     /// <summary>
+    /// Организационный тип эмитента: ПАО, ЗАО и т.п.
+    /// </summary>
+    public enum IssuerType
+    {
+        /// <summary>
+        /// Не удалось определить.
+        /// </summary>
+        Unknown,
+        /// <summary>
+        /// ПАО.
+        /// </summary>
+        Public
+    }
+
+    /// <summary>
     /// Эмитент ценной бумаги.
     /// </summary>
     public class Issuer

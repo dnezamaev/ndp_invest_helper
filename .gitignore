@@ -2,9 +2,15 @@
 packages
 TestResults
 
+EasyCompletionComboBox/bin
+EasyCompletionComboBox/obj
+
 ndp_invest_helper/bin
 ndp_invest_helper/obj
 ndp_invest_helper/data/reports
 
 Test/bin
 Test/obj
+
+WindowsInput/bin
+WindowsInput/obj
