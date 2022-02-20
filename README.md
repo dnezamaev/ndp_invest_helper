@@ -4,9 +4,10 @@
 ![Скриншот](./screenshots/ndp_invest_helper_full.jpg)
 
 ## Основные возможности и особенности
-Также можно эмулировать сделки купли/продажи для ребалансировки портфеля.
 
 * Глубокий анализ. С помощью программы можно оценить насколько качественно сбалансированы Ваши инвестиции по разным критериям: типу активов, секторам экономики, валютам, странам. Программа позволяет заглянуть внутрь эмитента, распаковать фонд и учесть это в результатах анализа.
+
+* Эмуляция сделок купли/продажи для ребалансировки портфеля.
 
 * Частично автоматическое заполнение декларации для госслужащих на основе отчета (пока только некоторая информация по акциям из справки ВТБ).
 
@@ -68,6 +69,6 @@ You should have received a copy of the GNU General Public License along with ndp
 
 **Использованные компоненты (used components):**
 
-* [EasyCompletionComboBox](https://www.codeproject.com/Tips/755707/ComboBox-with-Suggestions-Based-on-Loose-Character). Author: Serge Weinstock. License: LGPL3
+* [EasyCompletionComboBox](https://www.codeproject.com/Tips/755707/ComboBox-with-Suggestions-Based-on-Loose-Character). Author: Serge Weinstock. License: [LGPL3](https://opensource.org/licenses/lgpl-3.0.html)
 
-* [WindowsInput](http://inputsimulator.codeplex.com). Author: Michael Noonan. [License](http://inputsimulator.codeplex.com/license).
+* [WindowsInput](https://github.com/michaelnoonan/inputsimulator). Author: Michael Noonan. License: [MIT](https://github.com/michaelnoonan/inputsimulator/blob/master/LICENSE).
