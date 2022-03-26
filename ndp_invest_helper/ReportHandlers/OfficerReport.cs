@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace ndp_invest_helper.ReportHandlers
@@ -12,7 +13,26 @@ namespace ndp_invest_helper.ReportHandlers
 
         public string ShareTypeString { get; set; }
 
-        public string Address { get; set; }
+        public string AddressFull { get; set; }
+
+        public string AddressIndex 
+        {
+            get
+            {
+                var splittedAddress = AddressFull.Split(',');
+
+                if // index is digits, ends with comma
+                (
+                    splittedAddress.Length == 1 || 
+                    false == splittedAddress[0].All(x => char.IsDigit(x))
+                )
+                {
+                    return null; // no comma, or not all digits in 1st split
+                }
+
+                return splittedAddress[0];
+            } 
+        }
 
         public string AuthorizedCapital { get; set; }
 

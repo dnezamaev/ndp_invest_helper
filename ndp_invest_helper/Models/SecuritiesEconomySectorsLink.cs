@@ -7,7 +7,7 @@ namespace ndp_invest_helper.Models
     {
         public long SecurityId { get; set; }
         public long SectorId { get; set; }
-        public double Part { get; set; }
+        public decimal Part { get; set; }
 
         public virtual EconomySector Sector { get; set; }
         public virtual Security Security { get; set; }

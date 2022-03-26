@@ -18,6 +18,20 @@ namespace ndp_invest_helper
 
         public List<GrouppingResults> GrouppingResults { get; private set; }
 
+        public event Action LastDealRemoved;
+
+        public event Action<Deal> DealCompleted;
+
+        public List<Deal> Deals { get; private set; }
+
+        public Portfolio FirstPortfolio {  get => GrouppingResults[0].Portfolio; }
+
+        public Portfolio CurrentPortfolio { get => GrouppingResults.Last().Portfolio; }
+
+        public GrouppingResults FirstResult { get => GrouppingResults[0]; }
+
+        public GrouppingResults CurrentResult { get => GrouppingResults.Last(); }
+
         private System.Text.StringBuilder log;
 
         public InvestManager()
@@ -33,6 +47,7 @@ namespace ndp_invest_helper
             IncompleteSecurities = new HashSet<Security>();
             BrokerReports = new List<BrokerReport>();
             GrouppingResults = new List<GrouppingResults>();
+            Deals = new List<Deal>();
             log = new System.Text.StringBuilder();
         }
 
@@ -117,6 +132,8 @@ namespace ndp_invest_helper
                 portfolio.AddReport(report);
             }
 
+            HandleBadReportSecurities();
+
             GrouppingResults.Add(new GrouppingResults(portfolio));
         }
 
@@ -155,6 +172,37 @@ namespace ndp_invest_helper
             return result;
         }
 
+        private void HandleBadReportSecurities()
+        {
+
+            var sb = new System.Text.StringBuilder();
+
+            if (UnknownSecurities.Count != 0)
+            {
+                sb.AppendLine("Найдены неизвестные бумаги, они будут проигнорированы.");
+                foreach (var security in UnknownSecurities)
+                {
+                    sb.AppendLine(security.BestUniqueFriendlyName);
+                }
+            }
+
+            if (IncompleteSecurities.Count != 0)
+            {
+                sb.AppendLine("Найдены недозаполненные бумаги, они будут проигнорированы.");
+                foreach (var security in IncompleteSecurities)
+                {
+                    sb.AppendLine(security.BestUniqueFriendlyName);
+                }
+            }
+
+            if (UnknownSecurities.Count != 0 || IncompleteSecurities.Count != 0)
+            {
+                sb.AppendLine("Рекомендуется дополнить базу Securities.xml.");
+            }
+
+            LogAddText(sb.ToString());
+        }
+
         public void LogAddText(string text)
         {
             if (Settings.WriteLog)
@@ -178,13 +226,40 @@ namespace ndp_invest_helper
             File.WriteAllText(Settings.TaskOutputFile, taskOutput.ToString());
         }
 
-        public Portfolio FirstPortfolio {  get => GrouppingResults[0].Portfolio; }
+        public void MakeDeal(Deal deal)
+        {
+            var newPortfolio = new Portfolio(CurrentPortfolio);
+            newPortfolio.MakeDeal(deal);
 
-        public Portfolio CurrentPortfolio { get => GrouppingResults.Last().Portfolio; }
+            GrouppingResults.Add(new GrouppingResults(newPortfolio));
 
-        public GrouppingResults FirstResult { get => GrouppingResults[0]; }
+            Deals.Add(deal);
 
-        public GrouppingResults CurrentResult { get => GrouppingResults.Last(); }
+            var logText = string.Format
+                (
+                "{0} {1} {2} шт. по цене {3:n2} {4} на сумму {5:n2} {4}.",
+                deal.Buy ? "Покупка" : "Продажа",
+                deal.Security.BestUniqueFriendlyName, deal.Count, deal.Price, 
+                deal.Currency, deal.Total
+                );
 
+            LogAddText(logText);
+
+            if (DealCompleted != null)
+                DealCompleted(deal);
+        }
+
+        public void RemoveLastDeal()
+        {
+            if (Deals.Count == 0)
+                return;
+
+            GrouppingResults.Remove(CurrentResult);
+
+            if (LastDealRemoved != null)
+                LastDealRemoved();
+
+            Deals.RemoveAt(Deals.Count - 1);
+        }
     }
 }

@@ -18,7 +18,8 @@ namespace ndp_invest_helper
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+            Application.Run(new GUI.KryptonMainForm());
+            //Application.Run(new MainForm());
         }
     }
 }

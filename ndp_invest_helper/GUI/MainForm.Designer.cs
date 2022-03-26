@@ -162,7 +162,7 @@
             this.dataGridView_GroupsByCountry.RowTemplate.Height = 24;
             this.dataGridView_GroupsByCountry.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dataGridView_GroupsByCountry.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_GroupsByCountry.Size = new System.Drawing.Size(392, 315);
+            this.dataGridView_GroupsByCountry.Size = new System.Drawing.Size(392, 267);
             this.dataGridView_GroupsByCountry.TabIndex = 0;
             this.dataGridView_GroupsByCountry.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_Group_RowEnter);
             this.dataGridView_GroupsByCountry.SelectionChanged += new System.EventHandler(this.dataGridView_Groups_SelectionChanged);
@@ -240,7 +240,7 @@
             this.groupBox1.Controls.Add(this.buttonSell);
             this.groupBox1.Controls.Add(this.comboBox_BuySell_Currency);
             this.groupBox1.Controls.Add(this.buttonBuy);
-            this.groupBox1.Location = new System.Drawing.Point(5, 642);
+            this.groupBox1.Location = new System.Drawing.Point(5, 546);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -344,7 +344,7 @@
             this.dataGridViewTextBoxColumn_CurrencyValue,
             this.dataGridViewTextBoxColumn_CurrencyDifference});
             this.dataGridView_GroupsByCurrency.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView_GroupsByCurrency.Location = new System.Drawing.Point(3, 321);
+            this.dataGridView_GroupsByCurrency.Location = new System.Drawing.Point(3, 273);
             this.dataGridView_GroupsByCurrency.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dataGridView_GroupsByCurrency.Name = "dataGridView_GroupsByCurrency";
             this.dataGridView_GroupsByCurrency.ReadOnly = true;
@@ -355,7 +355,7 @@
             this.dataGridView_GroupsByCurrency.RowTemplate.Height = 24;
             this.dataGridView_GroupsByCurrency.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dataGridView_GroupsByCurrency.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_GroupsByCurrency.Size = new System.Drawing.Size(392, 316);
+            this.dataGridView_GroupsByCurrency.Size = new System.Drawing.Size(392, 267);
             this.dataGridView_GroupsByCurrency.TabIndex = 8;
             this.dataGridView_GroupsByCurrency.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_Group_RowEnter);
             this.dataGridView_GroupsByCurrency.SelectionChanged += new System.EventHandler(this.dataGridView_Groups_SelectionChanged);
@@ -407,7 +407,7 @@
             this.dataGridView_GroupsBySector.RowTemplate.Height = 24;
             this.dataGridView_GroupsBySector.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dataGridView_GroupsBySector.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_GroupsBySector.Size = new System.Drawing.Size(393, 315);
+            this.dataGridView_GroupsBySector.Size = new System.Drawing.Size(393, 267);
             this.dataGridView_GroupsBySector.TabIndex = 9;
             this.dataGridView_GroupsBySector.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_Group_RowEnter);
             this.dataGridView_GroupsBySector.SelectionChanged += new System.EventHandler(this.dataGridView_Groups_SelectionChanged);
@@ -448,7 +448,7 @@
             this.dataGridViewTextBoxColumn_TypeValue,
             this.dataGridViewTextBoxColumn_TypeDifference});
             this.dataGridView_GroupsByType.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView_GroupsByType.Location = new System.Drawing.Point(401, 321);
+            this.dataGridView_GroupsByType.Location = new System.Drawing.Point(401, 273);
             this.dataGridView_GroupsByType.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dataGridView_GroupsByType.Name = "dataGridView_GroupsByType";
             this.dataGridView_GroupsByType.ReadOnly = true;
@@ -459,7 +459,7 @@
             this.dataGridView_GroupsByType.RowTemplate.Height = 24;
             this.dataGridView_GroupsByType.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dataGridView_GroupsByType.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_GroupsByType.Size = new System.Drawing.Size(393, 316);
+            this.dataGridView_GroupsByType.Size = new System.Drawing.Size(393, 267);
             this.dataGridView_GroupsByType.TabIndex = 10;
             this.dataGridView_GroupsByType.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_Group_RowEnter);
             this.dataGridView_GroupsByType.SelectionChanged += new System.EventHandler(this.dataGridView_Groups_SelectionChanged);
@@ -490,7 +490,7 @@
             // 
             // menuStrip1
             // 
-            this.menuStrip1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.menuStrip1.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.действияToolStripMenuItem,
@@ -499,7 +499,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1153, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(922, 30);
             this.menuStrip1.TabIndex = 12;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -510,25 +510,25 @@
             this.toolStripMenuItem_RunTask,
             this.toolStripMenuItem_XmlToSqlite});
             this.действияToolStripMenuItem.Name = "действияToolStripMenuItem";
-            this.действияToolStripMenuItem.Size = new System.Drawing.Size(105, 24);
+            this.действияToolStripMenuItem.Size = new System.Drawing.Size(88, 26);
             this.действияToolStripMenuItem.Text = "Действия";
             // 
             // toolStripMenuItem_CancelDeal
             // 
             this.toolStripMenuItem_CancelDeal.Name = "toolStripMenuItem_CancelDeal";
-            this.toolStripMenuItem_CancelDeal.Size = new System.Drawing.Size(265, 26);
+            this.toolStripMenuItem_CancelDeal.Size = new System.Drawing.Size(239, 26);
             this.toolStripMenuItem_CancelDeal.Text = "Отменить сделку";
             // 
             // toolStripMenuItem_RunTask
             // 
             this.toolStripMenuItem_RunTask.Name = "toolStripMenuItem_RunTask";
-            this.toolStripMenuItem_RunTask.Size = new System.Drawing.Size(265, 26);
+            this.toolStripMenuItem_RunTask.Size = new System.Drawing.Size(239, 26);
             this.toolStripMenuItem_RunTask.Text = "Выполнить task.xml";
             // 
             // toolStripMenuItem_XmlToSqlite
             // 
             this.toolStripMenuItem_XmlToSqlite.Name = "toolStripMenuItem_XmlToSqlite";
-            this.toolStripMenuItem_XmlToSqlite.Size = new System.Drawing.Size(265, 26);
+            this.toolStripMenuItem_XmlToSqlite.Size = new System.Drawing.Size(239, 26);
             this.toolStripMenuItem_XmlToSqlite.Text = "Импорт базы из XML";
             this.toolStripMenuItem_XmlToSqlite.Click += new System.EventHandler(this.toolStripMenuItem_XmlToSqlite_Click);
             // 
@@ -538,14 +538,14 @@
             this.toolStripMenuItem_Log,
             this.источникДанныхToolStripMenuItem});
             this.toolStripMenuItem_settings.Name = "toolStripMenuItem_settings";
-            this.toolStripMenuItem_settings.Size = new System.Drawing.Size(114, 24);
+            this.toolStripMenuItem_settings.Size = new System.Drawing.Size(98, 26);
             this.toolStripMenuItem_settings.Text = "Настройки";
             // 
             // toolStripMenuItem_Log
             // 
             this.toolStripMenuItem_Log.CheckOnClick = true;
             this.toolStripMenuItem_Log.Name = "toolStripMenuItem_Log";
-            this.toolStripMenuItem_Log.Size = new System.Drawing.Size(238, 26);
+            this.toolStripMenuItem_Log.Size = new System.Drawing.Size(214, 26);
             this.toolStripMenuItem_Log.Text = "Вести журнал?";
             this.toolStripMenuItem_Log.CheckStateChanged += new System.EventHandler(this.toolStripMenuItem_Log_CheckStateChanged);
             // 
@@ -554,7 +554,7 @@
             this.источникДанныхToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripComboBox_CommonDataSource});
             this.источникДанныхToolStripMenuItem.Name = "источникДанныхToolStripMenuItem";
-            this.источникДанныхToolStripMenuItem.Size = new System.Drawing.Size(238, 26);
+            this.источникДанныхToolStripMenuItem.Size = new System.Drawing.Size(214, 26);
             this.источникДанныхToolStripMenuItem.Text = "Источник данных";
             // 
             // toolStripComboBox_CommonDataSource
@@ -567,7 +567,7 @@
             // toolStripMenuItem_About
             // 
             this.toolStripMenuItem_About.Name = "toolStripMenuItem_About";
-            this.toolStripMenuItem_About.Size = new System.Drawing.Size(133, 24);
+            this.toolStripMenuItem_About.Size = new System.Drawing.Size(118, 26);
             this.toolStripMenuItem_About.Text = "О программе";
             this.toolStripMenuItem_About.Click += new System.EventHandler(this.toolStripMenuItem_About_Click);
             // 
@@ -576,10 +576,10 @@
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 820);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 574);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 13, 0);
-            this.statusStrip1.Size = new System.Drawing.Size(1153, 26);
+            this.statusStrip1.Size = new System.Drawing.Size(922, 26);
             this.statusStrip1.TabIndex = 13;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -608,7 +608,7 @@
             this.tableLayoutPanel_Analytics.RowCount = 2;
             this.tableLayoutPanel_Analytics.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel_Analytics.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel_Analytics.Size = new System.Drawing.Size(797, 639);
+            this.tableLayoutPanel_Analytics.Size = new System.Drawing.Size(797, 542);
             this.tableLayoutPanel_Analytics.TabIndex = 14;
             // 
             // tabControl_Right
@@ -627,7 +627,7 @@
             this.tabControl_Right.Multiline = true;
             this.tabControl_Right.Name = "tabControl_Right";
             this.tabControl_Right.SelectedIndex = 0;
-            this.tabControl_Right.Size = new System.Drawing.Size(317, 639);
+            this.tabControl_Right.Size = new System.Drawing.Size(317, 542);
             this.tabControl_Right.TabIndex = 15;
             // 
             // tabPage_GroupContent
@@ -637,7 +637,7 @@
             this.tabPage_GroupContent.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPage_GroupContent.Name = "tabPage_GroupContent";
             this.tabPage_GroupContent.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPage_GroupContent.Size = new System.Drawing.Size(284, 631);
+            this.tabPage_GroupContent.Size = new System.Drawing.Size(284, 534);
             this.tabPage_GroupContent.TabIndex = 0;
             this.tabPage_GroupContent.Text = "Состав";
             this.tabPage_GroupContent.UseVisualStyleBackColor = true;
@@ -664,7 +664,7 @@
             this.dataGridView_GroupContent.RowTemplate.Height = 24;
             this.dataGridView_GroupContent.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dataGridView_GroupContent.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_GroupContent.Size = new System.Drawing.Size(278, 627);
+            this.dataGridView_GroupContent.Size = new System.Drawing.Size(278, 530);
             this.dataGridView_GroupContent.TabIndex = 1;
             this.dataGridView_GroupContent.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_GroupContent_RowEnter);
             // 
@@ -691,7 +691,7 @@
             this.tabPage_Deals.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPage_Deals.Name = "tabPage_Deals";
             this.tabPage_Deals.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPage_Deals.Size = new System.Drawing.Size(284, 627);
+            this.tabPage_Deals.Size = new System.Drawing.Size(284, 531);
             this.tabPage_Deals.TabIndex = 1;
             this.tabPage_Deals.Text = "Сделки";
             this.tabPage_Deals.UseVisualStyleBackColor = true;
@@ -706,7 +706,7 @@
             this.listBox_Deals.Location = new System.Drawing.Point(3, 2);
             this.listBox_Deals.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.listBox_Deals.Name = "listBox_Deals";
-            this.listBox_Deals.Size = new System.Drawing.Size(278, 623);
+            this.listBox_Deals.Size = new System.Drawing.Size(278, 527);
             this.listBox_Deals.TabIndex = 12;
             this.listBox_Deals.SelectedIndexChanged += new System.EventHandler(this.listBox_Deals_SelectedIndexChanged);
             // 
@@ -717,7 +717,7 @@
             this.tabPage_Messages.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPage_Messages.Name = "tabPage_Messages";
             this.tabPage_Messages.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPage_Messages.Size = new System.Drawing.Size(284, 627);
+            this.tabPage_Messages.Size = new System.Drawing.Size(284, 531);
             this.tabPage_Messages.TabIndex = 2;
             this.tabPage_Messages.Text = "Лог";
             this.tabPage_Messages.UseVisualStyleBackColor = true;
@@ -728,7 +728,7 @@
             this.richTextBox_Log.Location = new System.Drawing.Point(3, 2);
             this.richTextBox_Log.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.richTextBox_Log.Name = "richTextBox_Log";
-            this.richTextBox_Log.Size = new System.Drawing.Size(278, 623);
+            this.richTextBox_Log.Size = new System.Drawing.Size(278, 527);
             this.richTextBox_Log.TabIndex = 0;
             this.richTextBox_Log.Text = "";
             // 
@@ -739,7 +739,7 @@
             this.tabPage_Info.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPage_Info.Name = "tabPage_Info";
             this.tabPage_Info.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPage_Info.Size = new System.Drawing.Size(284, 627);
+            this.tabPage_Info.Size = new System.Drawing.Size(284, 531);
             this.tabPage_Info.TabIndex = 3;
             this.tabPage_Info.Text = "Инфо";
             this.tabPage_Info.UseVisualStyleBackColor = true;
@@ -750,7 +750,7 @@
             this.richTextBox_Info.Location = new System.Drawing.Point(3, 2);
             this.richTextBox_Info.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.richTextBox_Info.Name = "richTextBox_Info";
-            this.richTextBox_Info.Size = new System.Drawing.Size(278, 623);
+            this.richTextBox_Info.Size = new System.Drawing.Size(278, 527);
             this.richTextBox_Info.TabIndex = 1;
             this.richTextBox_Info.Text = "";
             // 
@@ -761,7 +761,7 @@
             this.tabPage_Filters.Location = new System.Drawing.Point(4, 4);
             this.tabPage_Filters.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPage_Filters.Name = "tabPage_Filters";
-            this.tabPage_Filters.Size = new System.Drawing.Size(284, 627);
+            this.tabPage_Filters.Size = new System.Drawing.Size(284, 531);
             this.tabPage_Filters.TabIndex = 4;
             this.tabPage_Filters.Text = "Фильтры";
             this.tabPage_Filters.UseVisualStyleBackColor = true;
@@ -778,7 +778,7 @@
             this.listView_Filter.Location = new System.Drawing.Point(3, 37);
             this.listView_Filter.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.listView_Filter.Name = "listView_Filter";
-            this.listView_Filter.Size = new System.Drawing.Size(277, 589);
+            this.listView_Filter.Size = new System.Drawing.Size(276, 494);
             this.listView_Filter.TabIndex = 1;
             this.listView_Filter.UseCompatibleStateImageBehavior = false;
             this.listView_Filter.View = System.Windows.Forms.View.Details;
@@ -800,12 +800,12 @@
             this.tabControl_Main.Controls.Add(this.tabPage_Main_Misc);
             this.tabControl_Main.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl_Main.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tabControl_Main.Location = new System.Drawing.Point(0, 28);
+            this.tabControl_Main.Location = new System.Drawing.Point(0, 30);
             this.tabControl_Main.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabControl_Main.Multiline = true;
             this.tabControl_Main.Name = "tabControl_Main";
             this.tabControl_Main.SelectedIndex = 0;
-            this.tabControl_Main.Size = new System.Drawing.Size(1153, 792);
+            this.tabControl_Main.Size = new System.Drawing.Size(922, 544);
             this.tabControl_Main.TabIndex = 16;
             // 
             // tabPage_Main_Analytics
@@ -817,7 +817,7 @@
             this.tabPage_Main_Analytics.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPage_Main_Analytics.Name = "tabPage_Main_Analytics";
             this.tabPage_Main_Analytics.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPage_Main_Analytics.Size = new System.Drawing.Size(1116, 784);
+            this.tabPage_Main_Analytics.Size = new System.Drawing.Size(1116, 688);
             this.tabPage_Main_Analytics.TabIndex = 0;
             this.tabPage_Main_Analytics.Text = "Аналитка";
             this.tabPage_Main_Analytics.UseVisualStyleBackColor = true;
@@ -833,7 +833,7 @@
             this.tabPage_Main_DbEditor.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPage_Main_DbEditor.Name = "tabPage_Main_DbEditor";
             this.tabPage_Main_DbEditor.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPage_Main_DbEditor.Size = new System.Drawing.Size(1116, 780);
+            this.tabPage_Main_DbEditor.Size = new System.Drawing.Size(1116, 685);
             this.tabPage_Main_DbEditor.TabIndex = 1;
             this.tabPage_Main_DbEditor.Text = "Редактор базы";
             this.tabPage_Main_DbEditor.UseVisualStyleBackColor = true;
@@ -960,7 +960,7 @@
             this.tabPage_Main_Misc.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPage_Main_Misc.Name = "tabPage_Main_Misc";
             this.tabPage_Main_Misc.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPage_Main_Misc.Size = new System.Drawing.Size(1116, 784);
+            this.tabPage_Main_Misc.Size = new System.Drawing.Size(885, 536);
             this.tabPage_Main_Misc.TabIndex = 2;
             this.tabPage_Main_Misc.Text = "Другое";
             this.tabPage_Main_Misc.UseVisualStyleBackColor = true;
@@ -968,7 +968,7 @@
             // label_OfficerReportClickerState
             // 
             this.label_OfficerReportClickerState.AutoSize = true;
-            this.label_OfficerReportClickerState.Location = new System.Drawing.Point(6, 427);
+            this.label_OfficerReportClickerState.Location = new System.Drawing.Point(5, 427);
             this.label_OfficerReportClickerState.Name = "label_OfficerReportClickerState";
             this.label_OfficerReportClickerState.Size = new System.Drawing.Size(250, 25);
             this.label_OfficerReportClickerState.TabIndex = 15;
@@ -976,7 +976,7 @@
             // 
             // numericUpDown_AutoClickerStartDelaySec
             // 
-            this.numericUpDown_AutoClickerStartDelaySec.Location = new System.Drawing.Point(5, 376);
+            this.numericUpDown_AutoClickerStartDelaySec.Location = new System.Drawing.Point(5, 377);
             this.numericUpDown_AutoClickerStartDelaySec.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.numericUpDown_AutoClickerStartDelaySec.Maximum = new decimal(new int[] {
             999999999,
@@ -1004,7 +1004,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(131, 376);
+            this.label9.Location = new System.Drawing.Point(131, 377);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(46, 25);
             this.label9.TabIndex = 12;
@@ -1036,7 +1036,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(6, 349);
+            this.label8.Location = new System.Drawing.Point(5, 350);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(393, 25);
             this.label8.TabIndex = 10;
@@ -1154,7 +1154,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1153, 846);
+            this.ClientSize = new System.Drawing.Size(922, 600);
             this.Controls.Add(this.tabControl_Main);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);

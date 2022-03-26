@@ -148,6 +148,19 @@ namespace ndp_invest_helper
             return result;
         }
 
+        public static string SelectFileWithDialog (
+            string filter = "Text files|*.txt|All files|*.*"
+        )
+        {
+            var file_dialog = new System.Windows.Forms.OpenFileDialog();
+            file_dialog.Filter = filter;
+
+            if (file_dialog.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+                return null;
+
+            return file_dialog.FileName;
+        }
+
     }
 
     /// <summary>

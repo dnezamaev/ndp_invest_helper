@@ -37,6 +37,18 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ComponentFactory.Krypton.Docking">
+      <HintPath>..\..\Krypton-master\Bin\ComponentFactory.Krypton.Docking.dll</HintPath>
+    </Reference>
+    <Reference Include="ComponentFactory.Krypton.Navigator">
+      <HintPath>..\..\Krypton-master\Bin\ComponentFactory.Krypton.Navigator.dll</HintPath>
+    </Reference>
+    <Reference Include="ComponentFactory.Krypton.Toolkit">
+      <HintPath>..\..\Krypton-master\Bin\ComponentFactory.Krypton.Toolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="ComponentFactory.Krypton.Workspace">
+      <HintPath>..\..\Krypton-master\Bin\ComponentFactory.Krypton.Workspace.dll</HintPath>
+    </Reference>
     <Reference Include="Dapper, Version=1.50.5.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.1.50.5\lib\net451\Dapper.dll</HintPath>
     </Reference>
@@ -66,11 +78,47 @@
     <Compile Include="CountriesManager.cs" />
     <Compile Include="CurrenciesManager.cs" />
     <Compile Include="DatabaseManager.cs" />
-    <Compile Include="InvestManager.cs" />
-    <Compile Include="MainForm.cs">
+    <Compile Include="GUI\AssetsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\AssetsControl.Designer.cs">
+      <DependentUpon>AssetsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\BuySellControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\BuySellControl.Designer.cs">
+      <DependentUpon>BuySellControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\DealsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\DealsControl.Designer.cs">
+      <DependentUpon>DealsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\KryptonMainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
+    <Compile Include="GUI\KryptonMainForm.Designer.cs">
+      <DependentUpon>KryptonMainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\OfficerReportControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\OfficerReportControl.Designer.cs">
+      <DependentUpon>OfficerReportControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\PortfolioAnalyticsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\PortfolioAnalyticsControl.Designer.cs">
+      <DependentUpon>PortfolioAnalyticsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InvestManager.cs" />
+    <Compile Include="GUI\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\FundsAssetsLink.cs" />
@@ -109,8 +157,26 @@
     <Compile Include="ReportHandlers\TinkoffBrokerReport.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="ReportHandlers\VtbBrokerReport.cs" />
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Include="GUI\AssetsControl.resx">
+      <DependentUpon>AssetsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\BuySellControl.resx">
+      <DependentUpon>BuySellControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\DealsControl.resx">
+      <DependentUpon>DealsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\KryptonMainForm.resx">
+      <DependentUpon>KryptonMainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\OfficerReportControl.resx">
+      <DependentUpon>OfficerReportControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\PortfolioAnalyticsControl.resx">
+      <DependentUpon>PortfolioAnalyticsControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

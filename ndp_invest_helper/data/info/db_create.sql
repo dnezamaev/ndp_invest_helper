@@ -12,7 +12,7 @@ DROP TABLE IF EXISTS "Securities_EconomySectors_Link";
 CREATE TABLE IF NOT EXISTS "Securities_EconomySectors_Link" (
 	"SecurityID"	INTEGER NOT NULL,
 	"SectorID"	INTEGER NOT NULL,
-	"Part"	INTEGER NOT NULL,
+	"Part"	REAL NOT NULL,
 	PRIMARY KEY("SecurityID","SectorID"),
 	FOREIGN KEY("SectorID") REFERENCES "EconomySectors"("ID"),
 	FOREIGN KEY("SecurityID") REFERENCES "Securities"("ID")

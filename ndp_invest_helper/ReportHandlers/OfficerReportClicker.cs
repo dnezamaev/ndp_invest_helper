@@ -167,12 +167,41 @@ namespace ndp_invest_helper.ReportHandlers
                 // issuer name
                 SimulateKey(VirtualKeyCode.TAB);
                 SimulateKey(VirtualKeyCode.TAB); 
-                SimulateText(share.Issuer); 
-                
-                // authorized capital
+                SimulateText(share.Issuer);
+
+                // address
+
+                // В справке от ВТБ адреса указаны в произвольном формате.
+                // Качественно распарсить их невозможно.
+                // Поэтому запишем всю строку в доп. инфу.
+                // В качестве региона и города укажем Москву, 
+                // т.к. это обязательные поля, иначе кнопка ОК недоступна.
+                const string CityStub = "Москва";
+
+                SimulateKey(VirtualKeyCode.TAB);
+                SimulateKey(VirtualKeyCode.TAB);
+                SimulateKey(VirtualKeyCode.RETURN); // open address form
+
+                SimulateKey(VirtualKeyCode.TAB);
+                SimulateText(CityStub);
+                SimulateKey(VirtualKeyCode.DOWN);
+                SimulateKey(VirtualKeyCode.RETURN); // region textbox
+
+                SimulateKey(VirtualKeyCode.TAB);
+                SimulateText(CityStub);
+                SimulateKey(VirtualKeyCode.DOWN);
+                SimulateKey(VirtualKeyCode.RETURN); // city textbox
+
                 SimulateKey(VirtualKeyCode.TAB);
                 SimulateKey(VirtualKeyCode.TAB);
                 SimulateKey(VirtualKeyCode.TAB); 
+                SimulateKey(VirtualKeyCode.TAB);
+                SimulateText(share.AddressFull); // info textbox
+
+                SimulateKey(VirtualKeyCode.ESCAPE);
+                SimulateKey(VirtualKeyCode.RETURN); // save address
+
+                // authorized capital
                 SimulateText(share.AuthorizedCapital); 
                 
                 // share type

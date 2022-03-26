@@ -256,7 +256,7 @@ namespace ndp_invest_helper
         private void MainForm_Load(object sender, EventArgs e)
         {
             textBox_Misc_SelectSharesOfficerReport.Text 
-                = @"e:\декларация_госслужащих\test.txt";
+                = @"D:\Job\другое\налоги\декларация_доходов\2021\акции_ВТБ.txt";
             tabControl_Main.SelectedIndex = 2;
             numericUpDown_AutoClickerStartDelaySec.Value = 5;
             button_Misc_StartAutoOfficerReport_Click(button_Misc_StartAutoOfficerShares, null);

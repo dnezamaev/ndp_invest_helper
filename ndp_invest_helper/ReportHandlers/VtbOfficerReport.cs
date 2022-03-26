@@ -56,7 +56,7 @@ namespace ndp_invest_helper.ReportHandlers
                 if (shareInfo.Issuer.Contains("убличное акционерное общество"))
                     shareInfo.TypeOfIssuer = Models.IssuerType.Public;
 
-                shareInfo.Address = lines[i++];
+                shareInfo.AddressFull = lines[i++];
 
                 // Authorized capital of issuer and user part in it.
                 var capitalAndPart = lines[i++];

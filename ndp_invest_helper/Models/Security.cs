@@ -13,7 +13,7 @@ namespace ndp_invest_helper.Models
     /// 2) при модификации нужно использовать свойство SecuritySectors
     /// и ему подобные, т.к. неизвестно какой список вернет Sectors.
     /// </summary>
-    public class Security
+    public class Security : IEquatable<Security>
     {
         /// <summary>
         /// Уникальный идентификатор бумаги из БД.
@@ -200,6 +200,21 @@ namespace ndp_invest_helper.Models
             return sb.ToString();
         }
         #endregion
+
+        public override bool Equals(object obj)
+        {
+            return Id == ((Security)obj).Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return (int)Id;
+        }
+
+        public bool Equals(Security other)
+        {
+            return Id == other.Id;
+        }
     }
 
     /// <summary>
