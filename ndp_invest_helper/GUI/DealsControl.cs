@@ -16,7 +16,7 @@ namespace ndp_invest_helper.GUI
             listBox_Deals.Items.Add(deal);
         }
 
-        public void ClearDeals()
+        public void RemoveAllDeals()
         {
             listBox_Deals.Items.Clear();
         }

@@ -18,6 +18,8 @@ namespace ndp_invest_helper
 
         public List<GrouppingResults> GrouppingResults { get; private set; }
 
+        public event Action AllDealsRemoved;
+
         public event Action LastDealRemoved;
 
         public event Action<Deal> DealCompleted;
@@ -35,13 +37,6 @@ namespace ndp_invest_helper
         private System.Text.StringBuilder log;
 
         public InvestManager()
-        {
-            Init();
-
-            LoadCommonData();
-        }
-
-        private void Init()
         {
             UnknownSecurities = new HashSet<Security>();
             IncompleteSecurities = new HashSet<Security>();
@@ -91,7 +86,7 @@ namespace ndp_invest_helper
         {
             Database = new DatabaseManager(
                 connectionStringName: "DapperSQLite",
-                dbCreateScript: System.IO.File.ReadAllText
+                dbCreateScript: File.ReadAllText
                 (
                     Settings.CommonDataDirectory + "\\" 
                     + Settings.SqliteDatabaseCreateScriptFile)
@@ -117,6 +112,10 @@ namespace ndp_invest_helper
 
         public void LoadPortfolio()
         {
+            IncompleteSecurities.Clear();
+            UnknownSecurities.Clear();
+            GrouppingResults.Clear();
+
             var portfolio = new Portfolio();
             var reports = LoadReports(Settings.ReportsDirectory);
 
@@ -134,7 +133,31 @@ namespace ndp_invest_helper
 
             HandleBadReportSecurities();
 
+            foreach (var item in Settings.Cash)
+            {
+                portfolio.AddCash(item.Key, item.Value);
+            }
+
             GrouppingResults.Add(new GrouppingResults(portfolio));
+        }
+
+        /// <summary>
+        /// Clean current analytics results.
+        /// Again load common data, reports, make portfolio, analyze it, 
+        /// repeat all deals on new data.
+        /// </summary>
+        public void Reload()
+        {
+            LoadCommonData();
+            LoadPortfolio();
+
+            var savedDeals = new List<Deal>(Deals);
+            RemoveAllDeals();
+
+            foreach (var item in savedDeals)
+            {
+                MakeDeal(item);
+            }
         }
 
         private List<BrokerReport> LoadReports(string directoryPath)
@@ -174,7 +197,6 @@ namespace ndp_invest_helper
 
         private void HandleBadReportSecurities()
         {
-
             var sb = new System.Text.StringBuilder();
 
             if (UnknownSecurities.Count != 0)
@@ -260,6 +282,19 @@ namespace ndp_invest_helper
                 LastDealRemoved();
 
             Deals.RemoveAt(Deals.Count - 1);
+        }
+
+        public void RemoveAllDeals()
+        {
+            if (Deals.Count == 0)
+                return;
+
+            GrouppingResults.RemoveRange(1, GrouppingResults.Count - 1);
+
+            if (AllDealsRemoved != null)
+                AllDealsRemoved();
+
+            Deals.Clear();
         }
     }
 }

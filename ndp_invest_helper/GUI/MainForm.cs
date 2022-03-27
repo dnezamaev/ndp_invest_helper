@@ -20,6 +20,7 @@ namespace ndp_invest_helper
             InitializeComponent();
 
             investManager = new InvestManager();
+            investManager.LoadCommonData();
         }
 
 

@@ -17,5 +17,8 @@
     <Setting Name="CommonDataDirectory" Type="System.String" Scope="User">
       <Value Profile="(Default)">data\info</Value>
     </Setting>
+    <Setting Name="Cash" Type="System.String" Scope="User">
+      <Value Profile="(Default)">RUB=1000</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

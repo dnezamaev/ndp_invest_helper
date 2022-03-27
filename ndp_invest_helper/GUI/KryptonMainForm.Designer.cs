@@ -39,10 +39,8 @@ namespace ndp_invest_helper.GUI
             this.toolStripMenuItem_CancelDeal = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem_RunTask = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem_XmlToSqlite = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem_settings = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem_Log = new System.Windows.Forms.ToolStripMenuItem();
-            this.источникДанныхToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripComboBox_CommonDataSource = new System.Windows.Forms.ToolStripComboBox();
+            this.toolStripMenuItem_Service = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem_Settings = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem_About = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanelMain)).BeginInit();
             this.kryptonPanelMain.SuspendLayout();
@@ -86,7 +84,7 @@ namespace ndp_invest_helper.GUI
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.действияToolStripMenuItem,
-            this.toolStripMenuItem_settings,
+            this.toolStripMenuItem_Service,
             this.toolStripMenuItem_About});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -126,37 +124,20 @@ namespace ndp_invest_helper.GUI
             this.toolStripMenuItem_XmlToSqlite.Text = "Импорт базы из XML";
             this.toolStripMenuItem_XmlToSqlite.Click += new System.EventHandler(this.toolStripMenuItem_XmlToSqlite_Click);
             // 
-            // toolStripMenuItem_settings
+            // toolStripMenuItem_Service
             // 
-            this.toolStripMenuItem_settings.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem_Log,
-            this.источникДанныхToolStripMenuItem});
-            this.toolStripMenuItem_settings.Name = "toolStripMenuItem_settings";
-            this.toolStripMenuItem_settings.Size = new System.Drawing.Size(98, 24);
-            this.toolStripMenuItem_settings.Text = "Настройки";
+            this.toolStripMenuItem_Service.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem_Settings});
+            this.toolStripMenuItem_Service.Name = "toolStripMenuItem_Service";
+            this.toolStripMenuItem_Service.Size = new System.Drawing.Size(73, 24);
+            this.toolStripMenuItem_Service.Text = "Сервис";
             // 
-            // toolStripMenuItem_Log
+            // toolStripMenuItem_Settings
             // 
-            this.toolStripMenuItem_Log.CheckOnClick = true;
-            this.toolStripMenuItem_Log.Name = "toolStripMenuItem_Log";
-            this.toolStripMenuItem_Log.Size = new System.Drawing.Size(214, 26);
-            this.toolStripMenuItem_Log.Text = "Вести журнал?";
-            this.toolStripMenuItem_Log.CheckStateChanged += new System.EventHandler(this.toolStripMenuItem_Log_CheckStateChanged);
-            // 
-            // источникДанныхToolStripMenuItem
-            // 
-            this.источникДанныхToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripComboBox_CommonDataSource});
-            this.источникДанныхToolStripMenuItem.Name = "источникДанныхToolStripMenuItem";
-            this.источникДанныхToolStripMenuItem.Size = new System.Drawing.Size(214, 26);
-            this.источникДанныхToolStripMenuItem.Text = "Источник данных";
-            // 
-            // toolStripComboBox_CommonDataSource
-            // 
-            this.toolStripComboBox_CommonDataSource.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.toolStripComboBox_CommonDataSource.Name = "toolStripComboBox_CommonDataSource";
-            this.toolStripComboBox_CommonDataSource.Size = new System.Drawing.Size(121, 28);
-            this.toolStripComboBox_CommonDataSource.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBox_CommonDataSource_SelectedIndexChanged);
+            this.toolStripMenuItem_Settings.Name = "toolStripMenuItem_Settings";
+            this.toolStripMenuItem_Settings.Size = new System.Drawing.Size(224, 26);
+            this.toolStripMenuItem_Settings.Text = "Настройки...";
+            this.toolStripMenuItem_Settings.Click += new System.EventHandler(this.toolStripMenuItem_Settings_Click);
             // 
             // toolStripMenuItem_About
             // 
@@ -197,11 +178,9 @@ namespace ndp_invest_helper.GUI
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_CancelDeal;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_RunTask;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_XmlToSqlite;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_settings;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_Log;
-        private System.Windows.Forms.ToolStripMenuItem источникДанныхToolStripMenuItem;
-        private System.Windows.Forms.ToolStripComboBox toolStripComboBox_CommonDataSource;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_Service;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_About;
         private ComponentFactory.Krypton.Docking.KryptonDockableWorkspace kryptonDockableWorkspace;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_Settings;
     }
 }

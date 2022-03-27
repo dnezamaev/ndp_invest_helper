@@ -82,5 +82,17 @@ namespace ndp_invest_helper.Properties {
                 this["CommonDataDirectory"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("RUB=1000")]
+        public string Cash {
+            get {
+                return ((string)(this["Cash"]));
+            }
+            set {
+                this["Cash"] = value;
+            }
+        }
     }
 }

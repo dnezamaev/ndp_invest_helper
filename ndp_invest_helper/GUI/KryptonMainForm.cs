@@ -24,32 +24,9 @@ namespace ndp_invest_helper.GUI
         private void KryptonMainForm_Load(object sender, EventArgs e)
         {
             InitInvestManager();
-            InitMenu();
             InitControls();
             SetEventHandlers();
             FillControls();
-        }
-
-        private static (CommonDataSources enumValue, string menuItemText)[]
-            CommonDataSourceMenuItems = new []
-            {
-                (CommonDataSources.SqliteDb, "База Sqlite"),
-                (CommonDataSources.XmlFiles, "Файлы XML")
-            };
-
-        private void InitMenu()
-        {
-            toolStripMenuItem_Log.Checked = Settings.WriteLog;
-
-            // Fill menu items for common data sources.
-            toolStripComboBox_CommonDataSource.Items.AddRange
-                (CommonDataSourceMenuItems.Select(x => x.menuItemText).ToArray());
-
-            // Select menu item based on settings.
-            toolStripComboBox_CommonDataSource.SelectedItem =
-                CommonDataSourceMenuItems.First
-                (x => x.enumValue == Settings.CommonDataSource)
-                .menuItemText;
         }
 
         private void InitControls()
@@ -166,7 +143,7 @@ namespace ndp_invest_helper.GUI
         private void InitInvestManager()
         {
             investManager = new InvestManager();
-            investManager.LoadPortfolio();
+            investManager.Reload();
         }
 
         private void SetEventHandlers()
@@ -179,6 +156,13 @@ namespace ndp_invest_helper.GUI
 
             investManager.DealCompleted += InvestManager_DealCompleted;
             investManager.LastDealRemoved += InvestManager_LastDealRemoved;
+            investManager.AllDealsRemoved += InvestManager_AllDealsRemoved;
+        }
+
+        private void InvestManager_AllDealsRemoved()
+        {
+            FillControls();
+            dealsControl.RemoveAllDeals();
         }
 
         private void InvestManager_LastDealRemoved()
@@ -204,14 +188,6 @@ namespace ndp_invest_helper.GUI
             investManager.XmlToSqlite();
         }
 
-        private void toolStripComboBox_CommonDataSource_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Settings.CommonDataSource = CommonDataSourceMenuItems
-                [toolStripComboBox_CommonDataSource.SelectedIndex].enumValue;
-
-            investManager.LoadCommonData();
-        }
-
         private void toolStripMenuItem_About_Click(object sender, EventArgs e)
         {
             MessageBox.Show(
@@ -220,11 +196,6 @@ namespace ndp_invest_helper.GUI
                 "Подробное описание в файле README.txt.\n\n" +
                 "Лицензия GPL3.\n\n" +
                 "Версия " + System.Reflection.Assembly.GetEntryAssembly().GetName().Version.ToString());
-        }
-
-        private void toolStripMenuItem_Log_CheckStateChanged(object sender, EventArgs e)
-        {
-            Settings.WriteLog = toolStripMenuItem_Log.Checked;
         }
 
         private void KryptonMainForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -242,6 +213,23 @@ namespace ndp_invest_helper.GUI
         private void toolStripMenuItem_RunTask_Click(object sender, EventArgs e)
         {
             investManager.ExecuteTasks();
+        }
+
+        private void toolStripMenuItem_Settings_Click(object sender, EventArgs e)
+        {
+            var form = new KryptonSettingsForm();
+            form.ShowDialog();
+
+            if (form.DataReloadRequired)
+            {
+                // TODO: recalculate analytics with deals
+                investManager.Reload();
+            }
+
+            if (form.ShowChangesFromChanged)
+            {
+                // TODO: refill analytics datagrids
+            }
         }
     }
 }

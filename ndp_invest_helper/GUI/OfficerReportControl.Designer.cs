@@ -165,6 +165,7 @@ namespace ndp_invest_helper.GUI
             this.button_Misc_StartAutoOfficerShares.TabIndex = 23;
             this.button_Misc_StartAutoOfficerShares.Text = "Запуск";
             this.button_Misc_StartAutoOfficerShares.UseVisualStyleBackColor = true;
+            this.button_Misc_StartAutoOfficerShares.Click += new System.EventHandler(this.button_Misc_StartAutoOfficerReport_Click);
             // 
             // label6
             // 
@@ -229,6 +230,7 @@ namespace ndp_invest_helper.GUI
             this.button_Misc_SelectSharesOffcerReport.TabIndex = 17;
             this.button_Misc_SelectSharesOffcerReport.Text = ". . .";
             this.button_Misc_SelectSharesOffcerReport.UseVisualStyleBackColor = true;
+            this.button_Misc_SelectSharesOffcerReport.Click += new System.EventHandler(this.button_Misc_SelectGovReport_Click);
             // 
             // textBox_Misc_SelectSharesOfficerReport
             // 
@@ -243,6 +245,9 @@ namespace ndp_invest_helper.GUI
             // 
             this.backgroundWorker_OfficerReportFiller.WorkerReportsProgress = true;
             this.backgroundWorker_OfficerReportFiller.WorkerSupportsCancellation = true;
+            this.backgroundWorker_OfficerReportFiller.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker_OfficerReportFiller_DoWork);
+            this.backgroundWorker_OfficerReportFiller.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker_OfficerReportFiller_ProgressChanged);
+            this.backgroundWorker_OfficerReportFiller.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker_OfficerReportFiller_RunWorkerCompleted);
             // 
             // OfficerReportControl
             // 

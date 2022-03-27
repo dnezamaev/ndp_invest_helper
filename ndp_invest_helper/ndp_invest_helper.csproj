@@ -37,17 +37,29 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ComponentFactory.Krypton.Docking">
-      <HintPath>..\..\Krypton-master\Bin\ComponentFactory.Krypton.Docking.dll</HintPath>
+    <Reference Include="ComponentFactory.Krypton.Design, Version=4.6.0.0, Culture=neutral, PublicKeyToken=a87e673e9ecb6e8e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\ComponentFactory.Krypton.Design.dll</HintPath>
     </Reference>
-    <Reference Include="ComponentFactory.Krypton.Navigator">
-      <HintPath>..\..\Krypton-master\Bin\ComponentFactory.Krypton.Navigator.dll</HintPath>
+    <Reference Include="ComponentFactory.Krypton.Docking, Version=4.6.0.0, Culture=neutral, PublicKeyToken=a87e673e9ecb6e8e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\ComponentFactory.Krypton.Docking.dll</HintPath>
     </Reference>
-    <Reference Include="ComponentFactory.Krypton.Toolkit">
-      <HintPath>..\..\Krypton-master\Bin\ComponentFactory.Krypton.Toolkit.dll</HintPath>
+    <Reference Include="ComponentFactory.Krypton.Navigator, Version=4.6.0.0, Culture=neutral, PublicKeyToken=a87e673e9ecb6e8e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\ComponentFactory.Krypton.Navigator.dll</HintPath>
     </Reference>
-    <Reference Include="ComponentFactory.Krypton.Workspace">
-      <HintPath>..\..\Krypton-master\Bin\ComponentFactory.Krypton.Workspace.dll</HintPath>
+    <Reference Include="ComponentFactory.Krypton.Ribbon, Version=4.6.0.0, Culture=neutral, PublicKeyToken=a87e673e9ecb6e8e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\ComponentFactory.Krypton.Ribbon.dll</HintPath>
+    </Reference>
+    <Reference Include="ComponentFactory.Krypton.Toolkit, Version=4.6.0.0, Culture=neutral, PublicKeyToken=a87e673e9ecb6e8e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\ComponentFactory.Krypton.Toolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="ComponentFactory.Krypton.Workspace, Version=4.6.0.0, Culture=neutral, PublicKeyToken=a87e673e9ecb6e8e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\ComponentFactory.Krypton.Workspace.dll</HintPath>
     </Reference>
     <Reference Include="Dapper, Version=1.50.5.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.1.50.5\lib\net451\Dapper.dll</HintPath>
@@ -101,6 +113,12 @@
     </Compile>
     <Compile Include="GUI\KryptonMainForm.Designer.cs">
       <DependentUpon>KryptonMainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\KryptonSettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\KryptonSettingsForm.Designer.cs">
+      <DependentUpon>KryptonSettingsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\OfficerReportControl.cs">
       <SubType>UserControl</SubType>
@@ -169,6 +187,9 @@
     <EmbeddedResource Include="GUI\KryptonMainForm.resx">
       <DependentUpon>KryptonMainForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GUI\KryptonSettingsForm.resx">
+      <DependentUpon>KryptonSettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -214,12 +235,15 @@
     <Content Include="data\info\securities.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="data\reports\cash.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="data\reports\vtb\sample.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Libs\ComponentFactory.Krypton.Design.dll" />
+    <Content Include="Libs\ComponentFactory.Krypton.Docking.dll" />
+    <Content Include="Libs\ComponentFactory.Krypton.Navigator.dll" />
+    <Content Include="Libs\ComponentFactory.Krypton.Ribbon.dll" />
+    <Content Include="Libs\ComponentFactory.Krypton.Toolkit.dll" />
+    <Content Include="Libs\ComponentFactory.Krypton.Workspace.dll" />
     <Content Include="Settings.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
