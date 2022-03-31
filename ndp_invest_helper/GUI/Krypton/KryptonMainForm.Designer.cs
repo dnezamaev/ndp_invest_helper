@@ -1,5 +1,5 @@
 ﻿
-namespace ndp_invest_helper.GUI
+namespace ndp_invest_helper.GUI.Krypton
 {
     partial class KryptonMainForm
     {
@@ -135,7 +135,7 @@ namespace ndp_invest_helper.GUI
             // toolStripMenuItem_Settings
             // 
             this.toolStripMenuItem_Settings.Name = "toolStripMenuItem_Settings";
-            this.toolStripMenuItem_Settings.Size = new System.Drawing.Size(224, 26);
+            this.toolStripMenuItem_Settings.Size = new System.Drawing.Size(176, 26);
             this.toolStripMenuItem_Settings.Text = "Настройки...";
             this.toolStripMenuItem_Settings.Click += new System.EventHandler(this.toolStripMenuItem_Settings_Click);
             // 
@@ -154,10 +154,10 @@ namespace ndp_invest_helper.GUI
             this.Controls.Add(this.kryptonPanelMain);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "KryptonMainForm";
-            this.Text = "ndp_invest_helper";
+            this.Text = "NDP invest helper";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.KryptonMainForm_FormClosed);
-            this.Load += new System.EventHandler(this.KryptonMainForm_Load);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
+            this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanelMain)).EndInit();
             this.kryptonPanelMain.ResumeLayout(false);
             this.kryptonPanelMain.PerformLayout();

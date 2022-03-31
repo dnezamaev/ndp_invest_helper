@@ -4,24 +4,26 @@ using ComponentFactory.Krypton.Navigator;
 using ComponentFactory.Krypton.Docking;
 using System.Linq;
 
-namespace ndp_invest_helper.GUI
+namespace ndp_invest_helper.GUI.Krypton
 {
-    public partial class KryptonMainForm : Form
+    public partial class KryptonMainForm : ComponentFactory.Krypton.Toolkit.KryptonForm
     {
         private InvestManager investManager;
 
         private PortfolioAnalyticsControl portfolioAnalyticsControl;
         private BuySellControl buySellControl;
         private AssetsControl assetsControl;
+        private PortfolioCashControl portfolioCashControl;
         private DealsControl dealsControl;
         private OfficerReportControl officerReportControl;
+        private DbEditorControl dbEditorControl;
 
         public KryptonMainForm()
         {
             InitializeComponent();
         }
 
-        private void KryptonMainForm_Load(object sender, EventArgs e)
+        private void MainForm_Load(object sender, EventArgs e)
         {
             InitInvestManager();
             InitControls();
@@ -42,7 +44,8 @@ namespace ndp_invest_helper.GUI
                 new KryptonPage[] 
                 {
                     CreatePortfolioAnalyticsPage(),
-                    CreateOfficerReportPage()
+                    CreateOfficerReportPage(),
+                    CreateDbEditorPage()
                 }
             );
 
@@ -65,7 +68,8 @@ namespace ndp_invest_helper.GUI
                 new KryptonPage[] 
                 {
                     CreateAssetsPage(),
-                    CreateDealsPage()
+                    CreateDealsPage(),
+                    CreatePortfolioCashPage()
                 }
             );
         }
@@ -126,6 +130,20 @@ namespace ndp_invest_helper.GUI
             return result;
         }
 
+        private PortfolioCashPage CreatePortfolioCashPage()
+        {
+            var result =  new PortfolioCashPage()
+            {
+                Text = "Cash",
+                TextTitle = "Наличка, вклады...",
+                UniqueName = "PortfolioCash"
+            };
+
+            portfolioCashControl = result.Control;
+
+            return result;
+        }
+
         private OfficerReportPage CreateOfficerReportPage()
         {
             var result = new OfficerReportPage()
@@ -140,10 +158,23 @@ namespace ndp_invest_helper.GUI
             return result;
         }
 
+        private DbEditorPage CreateDbEditorPage()
+        {
+            var result = new DbEditorPage()
+            {
+                Text = "База",
+                TextTitle = "Редактирование базы",
+                UniqueName = "DbEditor"
+            };
+
+            dbEditorControl = result.Control;
+
+            return result;
+        }
+
         private void InitInvestManager()
         {
             investManager = new InvestManager();
-            investManager.Reload();
         }
 
         private void SetEventHandlers()
@@ -154,33 +185,39 @@ namespace ndp_invest_helper.GUI
             assetsControl.AssetSelected +=
                 sec => { buySellControl.SelectedSecurity = sec; };
 
-            investManager.DealCompleted += InvestManager_DealCompleted;
-            investManager.LastDealRemoved += InvestManager_LastDealRemoved;
-            investManager.AllDealsRemoved += InvestManager_AllDealsRemoved;
+            // Recalculate all if portfolio cash amount changed.
+            portfolioCashControl.CashChanged +=
+                () => { investManager.RedoAnalytics(); };
+
+            investManager.Analytics.DealCompleted += InvestManager_DealCompleted;
+            investManager.Analytics.LastDealRemoved += InvestManager_LastDealRemoved;
+            investManager.Analytics.AllDealsRemoved += InvestManager_AllDealsRemoved;
+
+            investManager.Analytics.AnalyticsResultChanged +=
+                () => { FillControls(); };
         }
 
         private void InvestManager_AllDealsRemoved()
         {
-            FillControls();
             dealsControl.RemoveAllDeals();
         }
 
         private void InvestManager_LastDealRemoved()
         {
-            FillControls();
             dealsControl.RemoveLastDeal();
         }
 
         private void InvestManager_DealCompleted(Deal deal)
         {
-            FillControls();
             dealsControl.AddDeal(deal);
         }
 
         private void FillControls()
         {
-            portfolioAnalyticsControl.FillGroupControls();
-            buySellControl.FillBuySellCombos();
+            portfolioAnalyticsControl.FillControls();
+            buySellControl.FillControls();
+            portfolioCashControl.FillControls();
+            dbEditorControl.FillControls();
         }
 
         private void toolStripMenuItem_XmlToSqlite_Click(object sender, EventArgs e)
@@ -198,7 +235,7 @@ namespace ndp_invest_helper.GUI
                 "Версия " + System.Reflection.Assembly.GetEntryAssembly().GetName().Version.ToString());
         }
 
-        private void KryptonMainForm_FormClosed(object sender, FormClosedEventArgs e)
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             investManager.LogSave();
 
@@ -207,7 +244,7 @@ namespace ndp_invest_helper.GUI
 
         private void toolStripMenuItem_CancelDeal_Click(object sender, EventArgs e)
         {
-            investManager.RemoveLastDeal();
+            investManager.Analytics.RemoveLastDeal();
         }
 
         private void toolStripMenuItem_RunTask_Click(object sender, EventArgs e)
@@ -217,16 +254,15 @@ namespace ndp_invest_helper.GUI
 
         private void toolStripMenuItem_Settings_Click(object sender, EventArgs e)
         {
-            var form = new KryptonSettingsForm();
+            var form = new SettingsForm();
             form.ShowDialog();
 
             if (form.DataReloadRequired)
             {
-                // TODO: recalculate analytics with deals
-                investManager.Reload();
+                investManager.ReloadAll();
             }
 
-            if (form.ShowChangesFromChanged)
+            if (form.AnalyticsFormsReloadRequired)
             {
                 // TODO: refill analytics datagrids
             }

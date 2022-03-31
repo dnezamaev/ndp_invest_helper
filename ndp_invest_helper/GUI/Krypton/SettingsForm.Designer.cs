@@ -1,7 +1,7 @@
 ﻿
-namespace ndp_invest_helper.GUI
+namespace ndp_invest_helper.GUI.Krypton
 {
-    partial class KryptonSettingsForm
+    partial class SettingsForm
     {
         /// <summary>
         /// Required designer variable.
@@ -37,10 +37,6 @@ namespace ndp_invest_helper.GUI
             this.kryptonLabel2 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.comboBox_ShowChangesFrom = new ComponentFactory.Krypton.Toolkit.KryptonComboBox();
             this.kryptonNavigator1 = new ComponentFactory.Krypton.Navigator.KryptonNavigator();
-            this.krPagePortfolio = new ComponentFactory.Krypton.Navigator.KryptonPage();
-            this.dataGrid_Cash = new ComponentFactory.Krypton.Toolkit.KryptonDataGridView();
-            this.ColumnCurrencyType = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.ColumnCurrencyValue = new ComponentFactory.Krypton.Toolkit.KryptonDataGridViewNumericUpDownColumn();
             ((System.ComponentModel.ISupportInitialize)(this.krPageCommon)).BeginInit();
             this.krPageCommon.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.comboBox_DataSource)).BeginInit();
@@ -49,9 +45,6 @@ namespace ndp_invest_helper.GUI
             ((System.ComponentModel.ISupportInitialize)(this.comboBox_ShowChangesFrom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonNavigator1)).BeginInit();
             this.kryptonNavigator1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.krPagePortfolio)).BeginInit();
-            this.krPagePortfolio.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGrid_Cash)).BeginInit();
             this.SuspendLayout();
             // 
             // krPageCommon
@@ -143,83 +136,21 @@ namespace ndp_invest_helper.GUI
             this.kryptonNavigator1.PageBackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.PanelClient;
             this.kryptonNavigator1.Pages.AddRange(new ComponentFactory.Krypton.Navigator.KryptonPage[] {
             this.krPageCommon,
-            this.krPageAnalytics,
-            this.krPagePortfolio});
+            this.krPageAnalytics});
             this.kryptonNavigator1.SelectedIndex = 0;
             this.kryptonNavigator1.Size = new System.Drawing.Size(800, 450);
             this.kryptonNavigator1.TabIndex = 0;
             this.kryptonNavigator1.Text = "kryptonNavigator1";
             // 
-            // krPagePortfolio
-            // 
-            this.krPagePortfolio.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
-            this.krPagePortfolio.Controls.Add(this.dataGrid_Cash);
-            this.krPagePortfolio.Flags = 65534;
-            this.krPagePortfolio.LastVisibleSet = true;
-            this.krPagePortfolio.MinimumSize = new System.Drawing.Size(50, 50);
-            this.krPagePortfolio.Name = "krPagePortfolio";
-            this.krPagePortfolio.Size = new System.Drawing.Size(709, 448);
-            this.krPagePortfolio.Text = "Портфель";
-            this.krPagePortfolio.ToolTipTitle = "Page ToolTip";
-            this.krPagePortfolio.UniqueName = "7E73E34BD4AB4EFA67AD4CBC04AE4683";
-            // 
-            // dataGrid_Cash
-            // 
-            this.dataGrid_Cash.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.dataGrid_Cash.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGrid_Cash.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ColumnCurrencyType,
-            this.ColumnCurrencyValue});
-            this.dataGrid_Cash.Location = new System.Drawing.Point(13, 11);
-            this.dataGrid_Cash.Name = "dataGrid_Cash";
-            this.dataGrid_Cash.RowHeadersVisible = false;
-            this.dataGrid_Cash.RowHeadersWidth = 51;
-            this.dataGrid_Cash.RowTemplate.Height = 24;
-            this.dataGrid_Cash.Size = new System.Drawing.Size(376, 426);
-            this.dataGrid_Cash.TabIndex = 0;
-            // 
-            // ColumnCurrencyType
-            // 
-            this.ColumnCurrencyType.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ColumnCurrencyType.HeaderText = "Валюта";
-            this.ColumnCurrencyType.Items.AddRange(new object[] {
-            "RUB",
-            "EUR",
-            "USD"});
-            this.ColumnCurrencyType.MinimumWidth = 6;
-            this.ColumnCurrencyType.Name = "ColumnCurrencyType";
-            // 
-            // ColumnCurrencyValue
-            // 
-            this.ColumnCurrencyValue.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ColumnCurrencyValue.DecimalPlaces = 2;
-            this.ColumnCurrencyValue.HeaderText = "Значение";
-            this.ColumnCurrencyValue.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.ColumnCurrencyValue.Maximum = new decimal(new int[] {
-            1661992959,
-            1808227885,
-            5,
-            0});
-            this.ColumnCurrencyValue.MinimumWidth = 6;
-            this.ColumnCurrencyValue.Name = "ColumnCurrencyValue";
-            this.ColumnCurrencyValue.ThousandsSeparator = true;
-            this.ColumnCurrencyValue.Width = 187;
-            // 
-            // KryptonSettingsForm
+            // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.kryptonNavigator1);
-            this.Name = "KryptonSettingsForm";
-            this.Text = "KryptonSettingsForm";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.KryptonSettingsForm_FormClosed);
-            this.Load += new System.EventHandler(this.KryptonSettingsForm_Load);
+            this.Name = "SettingsForm";
+            this.Text = "Настройки";
+            this.Load += new System.EventHandler(this.SettingsForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.krPageCommon)).EndInit();
             this.krPageCommon.ResumeLayout(false);
             this.krPageCommon.PerformLayout();
@@ -230,9 +161,6 @@ namespace ndp_invest_helper.GUI
             ((System.ComponentModel.ISupportInitialize)(this.comboBox_ShowChangesFrom)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonNavigator1)).EndInit();
             this.kryptonNavigator1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.krPagePortfolio)).EndInit();
-            this.krPagePortfolio.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGrid_Cash)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -242,14 +170,10 @@ namespace ndp_invest_helper.GUI
         private ComponentFactory.Krypton.Navigator.KryptonPage krPageCommon;
         private ComponentFactory.Krypton.Navigator.KryptonPage krPageAnalytics;
         private ComponentFactory.Krypton.Navigator.KryptonNavigator kryptonNavigator1;
-        private ComponentFactory.Krypton.Navigator.KryptonPage krPagePortfolio;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel1;
         private ComponentFactory.Krypton.Toolkit.KryptonCheckBox checkBox_Log;
         private ComponentFactory.Krypton.Toolkit.KryptonComboBox comboBox_DataSource;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel2;
         private ComponentFactory.Krypton.Toolkit.KryptonComboBox comboBox_ShowChangesFrom;
-        private ComponentFactory.Krypton.Toolkit.KryptonDataGridView dataGrid_Cash;
-        private System.Windows.Forms.DataGridViewComboBoxColumn ColumnCurrencyType;
-        private ComponentFactory.Krypton.Toolkit.KryptonDataGridViewNumericUpDownColumn ColumnCurrencyValue;
     }
 }

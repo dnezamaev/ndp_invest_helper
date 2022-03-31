@@ -87,76 +87,89 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CountriesManager.cs" />
-    <Compile Include="CurrenciesManager.cs" />
-    <Compile Include="DatabaseManager.cs" />
-    <Compile Include="GUI\AssetsControl.cs">
+    <Compile Include="DataHandlers\Portfolio\AnalyticsManager.cs" />
+    <Compile Include="DataHandlers\CommonData\CountriesManager.cs" />
+    <Compile Include="DataHandlers\CommonData\CurrenciesManager.cs" />
+    <Compile Include="DataHandlers\CommonData\DatabaseManager.cs" />
+    <Compile Include="GUI\Krypton\AssetsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="GUI\AssetsControl.Designer.cs">
+    <Compile Include="GUI\Krypton\AssetsControl.Designer.cs">
       <DependentUpon>AssetsControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\BuySellControl.cs">
+    <Compile Include="GUI\Krypton\BuySellControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="GUI\BuySellControl.Designer.cs">
+    <Compile Include="GUI\Krypton\BuySellControl.Designer.cs">
       <DependentUpon>BuySellControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\DealsControl.cs">
+    <Compile Include="GUI\Krypton\DbEditorControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="GUI\DealsControl.Designer.cs">
+    <Compile Include="GUI\Krypton\DbEditorControl.Designer.cs">
+      <DependentUpon>DbEditorControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Krypton\DealsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\Krypton\DealsControl.Designer.cs">
       <DependentUpon>DealsControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\KryptonMainForm.cs">
+    <Compile Include="GUI\Krypton\KryptonMainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\KryptonMainForm.Designer.cs">
+    <Compile Include="GUI\Krypton\KryptonMainForm.Designer.cs">
       <DependentUpon>KryptonMainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\KryptonSettingsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\KryptonSettingsForm.Designer.cs">
-      <DependentUpon>KryptonSettingsForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\OfficerReportControl.cs">
+    <Compile Include="GUI\Krypton\PortfolioCashControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="GUI\OfficerReportControl.Designer.cs">
+    <Compile Include="GUI\Krypton\PortfolioCashControl.Designer.cs">
+      <DependentUpon>PortfolioCashControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Krypton\SettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Krypton\SettingsForm.Designer.cs">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Krypton\OfficerReportControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\Krypton\OfficerReportControl.Designer.cs">
       <DependentUpon>OfficerReportControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\PortfolioAnalyticsControl.cs">
+    <Compile Include="GUI\Krypton\PortfolioAnalyticsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="GUI\PortfolioAnalyticsControl.Designer.cs">
+    <Compile Include="GUI\Krypton\PortfolioAnalyticsControl.Designer.cs">
       <DependentUpon>PortfolioAnalyticsControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="InvestManager.cs" />
-    <Compile Include="GUI\MainForm.cs">
+    <Compile Include="DataHandlers\Portfolio\InvestManager.cs" />
+    <Compile Include="GUI\Classic\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\MainForm.Designer.cs">
+    <Compile Include="GUI\Classic\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Models\FundsAssetsLink.cs" />
-    <Compile Include="Models\AssetType.cs" />
-    <Compile Include="Models\Country.cs" />
-    <Compile Include="Models\CountryDevelopmentLevel.cs" />
-    <Compile Include="Models\CountryRegion.cs" />
-    <Compile Include="Models\Currency.cs" />
-    <Compile Include="Models\EconomySector.cs" />
-    <Compile Include="Models\FundSecurity.cs" />
-    <Compile Include="Models\Issuer.cs" />
-    <Compile Include="Models\IssuersCurrenciesLink.cs" />
-    <Compile Include="Models\IssuersEconomySectorsLink.cs" />
-    <Compile Include="Models\IssuersCountriesLink.cs" />
-    <Compile Include="Models\SecuritiesCountriesLink.cs" />
-    <Compile Include="Models\SecuritiesCurrenciesLink.cs" />
-    <Compile Include="Models\SecuritiesEconomySectorsLink.cs" />
-    <Compile Include="Models\Security.cs" />
-    <Compile Include="Models\Ticker.cs" />
-    <Compile Include="Portfolio.cs" />
+    <Compile Include="DataHandlers\Models\FundsAssetsLink.cs" />
+    <Compile Include="DataHandlers\Models\AssetType.cs" />
+    <Compile Include="DataHandlers\Models\Country.cs" />
+    <Compile Include="DataHandlers\Models\CountryDevelopmentLevel.cs" />
+    <Compile Include="DataHandlers\Models\CountryRegion.cs" />
+    <Compile Include="DataHandlers\Models\Currency.cs" />
+    <Compile Include="DataHandlers\Models\EconomySector.cs" />
+    <Compile Include="DataHandlers\Models\FundSecurity.cs" />
+    <Compile Include="DataHandlers\Models\Issuer.cs" />
+    <Compile Include="DataHandlers\Models\IssuersCurrenciesLink.cs" />
+    <Compile Include="DataHandlers\Models\IssuersEconomySectorsLink.cs" />
+    <Compile Include="DataHandlers\Models\IssuersCountriesLink.cs" />
+    <Compile Include="DataHandlers\Models\SecuritiesCountriesLink.cs" />
+    <Compile Include="DataHandlers\Models\SecuritiesCurrenciesLink.cs" />
+    <Compile Include="DataHandlers\Models\SecuritiesEconomySectorsLink.cs" />
+    <Compile Include="DataHandlers\Models\Security.cs" />
+    <Compile Include="DataHandlers\Models\Ticker.cs" />
+    <Compile Include="DataHandlers\Portfolio\Portfolio.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -164,39 +177,46 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="ReportHandlers\BrokerReport.cs" />
-    <Compile Include="ReportHandlers\OfficerReport.cs" />
-    <Compile Include="ReportHandlers\OfficerReportClicker.cs" />
-    <Compile Include="ReportHandlers\VtbOfficerReport.cs" />
-    <Compile Include="SectorsManager.cs" />
-    <Compile Include="SecuritiesManager.cs" />
-    <Compile Include="Settings.cs" />
-    <Compile Include="Task.cs" />
-    <Compile Include="ReportHandlers\TinkoffBrokerReport.cs" />
-    <Compile Include="Utils.cs" />
-    <Compile Include="ReportHandlers\VtbBrokerReport.cs" />
-    <EmbeddedResource Include="GUI\AssetsControl.resx">
+    <Compile Include="DataHandlers\Reports\BrokerReport.cs" />
+    <Compile Include="DataHandlers\Portfolio\BrokerReportsManager.cs" />
+    <Compile Include="DataHandlers\Reports\OfficerReport.cs" />
+    <Compile Include="DataHandlers\Reports\OfficerReportClicker.cs" />
+    <Compile Include="DataHandlers\Reports\VtbOfficerReport.cs" />
+    <Compile Include="DataHandlers\CommonData\SectorsManager.cs" />
+    <Compile Include="DataHandlers\CommonData\SecuritiesManager.cs" />
+    <Compile Include="DataHandlers\Misc\Settings.cs" />
+    <Compile Include="DataHandlers\Misc\Task.cs" />
+    <Compile Include="DataHandlers\Reports\TinkoffBrokerReport.cs" />
+    <Compile Include="DataHandlers\Misc\Utils.cs" />
+    <Compile Include="DataHandlers\Reports\VtbBrokerReport.cs" />
+    <EmbeddedResource Include="GUI\Krypton\AssetsControl.resx">
       <DependentUpon>AssetsControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\BuySellControl.resx">
+    <EmbeddedResource Include="GUI\Krypton\BuySellControl.resx">
       <DependentUpon>BuySellControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\DealsControl.resx">
+    <EmbeddedResource Include="GUI\Krypton\DbEditorControl.resx">
+      <DependentUpon>DbEditorControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Krypton\DealsControl.resx">
       <DependentUpon>DealsControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\KryptonMainForm.resx">
+    <EmbeddedResource Include="GUI\Krypton\KryptonMainForm.resx">
       <DependentUpon>KryptonMainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\KryptonSettingsForm.resx">
-      <DependentUpon>KryptonSettingsForm.cs</DependentUpon>
+    <EmbeddedResource Include="GUI\Krypton\PortfolioCashControl.resx">
+      <DependentUpon>PortfolioCashControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\MainForm.resx">
+    <EmbeddedResource Include="GUI\Krypton\SettingsForm.resx">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Classic\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\OfficerReportControl.resx">
+    <EmbeddedResource Include="GUI\Krypton\OfficerReportControl.resx">
       <DependentUpon>OfficerReportControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\PortfolioAnalyticsControl.resx">
+    <EmbeddedResource Include="GUI\Krypton\PortfolioAnalyticsControl.resx">
       <DependentUpon>PortfolioAnalyticsControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -244,10 +264,7 @@
     <Content Include="Libs\ComponentFactory.Krypton.Ribbon.dll" />
     <Content Include="Libs\ComponentFactory.Krypton.Toolkit.dll" />
     <Content Include="Libs\ComponentFactory.Krypton.Workspace.dll" />
-    <Content Include="Settings.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="task.xml">
+    <Content Include="data\misc\task.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

@@ -1,5 +1,5 @@
 ﻿
-namespace ndp_invest_helper.GUI
+namespace ndp_invest_helper.GUI.Krypton
 {
     partial class BuySellControl
     {

@@ -5,9 +5,9 @@ using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace ndp_invest_helper.GUI
+namespace ndp_invest_helper.GUI.Krypton
 {
-    public partial class KryptonSettingsForm : Form
+    public partial class SettingsForm : ComponentFactory.Krypton.Toolkit.KryptonForm
     {
         private static (CommonDataSources enumValue, string menuItemText)[]
             CommonDataSourceMenuItems = new []
@@ -25,35 +25,20 @@ namespace ndp_invest_helper.GUI
 
         public bool DataReloadRequired { get; set; } = false;
 
-        public bool ShowChangesFromChanged { get; set; } = false;
+        public bool AnalyticsFormsReloadRequired { get; set; } = false;
 
-        public KryptonSettingsForm()
+        public SettingsForm()
         {
             InitializeComponent();
         }
 
-        private void KryptonSettingsForm_Load(object sender, EventArgs e)
+        private void SettingsForm_Load(object sender, EventArgs e)
         {
             InitControls();
         }
 
-        private void InitCash()
-        {
-            ColumnCurrencyType.DataSource =
-                CurrenciesManager.Currencies
-                .Select(x => x.Code)
-                .ToList();
-
-            foreach (var item in Settings.Cash)
-            {
-                dataGrid_Cash.Rows.Add(item.Key, item.Value);
-            }
-        }
-
         private void InitControls()
         {
-            InitCash();
-
             checkBox_Log.Checked = Settings.WriteLog;
 
             // Fill menu items for common data sources.
@@ -75,34 +60,6 @@ namespace ndp_invest_helper.GUI
                    PortfolioDifferenceSourceMenuItems.First
                    (x => x.enumValue == Settings.ShowDifferenceFrom)
                    .menuItemText;
-        }
-
-        private void SaveCash()
-        {
-            var cash = new List<KeyValuePair<string, decimal>>();
-
-            foreach (DataGridViewRow item in dataGrid_Cash.Rows)
-            {
-                if (
-                    string.IsNullOrEmpty(item.Cells[0].Value as string) ||
-                    item.Cells[1].Value == null )
-                {
-                    continue;
-                }
-
-                cash.Add(
-                    new KeyValuePair<string, decimal>(
-                        (string)item.Cells[0].Value,
-                        decimal.Parse(item.Cells[1].Value.ToString()))
-                );
-            }
-
-            Settings.Cash = cash;
-        }
-
-        private void KryptonSettingsForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            SaveCash();
         }
 
         private void comboBox_DataSource_SelectedIndexChanged(object sender, EventArgs e)

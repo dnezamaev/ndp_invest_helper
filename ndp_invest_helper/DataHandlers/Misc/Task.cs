@@ -312,7 +312,7 @@ namespace ndp_invest_helper
                         "В действии {0} указана неизвестная бумага {1}." +
                         "Возможно, её стоит добавить в базу {2}, " +
                         "либо проверить правильность указания isin.",
-                        xAction.ToString(), isin, Settings.SecuritiesXmlFile));
+                        xAction.ToString(), isin, Settings.SecuritiesXmlFilePath));
             }
             else // Ищем по ticker.
             {
@@ -323,7 +323,7 @@ namespace ndp_invest_helper
                         "В действии {0} указана неизвестная бумага {1}." +
                         "Возможно, её стоит добавить в базу {2}, " +
                         "либо проверить правильность указания ticker.",
-                        xAction.ToString(), ticker, Settings.SecuritiesXmlFile));
+                        xAction.ToString(), ticker, Settings.SecuritiesXmlFilePath));
             }
 
             UInt64? count = null;

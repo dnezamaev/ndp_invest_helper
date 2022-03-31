@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace ndp_invest_helper.GUI
+namespace ndp_invest_helper.GUI.Krypton
 {
     public partial class PortfolioAnalyticsControl : UserControl
     {
@@ -58,23 +58,23 @@ namespace ndp_invest_helper.GUI
             //richTextBox_Info.Text = $"Выделенные: {partsSum:0.00}%";
         }
 
-        public void FillGroupControls()
+        public void FillControls()
         {
-            var grouppingResults = investManager.GrouppingResults;
-            var currentResult = investManager.CurrentResult;
+            var grouppingResults = investManager.Analytics.GrouppingResults;
+            var currentResult = investManager.Analytics.CurrentResult;
 
             var sectorNames = SectorsManager.ById.Keys.ToDictionary(
                 x => x,
                 x => SectorsManager.ById[x].Name);
 
-            GrouppingResults oldResult = investManager.FirstResult;
+            GrouppingResults oldResult = investManager.Analytics.FirstResult;
 
-            if (investManager.GrouppingResults.Count > 1)
+            if (investManager.Analytics.GrouppingResults.Count > 1)
             {
                 switch (Settings.ShowDifferenceFrom)
                 {
                     case PortfolioDifferenceSource.Origin:
-                        oldResult = investManager.FirstResult;
+                        oldResult = investManager.Analytics.FirstResult;
                         break;
 
                     case PortfolioDifferenceSource.LastDeal:

@@ -9,7 +9,8 @@ using System.Windows.Forms;
 using ndp_invest_helper.Models;
 using ndp_invest_helper.ReportHandlers;
 
-namespace ndp_invest_helper
+namespace ndp_invest_helper.GUI.Classic
+
 {
     public partial class MainForm : Form
     {
@@ -36,7 +37,7 @@ namespace ndp_invest_helper
 
         private List<GrouppingResults> GrouppingResults
         {
-            get => investManager.GrouppingResults;
+            get => investManager.Analytics.GrouppingResults;
         }
 
         public Portfolio FirstPortfolio {  get => GrouppingResults[0].Portfolio; }
@@ -212,8 +213,8 @@ namespace ndp_invest_helper
 
         private void HandleBadReportSecurities()
         {
-            var unknownSecurities = investManager.UnknownSecurities;
-            var incompleteSecurities = investManager.IncompleteSecurities;
+            var unknownSecurities = investManager.BrokerReports.UnknownSecurities;
+            var incompleteSecurities = investManager.BrokerReports.IncompleteSecurities;
 
             var sb = new StringBuilder();
 
@@ -498,7 +499,7 @@ namespace ndp_invest_helper
         {
             investManager.ExecuteTasks();
             toolStripStatusLabel1.Text = 
-                $"Задание выполнено, результаты записаны в {Settings.TaskOutputFile}";
+                $"Задание выполнено, результаты записаны в {Settings.TaskOutputFilePath}";
         }
 
         private void toolStripMenuItem_About_Click(object sender, EventArgs e)

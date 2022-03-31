@@ -6,7 +6,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace ndp_invest_helper.GUI
+namespace ndp_invest_helper.GUI.Krypton
 {
     public partial class AssetsControl : UserControl
     {

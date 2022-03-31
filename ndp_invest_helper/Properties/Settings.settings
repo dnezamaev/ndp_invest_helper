@@ -20,5 +20,8 @@
     <Setting Name="Cash" Type="System.String" Scope="User">
       <Value Profile="(Default)">RUB=1000</Value>
     </Setting>
+    <Setting Name="MiscDataDirectory" Type="System.String" Scope="User">
+      <Value Profile="(Default)">data\misc</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

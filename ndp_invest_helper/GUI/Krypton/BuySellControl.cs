@@ -4,7 +4,7 @@ using System;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace ndp_invest_helper.GUI
+namespace ndp_invest_helper.GUI.Krypton
 {
     public partial class BuySellControl : UserControl
     {
@@ -17,7 +17,7 @@ namespace ndp_invest_helper.GUI
             this.investManager = investManager;
         }
 
-        public void FillBuySellCombos()
+        public void FillControls()
         {
             comboBox_BuySell_Security.DataSource = SecuritiesManager.Securities;
             comboBox_BuySell_Currency.DataSource = CurrenciesManager.RatesToRub.Keys.ToList();
@@ -59,7 +59,7 @@ namespace ndp_invest_helper.GUI
                     return null;
 
                 SecurityInfo secInfo;
-                investManager.CurrentPortfolio.Securities
+                investManager.Analytics.CurrentPortfolio.Securities
                     .TryGetValue(security, out secInfo);
 
                 return secInfo;
@@ -70,8 +70,18 @@ namespace ndp_invest_helper.GUI
         /// Выбранная в comboBox_BuySell_Currency валюта.
         /// </summary>
         public string SelectedCurrency 
-        { 
-            get => comboBox_BuySell_Currency.SelectedItem.ToString(); 
+        {
+            get
+            {
+                var selected = comboBox_BuySell_Currency.SelectedItem;
+
+                if (selected == null)
+                {
+                    return null;
+                }
+
+                return selected.ToString();
+            }
         }
 
         private void buttonBuySell_Click(object sender, EventArgs e)
@@ -98,20 +108,23 @@ namespace ndp_invest_helper.GUI
 
             deal.Count = (ulong)countDecimal;
 
-            investManager.MakeDeal(deal);
+            investManager.Analytics.MakeDeal(deal);
         }
 
         private void comboBox_BuySellSecurity_SelectedIndexChanged(object sender, EventArgs e)
         {
             var secInfo = SelectedSecurityInfo;
+            var selected = SelectedCurrency;
 
-            if (secInfo != null)
+            if (secInfo == null || selected == null)
             {
-                numericUpDown_BuySell_Price.Value = 
-                    secInfo.PriceInCurrency(SelectedCurrency);
-
-                numericUpDown_BuySell_Count.Value = secInfo.Count;
+                return;
             }
+
+            numericUpDown_BuySell_Price.Value =
+                secInfo.PriceInCurrency(SelectedCurrency);
+
+            numericUpDown_BuySell_Count.Value = secInfo.Count;
         }
 
         private void numericUpDown_BuySell_Count_ValueChanged(object sender, EventArgs e)

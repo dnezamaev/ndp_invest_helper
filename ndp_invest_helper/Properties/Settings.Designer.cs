@@ -94,5 +94,17 @@ namespace ndp_invest_helper.Properties {
                 this["Cash"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("data\\misc")]
+        public string MiscDataDirectory {
+            get {
+                return ((string)(this["MiscDataDirectory"]));
+            }
+            set {
+                this["MiscDataDirectory"] = value;
+            }
+        }
     }
 }

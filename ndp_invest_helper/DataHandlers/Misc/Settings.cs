@@ -20,7 +20,7 @@ namespace ndp_invest_helper
     [Serializable]
     public class Settings
     {
-        public const string
+        private const string
             SecuritiesXmlFile = "securities.xml",
             CountriesXmlFile = "countries.xml",
             CurrenciesXmlFile = "currencies.xml",
@@ -41,6 +41,59 @@ namespace ndp_invest_helper
         {
             get => UserSettings.CommonDataDirectory;
             set => UserSettings.CommonDataDirectory = value;
+        }
+
+        public static string MiscDataDirectory
+        {
+            get => UserSettings.MiscDataDirectory;
+            set => UserSettings.MiscDataDirectory = value;
+        }
+
+        public static string TaskInputFilePath
+        {
+            get => MiscDataDirectory + "\\" + TaskInputFile;
+        }
+
+        public static string TaskOutputFilePath
+        {
+            get => MiscDataDirectory + "\\" + TaskOutputFile;
+        }
+
+        public static string LogFilePath
+        {
+            get => MiscDataDirectory + "\\" + LogFile;
+        }
+
+
+
+        public static string SecuritiesXmlFilePath
+        {
+            get => CommonDataDirectory + "\\" + SecuritiesXmlFile;
+        }
+
+        public static string CountriesXmlFilePath
+        {
+            get => CommonDataDirectory + "\\" + CountriesXmlFile;
+        }
+
+        public static string CurrenciesXmlFilePath
+        {
+            get => CommonDataDirectory + "\\" + CurrenciesXmlFile;
+        }
+
+        public static string SectorsXmlFilePath
+        {
+            get => CommonDataDirectory + "\\" + SectorsXmlFile;
+        }
+
+        public static string SqliteDatabaseFilePath
+        {
+            get => CommonDataDirectory + "\\" + SqliteDatabaseFile;
+        }
+
+        public static string SqliteDatabaseCreateScriptFilePath
+        {
+            get => CommonDataDirectory + "\\" + SqliteDatabaseCreateScriptFile;
         }
 
         private static (CommonDataSources enumValue, string settingString)[]

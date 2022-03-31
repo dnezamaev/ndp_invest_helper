@@ -2,7 +2,7 @@
 using ndp_invest_helper.Models;
 using System.Windows.Forms;
 
-namespace ndp_invest_helper.GUI
+namespace ndp_invest_helper.GUI.Krypton
 {
     public partial class DealsControl : UserControl
     {

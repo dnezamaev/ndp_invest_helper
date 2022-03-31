@@ -238,6 +238,7 @@ namespace ndp_invest_helper
             Init();
 
             var xRoot = XElement.Parse(xmlText);
+            long id = 1;
 
             foreach (var xIssuer in xRoot.Elements("issuer"))
             {
@@ -257,6 +258,7 @@ namespace ndp_invest_helper
                 foreach (var xSecurity in xIssuer.Elements("security"))
                 {
                     var security = ParseXmlSecurity(xSecurity);
+                    security.Id = id++;
                     security.Issuer = issuer;
                     issuer.Securities.Add(security);
                     Securities.Add(security);

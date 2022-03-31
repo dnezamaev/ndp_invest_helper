@@ -72,3 +72,9 @@ You should have received a copy of the GNU General Public License along with ndp
 * [EasyCompletionComboBox](https://www.codeproject.com/Tips/755707/ComboBox-with-Suggestions-Based-on-Loose-Character). Author: Serge Weinstock. License: [LGPL3](https://opensource.org/licenses/lgpl-3.0.html)
 
 * [WindowsInput](https://github.com/michaelnoonan/inputsimulator). Author: Michael Noonan. License: [MIT](https://github.com/michaelnoonan/inputsimulator/blob/master/LICENSE).
+
+* [Krypton Suite of .NET WinForms Controls](https://github.com/ComponentFactory/Krypton). Author: Phil Wright. License: [BSD-3-Clause License](https://github.com/ComponentFactory/Krypton/blob/master/LICENSE)
+
+## Tags
+
+Инвестиции, диверсификация, анализ портфеля, парсер брокерского отчета, парсер ВТБ инвестиции, парсер Тинькофф инвестиции, ndp invest helper.
