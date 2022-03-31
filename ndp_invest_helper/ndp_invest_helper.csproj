@@ -87,6 +87,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataHandlers\CommonData\CommonDataManager.cs" />
     <Compile Include="DataHandlers\Portfolio\AnalyticsManager.cs" />
     <Compile Include="DataHandlers\CommonData\CountriesManager.cs" />
     <Compile Include="DataHandlers\CommonData\CurrenciesManager.cs" />
@@ -146,12 +147,6 @@
       <DependentUpon>PortfolioAnalyticsControl.cs</DependentUpon>
     </Compile>
     <Compile Include="DataHandlers\Portfolio\InvestManager.cs" />
-    <Compile Include="GUI\Classic\MainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\Classic\MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="DataHandlers\Models\FundsAssetsLink.cs" />
     <Compile Include="DataHandlers\Models\AssetType.cs" />
     <Compile Include="DataHandlers\Models\Country.cs" />
@@ -209,9 +204,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Krypton\SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Classic\MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Krypton\OfficerReportControl.resx">
       <DependentUpon>OfficerReportControl.cs</DependentUpon>

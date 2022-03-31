@@ -283,7 +283,7 @@ namespace ndp_invest_helper
                 {
                     case "country":
                         sb.AppendLine(string.Format("{0} - {1}", 
-                            item.Key, CountriesManager.Countries[item.Key]));
+                            item.Key, CountriesManager.ByCode[item.Key]));
                         break;
 
                     case "currency":
@@ -617,7 +617,7 @@ namespace ndp_invest_helper
                     // Ищем существующую запись по этой валюте.
                     // Если ее нет, создаем пустую.
                     var resultValue = analytics.GetValueOrSetDefault(
-                        currencyRecord.Key, new PortfolioAnalyticsItem());
+                        currencyRecord.Key.Code, new PortfolioAnalyticsItem());
 
                     // Добавляем бумагу с коэффициентом коррекции.
                     // Создаем копию securitryInfo, чтобы не портить запись в исходном портфеле.
@@ -659,7 +659,7 @@ namespace ndp_invest_helper
                 foreach (var countryRecord in security.Countries)
                 {
                     var resultValue = analytics.GetValueOrSetDefault(
-                        countryRecord.Key, new PortfolioAnalyticsItem());
+                        countryRecord.Key.Code, new PortfolioAnalyticsItem());
 
                     resultValue.Portfolio.AddSecurity(security, 
                         new SecurityInfo(securityInfo, countryRecord.Value));

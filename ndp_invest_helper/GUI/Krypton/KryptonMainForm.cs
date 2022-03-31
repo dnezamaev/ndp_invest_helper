@@ -25,6 +25,7 @@ namespace ndp_invest_helper.GUI.Krypton
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            CommonDataManager.Load();
             InitInvestManager();
             InitControls();
             SetEventHandlers();
@@ -187,7 +188,7 @@ namespace ndp_invest_helper.GUI.Krypton
 
             // Recalculate all if portfolio cash amount changed.
             portfolioCashControl.CashChanged +=
-                () => { investManager.RedoAnalytics(); };
+                () => { investManager.RedoAnalytics(true); };
 
             investManager.Analytics.DealCompleted += InvestManager_DealCompleted;
             investManager.Analytics.LastDealRemoved += InvestManager_LastDealRemoved;
@@ -222,7 +223,7 @@ namespace ndp_invest_helper.GUI.Krypton
 
         private void toolStripMenuItem_XmlToSqlite_Click(object sender, EventArgs e)
         {
-            investManager.XmlToSqlite();
+            CommonDataManager.XmlToSqlite();
         }
 
         private void toolStripMenuItem_About_Click(object sender, EventArgs e)
@@ -237,7 +238,7 @@ namespace ndp_invest_helper.GUI.Krypton
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            investManager.LogSave();
+            CommonDataManager.LogSave();
 
             Settings.Save();
         }
@@ -259,7 +260,8 @@ namespace ndp_invest_helper.GUI.Krypton
 
             if (form.DataReloadRequired)
             {
-                investManager.ReloadAll();
+                CommonDataManager.Load();
+                investManager.RedoAnalytics(false);
             }
 
             if (form.AnalyticsFormsReloadRequired)

@@ -36,6 +36,9 @@ namespace ndp_invest_helper
             Deals = new List<Deal>();
         }
 
+        /// <summary>
+        /// Make new portfolio and analyze it.
+        /// </summary>
         public void DoAnalytics(BrokerReportsManager brokerReports)
         {
             var portfolio = new Portfolio();
@@ -54,6 +57,27 @@ namespace ndp_invest_helper
             GrouppingResults.Add(new GrouppingResults(portfolio));
 
             RaiseAnalyticsResultChanged();
+        }
+
+        /// <summary>
+        /// Clean current analytics and deals results.
+        /// Make new portfolio and repeat deals if necessary.
+        /// </summary>
+        /// <param name="repeatDeals">True - repeat deals. False - drop deals.</param>
+        public void RedoAnalytics(
+            BrokerReportsManager brokerReports, 
+            bool repeatDeals = false)
+        {
+            if (repeatDeals)
+            {
+                DoAnalytics(brokerReports);
+                RemakeDeals();
+            }
+            else
+            {
+                RemoveAllDeals();
+                DoAnalytics(brokerReports);
+            }
         }
 
         /// <summary>
@@ -87,7 +111,7 @@ namespace ndp_invest_helper
                 deal.Currency, deal.Total
                 );
 
-            //LogAddText(logText);
+            CommonDataManager.LogAddText(logText);
 
             RaiseDealCompleted(deal);
             RaiseAnalyticsResultChanged();
@@ -148,7 +172,5 @@ namespace ndp_invest_helper
                 DealCompleted(deal);
             }
         }
-
-
     }
 }

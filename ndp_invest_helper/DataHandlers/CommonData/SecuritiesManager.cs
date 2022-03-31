@@ -61,31 +61,31 @@ namespace ndp_invest_helper
             SecuritiesByTicker = new Dictionary<string, Security>();
         }
 
-        public static void LoadFromDatabase(DatabaseManager database)
+        public static void LoadFromDatabase()
         {
             Init();
 
-            LoadIssuersFromDatabase(database);
-            LoadSecuritiesFromDatabase(database);
+            LoadIssuersFromDatabase();
+            LoadSecuritiesFromDatabase();
         }
 
-        private static void LoadIssuersFromDatabase(DatabaseManager database)
+        private static void LoadIssuersFromDatabase()
         {
             Init();
 
-            var dbIssuers = database
+            var dbIssuers = DatabaseManager
                 .GetFullTable<Issuer>(
                 "Issuers");
 
-            var dbCountries = database
+            var dbCountries = DatabaseManager
                 .GetFullTable<IssuersCountriesLink>(
                 "Issuers_Countries_Link");
 
-            var dbCurrencies = database
+            var dbCurrencies = DatabaseManager
                 .GetFullTable<IssuersCurrenciesLink>(
                 "Issuers_Currencies_Link");
 
-            var dbSectors = database
+            var dbSectors = DatabaseManager
                 .GetFullTable<IssuersEconomySectorsLink>(
                 "Issuers_EconomySectors_Link");
 
@@ -100,13 +100,13 @@ namespace ndp_invest_helper
                     Currencies = dbCurrencies
                     .Where(x => x.IssuerId == dbIssuer.Id)
                     .ToDictionary(
-                        k => k.CurrencyCode,
+                        k => CurrenciesManager.ByCode[k.CurrencyCode],
                         v => v.Part),
 
                     Countries = dbCountries
                     .Where(x => x.IssuerId == dbIssuer.Id)
                     .ToDictionary(
-                        k => k.CountryCode,
+                        k => CountriesManager.ByCode[k.CountryCode],
                         v => v.Part),
 
                     Sectors = dbSectors
@@ -120,29 +120,29 @@ namespace ndp_invest_helper
             }
         }
 
-        private static void LoadSecuritiesFromDatabase(DatabaseManager database)
+        private static void LoadSecuritiesFromDatabase()
         {
-            var dbCountries = database
+            var dbCountries = DatabaseManager
                 .GetFullTable<SecuritiesCountriesLink>(
                 "Securities_Countries_Link");
 
-            var dbCurrencies = database
+            var dbCurrencies = DatabaseManager
                 .GetFullTable<SecuritiesCurrenciesLink>(
                 "Securities_Currencies_Link");
 
-            var dbSectors = database
+            var dbSectors = DatabaseManager
                 .GetFullTable<SecuritiesEconomySectorsLink>(
                 "Securities_EconomySectors_Link");
 
-            var dbFundAssets = database
+            var dbFundAssets = DatabaseManager
                 .GetFullTable<FundsAssetsLink>(
                 "Funds_Assets_Link");
 
-            var dbAssetTypes = database
+            var dbAssetTypes = DatabaseManager
                 .GetFullTable<AssetType>(
                 "AssetTypes");
 
-            var dbSecurities = database
+            var dbSecurities = DatabaseManager
                 .GetFullTable<SecurityModel>(
                 "Securities");
 
@@ -186,7 +186,7 @@ namespace ndp_invest_helper
                 foreach (var country in dbSecurityCountries)
                 {
                     security.SecurityCountries.Add(
-                        country.CountryCode, (decimal)country.Part);
+                        CountriesManager.ByCode[country.CountryCode], (decimal)country.Part);
                 }
 
                 var dbSecurityCurrencies = dbCurrencies
@@ -196,7 +196,7 @@ namespace ndp_invest_helper
                 foreach (var currency in dbSecurityCurrencies)
                 {
                     security.SecurityCurrencies.Add(
-                        currency.CurrencyCode, (decimal)currency.Part);
+                        CurrenciesManager.ByCode[currency.CurrencyCode], (decimal)currency.Part);
                 }
 
                 var dbSecuritySectors = dbSectors
@@ -248,11 +248,14 @@ namespace ndp_invest_helper
                 };
 
                 // Разбираем страны, валюты, отрасли эмитента.
-                issuer.Countries = Utils.HandleComplexStringXmlAttribute(
-                    xIssuer, "country");
-                issuer.Currencies = Utils.HandleComplexStringXmlAttribute(
-                    xIssuer, "currency");
-                Utils.HandleSectorAttribute(issuer.Sectors, xIssuer, SectorsManager.DefaultSectorIdLevel2);
+                Utils.HandleCountryAttribute(
+                    issuer.Countries, xIssuer, "???");
+
+                Utils.HandleCurrencyAttribute(
+                    issuer.Currencies, xIssuer, "???");
+
+                Utils.HandleSectorAttribute(
+                    issuer.Sectors, xIssuer, SectorsManager.DefaultSectorIdLevel2);
 
                 // Разбираем бумаги эмитента и заполняем словари быстрого доступа.
                 foreach (var xSecurity in xIssuer.Elements("security"))
@@ -336,55 +339,16 @@ namespace ndp_invest_helper
             security.Isin = isin;
             security.Ticker = ticker;
 
-            Utils.HandleComplexStringXmlAttribute(
-               security.SecurityCountries, xSecurity, "country");
-            Utils.HandleComplexStringXmlAttribute(
-               security.SecurityCurrencies, xSecurity, "currency");
+            Utils.HandleCountryAttribute(
+                security.SecurityCountries, xSecurity, "???");
+
+            Utils.HandleCurrencyAttribute(
+                security.SecurityCurrencies, xSecurity, "???");
+
             Utils.HandleSectorAttribute(
                 security.SecuritySectors, xSecurity, SectorsManager.DefaultSectorIdLevel2);
 
             return security;
-        }
-
-        /// <summary>
-        /// Правим данные в файле. Только для внутреннего использования.
-        /// Заполняем страны.
-        /// </summary>
-        internal static void CorrectData(string filePath)
-        {
-            var xRoot = XElement.Parse(File.ReadAllText(filePath));
-
-            foreach (var xIssuer in xRoot.Elements("issuer"))
-            {
-                var issuer = Issuers.Find(x => x.NameRus == xIssuer.Attribute("name").Value);
-
-                // Уже заполнено, но не вопросами.
-                if (issuer.Countries.Count > 0
-                    && !(issuer.Countries.Count == 1 && issuer.Countries.ContainsKey("???"))
-                    )
-                    continue;
-
-                // Если все бумаги с ISIN="RU...", то эмитент российский.
-                if (issuer.Securities.TrueForAll(x => x.Isin.StartsWith("RU")))
-                    xIssuer.SetAttributeValue("country", "RU");
-
-                var xSecuritiesList = new List<XElement>(xIssuer.Elements("security"));
-
-                foreach (var xSecurity in xSecuritiesList)
-                {
-                    var security = SecuritiesByIsin[xSecurity.Attribute("isin").Value];
-
-                    // ETF заполняем вручную.
-                    if (security is ETF)
-                        continue;
-
-                    // Если бумага с ISIN="RU...", то она российская.
-                    if (security.Isin.StartsWith("RU"))
-                        xSecurity.SetAttributeValue("country", "RU");
-                }
-            }
-
-            xRoot.Save(filePath);
         }
     }
 }

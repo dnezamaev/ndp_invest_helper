@@ -26,6 +26,11 @@ namespace ndp_invest_helper.GUI.Krypton
             FillSecurityIssuerCombo();
         }
 
+        private void radioButton_SecurityIssuer_CheckedChanged(object sender, EventArgs e)
+        {
+            FillSecurityIssuerCombo();
+        }
+
         private void FillSecurityIssuerCombo()
         {
             if (radioButton_Issuer.Checked)
@@ -46,10 +51,53 @@ namespace ndp_invest_helper.GUI.Krypton
             }
         }
 
-        private void radioButton_Securities_CheckedChanged(object sender, EventArgs e)
+        private void radioButton_Currencies_CheckedChanged(object sender, EventArgs e)
         {
-            FillSecurityIssuerCombo();
+            FillDataGridParts();
         }
+
+        private void FillDataGridParts()
+        {
+            var selectedSecIss = comboBox_SecurityIssuer.SelectedValue;
+
+            dataGrid_Parts.Rows.Clear();
+
+            if (radioButton_Currencies.Checked)
+            {
+                foreach (var item in CurrenciesManager.Currencies)
+                {
+                    var rowIndex = dataGrid_Parts.Rows.Add();
+                    var row = dataGrid_Parts.Rows[rowIndex];
+
+                    var key = item.Code;
+                    var value = item.NameEng;
+                }
+            }
+            else
+            {
+            }
+        }
+
+        private void FillDataGridKeys()
+        {
+            dataGrid_Parts.Rows.Clear();
+
+            if (radioButton_Currencies.Checked)
+            {
+                foreach (var item in CurrenciesManager.Currencies)
+                {
+                    var rowIndex = dataGrid_Parts.Rows.Add();
+                    var row = dataGrid_Parts.Rows[rowIndex];
+
+                    var key = item.Code;
+                    var value = item.NameEng;
+                }
+            }
+            else
+            {
+            }
+        }
+
     }
 
     public class DbEditorPage : KryptonPage

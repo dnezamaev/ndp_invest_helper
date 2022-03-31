@@ -14,19 +14,22 @@ namespace ndp_invest_helper
 
         public static List<Currency> Currencies;
 
+        public static Dictionary<string, Currency> ByCode;
+
         public static Dictionary<string, decimal> RatesToRub;
 
         private static void Init()
         {
             Currencies = new List<Currency>();
+            ByCode = new Dictionary<string, Currency>();
             RatesToRub = new Dictionary<string, decimal>();
         }
 
-        public static void LoadFromXmlFile(string filePath)
+        public static void LoadFromXmlText(string text)
         {
             Init();
 
-            var xRoot = XElement.Parse(System.IO.File.ReadAllText(filePath));
+            var xRoot = XElement.Parse(text);
 
             foreach (var xCurrency in xRoot.Elements("currency"))
             {
@@ -47,15 +50,26 @@ namespace ndp_invest_helper
                 }
 
                 Currencies.Add(currency);
+                ByCode[currency.Code] = currency;
             }
         }
 
-        public static void LoadFromDatabase(DatabaseManager database)
+        public static void LoadFromXmlFile(string filePath)
+        {
+            LoadFromXmlText(System.IO.File.ReadAllText(filePath));
+        }
+
+        public static void LoadFromDatabase()
         {
             Init();
 
-            Currencies = database.GetFullTable<Currency>("Currencies");
+            Currencies = DatabaseManager.GetFullTable<Currency>("Currencies");
             MakeRates();
+
+            ByCode = Currencies.ToDictionary(
+                k => k.Code,
+                v => v
+                );
         }
 
         private static void MakeRates()

@@ -63,9 +63,13 @@ namespace ndp_invest_helper.GUI.Krypton
             var grouppingResults = investManager.Analytics.GrouppingResults;
             var currentResult = investManager.Analytics.CurrentResult;
 
-            var sectorNames = SectorsManager.ById.Keys.ToDictionary(
-                x => x,
-                x => SectorsManager.ById[x].Name);
+            var sectorNames = SectorsManager.Sectors.ToDictionary(
+                x => x.Id,
+                x => x.Name);
+
+            var countryNames = CountriesManager.Countries.ToDictionary(
+                x => x.Code,
+                x => x.NameRus);
 
             GrouppingResults oldResult = investManager.Analytics.FirstResult;
 
@@ -92,7 +96,7 @@ namespace ndp_invest_helper.GUI.Krypton
             }
 
             FillGroupsDataGridView(dataGridView_GroupsByCountry,
-                currentResult.ByCountry, oldResult.ByCountry, CountriesManager.Countries);
+                currentResult.ByCountry, oldResult.ByCountry, countryNames);
 
             FillGroupsDataGridView(dataGridView_GroupsByCurrency,
                 currentResult.ByCurrency, oldResult.ByCurrency, null);
@@ -169,7 +173,7 @@ namespace ndp_invest_helper.GUI.Krypton
 
             dataGridView.ClearSelection();
 
-            //LogAddText(newResult.ToString());
+            CommonDataManager.LogAddText(newResult.ToString());
         }
    }
  

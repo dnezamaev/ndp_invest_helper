@@ -9,28 +9,28 @@ using ndp_invest_helper.Models;
 
 namespace ndp_invest_helper
 {
-    public class DatabaseManager
+    public static class DatabaseManager
     {
-        private string connectionString;
+        private static string connectionString;
 
-        public string ConnectionString
+        public static string ConnectionString
         {
             get => connectionString;
             set => connectionString = 
                 ConfigurationManager.ConnectionStrings[value].ConnectionString;
         }
 
-        private string dbCreateScript;
+        private static string DbCreateScript { get; set; }
 
-        public DatabaseManager(
+        public static void Init(
             string connectionStringName,
             string dbCreateScript)
         {
-            this.ConnectionString = connectionStringName;
-            this.dbCreateScript = dbCreateScript;
+            ConnectionString = connectionStringName;
+            DbCreateScript = dbCreateScript;
         }
 
-        public List<T> GetFullTable<T>(string tableName)
+        public static List<T> GetFullTable<T>(string tableName)
         {
             using (var db = new SQLiteConnection(connectionString))
             {
@@ -39,11 +39,11 @@ namespace ndp_invest_helper
             }
         }
 
-        public void CreateDatabase()
+        public static void CreateDatabase()
         {
             using (var db = new SQLiteConnection(connectionString))
             {
-                db.Execute(dbCreateScript);
+                db.Execute(DbCreateScript);
             }
         }
         
@@ -51,7 +51,7 @@ namespace ndp_invest_helper
         /// Запись информации в базу данных.
         /// Данные должны быть предварительно загружены в менеджеры.
         /// </summary>
-        public void Import()
+        public static void Import()
         {
             using (var connection = new SQLiteConnection(connectionString))
             {
@@ -69,13 +69,13 @@ namespace ndp_invest_helper
             }
         }
 
-        private Int64 GetLastInsertRowId(SQLiteConnection connection)
+        private static Int64 GetLastInsertRowId(SQLiteConnection connection)
         {
             var command = new SQLiteCommand("SELECT last_insert_rowid()", connection);
             return (Int64)command.ExecuteScalar();
         }
 
-        private void CheckExecuteResult(
+        private static void CheckExecuteResult(
             string command, object parameter, int result, int expectedResult = 1)
         {
             if (result != expectedResult)
@@ -85,7 +85,7 @@ namespace ndp_invest_helper
                     $"Parameter = {parameter ?? "Null"}.");
         }
 
-        private void ImportXmlSecurites(SQLiteConnection connection)
+        private static void ImportXmlSecurites(SQLiteConnection connection)
         {
             var XmlToDbAssetNames
                 = new Dictionary<string, AssetTypes>()
@@ -302,7 +302,7 @@ namespace ndp_invest_helper
             }
         }
 
-        private void ImportXmlCurrencies(SQLiteConnection connection)
+        private static void ImportXmlCurrencies(SQLiteConnection connection)
         {
             var command = new SQLiteCommand(connection);
             command.CommandText =
@@ -320,7 +320,7 @@ namespace ndp_invest_helper
             }
         }
 
-        private void ImportXmlCountries(SQLiteConnection connection)
+        private static void ImportXmlCountries(SQLiteConnection connection)
         {
             var insertCommand = new SQLiteCommand(connection);
             var updateCommand = new SQLiteCommand(connection);
@@ -336,8 +336,8 @@ namespace ndp_invest_helper
 
             foreach (var country in CountriesManager.Countries)
             {
-                insertCommand.Parameters.AddWithValue("@Code", country.Key);
-                insertCommand.Parameters.AddWithValue("@NameRus", country.Value);
+                insertCommand.Parameters.AddWithValue("@Code", country.Code);
+                insertCommand.Parameters.AddWithValue("@NameRus", country.NameRus);
                 insertCommand.Prepare();
                 insertCommand.ExecuteNonQuery();
 
@@ -399,7 +399,7 @@ namespace ndp_invest_helper
             }
         }
 
-        private void ImportXmlSectors(SQLiteConnection connection)
+        private static void ImportXmlSectors(SQLiteConnection connection)
         {
             var command = new SQLiteCommand(connection);
             command.CommandText =

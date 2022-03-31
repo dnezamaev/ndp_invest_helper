@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Globalization;
 using System.Xml.Linq;
+using ndp_invest_helper.Models;
 
 namespace ndp_invest_helper
 {
@@ -123,7 +124,6 @@ namespace ndp_invest_helper
 
                 destination[sector] = item.Value;
             }
-
         }
 
         public static Dictionary<Sector, decimal> HandleSectorAttribute(
@@ -148,9 +148,49 @@ namespace ndp_invest_helper
             return result;
         }
 
+        public static void HandleCountryAttribute(
+            Dictionary<Country, decimal> destination,
+            XElement xTag,
+            string unknownCountry)
+        {
+            var countries = HandleComplexStringXmlAttribute(xTag, "country", true, unknownCountry);
+
+            foreach (var item in countries)
+            {
+                var country = CountriesManager.ByCode[item.Key];
+
+                if (country == null)
+                    throw new ArgumentException(string.Format(
+                        "Обнаружена неизвестная страна {0} в теге {1}",
+                        item.Key, xTag.ToString()));
+
+                destination[country] = item.Value;
+            }
+        }
+
+        public static void HandleCurrencyAttribute(
+            Dictionary<Currency, decimal> destination,
+            XElement xTag,
+            string unknownCurrency)
+        {
+            var currencies = HandleComplexStringXmlAttribute(xTag, "currency", true, unknownCurrency);
+
+            foreach (var item in currencies)
+            {
+                var currency = CurrenciesManager.Currencies.Find(x => x.Code == item.Key);
+
+                if (currency == null)
+                    throw new ArgumentException(string.Format(
+                        "Обнаружена неизвестная валюта {0} в теге {1}",
+                        item.Key, xTag.ToString()));
+
+                destination[currency] = item.Value;
+            }
+        }
+
         public static string SelectFileWithDialog (
             string filter = "Text files|*.txt|All files|*.*"
-        )
+            )
         {
             var file_dialog = new System.Windows.Forms.OpenFileDialog();
             file_dialog.Filter = filter;

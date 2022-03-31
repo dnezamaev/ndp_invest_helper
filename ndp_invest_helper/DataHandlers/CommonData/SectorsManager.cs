@@ -92,11 +92,11 @@ namespace ndp_invest_helper
             LevelsCount = 0;
         }
 
-        public static void LoadFromDatabase(DatabaseManager database)
+        public static void LoadFromDatabase()
         {
             Init();
 
-            Sectors = database.GetFullTable<Models.EconomySector>("EconomySectors")
+            Sectors = DatabaseManager.GetFullTable<Models.EconomySector>("EconomySectors")
                 .Select(x =>
                 new Sector
                 {

@@ -15,7 +15,6 @@ namespace Test
         [TestInitialize]
         public void Initialize()
         {
-            CountriesManager.LoadFromXmlFile(@"data\info\countries.xml");
             SectorsManager.LoadFromXmlFile(@"data\info\sectors.xml");
         }
 
@@ -103,6 +102,34 @@ namespace Test
             ";
             #endregion
 
+            CurrenciesManager.LoadFromXmlText
+            ( @"
+                <root>
+                <currency code='???' rate='1' name_en='unknown' />
+                <currency code='CUR1' rate='1' name_en='unknown' />
+                <currency code='issuer currency' rate='1' name_en='' />
+                <currency code='issuer inner currency 1' rate='1' name_en='' />
+                <currency code='issuer inner currency 2' rate='1' name_en='' />
+                <currency code='bond currency' rate='1' name_en='' />
+                </root>
+            " );
+
+            CountriesManager.LoadFromXmlText
+            ( @"
+                <root>
+                  <countries>
+                    <country key='???' name=''/>
+                    <country key='US' name=''/>
+                    <country key='CN' name=''/>
+                    <country key='issuer country' name=''/>
+                    <country key='issuer inner country 1' name=''/>
+                    <country key='issuer inner country 2' name=''/>
+                  </countries>
+                  <by_region />
+                  <by_development_level />
+                </root>
+            " );
+
             SecuritiesManager.ParseXmlText(xmlText);
 
             // У эмитента свои страны и сектора, приоритет у вложенных тегов перед аттрибутами.
@@ -111,16 +138,24 @@ namespace Test
             Assert.AreEqual("full attributes issuer", issuer.NameRus);
 
             Assert.AreEqual(2, issuer.Currencies.Count);
-            Assert.IsTrue(issuer.Currencies.ContainsKey("issuer inner currency 1"));
-            Assert.IsTrue(issuer.Currencies.ContainsKey("issuer inner currency 2"));
-            Assert.AreEqual(0.2M, issuer.Currencies["issuer inner currency 1"]);
-            Assert.AreEqual(0.8M, issuer.Currencies["issuer inner currency 2"]);
+            Assert.IsTrue(issuer.Currencies.Keys.Contains(
+                CurrenciesManager.ByCode["issuer inner currency 1"]));
+            Assert.IsTrue(issuer.Currencies.Keys.Contains(
+                CurrenciesManager.ByCode["issuer inner currency 2"]));
+            Assert.AreEqual(0.2M, issuer.Currencies[
+                CurrenciesManager.ByCode["issuer inner currency 1"]]);
+            Assert.AreEqual(0.8M, issuer.Currencies[
+                CurrenciesManager.ByCode["issuer inner currency 2"]]);
 
             Assert.AreEqual(2, issuer.Countries.Count);
-            Assert.IsTrue(issuer.Countries.ContainsKey("issuer inner country 1"));
-            Assert.IsTrue(issuer.Countries.ContainsKey("issuer inner country 2"));
-            Assert.AreEqual(0.2M, issuer.Countries["issuer inner country 1"]);
-            Assert.AreEqual(0.8M, issuer.Countries["issuer inner country 2"]);
+            Assert.IsTrue(issuer.Countries.ContainsKey(
+                CountriesManager.ByCode["issuer inner country 1"]));
+            Assert.IsTrue(issuer.Countries.ContainsKey(
+                CountriesManager.ByCode["issuer inner country 2"]));
+            Assert.AreEqual(0.2M, issuer.Countries[
+                CountriesManager.ByCode["issuer inner country 1"]]);
+            Assert.AreEqual(0.8M, issuer.Countries[
+                CountriesManager.ByCode["issuer inner country 2"]]);
 
             Assert.AreEqual(2, issuer.Sectors.Count);
             Assert.IsTrue(issuer.Sectors.ContainsKey(SectorsManager.ById["2"]));
@@ -139,16 +174,24 @@ namespace Test
             var fullEtf = security as ETF;
 
             Assert.AreEqual(2, fullEtf.Currencies.Count);
-            Assert.IsTrue(fullEtf.Currencies.ContainsKey("CUR1"));
-            Assert.IsTrue(fullEtf.Currencies.ContainsKey("???"));
-            Assert.AreEqual(0.1M, fullEtf.Currencies["CUR1"]);
-            Assert.AreEqual(0.9M, fullEtf.Currencies["???"]);
+            Assert.IsTrue(fullEtf.Currencies.ContainsKey(
+                CurrenciesManager.ByCode["CUR1"]));
+            Assert.IsTrue(fullEtf.Currencies.ContainsKey(
+                CurrenciesManager.ByCode["???"]));
+            Assert.AreEqual(0.1M, fullEtf.Currencies[
+                CurrenciesManager.ByCode["CUR1"]]);
+            Assert.AreEqual(0.9M, fullEtf.Currencies[
+                CurrenciesManager.ByCode["???"]]);
 
             Assert.AreEqual(2, fullEtf.Countries.Count);
-            Assert.IsTrue(fullEtf.Countries.ContainsKey("CN"));
-            Assert.IsTrue(fullEtf.Countries.ContainsKey("???"));
-            Assert.AreEqual(0.2M, fullEtf.Countries["CN"]);
-            Assert.AreEqual(0.8M, fullEtf.Countries["???"]);
+            Assert.IsTrue(fullEtf.Countries.ContainsKey(
+                CountriesManager.ByCode["CN"]));
+            Assert.IsTrue(fullEtf.Countries.ContainsKey(
+                CountriesManager.ByCode["???"]));
+            Assert.AreEqual(0.2M, fullEtf.Countries[
+                CountriesManager.ByCode["CN"]]);
+            Assert.AreEqual(0.8M, fullEtf.Countries[
+                CountriesManager.ByCode["???"]]);
 
             Assert.AreEqual(2, fullEtf.Sectors.Count);
             Assert.IsTrue(fullEtf.Sectors.ContainsKey(SectorsManager.ById["5"]));
@@ -166,10 +209,14 @@ namespace Test
             var emptySec = SecuritiesManager.SecuritiesByTicker["EMPTY"];
 
             Assert.AreEqual(2, emptySec.Countries.Count);
-            Assert.IsTrue(emptySec.Countries.ContainsKey("issuer inner country 1"));
-            Assert.IsTrue(emptySec.Countries.ContainsKey("issuer inner country 2"));
-            Assert.AreEqual(0.2M, emptySec.Countries["issuer inner country 1"]);
-            Assert.AreEqual(0.8M, emptySec.Countries["issuer inner country 2"]);
+            Assert.IsTrue(emptySec.Countries.ContainsKey(
+                CountriesManager.ByCode["issuer inner country 1"]));
+            Assert.IsTrue(emptySec.Countries.ContainsKey(
+                CountriesManager.ByCode["issuer inner country 2"]));
+            Assert.AreEqual(0.2M, emptySec.Countries[
+                CountriesManager.ByCode["issuer inner country 1"]]);
+            Assert.AreEqual(0.8M, emptySec.Countries[
+                CountriesManager.ByCode["issuer inner country 2"]]);
 
             Assert.AreEqual(2, emptySec.Sectors.Count);
             Assert.IsTrue(emptySec.Sectors.ContainsKey(SectorsManager.ById["2"]));
@@ -180,8 +227,10 @@ namespace Test
             var currencyBond = SecuritiesManager.SecuritiesByIsin["bond with currency"];
 
             Assert.AreEqual(1, currencyBond.Currencies.Count);
-            Assert.IsTrue(currencyBond.Currencies.ContainsKey("bond currency"));
-            Assert.AreEqual(1M, currencyBond.Currencies["bond currency"]);
+            Assert.IsTrue(currencyBond.Currencies.ContainsKey(
+                CurrenciesManager.ByCode["bond currency"]));
+            Assert.AreEqual(1M, currencyBond.Currencies[
+                CurrenciesManager.ByCode["bond currency"]]);
         }
 
         [TestMethod]
@@ -223,11 +272,27 @@ namespace Test
             ";
             #endregion
 
-            CurrenciesManager.RatesToRub = new Dictionary<string, decimal>
-            {
-                { "cur1", 1 },
-                { "cur2", 1 },
-            };
+            CurrenciesManager.LoadFromXmlText
+            ( @"
+                <root>
+                <currency code='???' rate='1' name_en='unknown' />
+                <currency code='cur1' rate='1' name_en='cur1' />
+                <currency code='cur2' rate='1' name_en='cur2' />
+                </root>
+            " );
+
+            CountriesManager.LoadFromXmlText
+            ( @"
+                <root>
+                  <countries>
+                    <country key='???' name='unknown'/>
+                    <country key='cnt1' name='cnt1'/>
+                    <country key='cnt2' name='cnt2'/>
+                  </countries>
+                  <by_region />
+                  <by_development_level />
+                </root>
+            " );
 
             SecuritiesManager.ParseXmlText(xmlText_Full);
             var etf1 = SecuritiesManager.SecuritiesByIsin["etf1"];
