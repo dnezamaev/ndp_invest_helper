@@ -14,6 +14,8 @@ namespace ndp_invest_helper
 
         public static List<Currency> Currencies;
 
+        public static Dictionary<int, Currency> ById;
+
         public static Dictionary<string, Currency> ByCode;
 
         public static Dictionary<string, decimal> RatesToRub;
@@ -21,6 +23,7 @@ namespace ndp_invest_helper
         private static void Init()
         {
             Currencies = new List<Currency>();
+            ById = new Dictionary<int, Currency>();
             ByCode = new Dictionary<string, Currency>();
             RatesToRub = new Dictionary<string, decimal>();
         }
@@ -36,8 +39,10 @@ namespace ndp_invest_helper
                 string rateStr = xCurrency.Attribute("rate").Value;
                 var currency = new Currency()
                 {
+                    Id = int.Parse(xCurrency.Attribute("number").Value),
                     Code = xCurrency.Attribute("code").Value,
                     NameEng = xCurrency.Attribute("name_en").Value,
+                    NameRus = xCurrency.Attribute("name_ru").Value,
                 };
 
                 // Has rate? It can be null or incorrect format.
@@ -50,6 +55,7 @@ namespace ndp_invest_helper
                 }
 
                 Currencies.Add(currency);
+                ById[currency.Id] = currency;
                 ByCode[currency.Code] = currency;
             }
         }
@@ -65,6 +71,11 @@ namespace ndp_invest_helper
 
             Currencies = DatabaseManager.GetFullTable<Currency>("Currencies");
             MakeRates();
+
+            ById = Currencies.ToDictionary(
+                k => k.Id,
+                v => v
+                );
 
             ByCode = Currencies.ToDictionary(
                 k => k.Code,

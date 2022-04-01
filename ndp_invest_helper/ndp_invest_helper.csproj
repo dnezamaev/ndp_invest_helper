@@ -88,6 +88,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataHandlers\CommonData\CommonDataManager.cs" />
+    <Compile Include="DataHandlers\Models\IDevirsityElement.cs" />
+    <Compile Include="DataHandlers\Models\IDiversified.cs" />
     <Compile Include="DataHandlers\Portfolio\AnalyticsManager.cs" />
     <Compile Include="DataHandlers\CommonData\CountriesManager.cs" />
     <Compile Include="DataHandlers\CommonData\CurrenciesManager.cs" />

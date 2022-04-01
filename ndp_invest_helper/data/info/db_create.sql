@@ -2,10 +2,10 @@
 DROP TABLE IF EXISTS "Securities_Countries_Link";
 CREATE TABLE IF NOT EXISTS "Securities_Countries_Link" (
 	"SecurityID"	INTEGER NOT NULL,
-	"CountryCode"	TEXT NOT NULL,
+	"CountryID"	INTEGER NOT NULL,
 	"Part"	REAL NOT NULL,
-	PRIMARY KEY("SecurityID","CountryCode"),
-	FOREIGN KEY("CountryCode") REFERENCES "Countries"("Code"),
+	PRIMARY KEY("SecurityID","CountryID"),
+	FOREIGN KEY("CountryID") REFERENCES "Countries"("ID"),
 	FOREIGN KEY("SecurityID") REFERENCES "Securities"("ID")
 );
 DROP TABLE IF EXISTS "Securities_EconomySectors_Link";
@@ -29,20 +29,20 @@ CREATE TABLE IF NOT EXISTS "Issuers_EconomySectors_Link" (
 DROP TABLE IF EXISTS "Issuers_Countries_Link";
 CREATE TABLE IF NOT EXISTS "Issuers_Countries_Link" (
 	"IssuerID"	INTEGER NOT NULL,
-	"CountryCode"	TEXT NOT NULL,
+	"CountryID"	INTEGER NOT NULL,
 	"Part"	REAL NOT NULL,
-	PRIMARY KEY("IssuerID","CountryCode"),
+	PRIMARY KEY("IssuerID","CountryID"),
 	FOREIGN KEY("IssuerID") REFERENCES "Issuers"("ID"),
-	FOREIGN KEY("CountryCode") REFERENCES "Countries"("Code")
+	FOREIGN KEY("CountryID") REFERENCES "Countries"("ID")
 );
 DROP TABLE IF EXISTS "Issuers_Currencies_Link";
 CREATE TABLE IF NOT EXISTS "Issuers_Currencies_Link" (
 	"IssuerID"	INTEGER NOT NULL,
-	"CurrencyCode"	TEXT NOT NULL,
+	"CurrencyID"	INTEGER NOT NULL,
 	"Part"	REAL NOT NULL,
-	PRIMARY KEY("IssuerID","CurrencyCode"),
+	PRIMARY KEY("IssuerID","CurrencyID"),
 	FOREIGN KEY("IssuerID") REFERENCES "Issuers"("ID")
-	FOREIGN KEY("CurrencyCode") REFERENCES "Issuers"("ID")
+	FOREIGN KEY("CurrencyID") REFERENCES "Currencies"("ID")
 );
 DROP TABLE IF EXISTS "Funds_Assets_Link";
 CREATE TABLE IF NOT EXISTS "Funds_Assets_Link" (
@@ -65,11 +65,11 @@ CREATE TABLE IF NOT EXISTS "FundSecurities" (
 DROP TABLE IF EXISTS "Securities_Currencies_Link";
 CREATE TABLE IF NOT EXISTS "Securities_Currencies_Link" (
 	"SecurityID"	INTEGER NOT NULL,
-	"CurrencyCode"	TEXT NOT NULL,
+	"CurrencyID"	INTEGER NOT NULL,
 	"Part"	REAL NOT NULL,
-	PRIMARY KEY("SecurityID","CurrencyCode"),
+	PRIMARY KEY("SecurityID","CurrencyID"),
 	FOREIGN KEY("SecurityID") REFERENCES "Securities"("ID"),
-	FOREIGN KEY("CurrencyCode") REFERENCES "Currencies"("Code")
+	FOREIGN KEY("CurrencyID") REFERENCES "Currencies"("ID")
 );
 DROP TABLE IF EXISTS "Securities";
 CREATE TABLE IF NOT EXISTS "Securities" (
@@ -84,11 +84,15 @@ CREATE TABLE IF NOT EXISTS "Securities" (
 );
 DROP TABLE IF EXISTS "Countries";
 CREATE TABLE IF NOT EXISTS "Countries" (
+	"ID"	INTEGER NOT NULL,
 	"Code"	TEXT NOT NULL,
+	"Code3"	TEXT NOT NULL,
 	"NameRus"	TEXT NOT NULL,
+	"NameRusFull"	TEXT NOT NULL,
+	"NameEng"	TEXT NOT NULL,
 	"RegionID"	INTEGER,
 	"DevelopmentLevel"	INTEGER,
-	PRIMARY KEY("Code"),
+	PRIMARY KEY("ID"),
 	FOREIGN KEY("RegionID") REFERENCES "CountryRegions"("ID"),
 	FOREIGN KEY("DevelopmentLevel") REFERENCES "CountryDevelopmentLevels"("ID")
 );
@@ -106,10 +110,12 @@ CREATE TABLE IF NOT EXISTS "CountryRegions" (
 );
 DROP TABLE IF EXISTS "Currencies";
 CREATE TABLE IF NOT EXISTS "Currencies" (
+	"ID"	INTEGER NOT NULL,
 	"Code"	TEXT NOT NULL,
 	"NameEng"	TEXT NOT NULL,
+	"NameRus"	TEXT NOT NULL,
 	"RateToRub"	REAL,
-	PRIMARY KEY("Code")
+	PRIMARY KEY("ID")
 );
 DROP TABLE IF EXISTS "Issuers";
 CREATE TABLE IF NOT EXISTS "Issuers" (

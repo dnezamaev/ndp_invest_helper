@@ -1,259 +1,262 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 
+<!-- 
+ISO 3166
+-->
 <root>
   <countries>
-    <country key="???" name="Другие"/>
-    <country key="AB" name="Абхазия"/>
-    <country key="AD" name="Андорра"/>
-    <country key="AE" name="Объединенные Арабские Эмираты"/>
-    <country key="AF" name="Афганистан"/>
-    <country key="AG" name="Антигуа и Барбуда"/>
-    <country key="AI" name="Ангилья"/>
-    <country key="AL" name="Албания"/>
-    <country key="AM" name="Армения"/>
-    <country key="AO" name="Ангола"/>
-    <country key="AQ" name="Антарктида"/>
-    <country key="AR" name="Аргентина"/>
-    <country key="AS" name="Американское Самоа"/>
-    <country key="AT" name="Австрия"/>
-    <country key="AU" name="Австралия"/>
-    <country key="AW" name="Аруба"/>
-    <country key="AX" name="Эландские острова"/>
-    <country key="AZ" name="Азербайджан"/>
-    <country key="BA" name="Босния и Герцеговина"/>
-    <country key="BB" name="Барбадос"/>
-    <country key="BD" name="Бангладеш"/>
-    <country key="BE" name="Бельгия"/>
-    <country key="BF" name="Буркина-Фасо"/>
-    <country key="BG" name="Болгария"/>
-    <country key="BH" name="Бахрейн"/>
-    <country key="BI" name="Бурунди"/>
-    <country key="BJ" name="Бенин"/>
-    <country key="BL" name="Сен-Бартельми"/>
-    <country key="BM" name="Бермуды"/>
-    <country key="BN" name="Бруней-Даруссалам"/>
-    <country key="BO" name="Боливия, Многонациональное Государство"/>
-    <country key="BQ" name="Бонайре, Саба и Синт-Эстатиус"/>
-    <country key="BR" name="Бразилия"/>
-    <country key="BS" name="Багамы"/>
-    <country key="BT" name="Бутан"/>
-    <country key="BV" name="Остров Буве"/>
-    <country key="BW" name="Ботсвана"/>
-    <country key="BY" name="Беларусь"/>
-    <country key="BZ" name="Белиз"/>
-    <country key="CA" name="Канада"/>
-    <country key="CC" name="Кокосовые (Килинг) острова"/>
-    <country key="CD" name="Конго, Демократическая Республика"/>
-    <country key="CF" name="Центрально-Африканская Республика"/>
-    <country key="CG" name="Конго"/>
-    <country key="CH" name="Швейцария"/>
-    <country key="CI" name="Кот д'Ивуар"/>
-    <country key="CK" name="Острова Кука"/>
-    <country key="CL" name="Чили"/>
-    <country key="CM" name="Камерун"/>
-    <country key="CN" name="Китай"/>
-    <country key="CO" name="Колумбия"/>
-    <country key="CR" name="Коста-Рика"/>
-    <country key="CU" name="Куба"/>
-    <country key="CV" name="Кабо-Верде"/>
-    <country key="CW" name="Кюрасао"/>
-    <country key="CX" name="Остров Рождества"/>
-    <country key="CY" name="Кипр"/>
-    <country key="CZ" name="Чешская Республика"/>
-    <country key="DE" name="Германия"/>
-    <country key="DJ" name="Джибути"/>
-    <country key="DK" name="Дания"/>
-    <country key="DM" name="Доминика"/>
-    <country key="DO" name="Доминиканская Республика"/>
-    <country key="DZ" name="Алжир"/>
-    <country key="EC" name="Эквадор"/>
-    <country key="EE" name="Эстония"/>
-    <country key="EG" name="Египет"/>
-    <country key="EH" name="Западная Сахара"/>
-    <country key="ER" name="Эритрея"/>
-    <country key="ES" name="Испания"/>
-    <country key="ET" name="Эфиопия"/>
-    <country key="FI" name="Финляндия"/>
-    <country key="FJ" name="Фиджи"/>
-    <country key="FK" name="Фолклендские острова (Мальвинские)"/>
-    <country key="FM" name="Микронезия, Федеративные Штаты"/>
-    <country key="FO" name="Фарерские острова"/>
-    <country key="FR" name="Франция"/>
-    <country key="GA" name="Габон"/>
-    <country key="GB" name="Соединенное Королевство"/>
-    <country key="GD" name="Гренада"/>
-    <country key="GE" name="Грузия"/>
-    <country key="GF" name="Французская Гвиана"/>
-    <country key="GG" name="Гернси"/>
-    <country key="GH" name="Гана"/>
-    <country key="GI" name="Гибралтар"/>
-    <country key="GL" name="Гренландия"/>
-    <country key="GM" name="Гамбия"/>
-    <country key="GN" name="Гвинея"/>
-    <country key="GP" name="Гваделупа"/>
-    <country key="GQ" name="Экваториальная Гвинея"/>
-    <country key="GR" name="Греция"/>
-    <country key="GS" name="Южная Джорджия и Южные Сандвичевы острова"/>
-    <country key="GT" name="Гватемала"/>
-    <country key="GU" name="Гуам"/>
-    <country key="GW" name="Гвинея-Бисау"/>
-    <country key="GY" name="Гайана"/>
-    <country key="HK" name="Гонконг"/>
-    <country key="HM" name="Остров Херд и острова Макдональд"/>
-    <country key="HN" name="Гондурас"/>
-    <country key="HR" name="Хорватия"/>
-    <country key="HT" name="Гаити"/>
-    <country key="HU" name="Венгрия"/>
-    <country key="ID" name="Индонезия"/>
-    <country key="IE" name="Ирландия"/>
-    <country key="IL" name="Израиль"/>
-    <country key="IM" name="Остров Мэн"/>
-    <country key="IN" name="Индия"/>
-    <country key="IO" name="Британская территория в Индийском океане"/>
-    <country key="IQ" name="Ирак"/>
-    <country key="IR" name="Иран, Исламская Республика"/>
-    <country key="IS" name="Исландия"/>
-    <country key="IT" name="Италия"/>
-    <country key="JE" name="Джерси"/>
-    <country key="JM" name="Ямайка"/>
-    <country key="JO" name="Иордания"/>
-    <country key="JP" name="Япония"/>
-    <country key="KE" name="Кения"/>
-    <country key="KG" name="Киргизия"/>
-    <country key="KH" name="Камбоджа"/>
-    <country key="KI" name="Кирибати"/>
-    <country key="KM" name="Коморы"/>
-    <country key="KN" name="Сент-Китс и Невис"/>
-    <country key="KP" name="Корея, Народно-Демократическая Республика"/>
-    <country key="KR" name="Корея, Республика"/>
-    <country key="KW" name="Кувейт"/>
-    <country key="KY" name="Острова Кайман"/>
-    <country key="KZ" name="Казахстан"/>
-    <country key="LA" name="Лаос"/>
-    <country key="LB" name="Ливан"/>
-    <country key="LC" name="Сент-Люсия"/>
-    <country key="LI" name="Лихтенштейн"/>
-    <country key="LK" name="Шри-Ланка"/>
-    <country key="LR" name="Либерия"/>
-    <country key="LS" name="Лесото"/>
-    <country key="LT" name="Литва"/>
-    <country key="LU" name="Люксембург"/>
-    <country key="LV" name="Латвия"/>
-    <country key="LY" name="Ливийская Арабская Джамахирия"/>
-    <country key="MA" name="Марокко"/>
-    <country key="MC" name="Монако"/>
-    <country key="MD" name="Молдова, Республика"/>
-    <country key="ME" name="Черногория"/>
-    <country key="MF" name="Сен-Мартен"/>
-    <country key="MG" name="Мадагаскар"/>
-    <country key="MH" name="Маршалловы острова"/>
-    <country key="MK" name="Республика Македония"/>
-    <country key="ML" name="Мали"/>
-    <country key="MM" name="Мьянма"/>
-    <country key="MN" name="Монголия"/>
-    <country key="MO" name="Макао"/>
-    <country key="MP" name="Северные Марианские острова"/>
-    <country key="MQ" name="Мартиника"/>
-    <country key="MR" name="Мавритания"/>
-    <country key="MS" name="Монтсеррат"/>
-    <country key="MT" name="Мальта"/>
-    <country key="MU" name="Маврикий"/>
-    <country key="MV" name="Мальдивы"/>
-    <country key="MW" name="Малави"/>
-    <country key="MX" name="Мексика"/>
-    <country key="MY" name="Малайзия"/>
-    <country key="MZ" name="Мозамбик"/>
-    <country key="NA" name="Намибия"/>
-    <country key="NC" name="Новая Каледония"/>
-    <country key="NE" name="Нигер"/>
-    <country key="NF" name="Остров Норфолк"/>
-    <country key="NG" name="Нигерия"/>
-    <country key="NI" name="Никарагуа"/>
-    <country key="NL" name="Нидерланды"/>
-    <country key="NO" name="Норвегия"/>
-    <country key="NP" name="Непал"/>
-    <country key="NR" name="Науру"/>
-    <country key="NU" name="Ниуэ"/>
-    <country key="NZ" name="Новая Зеландия"/>
-    <country key="OM" name="Оман"/>
-    <country key="OS" name="Южная Осетия"/>
-    <country key="PA" name="Панама"/>
-    <country key="PE" name="Перу"/>
-    <country key="PF" name="Французская Полинезия"/>
-    <country key="PG" name="Папуа-Новая Гвинея"/>
-    <country key="PH" name="Филиппины"/>
-    <country key="PK" name="Пакистан"/>
-    <country key="PL" name="Польша"/>
-    <country key="PM" name="Сент-Пьер и Микелон"/>
-    <country key="PN" name="Питкерн"/>
-    <country key="PR" name="Пуэрто-Рико"/>
-    <country key="PS" name="Палестинская территория, оккупированная"/>
-    <country key="PT" name="Португалия"/>
-    <country key="PW" name="Палау"/>
-    <country key="PY" name="Парагвай"/>
-    <country key="QA" name="Катар"/>
-    <country key="RE" name="Реюньон"/>
-    <country key="RO" name="Румыния"/>
-    <country key="RS" name="Сербия"/>
-    <country key="RU" name="Россия"/>
-    <country key="RW" name="Руанда"/>
-    <country key="SA" name="Саудовская Аравия"/>
-    <country key="SB" name="Соломоновы острова"/>
-    <country key="SC" name="Сейшелы"/>
-    <country key="SD" name="Судан"/>
-    <country key="SE" name="Швеция"/>
-    <country key="SG" name="Сингапур"/>
-    <country key="SH" name="Святая Елена, Остров вознесения, Тристан-да-Кунья"/>
-    <country key="SI" name="Словения"/>
-    <country key="SJ" name="Шпицберген и Ян Майен"/>
-    <country key="SK" name="Словакия"/>
-    <country key="SL" name="Сьерра-Леоне"/>
-    <country key="SM" name="Сан-Марино"/>
-    <country key="SN" name="Сенегал"/>
-    <country key="SO" name="Сомали"/>
-    <country key="SR" name="Суринам"/>
-    <country key="SS" name="Южный Судан"/>
-    <country key="ST" name="Сан-Томе и Принсипи"/>
-    <country key="SV" name="Эль-Сальвадор"/>
-    <country key="SX" name="Синт-Мартен"/>
-    <country key="SY" name="Сирийская Арабская Республика"/>
-    <country key="SZ" name="Эсватини"/>
-    <country key="TC" name="Острова Теркс и Кайкос"/>
-    <country key="TD" name="Чад"/>
-    <country key="TF" name="Французские Южные территории"/>
-    <country key="TG" name="Того"/>
-    <country key="TH" name="Таиланд"/>
-    <country key="TJ" name="Таджикистан"/>
-    <country key="TK" name="Токелау"/>
-    <country key="TL" name="Тимор-Лесте"/>
-    <country key="TM" name="Туркмения"/>
-    <country key="TN" name="Тунис"/>
-    <country key="TO" name="Тонга"/>
-    <country key="TR" name="Турция"/>
-    <country key="TT" name="Тринидад и Тобаго"/>
-    <country key="TV" name="Тувалу"/>
-    <country key="TW" name="Тайвань (Китай)"/>
-    <country key="TZ" name="Танзания, Объединенная Республика"/>
-    <country key="UA" name="Украина"/>
-    <country key="UG" name="Уганда"/>
-    <country key="UM" name="Малые Тихоокеанские отдаленные острова Соединенных Штатов"/>
-    <country key="US" name="Соединенные Штаты"/>
-    <country key="UY" name="Уругвай"/>
-    <country key="UZ" name="Узбекистан"/>
-    <country key="VA" name="Папский Престол (Государство — город Ватикан)"/>
-    <country key="VC" name="Сент-Винсент и Гренадины"/>
-    <country key="VE" name="Венесуэла Боливарианская Республика"/>
-    <country key="VG" name="Виргинские острова, Британские"/>
-    <country key="VI" name="Виргинские острова, США"/>
-    <country key="VN" name="Вьетнам"/>
-    <country key="VU" name="Вануату"/>
-    <country key="WF" name="Уоллис и Футуна"/>
-    <country key="WS" name="Самоа"/>
-    <country key="YE" name="Йемен"/>
-    <country key="YT" name="Майотта"/>
-    <country key="ZA" name="Южная Африка"/>
-    <country key="ZM" name="Замбия"/>
-    <country key="ZW" name="Зимбабве"/>
+    <country number="0" alpha2="???" alpha3="???" name_ru="Другие" name_ru_full="Другие" name_en="Others" />
+    <country number="895" alpha2="AB" alpha3="ABH" name_ru="Абхазия" name_ru_full="Республика Абхазия" name_en="Abkhazia" />
+    <country number="036" alpha2="AU" alpha3="AUS" name_ru="Австралия" name_ru_full="" name_en="Australia" />
+    <country number="040" alpha2="AT" alpha3="AUT" name_ru="Австрия" name_ru_full="Австрийская Республика" name_en="Austria" />
+    <country number="031" alpha2="AZ" alpha3="AZE" name_ru="Азербайджан" name_ru_full="Республика Азербайджан" name_en="Azerbaijan" />
+    <country number="008" alpha2="AL" alpha3="ALB" name_ru="Албания" name_ru_full="Республика Албания" name_en="Albania" />
+    <country number="012" alpha2="DZ" alpha3="DZA" name_ru="Алжир" name_ru_full="Алжирская Народная Демократическая Республика" name_en="Algeria" />
+    <country number="016" alpha2="AS" alpha3="ASM" name_ru="Американское Самоа" name_ru_full="" name_en="American Samoa" />
+    <country number="660" alpha2="AI" alpha3="AIA" name_ru="Ангилья" name_ru_full="" name_en="Anguilla" />
+    <country number="024" alpha2="AO" alpha3="AGO" name_ru="Ангола" name_ru_full="Республика Ангола" name_en="Angola" />
+    <country number="020" alpha2="AD" alpha3="AND" name_ru="Андорра" name_ru_full="Княжество Андорра" name_en="Andorra" />
+    <country number="010" alpha2="AQ" alpha3="ATA" name_ru="Антарктида" name_ru_full="" name_en="Antarctica" />
+    <country number="028" alpha2="AG" alpha3="ATG" name_ru="Антигуа и Барбуда" name_ru_full="" name_en="Antigua and Barbuda" />
+    <country number="032" alpha2="AR" alpha3="ARG" name_ru="Аргентина" name_ru_full="Аргентинская Республика" name_en="Argentina" />
+    <country number="051" alpha2="AM" alpha3="ARM" name_ru="Армения" name_ru_full="Республика Армения" name_en="Armenia" />
+    <country number="533" alpha2="AW" alpha3="ABW" name_ru="Аруба" name_ru_full="" name_en="Aruba" />
+    <country number="004" alpha2="AF" alpha3="AFG" name_ru="Афганистан" name_ru_full="Переходное Исламское Государство Афганистан" name_en="Afghanistan" />
+    <country number="044" alpha2="BS" alpha3="BHS" name_ru="Багамы" name_ru_full="Содружество Багамы" name_en="Bahamas" />
+    <country number="050" alpha2="BD" alpha3="BGD" name_ru="Бангладеш" name_ru_full="Народная Республика Бангладеш" name_en="Bangladesh" />
+    <country number="052" alpha2="BB" alpha3="BRB" name_ru="Барбадос" name_ru_full="" name_en="Barbados" />
+    <country number="048" alpha2="BH" alpha3="BHR" name_ru="Бахрейн" name_ru_full="Королевство Бахрейн" name_en="Bahrain" />
+    <country number="112" alpha2="BY" alpha3="BLR" name_ru="Беларусь" name_ru_full="Республика Беларусь" name_en="Belarus" />
+    <country number="084" alpha2="BZ" alpha3="BLZ" name_ru="Белиз" name_ru_full="" name_en="Belize" />
+    <country number="056" alpha2="BE" alpha3="BEL" name_ru="Бельгия" name_ru_full="Королевство Бельгии" name_en="Belgium" />
+    <country number="204" alpha2="BJ" alpha3="BEN" name_ru="Бенин" name_ru_full="Республика Бенин" name_en="Benin" />
+    <country number="060" alpha2="BM" alpha3="BMU" name_ru="Бермуды" name_ru_full="" name_en="Bermuda" />
+    <country number="100" alpha2="BG" alpha3="BGR" name_ru="Болгария" name_ru_full="Республика Болгария" name_en="Bulgaria" />
+    <country number="068" alpha2="BO" alpha3="BOL" name_ru="Боливия, Многонациональное Государство" name_ru_full="Многонациональное Государство Боливия" name_en="Bolivia, plurinational state of" />
+    <country number="535" alpha2="BQ" alpha3="BES" name_ru="Бонайре, Саба и Синт-Эстатиус" name_ru_full="" name_en="Bonaire, Sint Eustatius and Saba" />
+    <country number="070" alpha2="BA" alpha3="BIH" name_ru="Босния и Герцеговина" name_ru_full="" name_en="Bosnia and Herzegovina" />
+    <country number="072" alpha2="BW" alpha3="BWA" name_ru="Ботсвана" name_ru_full="Республика Ботсвана" name_en="Botswana" />
+    <country number="076" alpha2="BR" alpha3="BRA" name_ru="Бразилия" name_ru_full="Федеративная Республика Бразилия" name_en="Brazil" />
+    <country number="086" alpha2="IO" alpha3="IOT" name_ru="Британская территория в Индийском океане" name_ru_full="" name_en="British Indian Ocean Territory" />
+    <country number="096" alpha2="BN" alpha3="BRN" name_ru="Бруней-Даруссалам" name_ru_full="" name_en="Brunei Darussalam" />
+    <country number="854" alpha2="BF" alpha3="BFA" name_ru="Буркина-Фасо" name_ru_full="" name_en="Burkina Faso" />
+    <country number="108" alpha2="BI" alpha3="BDI" name_ru="Бурунди" name_ru_full="Республика Бурунди" name_en="Burundi" />
+    <country number="064" alpha2="BT" alpha3="BTN" name_ru="Бутан" name_ru_full="Королевство Бутан" name_en="Bhutan" />
+    <country number="548" alpha2="VU" alpha3="VUT" name_ru="Вануату" name_ru_full="Республика Вануату" name_en="Vanuatu" />
+    <country number="348" alpha2="HU" alpha3="HUN" name_ru="Венгрия" name_ru_full="Венгерская Республика" name_en="Hungary" />
+    <country number="862" alpha2="VE" alpha3="VEN" name_ru="Венесуэла Боливарианская Республика" name_ru_full="Боливарийская Республика Венесуэла" name_en="Venezuela" />
+    <country number="092" alpha2="VG" alpha3="VGB" name_ru="Виргинские острова, Британские" name_ru_full="Британские Виргинские острова" name_en="Virgin Islands, British" />
+    <country number="850" alpha2="VI" alpha3="VIR" name_ru="Виргинские острова, США" name_ru_full="Виргинские острова Соединенных Штатов" name_en="Virgin Islands, U.S." />
+    <country number="704" alpha2="VN" alpha3="VNM" name_ru="Вьетнам" name_ru_full="Социалистическая Республика Вьетнам" name_en="Vietnam" />
+    <country number="266" alpha2="GA" alpha3="GAB" name_ru="Габон" name_ru_full="Габонская Республика" name_en="Gabon" />
+    <country number="332" alpha2="HT" alpha3="HTI" name_ru="Гаити" name_ru_full="Республика Гаити" name_en="Haiti" />
+    <country number="328" alpha2="GY" alpha3="GUY" name_ru="Гайана" name_ru_full="Республика Гайана" name_en="Guyana" />
+    <country number="270" alpha2="GM" alpha3="GMB" name_ru="Гамбия" name_ru_full="Республика Гамбия" name_en="Gambia" />
+    <country number="288" alpha2="GH" alpha3="GHA" name_ru="Гана" name_ru_full="Республика Гана" name_en="Ghana" />
+    <country number="312" alpha2="GP" alpha3="GLP" name_ru="Гваделупа" name_ru_full="" name_en="Guadeloupe" />
+    <country number="320" alpha2="GT" alpha3="GTM" name_ru="Гватемала" name_ru_full="Республика Гватемала" name_en="Guatemala" />
+    <country number="324" alpha2="GN" alpha3="GIN" name_ru="Гвинея" name_ru_full="Гвинейская Республика" name_en="Guinea" />
+    <country number="624" alpha2="GW" alpha3="GNB" name_ru="Гвинея-Бисау" name_ru_full="Республика Гвинея-Бисау" name_en="Guinea-Bissau" />
+    <country number="276" alpha2="DE" alpha3="DEU" name_ru="Германия" name_ru_full="Федеративная Республика Германия" name_en="Germany" />
+    <country number="831" alpha2="GG" alpha3="GGY" name_ru="Гернси" name_ru_full="" name_en="Guernsey" />
+    <country number="292" alpha2="GI" alpha3="GIB" name_ru="Гибралтар" name_ru_full="" name_en="Gibraltar" />
+    <country number="340" alpha2="HN" alpha3="HND" name_ru="Гондурас" name_ru_full="Республика Гондурас" name_en="Honduras" />
+    <country number="344" alpha2="HK" alpha3="HKG" name_ru="Гонконг" name_ru_full="Специальный  административный  регион Китая Гонконг" name_en="Hong Kong" />
+    <country number="308" alpha2="GD" alpha3="GRD" name_ru="Гренада" name_ru_full="" name_en="Grenada" />
+    <country number="304" alpha2="GL" alpha3="GRL" name_ru="Гренландия" name_ru_full="" name_en="Greenland" />
+    <country number="300" alpha2="GR" alpha3="GRC" name_ru="Греция" name_ru_full="Греческая Республика" name_en="Greece" />
+    <country number="268" alpha2="GE" alpha3="GEO" name_ru="Грузия" name_ru_full="" name_en="Georgia" />
+    <country number="316" alpha2="GU" alpha3="GUM" name_ru="Гуам" name_ru_full="" name_en="Guam" />
+    <country number="208" alpha2="DK" alpha3="DNK" name_ru="Дания" name_ru_full="Королевство Дания" name_en="Denmark" />
+    <country number="832" alpha2="JE" alpha3="JEY" name_ru="Джерси" name_ru_full="" name_en="Jersey" />
+    <country number="262" alpha2="DJ" alpha3="DJI" name_ru="Джибути" name_ru_full="Республика Джибути" name_en="Djibouti" />
+    <country number="212" alpha2="DM" alpha3="DMA" name_ru="Доминика" name_ru_full="Содружество Доминики" name_en="Dominica" />
+    <country number="214" alpha2="DO" alpha3="DOM" name_ru="Доминиканская Республика" name_ru_full="" name_en="Dominican Republic" />
+    <country number="818" alpha2="EG" alpha3="EGY" name_ru="Египет" name_ru_full="Арабская Республика Египет" name_en="Egypt" />
+    <country number="894" alpha2="ZM" alpha3="ZMB" name_ru="Замбия" name_ru_full="Республика Замбия" name_en="Zambia" />
+    <country number="732" alpha2="EH" alpha3="ESH" name_ru="Западная Сахара" name_ru_full="" name_en="Western Sahara" />
+    <country number="716" alpha2="ZW" alpha3="ZWE" name_ru="Зимбабве" name_ru_full="Республика Зимбабве" name_en="Zimbabwe" />
+    <country number="376" alpha2="IL" alpha3="ISR" name_ru="Израиль" name_ru_full="Государство Израиль" name_en="Israel" />
+    <country number="356" alpha2="IN" alpha3="IND" name_ru="Индия" name_ru_full="Республика Индия" name_en="India" />
+    <country number="360" alpha2="ID" alpha3="IDN" name_ru="Индонезия" name_ru_full="Республика Индонезия" name_en="Indonesia" />
+    <country number="400" alpha2="JO" alpha3="JOR" name_ru="Иордания" name_ru_full="Иорданское Хашимитское Королевство" name_en="Jordan" />
+    <country number="368" alpha2="IQ" alpha3="IRQ" name_ru="Ирак" name_ru_full="Республика Ирак" name_en="Iraq" />
+    <country number="364" alpha2="IR" alpha3="IRN" name_ru="Иран, Исламская Республика" name_ru_full="Исламская Республика Иран" name_en="Iran, Islamic Republic of" />
+    <country number="372" alpha2="IE" alpha3="IRL" name_ru="Ирландия" name_ru_full="" name_en="Ireland" />
+    <country number="352" alpha2="IS" alpha3="ISL" name_ru="Исландия" name_ru_full="Республика Исландия" name_en="Iceland" />
+    <country number="724" alpha2="ES" alpha3="ESP" name_ru="Испания" name_ru_full="Королевство Испания" name_en="Spain" />
+    <country number="380" alpha2="IT" alpha3="ITA" name_ru="Италия" name_ru_full="Итальянская Республика" name_en="Italy" />
+    <country number="887" alpha2="YE" alpha3="YEM" name_ru="Йемен" name_ru_full="Йеменская Республика" name_en="Yemen" />
+    <country number="132" alpha2="CV" alpha3="CPV" name_ru="Кабо-Верде" name_ru_full="Республика Кабо-Верде" name_en="Cape Verde" />
+    <country number="398" alpha2="KZ" alpha3="KAZ" name_ru="Казахстан" name_ru_full="Республика Казахстан" name_en="Kazakhstan" />
+    <country number="116" alpha2="KH" alpha3="KHM" name_ru="Камбоджа" name_ru_full="Королевство Камбоджа" name_en="Cambodia" />
+    <country number="120" alpha2="CM" alpha3="CMR" name_ru="Камерун" name_ru_full="Республика Камерун" name_en="Cameroon" />
+    <country number="124" alpha2="CA" alpha3="CAN" name_ru="Канада" name_ru_full="" name_en="Canada" />
+    <country number="634" alpha2="QA" alpha3="QAT" name_ru="Катар" name_ru_full="Государство Катар" name_en="Qatar" />
+    <country number="404" alpha2="KE" alpha3="KEN" name_ru="Кения" name_ru_full="Республика Кения" name_en="Kenya" />
+    <country number="196" alpha2="CY" alpha3="CYP" name_ru="Кипр" name_ru_full="Республика Кипр" name_en="Cyprus" />
+    <country number="417" alpha2="KG" alpha3="KGZ" name_ru="Киргизия" name_ru_full="Киргизская Республика" name_en="Kyrgyzstan" />
+    <country number="296" alpha2="KI" alpha3="KIR" name_ru="Кирибати" name_ru_full="Республика Кирибати" name_en="Kiribati" />
+    <country number="156" alpha2="CN" alpha3="CHN" name_ru="Китай" name_ru_full="Китайская Народная Республика" name_en="China" />
+    <country number="166" alpha2="CC" alpha3="CCK" name_ru="Кокосовые (Килинг) острова" name_ru_full="" name_en="Cocos (Keeling) Islands" />
+    <country number="170" alpha2="CO" alpha3="COL" name_ru="Колумбия" name_ru_full="Республика Колумбия" name_en="Colombia" />
+    <country number="174" alpha2="KM" alpha3="COM" name_ru="Коморы" name_ru_full="Союз Коморы" name_en="Comoros" />
+    <country number="178" alpha2="CG" alpha3="COG" name_ru="Конго" name_ru_full="Республика Конго" name_en="Congo" />
+    <country number="180" alpha2="CD" alpha3="COD" name_ru="Конго, Демократическая Республика" name_ru_full="Демократическая Республика Конго" name_en="Congo, Democratic Republic of the" />
+    <country number="408" alpha2="KP" alpha3="PRK" name_ru="Корея, Народно-Демократическая Республика" name_ru_full="Корейская Народно-Демократическая Республика" name_en="Korea, Democratic People's republic of" />
+    <country number="410" alpha2="KR" alpha3="KOR" name_ru="Корея, Республика" name_ru_full="Республика Корея" name_en="Korea, Republic of" />
+    <country number="188" alpha2="CR" alpha3="CRI" name_ru="Коста-Рика" name_ru_full="Республика Коста-Рика" name_en="Costa Rica" />
+    <country number="384" alpha2="CI" alpha3="CIV" name_ru="Кот д'Ивуар" name_ru_full="Республика Кот д'Ивуар" name_en="Cote d'Ivoire" />
+    <country number="192" alpha2="CU" alpha3="CUB" name_ru="Куба" name_ru_full="Республика Куба" name_en="Cuba" />
+    <country number="414" alpha2="KW" alpha3="KWT" name_ru="Кувейт" name_ru_full="Государство Кувейт" name_en="Kuwait" />
+    <country number="531" alpha2="CW" alpha3="CUW" name_ru="Кюрасао" name_ru_full="" name_en="Curaçao" />
+    <country number="418" alpha2="LA" alpha3="LAO" name_ru="Лаос" name_ru_full="Лаосская Народно-Демократическая Республика" name_en="Lao People's Democratic Republic" />
+    <country number="428" alpha2="LV" alpha3="LVA" name_ru="Латвия" name_ru_full="Латвийская Республика" name_en="Latvia" />
+    <country number="426" alpha2="LS" alpha3="LSO" name_ru="Лесото" name_ru_full="Королевство Лесото" name_en="Lesotho" />
+    <country number="422" alpha2="LB" alpha3="LBN" name_ru="Ливан" name_ru_full="Ливанская Республика" name_en="Lebanon" />
+    <country number="434" alpha2="LY" alpha3="LBY" name_ru="Ливийская Арабская Джамахирия" name_ru_full="Социалистическая Народная Ливийская Арабская Джамахирия" name_en="Libyan Arab Jamahiriya" />
+    <country number="430" alpha2="LR" alpha3="LBR" name_ru="Либерия" name_ru_full="Республика Либерия" name_en="Liberia" />
+    <country number="438" alpha2="LI" alpha3="LIE" name_ru="Лихтенштейн" name_ru_full="Княжество Лихтенштейн" name_en="Liechtenstein" />
+    <country number="440" alpha2="LT" alpha3="LTU" name_ru="Литва" name_ru_full="Литовская Республика" name_en="Lithuania" />
+    <country number="442" alpha2="LU" alpha3="LUX" name_ru="Люксембург" name_ru_full="Великое Герцогство Люксембург" name_en="Luxembourg" />
+    <country number="480" alpha2="MU" alpha3="MUS" name_ru="Маврикий" name_ru_full="Республика Маврикий" name_en="Mauritius" />
+    <country number="478" alpha2="MR" alpha3="MRT" name_ru="Мавритания" name_ru_full="Исламская Республика Мавритания" name_en="Mauritania" />
+    <country number="450" alpha2="MG" alpha3="MDG" name_ru="Мадагаскар" name_ru_full="Республика Мадагаскар" name_en="Madagascar" />
+    <country number="175" alpha2="YT" alpha3="MYT" name_ru="Майотта" name_ru_full="" name_en="Mayotte" />
+    <country number="446" alpha2="MO" alpha3="MAC" name_ru="Макао" name_ru_full="Специальный административный регион Китая Макао" name_en="Macao" />
+    <country number="454" alpha2="MW" alpha3="MWI" name_ru="Малави" name_ru_full="Республика Малави" name_en="Malawi" />
+    <country number="458" alpha2="MY" alpha3="MYS" name_ru="Малайзия" name_ru_full="" name_en="Malaysia" />
+    <country number="466" alpha2="ML" alpha3="MLI" name_ru="Мали" name_ru_full="Республика Мали" name_en="Mali" />
+    <country number="581" alpha2="UM" alpha3="UMI" name_ru="Малые Тихоокеанские отдаленные острова Соединенных Штатов" name_ru_full="" name_en="United States Minor Outlying Islands" />
+    <country number="462" alpha2="MV" alpha3="MDV" name_ru="Мальдивы" name_ru_full="Мальдивская Республика" name_en="Maldives" />
+    <country number="470" alpha2="MT" alpha3="MLT" name_ru="Мальта" name_ru_full="Республика Мальта" name_en="Malta" />
+    <country number="504" alpha2="MA" alpha3="MAR" name_ru="Марокко" name_ru_full="Королевство Марокко" name_en="Morocco" />
+    <country number="474" alpha2="MQ" alpha3="MTQ" name_ru="Мартиника" name_ru_full="" name_en="Martinique" />
+    <country number="584" alpha2="MH" alpha3="MHL" name_ru="Маршалловы острова" name_ru_full="Республика Маршалловы острова" name_en="Marshall Islands" />
+    <country number="484" alpha2="MX" alpha3="MEX" name_ru="Мексика" name_ru_full="Мексиканские Соединенные Штаты" name_en="Mexico" />
+    <country number="583" alpha2="FM" alpha3="FSM" name_ru="Микронезия, Федеративные Штаты" name_ru_full="Федеративные штаты Микронезии" name_en="Micronesia, Federated States of" />
+    <country number="508" alpha2="MZ" alpha3="MOZ" name_ru="Мозамбик" name_ru_full="Республика Мозамбик" name_en="Mozambique" />
+    <country number="498" alpha2="MD" alpha3="MDA" name_ru="Молдова, Республика" name_ru_full="Республика Молдова" name_en="Moldova" />
+    <country number="492" alpha2="MC" alpha3="MCO" name_ru="Монако" name_ru_full="Княжество Монако" name_en="Monaco" />
+    <country number="496" alpha2="MN" alpha3="MNG" name_ru="Монголия" name_ru_full="" name_en="Mongolia" />
+    <country number="500" alpha2="MS" alpha3="MSR" name_ru="Монтсеррат" name_ru_full="" name_en="Montserrat" />
+    <country number="104" alpha2="MM" alpha3="MMR" name_ru="Мьянма" name_ru_full="Союз Мьянма" name_en="Myanmar" />
+    <country number="516" alpha2="NA" alpha3="NAM" name_ru="Намибия" name_ru_full="Республика Намибия" name_en="Namibia" />
+    <country number="520" alpha2="NR" alpha3="NRU" name_ru="Науру" name_ru_full="Республика Науру" name_en="Nauru" />
+    <country number="524" alpha2="NP" alpha3="NPL" name_ru="Непал" name_ru_full="Федеративная Демократическая Республика Непал" name_en="Nepal" />
+    <country number="562" alpha2="NE" alpha3="NER" name_ru="Нигер" name_ru_full="Республика Нигер" name_en="Niger" />
+    <country number="566" alpha2="NG" alpha3="NGA" name_ru="Нигерия" name_ru_full="Федеративная Республика Нигерия" name_en="Nigeria" />
+    <country number="528" alpha2="NL" alpha3="NLD" name_ru="Нидерланды" name_ru_full="Королевство Нидерландов" name_en="Netherlands" />
+    <country number="558" alpha2="NI" alpha3="NIC" name_ru="Никарагуа" name_ru_full="Республика Никарагуа" name_en="Nicaragua" />
+    <country number="570" alpha2="NU" alpha3="NIU" name_ru="Ниуэ" name_ru_full="Республика Ниуэ" name_en="Niue" />
+    <country number="554" alpha2="NZ" alpha3="NZL" name_ru="Новая Зеландия" name_ru_full="" name_en="New Zealand" />
+    <country number="540" alpha2="NC" alpha3="NCL" name_ru="Новая Каледония" name_ru_full="" name_en="New Caledonia" />
+    <country number="578" alpha2="NO" alpha3="NOR" name_ru="Норвегия" name_ru_full="Королевство Норвегия" name_en="Norway" />
+    <country number="784" alpha2="AE" alpha3="ARE" name_ru="Объединенные Арабские Эмираты" name_ru_full="" name_en="United Arab Emirates" />
+    <country number="512" alpha2="OM" alpha3="OMN" name_ru="Оман" name_ru_full="Султанат Оман" name_en="Oman" />
+    <country number="074" alpha2="BV" alpha3="BVT" name_ru="Остров Буве" name_ru_full="" name_en="Bouvet Island" />
+    <country number="833" alpha2="IM" alpha3="IMN" name_ru="Остров Мэн" name_ru_full="" name_en="Isle of Man" />
+    <country number="574" alpha2="NF" alpha3="NFK" name_ru="Остров Норфолк" name_ru_full="" name_en="Norfolk Island" />
+    <country number="162" alpha2="CX" alpha3="CXR" name_ru="Остров Рождества" name_ru_full="" name_en="Christmas Island" />
+    <country number="334" alpha2="HM" alpha3="HMD" name_ru="Остров Херд и острова Макдональд" name_ru_full="" name_en="Heard Island and McDonald Islands" />
+    <country number="136" alpha2="KY" alpha3="CYM" name_ru="Острова Кайман" name_ru_full="" name_en="Cayman Islands" />
+    <country number="184" alpha2="CK" alpha3="COK" name_ru="Острова Кука" name_ru_full="" name_en="Cook Islands" />
+    <country number="796" alpha2="TC" alpha3="TCA" name_ru="Острова Теркс и Кайкос" name_ru_full="" name_en="Turks and Caicos Islands" />
+    <country number="586" alpha2="PK" alpha3="PAK" name_ru="Пакистан" name_ru_full="Исламская Республика Пакистан" name_en="Pakistan" />
+    <country number="585" alpha2="PW" alpha3="PLW" name_ru="Палау" name_ru_full="Республика Палау" name_en="Palau" />
+    <country number="275" alpha2="PS" alpha3="PSE" name_ru="Палестинская территория, оккупированная" name_ru_full="Оккупированная Палестинская территория" name_en="Palestinian Territory, Occupied" />
+    <country number="591" alpha2="PA" alpha3="PAN" name_ru="Панама" name_ru_full="Республика Панама" name_en="Panama" />
+    <country number="336" alpha2="VA" alpha3="VAT" name_ru="Папский Престол (Государство — город Ватикан)" name_ru_full="" name_en="Holy See (Vatican City State)" />
+    <country number="598" alpha2="PG" alpha3="PNG" name_ru="Папуа-Новая Гвинея" name_ru_full="" name_en="Papua New Guinea" />
+    <country number="600" alpha2="PY" alpha3="PRY" name_ru="Парагвай" name_ru_full="Республика Парагвай" name_en="Paraguay" />
+    <country number="604" alpha2="PE" alpha3="PER" name_ru="Перу" name_ru_full="Республика Перу" name_en="Peru" />
+    <country number="612" alpha2="PN" alpha3="PCN" name_ru="Питкерн" name_ru_full="" name_en="Pitcairn" />
+    <country number="616" alpha2="PL" alpha3="POL" name_ru="Польша" name_ru_full="Республика Польша" name_en="Poland" />
+    <country number="620" alpha2="PT" alpha3="PRT" name_ru="Португалия" name_ru_full="Португальская Республика" name_en="Portugal" />
+    <country number="630" alpha2="PR" alpha3="PRI" name_ru="Пуэрто-Рико" name_ru_full="" name_en="Puerto Rico" />
+    <country number="807" alpha2="MK" alpha3="MKD" name_ru="Республика Македония" name_ru_full="" name_en="Macedonia, The Former Yugoslav Republic Of" />
+    <country number="638" alpha2="RE" alpha3="REU" name_ru="Реюньон" name_ru_full="" name_en="Reunion" />
+    <country number="643" alpha2="RU" alpha3="RUS" name_ru="Россия" name_ru_full="Российская Федерация" name_en="Russian Federation" />
+    <country number="646" alpha2="RW" alpha3="RWA" name_ru="Руанда" name_ru_full="Руандийская Республика" name_en="Rwanda" />
+    <country number="642" alpha2="RO" alpha3="ROU" name_ru="Румыния" name_ru_full="" name_en="Romania" />
+    <country number="882" alpha2="WS" alpha3="WSM" name_ru="Самоа" name_ru_full="Независимое Государство Самоа" name_en="Samoa" />
+    <country number="674" alpha2="SM" alpha3="SMR" name_ru="Сан-Марино" name_ru_full="Республика Сан-Марино" name_en="San Marino" />
+    <country number="678" alpha2="ST" alpha3="STP" name_ru="Сан-Томе и Принсипи" name_ru_full="Демократическая Республика Сан-Томе и Принсипи" name_en="Sao Tome and Principe" />
+    <country number="682" alpha2="SA" alpha3="SAU" name_ru="Саудовская Аравия" name_ru_full="Королевство Саудовская Аравия" name_en="Saudi Arabia" />
+    <country number="654" alpha2="SH" alpha3="SHN" name_ru="Святая Елена, Остров вознесения, Тристан-да-Кунья" name_ru_full="" name_en="Saint Helena, Ascension And Tristan Da Cunha" />
+    <country number="580" alpha2="MP" alpha3="MNP" name_ru="Северные Марианские острова" name_ru_full="Содружество Северных Марианских островов" name_en="Northern Mariana Islands" />
+    <country number="652" alpha2="BL" alpha3="BLM" name_ru="Сен-Бартельми" name_ru_full="" name_en="Saint Barthélemy" />
+    <country number="663" alpha2="MF" alpha3="MAF" name_ru="Сен-Мартен" name_ru_full="" name_en="Saint Martin (French Part)" />
+    <country number="686" alpha2="SN" alpha3="SEN" name_ru="Сенегал" name_ru_full="Республика Сенегал" name_en="Senegal" />
+    <country number="670" alpha2="VC" alpha3="VCT" name_ru="Сент-Винсент и Гренадины" name_ru_full="" name_en="Saint Vincent and the Grenadines" />
+    <country number="662" alpha2="LC" alpha3="LCA" name_ru="Сент-Люсия" name_ru_full="" name_en="Saint Lucia" />
+    <country number="659" alpha2="KN" alpha3="KNA" name_ru="Сент-Китс и Невис" name_ru_full="" name_en="Saint Kitts and Nevis" />
+    <country number="666" alpha2="PM" alpha3="SPM" name_ru="Сент-Пьер и Микелон" name_ru_full="" name_en="Saint Pierre and Miquelon" />
+    <country number="688" alpha2="RS" alpha3="SRB" name_ru="Сербия" name_ru_full="Республика Сербия" name_en="Serbia" />
+    <country number="690" alpha2="SC" alpha3="SYC" name_ru="Сейшелы" name_ru_full="Республика Сейшелы" name_en="Seychelles" />
+    <country number="702" alpha2="SG" alpha3="SGP" name_ru="Сингапур" name_ru_full="Республика Сингапур" name_en="Singapore" />
+    <country number="534" alpha2="SX" alpha3="SXM" name_ru="Синт-Мартен" name_ru_full="" name_en="Sint Maarten" />
+    <country number="760" alpha2="SY" alpha3="SYR" name_ru="Сирийская Арабская Республика" name_ru_full="" name_en="Syrian Arab Republic" />
+    <country number="703" alpha2="SK" alpha3="SVK" name_ru="Словакия" name_ru_full="Словацкая Республика" name_en="Slovakia" />
+    <country number="705" alpha2="SI" alpha3="SVN" name_ru="Словения" name_ru_full="Республика Словения" name_en="Slovenia" />
+    <country number="826" alpha2="GB" alpha3="GBR" name_ru="Соединенное Королевство" name_ru_full="Соединенное Королевство Великобритании и Северной Ирландии" name_en="United Kingdom" />
+    <country number="840" alpha2="US" alpha3="USA" name_ru="Соединенные Штаты" name_ru_full="Соединенные Штаты Америки" name_en="United States" />
+    <country number="090" alpha2="SB" alpha3="SLB" name_ru="Соломоновы острова" name_ru_full="" name_en="Solomon Islands" />
+    <country number="706" alpha2="SO" alpha3="SOM" name_ru="Сомали" name_ru_full="Сомалийская Республика" name_en="Somalia" />
+    <country number="729" alpha2="SD" alpha3="SDN" name_ru="Судан" name_ru_full="Республика Судан" name_en="Sudan" />
+    <country number="740" alpha2="SR" alpha3="SUR" name_ru="Суринам" name_ru_full="Республика Суринам" name_en="Suriname" />
+    <country number="694" alpha2="SL" alpha3="SLE" name_ru="Сьерра-Леоне" name_ru_full="Республика Сьерра-Леоне" name_en="Sierra Leone" />
+    <country number="762" alpha2="TJ" alpha3="TJK" name_ru="Таджикистан" name_ru_full="Республика Таджикистан" name_en="Tajikistan" />
+    <country number="764" alpha2="TH" alpha3="THA" name_ru="Таиланд" name_ru_full="Королевство Таиланд" name_en="Thailand" />
+    <country number="158" alpha2="TW" alpha3="TWN" name_ru="Тайвань (Китай)" name_ru_full="" name_en="Taiwan, Province of China" />
+    <country number="834" alpha2="TZ" alpha3="TZA" name_ru="Танзания, Объединенная Республика" name_ru_full="Объединенная Республика Танзания" name_en="Tanzania, United Republic Of" />
+    <country number="626" alpha2="TL" alpha3="TLS" name_ru="Тимор-Лесте" name_ru_full="Демократическая Республика Тимор-Лесте" name_en="Timor-Leste" />
+    <country number="768" alpha2="TG" alpha3="TGO" name_ru="Того" name_ru_full="Тоголезская Республика" name_en="Togo" />
+    <country number="772" alpha2="TK" alpha3="TKL" name_ru="Токелау" name_ru_full="" name_en="Tokelau" />
+    <country number="776" alpha2="TO" alpha3="TON" name_ru="Тонга" name_ru_full="Королевство Тонга" name_en="Tonga" />
+    <country number="780" alpha2="TT" alpha3="TTO" name_ru="Тринидад и Тобаго" name_ru_full="Республика Тринидад и Тобаго" name_en="Trinidad and Tobago" />
+    <country number="798" alpha2="TV" alpha3="TUV" name_ru="Тувалу" name_ru_full="" name_en="Tuvalu" />
+    <country number="788" alpha2="TN" alpha3="TUN" name_ru="Тунис" name_ru_full="Тунисская Республика" name_en="Tunisia" />
+    <country number="795" alpha2="TM" alpha3="TKM" name_ru="Туркмения" name_ru_full="Туркменистан" name_en="Turkmenistan" />
+    <country number="792" alpha2="TR" alpha3="TUR" name_ru="Турция" name_ru_full="Турецкая Республика" name_en="Turkey" />
+    <country number="800" alpha2="UG" alpha3="UGA" name_ru="Уганда" name_ru_full="Республика Уганда" name_en="Uganda" />
+    <country number="860" alpha2="UZ" alpha3="UZB" name_ru="Узбекистан" name_ru_full="Республика Узбекистан" name_en="Uzbekistan" />
+    <country number="804" alpha2="UA" alpha3="UKR" name_ru="Украина" name_ru_full="" name_en="Ukraine" />
+    <country number="876" alpha2="WF" alpha3="WLF" name_ru="Уоллис и Футуна" name_ru_full="" name_en="Wallis and Futuna" />
+    <country number="858" alpha2="UY" alpha3="URY" name_ru="Уругвай" name_ru_full="Восточная Республика Уругвай" name_en="Uruguay" />
+    <country number="234" alpha2="FO" alpha3="FRO" name_ru="Фарерские острова" name_ru_full="" name_en="Faroe Islands" />
+    <country number="242" alpha2="FJ" alpha3="FJI" name_ru="Фиджи" name_ru_full="Республика островов Фиджи" name_en="Fiji" />
+    <country number="608" alpha2="PH" alpha3="PHL" name_ru="Филиппины" name_ru_full="Республика Филиппины" name_en="Philippines" />
+    <country number="246" alpha2="FI" alpha3="FIN" name_ru="Финляндия" name_ru_full="Финляндская Республика" name_en="Finland" />
+    <country number="238" alpha2="FK" alpha3="FLK" name_ru="Фолклендские острова (Мальвинские)" name_ru_full="" name_en="Falkland Islands (Malvinas)" />
+    <country number="250" alpha2="FR" alpha3="FRA" name_ru="Франция" name_ru_full="Французская Республика" name_en="France" />
+    <country number="254" alpha2="GF" alpha3="GUF" name_ru="Французская Гвиана" name_ru_full="" name_en="French Guiana" />
+    <country number="258" alpha2="PF" alpha3="PYF" name_ru="Французская Полинезия" name_ru_full="" name_en="French Polynesia" />
+    <country number="260" alpha2="TF" alpha3="ATF" name_ru="Французские Южные территории" name_ru_full="" name_en="French Southern Territories" />
+    <country number="191" alpha2="HR" alpha3="HRV" name_ru="Хорватия" name_ru_full="Республика Хорватия" name_en="Croatia" />
+    <country number="140" alpha2="CF" alpha3="CAF" name_ru="Центрально-Африканская Республика" name_ru_full="" name_en="Central African Republic" />
+    <country number="148" alpha2="TD" alpha3="TCD" name_ru="Чад" name_ru_full="Республика Чад" name_en="Chad" />
+    <country number="499" alpha2="ME" alpha3="MNE" name_ru="Черногория" name_ru_full="Республика Черногория" name_en="Montenegro" />
+    <country number="203" alpha2="CZ" alpha3="CZE" name_ru="Чешская Республика" name_ru_full="" name_en="Czech Republic" />
+    <country number="152" alpha2="CL" alpha3="CHL" name_ru="Чили" name_ru_full="Республика Чили" name_en="Chile" />
+    <country number="756" alpha2="CH" alpha3="CHE" name_ru="Швейцария" name_ru_full="Швейцарская Конфедерация" name_en="Switzerland" />
+    <country number="752" alpha2="SE" alpha3="SWE" name_ru="Швеция" name_ru_full="Королевство Швеция" name_en="Sweden" />
+    <country number="744" alpha2="SJ" alpha3="SJM" name_ru="Шпицберген и Ян Майен" name_ru_full="" name_en="Svalbard and Jan Mayen" />
+    <country number="144" alpha2="LK" alpha3="LKA" name_ru="Шри-Ланка" name_ru_full="Демократическая Социалистическая Республика Шри-Ланка" name_en="Sri Lanka" />
+    <country number="218" alpha2="EC" alpha3="ECU" name_ru="Эквадор" name_ru_full="Республика Эквадор" name_en="Ecuador" />
+    <country number="226" alpha2="GQ" alpha3="GNQ" name_ru="Экваториальная Гвинея" name_ru_full="Республика Экваториальная Гвинея" name_en="Equatorial Guinea" />
+    <country number="248" alpha2="AX" alpha3="ALA" name_ru="Эландские острова" name_ru_full="" name_en="Åland Islands" />
+    <country number="222" alpha2="SV" alpha3="SLV" name_ru="Эль-Сальвадор" name_ru_full="Республика Эль-Сальвадор" name_en="El Salvador" />
+    <country number="232" alpha2="ER" alpha3="ERI" name_ru="Эритрея" name_ru_full="" name_en="Eritrea" />
+    <country number="748" alpha2="SZ" alpha3="SWZ" name_ru="Эсватини" name_ru_full="Королевство Эсватини" name_en="Eswatini" />
+    <country number="233" alpha2="EE" alpha3="EST" name_ru="Эстония" name_ru_full="Эстонская Республика" name_en="Estonia" />
+    <country number="231" alpha2="ET" alpha3="ETH" name_ru="Эфиопия" name_ru_full="Федеративная Демократическая Республика Эфиопия" name_en="Ethiopia" />
+    <country number="710" alpha2="ZA" alpha3="ZAF" name_ru="Южная Африка" name_ru_full="Южно-Африканская Республика" name_en="South Africa" />
+    <country number="239" alpha2="GS" alpha3="SGS" name_ru="Южная Джорджия и Южные Сандвичевы острова" name_ru_full="" name_en="South Georgia and the South Sandwich Islands" />
+    <country number="896" alpha2="OS" alpha3="OST" name_ru="Южная Осетия" name_ru_full="Республика Южная Осетия" name_en="South Ossetia" />
+    <country number="728" alpha2="SS" alpha3="SSD" name_ru="Южный Судан" name_ru_full="" name_en="South Sudan" />
+    <country number="388" alpha2="JM" alpha3="JAM" name_ru="Ямайка" name_ru_full="" name_en="Jamaica" />
+    <country number="392" alpha2="JP" alpha3="JPN" name_ru="Япония" name_ru_full="" name_en="Japan" />
   </countries>
   <by_region>
     <region key="Азия">

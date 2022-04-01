@@ -13,17 +13,18 @@ namespace ndp_invest_helper
     {
         public static List<Country> Countries;
 
+        public static Dictionary<int, Country> ById;
+
         public static Dictionary<string, Country> ByCode;
 
-        // TODO - make value HashSet<Country>
         public static Dictionary<string, HashSet<string>> ByDevelopment;
 
-        // TODO - make value HashSet<Country>
         public static Dictionary<string, HashSet<string>> ByRegion;
 
         private static void Init()
         {
             Countries = new List<Country>();
+            ById = new Dictionary<int, Country>();
             ByCode = new Dictionary<string, Country>();
             ByDevelopment = new Dictionary<string, HashSet<string>>();
             ByRegion = new Dictionary<string, HashSet<string>>();
@@ -33,9 +34,11 @@ namespace ndp_invest_helper
         {
             Init();
 
-            var Countries = DatabaseManager.GetFullTable<Country>("Countries");
+            Countries = DatabaseManager.GetFullTable<Country>("Countries");
 
             ByCode = Countries.ToDictionary(x => x.Code, x => x);
+
+            ById = Countries.ToDictionary(x => x.Id, x => x);
 
             ByDevelopment = DatabaseManager
                 .GetFullTable<Models.CountryDevelopmentLevel>("CountryDevelopmentLevels")
@@ -66,13 +69,18 @@ namespace ndp_invest_helper
 
             foreach (var xCountry in xRoot.Element("countries").Elements("country"))
             {
-                var code = xCountry.Attribute("key").Value;
-                var name = xCountry.Attribute("name").Value;
-
-                var country = new Country { Code = code, NameRus = name };
+                var country = new Country 
+                { 
+                    Id = int.Parse(xCountry.Attribute("number").Value),
+                    Code = xCountry.Attribute("alpha2").Value,
+                    Code3 = xCountry.Attribute("alpha3").Value,
+                    NameRus = xCountry.Attribute("name_ru").Value,
+                    NameRusFull = xCountry.Attribute("name_ru_full").Value,
+                    NameEng = xCountry.Attribute("name_en").Value
+                };
 
                 Countries.Add(country);
-                ByCode[code] = country;
+                ByCode[country.Code] = country;
             }
 
             foreach (var xRegion in xRoot.Element("by_region").Elements())

@@ -100,13 +100,13 @@ namespace ndp_invest_helper
                     Currencies = dbCurrencies
                     .Where(x => x.IssuerId == dbIssuer.Id)
                     .ToDictionary(
-                        k => CurrenciesManager.ByCode[k.CurrencyCode],
+                        k => CurrenciesManager.ById[k.CurrencyId],
                         v => v.Part),
 
                     Countries = dbCountries
                     .Where(x => x.IssuerId == dbIssuer.Id)
                     .ToDictionary(
-                        k => CountriesManager.ByCode[k.CountryCode],
+                        k => CountriesManager.ById[k.CountryId],
                         v => v.Part),
 
                     Sectors = dbSectors
@@ -186,7 +186,7 @@ namespace ndp_invest_helper
                 foreach (var country in dbSecurityCountries)
                 {
                     security.SecurityCountries.Add(
-                        CountriesManager.ByCode[country.CountryCode], (decimal)country.Part);
+                        CountriesManager.ById[country.CountryId], (decimal)country.Part);
                 }
 
                 var dbSecurityCurrencies = dbCurrencies
@@ -196,7 +196,7 @@ namespace ndp_invest_helper
                 foreach (var currency in dbSecurityCurrencies)
                 {
                     security.SecurityCurrencies.Add(
-                        CurrenciesManager.ByCode[currency.CurrencyCode], (decimal)currency.Part);
+                        CurrenciesManager.ById[currency.CurrencyId], (decimal)currency.Part);
                 }
 
                 var dbSecuritySectors = dbSectors

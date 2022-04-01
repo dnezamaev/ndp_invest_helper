@@ -13,7 +13,7 @@ namespace ndp_invest_helper.Models
     /// 2) при модификации нужно использовать свойство SecuritySectors
     /// и ему подобные, т.к. неизвестно какой список вернет Sectors.
     /// </summary>
-    public class Security : IEquatable<Security>
+    public class Security : IEquatable<Security>, IDiversified
     {
         /// <summary>
         /// Уникальный идентификатор бумаги из БД.

@@ -21,7 +21,7 @@ namespace ndp_invest_helper.Models
     /// <summary>
     /// Эмитент ценной бумаги.
     /// </summary>
-    public class Issuer
+    public class Issuer : IDiversified
     {
         /// <summary>
         /// Уникальный идентификатор эмитента из БД.
@@ -33,16 +33,16 @@ namespace ndp_invest_helper.Models
         /// </summary>
         public string NameRus { get; set; }
 
-        public Dictionary<Sector, decimal> Sectors { get; set; } 
+        public Dictionary<Sector, decimal> Sectors { get; set; }
             = new Dictionary<Sector, decimal>();
 
-        public Dictionary<Country, decimal> Countries  { get; set; }
+        public Dictionary<Country, decimal> Countries { get; set; }
             = new Dictionary<Country, decimal>();
 
-        public Dictionary<Currency, decimal> Currencies  { get; set; }
+        public Dictionary<Currency, decimal> Currencies { get; set; }
             = new Dictionary<Currency, decimal>();
 
-        public List<Security> Securities  { get; set; } 
+        public List<Security> Securities { get; set; }
             = new List<Security>();
 
         public override string ToString()
@@ -79,7 +79,7 @@ namespace ndp_invest_helper.Models
             sb.Append("  ");
             foreach (var item in Securities)
             {
-                sb.AppendFormat("{0}; ", 
+                sb.AppendFormat("{0}; ",
                     item.Ticker == "???" || string.IsNullOrEmpty(item.Ticker)
                     ? item.Isin : item.Ticker);
             }

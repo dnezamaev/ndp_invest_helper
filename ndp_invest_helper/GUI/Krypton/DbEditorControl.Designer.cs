@@ -30,7 +30,7 @@ namespace ndp_invest_helper.GUI.Krypton
         private void InitializeComponent()
         {
             this.kryptonNavigator1 = new ComponentFactory.Krypton.Navigator.KryptonNavigator();
-            this.krPageSecuritiesIssuers = new ComponentFactory.Krypton.Navigator.KryptonPage();
+            this.krPageDiversification = new ComponentFactory.Krypton.Navigator.KryptonPage();
             this.kryptonSplitContainer1 = new ComponentFactory.Krypton.Toolkit.KryptonSplitContainer();
             this.dataGrid_Parts = new ComponentFactory.Krypton.Toolkit.KryptonDataGridView();
             this.kryptonPanel2 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
@@ -50,8 +50,8 @@ namespace ndp_invest_helper.GUI.Krypton
             this.KeysColumn_Key = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonNavigator1)).BeginInit();
             this.kryptonNavigator1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.krPageSecuritiesIssuers)).BeginInit();
-            this.krPageSecuritiesIssuers.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.krPageDiversification)).BeginInit();
+            this.krPageDiversification.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer1.Panel1)).BeginInit();
             this.kryptonSplitContainer1.Panel1.SuspendLayout();
@@ -95,28 +95,28 @@ namespace ndp_invest_helper.GUI.Krypton
             this.kryptonNavigator1.NavigatorMode = ComponentFactory.Krypton.Navigator.NavigatorMode.BarCheckButtonGroupOutside;
             this.kryptonNavigator1.PageBackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.PanelClient;
             this.kryptonNavigator1.Pages.AddRange(new ComponentFactory.Krypton.Navigator.KryptonPage[] {
-            this.krPageSecuritiesIssuers,
+            this.krPageDiversification,
             this.krPageCurrencies});
             this.kryptonNavigator1.SelectedIndex = 0;
             this.kryptonNavigator1.Size = new System.Drawing.Size(922, 723);
             this.kryptonNavigator1.TabIndex = 1;
             this.kryptonNavigator1.Text = "kryptonNavigator1";
             // 
-            // krPageSecuritiesIssuers
+            // krPageDiversification
             // 
-            this.krPageSecuritiesIssuers.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
-            this.krPageSecuritiesIssuers.Controls.Add(this.kryptonSplitContainer1);
-            this.krPageSecuritiesIssuers.Controls.Add(this.kryptonPanel2);
-            this.krPageSecuritiesIssuers.Controls.Add(this.kryptonPanel1);
-            this.krPageSecuritiesIssuers.Controls.Add(this.comboBox_SecurityIssuer);
-            this.krPageSecuritiesIssuers.Flags = 65534;
-            this.krPageSecuritiesIssuers.LastVisibleSet = true;
-            this.krPageSecuritiesIssuers.MinimumSize = new System.Drawing.Size(50, 50);
-            this.krPageSecuritiesIssuers.Name = "krPageSecuritiesIssuers";
-            this.krPageSecuritiesIssuers.Size = new System.Drawing.Size(780, 721);
-            this.krPageSecuritiesIssuers.Text = "Бумаги, эмитенты";
-            this.krPageSecuritiesIssuers.ToolTipTitle = "Page ToolTip";
-            this.krPageSecuritiesIssuers.UniqueName = "B27FF867BEEF49C9F38A863D8E027AEF";
+            this.krPageDiversification.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
+            this.krPageDiversification.Controls.Add(this.kryptonSplitContainer1);
+            this.krPageDiversification.Controls.Add(this.kryptonPanel2);
+            this.krPageDiversification.Controls.Add(this.kryptonPanel1);
+            this.krPageDiversification.Controls.Add(this.comboBox_SecurityIssuer);
+            this.krPageDiversification.Flags = 65534;
+            this.krPageDiversification.LastVisibleSet = true;
+            this.krPageDiversification.MinimumSize = new System.Drawing.Size(50, 50);
+            this.krPageDiversification.Name = "krPageDiversification";
+            this.krPageDiversification.Size = new System.Drawing.Size(783, 721);
+            this.krPageDiversification.Text = "Диверсификация";
+            this.krPageDiversification.ToolTipTitle = "Page ToolTip";
+            this.krPageDiversification.UniqueName = "B27FF867BEEF49C9F38A863D8E027AEF";
             // 
             // kryptonSplitContainer1
             // 
@@ -135,8 +135,8 @@ namespace ndp_invest_helper.GUI.Krypton
             // 
             this.kryptonSplitContainer1.Panel2.Controls.Add(this.dataGrid_Keys);
             this.kryptonSplitContainer1.SeparatorStyle = ComponentFactory.Krypton.Toolkit.SeparatorStyle.HighProfile;
-            this.kryptonSplitContainer1.Size = new System.Drawing.Size(751, 537);
-            this.kryptonSplitContainer1.SplitterDistance = 373;
+            this.kryptonSplitContainer1.Size = new System.Drawing.Size(754, 537);
+            this.kryptonSplitContainer1.SplitterDistance = 374;
             this.kryptonSplitContainer1.TabIndex = 15;
             // 
             // dataGrid_Parts
@@ -151,7 +151,7 @@ namespace ndp_invest_helper.GUI.Krypton
             this.dataGrid_Parts.Name = "dataGrid_Parts";
             this.dataGrid_Parts.RowHeadersWidth = 51;
             this.dataGrid_Parts.RowTemplate.Height = 24;
-            this.dataGrid_Parts.Size = new System.Drawing.Size(373, 537);
+            this.dataGrid_Parts.Size = new System.Drawing.Size(374, 537);
             this.dataGrid_Parts.TabIndex = 0;
             // 
             // kryptonPanel2
@@ -241,7 +241,7 @@ namespace ndp_invest_helper.GUI.Krypton
             this.comboBox_SecurityIssuer.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.comboBox_SecurityIssuer.MatchingMethod = SergeUtils.StringMatchingMethod.SubString;
             this.comboBox_SecurityIssuer.Name = "comboBox_SecurityIssuer";
-            this.comboBox_SecurityIssuer.Size = new System.Drawing.Size(753, 31);
+            this.comboBox_SecurityIssuer.Size = new System.Drawing.Size(756, 31);
             this.comboBox_SecurityIssuer.TabIndex = 9;
             // 
             // krPageCurrencies
@@ -281,7 +281,7 @@ namespace ndp_invest_helper.GUI.Krypton
             this.dataGrid_Keys.RowHeadersVisible = false;
             this.dataGrid_Keys.RowHeadersWidth = 51;
             this.dataGrid_Keys.RowTemplate.Height = 24;
-            this.dataGrid_Keys.Size = new System.Drawing.Size(373, 537);
+            this.dataGrid_Keys.Size = new System.Drawing.Size(375, 537);
             this.dataGrid_Keys.TabIndex = 1;
             // 
             // PartsColumn_Key
@@ -317,8 +317,8 @@ namespace ndp_invest_helper.GUI.Krypton
             this.Size = new System.Drawing.Size(922, 723);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonNavigator1)).EndInit();
             this.kryptonNavigator1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.krPageSecuritiesIssuers)).EndInit();
-            this.krPageSecuritiesIssuers.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.krPageDiversification)).EndInit();
+            this.krPageDiversification.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer1.Panel1)).EndInit();
             this.kryptonSplitContainer1.Panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer1.Panel2)).EndInit();
@@ -342,7 +342,7 @@ namespace ndp_invest_helper.GUI.Krypton
         #endregion
 
         private ComponentFactory.Krypton.Navigator.KryptonNavigator kryptonNavigator1;
-        private ComponentFactory.Krypton.Navigator.KryptonPage krPageSecuritiesIssuers;
+        private ComponentFactory.Krypton.Navigator.KryptonPage krPageDiversification;
         private ComponentFactory.Krypton.Navigator.KryptonPage krPageCurrencies;
         private SergeUtils.EasyCompletionComboBox comboBox_SecurityIssuer;
         private ComponentFactory.Krypton.Toolkit.KryptonPanel kryptonPanel1;

@@ -163,7 +163,7 @@ namespace ndp_invest_helper.GUI.Krypton
         {
             var result = new DbEditorPage()
             {
-                Text = "База",
+                Text = "База данных",
                 TextTitle = "Редактирование базы",
                 UniqueName = "DbEditor"
             };

@@ -103,12 +103,12 @@ namespace ndp_invest_helper
                 "INSERT INTO Issuers(ID, NameRus) VALUES(@Id, @NameRus)";
 
             var insertIssuerCountriesCommand = 
-                "INSERT INTO Issuers_Countries_Link(IssuerID, CountryCode, Part)" +
-                "VALUES(@IssuerID, @CountryCode, @Part)";
+                "INSERT INTO Issuers_Countries_Link(IssuerID, CountryID, Part)" +
+                "VALUES(@IssuerID, @CountryID, @Part)";
 
             var insertIssuerCurrenciesCommand = 
-                "INSERT INTO Issuers_Currencies_Link(IssuerID, CurrencyCode, Part)" +
-                "VALUES(@IssuerID, @CurrencyCode, @Part)";
+                "INSERT INTO Issuers_Currencies_Link(IssuerID, CurrencyId, Part)" +
+                "VALUES(@IssuerID, @CurrencyId, @Part)";
 
             var insertIssuerSectorsCommand = 
                 "INSERT INTO Issuers_EconomySectors_Link(IssuerID, SectorID, Part)" +
@@ -119,12 +119,12 @@ namespace ndp_invest_helper
                 "VALUES(@Id, @Isin, @Ticker, @SecurityType, @IssuerID, @NameRus)";
 
             var insertSecurityCountriesCommand = 
-                "INSERT INTO Securities_Countries_Link(SecurityID, CountryCode, Part)" +
-                "VALUES(@SecurityID, @CountryCode, @Part)";
+                "INSERT INTO Securities_Countries_Link(SecurityID, CountryID, Part)" +
+                "VALUES(@SecurityID, @CountryID, @Part)";
 
             var insertSecurityCurrenciesCommand = 
-                "INSERT INTO Securities_Currencies_Link(SecurityID, CurrencyCode, Part)" +
-                "VALUES(@SecurityID, @CurrencyCode, @Part)";
+                "INSERT INTO Securities_Currencies_Link(SecurityID, CurrencyId, Part)" +
+                "VALUES(@SecurityID, @CurrencyId, @Part)";
 
             var insertSecuritySectorsCommand = 
                 "INSERT INTO Securities_EconomySectors_Link(SecurityID, SectorID, Part)" +
@@ -150,7 +150,7 @@ namespace ndp_invest_helper
                     var param = new
                     {
                         IssuerID = issuerId,
-                        CountryCode = item.Key,
+                        CountryId = item.Key.Id,
                         Part = item.Value
                     };
 
@@ -166,7 +166,7 @@ namespace ndp_invest_helper
                     var param = new
                     {
                         IssuerID = issuerId,
-                        CurrencyCode = item.Key,
+                        CurrencyId = item.Key.Id,
                         Part = item.Value
                     };
 
@@ -231,7 +231,7 @@ namespace ndp_invest_helper
                         var param = new
                         {
                             SecurityID = securityId,
-                            CountryCode = item.Key,
+                            CountryID = item.Key.Id,
                             Part = item.Value
                         };
 
@@ -247,7 +247,7 @@ namespace ndp_invest_helper
                         var param = new
                         {
                             SecurityID = securityId,
-                            CurrencyCode = item.Key,
+                            CurrencyId = item.Key.Id,
                             Part = item.Value
                         };
 
@@ -306,13 +306,15 @@ namespace ndp_invest_helper
         {
             var command = new SQLiteCommand(connection);
             command.CommandText =
-                "INSERT INTO Currencies(Code, NameEng, RateToRub)" +
-                "VALUES(@Code, @NameEng, @RateToRub)";
+                "INSERT INTO Currencies(ID, Code, NameEng, NameRus, RateToRub)" +
+                "VALUES(@ID, @Code, @NameEng, @NameRus, @RateToRub)";
 
             foreach (var currency in CurrenciesManager.Currencies)
             {
+                command.Parameters.AddWithValue("@ID", currency.Id);
                 command.Parameters.AddWithValue("@Code", currency.Code);
                 command.Parameters.AddWithValue("@NameEng", currency.NameEng);
+                command.Parameters.AddWithValue("@NameRus", currency.NameRus);
                 command.Parameters.AddWithValue("@RateToRub", currency.RateToRub);
                 command.Prepare();
                 command.ExecuteNonQuery();
@@ -326,8 +328,8 @@ namespace ndp_invest_helper
             var updateCommand = new SQLiteCommand(connection);
 
             insertCommand.CommandText =
-                "INSERT INTO Countries(Code, NameRus)" +
-                "VALUES(@Code, @NameRus)";
+                "INSERT INTO Countries(ID, Code, Code3, NameRus, NameRusFull, NameEng)" +
+                "VALUES(@ID, @Code, @Code3, @NameRus, @NameRusFull, @NameEng)";
 
             var levels = CountriesManager.ByDevelopment
                 .OrderBy(x => x.Key).ToArray();
@@ -336,8 +338,12 @@ namespace ndp_invest_helper
 
             foreach (var country in CountriesManager.Countries)
             {
+                insertCommand.Parameters.AddWithValue("@ID", country.Id);
                 insertCommand.Parameters.AddWithValue("@Code", country.Code);
+                insertCommand.Parameters.AddWithValue("@Code3", country.Code3);
                 insertCommand.Parameters.AddWithValue("@NameRus", country.NameRus);
+                insertCommand.Parameters.AddWithValue("@NameRusFull", country.NameRusFull);
+                insertCommand.Parameters.AddWithValue("@NameEng", country.NameEng);
                 insertCommand.Prepare();
                 insertCommand.ExecuteNonQuery();
 
