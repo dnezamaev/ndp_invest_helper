@@ -4,8 +4,8 @@ namespace ndp_invest_helper.Models
 {
     public interface IDiversified
     {
-        Dictionary<Country, decimal> Countries { get; }
-        Dictionary<Currency, decimal> Currencies { get; }
-        Dictionary<Sector, decimal> Sectors { get; }
+        Dictionary<DiversityElement, decimal> Countries { get; }
+        Dictionary<DiversityElement, decimal> Currencies { get; }
+        Dictionary<DiversityElement, decimal> Sectors { get; }
     }
 }

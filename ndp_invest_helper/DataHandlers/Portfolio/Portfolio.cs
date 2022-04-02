@@ -7,366 +7,27 @@ using ndp_invest_helper.Models;
 
 namespace ndp_invest_helper
 {
-    public class Deal
-    {
-        public Security Security;
-        public decimal Price;
-        public string Currency;
-        public UInt64 Count;
-        public bool UseCash;
-        public bool Buy;
-
-        public decimal Total { get => Price * Count; }
-
-        public string FriendlyName 
-        { 
-            get => string.Format(
-            "{0} {1}{2}",
-            Security.BestUniqueFriendlyName, Buy ? '+' : '-', Count);
-        }
-    }
-
-    public class GrouppingResults
-    {
-        private PortfolioAnalyticsResult
-            byCountry, byCurrency, bySector, byType;
-
-        public Portfolio Portfolio { get; set; }
-
-        public GrouppingResults(Portfolio portfolio, bool unpackEtf = true)
-        {
-            Portfolio = portfolio;
-            ByCountry = portfolio.GroupByCountry();
-            ByCurrency = portfolio.GroupByCurrency();
-            BySector = portfolio.GroupBySector();
-            ByType = portfolio.GroupByType(unpackEtf);
-        }
-
-        public PortfolioAnalyticsResult[] All
-        {
-            get
-            {
-                return new PortfolioAnalyticsResult[] { byCountry, byCurrency, bySector, byType };
-            }
-        }
-
-        public PortfolioAnalyticsResult ByCountry
-        {
-            get => byCountry;
-            set { byCountry = value; value.GrouppedBy = "country"; }
-        }
-
-
-        public PortfolioAnalyticsResult ByCurrency
-        {
-            get => byCurrency;
-            set { byCurrency = value; value.GrouppedBy = "currency"; }
-        }
-
-        public PortfolioAnalyticsResult BySector
-        {
-            get => bySector;
-            set { bySector = value; value.GrouppedBy = "sector"; }
-        }
-
-        public PortfolioAnalyticsResult ByType
-        {
-            get => byType;
-            set { byType = value; value.GrouppedBy = "type"; }
-        }
-    }
-
-    /// <summary>
-    /// Результат группировки портфеля.
-    /// </summary>
-    public class PortfolioAnalyticsResult
-    {
-        public Dictionary<string, PortfolioAnalyticsItem> Analytics =
-            new Dictionary<string, PortfolioAnalyticsItem>();
-
-
-        /// <summary>
-        /// Критерий сортировки в ToString(): key/part - по ключу/доле
-        /// </summary>
-        public string OrderBy = "part";
-
-        public string GrouppedBy = null;
-
-        /// <summary>
-        /// Порядок сортировки в ToString(): key/part - по ключу/доле
-        /// </summary>
-        public bool OrderAscending = false;
-
-        public PortfolioAnalyticsResult() { }
-
-        public PortfolioAnalyticsResult(Portfolio portfolio)
-        {
-            Analytics[""] = new PortfolioAnalyticsItem()
-            {
-                Portfolio = new Portfolio(portfolio),
-                Part = 1
-            };
-        }
-
-        public List<Security> GetSecurities()
-        {
-            var result = new List<Security>();
-
-            foreach (var item in Analytics)
-            {
-                result.AddRange(item.Value.Portfolio.Securities.Keys);
-            }
-
-            return result;
-        }
-
-        /// <summary>
-        /// Удалить из аналитики несколько бумаг.
-        /// </summary>
-        /// <param name="correctParts">Нужно ли пересчитывать доли.</param>
-        /// <param name="securities">Ключи элементов для удаления.</param>
-        public void RemoveSecurities(bool correctParts, bool addCash, string currency, params Security[] securities)
-        {
-            foreach (var item in Analytics)
-            {
-                foreach (var securityToRemove in securities)
-                {
-                    item.Value.Portfolio.RemoveSecurity(securityToRemove, UInt64.MaxValue, addCash, currency);
-                }
-            }
-
-            // Сумма по всем оставшимся элементам.
-            var total = Analytics.Sum(x => x.Value.Portfolio.Total);
-
-            // Корректируем доли.
-            if (correctParts)
-            {
-                foreach (var item in Analytics)
-                {
-                    item.Value.Part = total == 0 ? 0 :
-                        item.Value.Portfolio.Total / total;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Добавить/докупить бумагу в портфель.
-        /// </summary>
-        /// <param name="security">Бумага для добавления.</param>
-        /// <param name="count">Сколько бумаг добавить.</param>
-        /// <param name="price">По какой цене. Если бумага уже есть в портфеле,
-        /// то можно указать нулевую цену, тогда будет взята старая цена.
-        /// Если цена указана явно, то она будем применена и к старым бумагам.</param>
-        /// <param name="removeCash">Вычитать деньги, тем самым имитируя покупку.</param>
-        /// <param name="currency">Валюта покупки.</param>
-        public void BuySecurity(Security security, UInt64 count, decimal price, 
-            bool removeCash, string currency)
-        {
-            foreach (var item in Analytics)
-            {
-                item.Value.Portfolio.AddSecurity(security, count, price, removeCash, currency);
-            }
-
-            CalculateParts();
-        }
-
-        /// <summary>
-        /// Продать бумагу.
-        /// </summary>
-        /// <param name="security">Бумага для продажи.</param>
-        /// <param name="count">Количество бумаг для удаления.
-        /// Если указать больше, чем есть в портфеле, или null,
-        /// то бумага будет удалена полностью.</param>
-        /// <param name="addCash">Добавлять ли наличность от продажи в портфель.</param>
-        /// <param name="currency">Валюта покупки.</param>
-        public void SellSecurity(Security security, UInt64? count, bool addCash, string currency)
-        {
-            foreach (var item in Analytics)
-            {
-                // Возможно, здесь стоит удалять пропорционально, а не весь сount???
-                // Хотя коэффициент коррекции должен это учитывать, по идее.
-                item.Value.Portfolio.RemoveSecurity(security, count, addCash, currency);
-            }
-
-            CalculateParts();
-        }
-
-        /// <summary>
-        /// Удалить из аналитики несколько элементов.
-        /// </summary>
-        /// <param name="correctParts">Нужно ли пересчитывать доли.</param>
-        /// <param name="keys">Ключи элементов для удаления.</param>
-        public void RemoveKeys(bool correctParts, params string[] keys)
-        {
-            foreach (var item in keys)
-            {
-                Analytics.Remove(item);
-            }
-
-            // Сумма по всем оставшимся элементам.
-            var total = Analytics.Sum(x => x.Value.Portfolio.Total);
-
-            // Корректируем доли.
-            if (correctParts)
-            {
-                foreach (var item in Analytics)
-                {
-                    item.Value.Part = total == 0 ? 0 :
-                        item.Value.Portfolio.Total / total;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Ищем бумаги с недозаполненной информацией. 
-        /// Они не попали в результат, хотя присутствуют в портфеле.
-        /// </summary>
-        /// <param name="allSecurities">Список всех проанализированных бумаг.</param>
-        /// <returns>Бумаги с недозаполненной информацией по принципу:
-        /// если не попала ни в одну группу.  </returns>
-        public List<Security> FindNotUsedSecurities(IEnumerable<Security> allSecurities)
-        {
-            // Полный список бумаг в портфеле.
-            // Из него будем вычитать хорошие бумаги (найденные в группах),
-            // чтобы найти плохие методом исключения (ненайденные).
-            var badSecuritiesInGroup = new List<Security>(allSecurities);
-            foreach (var analyticsRecord in Analytics)
-            {
-                // Убираем найденные в группах - хорошие.
-                badSecuritiesInGroup.RemoveAll(
-                    x => analyticsRecord.Value.Portfolio.Securities.ContainsKey(x));
-            }
-
-            return badSecuritiesInGroup;
-        }
-
-        /// <summary>
-        /// Общая оценка полученного результата.
-        /// </summary>
-        public decimal Total { get => Analytics.Sum(x => x.Value.Portfolio.Total); }
-
-        public void CalculateParts()
-        {
-            var total = Total;
-
-            foreach (var item in Analytics)
-            {
-                item.Value.Part = item.Value.Portfolio.Total / total;
-            }
-        }
-
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            IEnumerable<KeyValuePair<string, PortfolioAnalyticsItem>> sorted = null;
-            
-            switch (OrderBy)
-            {
-                case "key":
-                    sorted = OrderAscending ? 
-                        Analytics.OrderBy(x => x.Key) :
-                        Analytics.OrderByDescending(x => x.Key);
-                    break;
-                case "part":
-                    sorted = OrderAscending ? 
-                        Analytics.OrderBy(x => x.Value.Part) :
-                        Analytics.OrderByDescending(x => x.Value.Part);
-                    break;
-                default:
-                    throw new ArgumentException("Неизвестный ключ сортировки  " + OrderBy);
-            }
-
-            foreach (var item in sorted)
-            {
-                // Заголовок группы.
-                switch (GrouppedBy)
-                {
-                    case "country":
-                        sb.AppendLine(string.Format("{0} - {1}", 
-                            item.Key, CountriesManager.ByCode[item.Key]));
-                        break;
-
-                    case "currency":
-                        sb.AppendLine(item.Key);
-                        break;
-
-                    case "type":
-                        sb.AppendLine(item.Key);
-                        break;
-
-                    case "sector":
-                        sb.AppendLine(string.Format("{0} - {1}", 
-                            item.Key, SectorsManager.ById[item.Key].Name));
-                        break;
-
-                    default:
-                        throw new ArgumentException(string.Format(
-                            "Неизвестный критерий группировки {0}", GrouppedBy));
-                }
-
-                // Основное содержимое.
-                sb.AppendLine(item.Value.ToString());
-            }
-
-            sb.AppendLine(string.Format("Итого по учтенным бумагам: {0:0.00}", Total));
-            sb.AppendLine();
-
-            return sb.ToString();
-        }
-    }
-
-    /// <summary>
-    /// Результат группировки портфеля по выбранному критерию.
-    /// </summary>
-    public class PortfolioAnalyticsItem
-    {
-        public Portfolio Portfolio = new Portfolio();
-
-        public decimal Part;
-
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-
-            sb.AppendLine(string.Format("Доля = {0:0.00}%", Part * 100));
-            sb.AppendLine(string.Format("Сумма = {0:0.00}", Portfolio.Total));
-            sb.AppendJoin("; ", Portfolio.Securities.Select(
-                x => string.Format("{0} ({1:0.00})", x.Key.BestFriendlyName, x.Value.Total)));
-
-            if (Portfolio.CashTotal != 0)
-                sb.AppendFormat("; наличные {0:0.00}", Portfolio.CashTotal);
-
-            sb.AppendLine();
-
-            return sb.ToString();
-        }
-    }
-
     public class Portfolio
     {
-        private Dictionary<Security, SecurityInfo> securities =
-            new Dictionary<Security, SecurityInfo>();
-
         /// <summary>
         /// Все имеющиеся в портфеле бумаги.
         /// </summary>
-        public Dictionary<Security, SecurityInfo> Securities { get => securities; }
-
-        private Dictionary<string, decimal> cash = 
-            new Dictionary<string, decimal>();
+        public Dictionary<Security, SecurityInfo> Securities { get; }
+            = new Dictionary<Security, SecurityInfo>();
 
         /// <summary>
         /// Деньги в чистом виде: наличность, депозиты, 
         /// остатки на биржевых счетах и т.п.
         /// </summary>
-        public Dictionary<string, decimal> Cash { get => cash; }
+        public Dictionary<Currency, decimal> Cash { get; }
+            = new Dictionary<Currency, decimal>();
 
         /// <summary>
         /// Сумма по всем деньгам в рублях.
         /// </summary>
         public decimal CashTotal
         {
-            get { return cash.Sum(kvp => CurrenciesManager.RatesToRub[kvp.Key] * kvp.Value); }
+            get { return Cash.Sum(kvp => CurrenciesManager.RatesToRub[kvp.Key] * kvp.Value); }
         }
 
         /// <summary>
@@ -381,7 +42,7 @@ namespace ndp_invest_helper
 
         public Portfolio(
             Dictionary<Security, SecurityInfo> securities = null,
-            Dictionary<string, decimal> cash = null
+            Dictionary<Currency, decimal> cash = null
             )
         {
             // Копируем значения, чтобы избежать порчи
@@ -396,7 +57,7 @@ namespace ndp_invest_helper
         }
 
         public Portfolio(Portfolio porfolio)
-            : this(porfolio.Securities, porfolio.cash)
+            : this(porfolio.Securities, porfolio.Cash)
         { }
         
         public Portfolio(PortfolioAnalyticsResult analytics) : this(null, null)
@@ -430,7 +91,7 @@ namespace ndp_invest_helper
             // TODO: здесь непонятно как быть, если у текущей и добавляемой бумаг
             // отличаются цены и коэффициенты коррекции.
             // Возможно, стоит вычислять среднее взвешенное.
-            var thisSecInfo = securities.GetValueOrSetDefault(security, new SecurityInfo());
+            var thisSecInfo = Securities.GetValueOrSetDefault(security, new SecurityInfo());
 
             var oldTotal = thisSecInfo.Total;
             thisSecInfo.Count += securityInfo.Count;
@@ -452,13 +113,13 @@ namespace ndp_invest_helper
         /// <param name="removeCash">Вычитать деньги, тем самым имитируя покупку.</param>
         /// <param name="currency">Валюта покупки.</param>
         public void AddSecurity(Security security, UInt64 count, 
-            decimal price, bool removeCash, string currency)
+            decimal price, bool removeCash, Currency currency)
         {
             SecurityInfo secInfo = null;
             decimal rubPrice = CurrenciesManager.RatesToRub[currency] * price; // Цена 1 бумаги в рублях.
 
             // Дополняем инфу о бумаге: корректируем цену, количество.
-            if (securities.TryGetValue(security, out secInfo))
+            if (Securities.TryGetValue(security, out secInfo))
             {
                 // Бумага уже есть в портфеле.
                 secInfo.Count += count;
@@ -484,7 +145,7 @@ namespace ndp_invest_helper
                 };
             }
 
-            securities[security] = secInfo;
+            Securities[security] = secInfo;
 
             var rubTotal = rubPrice * count; // Сумма сделки в рублях.
             var currencyTotal = rubTotal / CurrenciesManager.RatesToRub[currency]; // Сумма сделки в валюте.
@@ -504,12 +165,12 @@ namespace ndp_invest_helper
         /// то бумага будет удалена полностью.</param>
         /// <param name="addCash">Добавлять наличность от продажи, имитируя продажу.</param>
         /// <param name="currency">Валюта покупки.</param>
-        public void RemoveSecurity(Security security, UInt64? count, bool addCash, string currency)
+        public void RemoveSecurity(Security security, UInt64? count, bool addCash, Currency currency)
         {
-            if (!securities.ContainsKey(security))
+            if (!Securities.ContainsKey(security))
                 return;
 
-            var secInfo = securities[security];
+            var secInfo = Securities[security];
 
             // Если передали null или больше, чем есть, то продаем все.
             if (!count.HasValue || count > secInfo.Count)
@@ -527,7 +188,7 @@ namespace ndp_invest_helper
             secInfo.Count -= count.Value;
 
             if (secInfo.Count == 0)
-                securities.Remove(security);
+                Securities.Remove(security);
         }
 
         /// <summary>
@@ -535,20 +196,20 @@ namespace ndp_invest_helper
         /// </summary>
         /// <param name="currency">Валюта.</param>
         /// <param name="amount">Количество, может быть отрицательным.</param>
-        public void AddCash(string currency, decimal amount)
+        public void AddCash(Currency currency, decimal amount)
         {
-            var value = cash.GetValueOrDefault(currency, 0);
+            var value = Cash.GetValueOrDefault(currency, 0);
             value += amount;
-            cash[currency] = value;
+            Cash[currency] = value;
         }
 
         /// <summary>
         /// Убрать все деньги в указанной валюте.
         /// </summary>
         /// <param name="currency"></param>
-        public void RemoveCash(string currency)
+        public void RemoveCash(Currency currency)
         {
-            cash.Remove(currency);
+            Cash.Remove(currency);
         }
 
         /// <summary>
@@ -569,7 +230,7 @@ namespace ndp_invest_helper
                 var portfolioValue = this.Securities.GetValueOrDefault(
                     reportRecord.Key, new SecurityInfo());
 
-                this.securities[reportRecord.Key] = portfolioValue;
+                this.Securities[reportRecord.Key] = portfolioValue;
 
                 portfolioValue.Count += reportRecord.Value.Count;
                 // TODO later:
@@ -617,7 +278,7 @@ namespace ndp_invest_helper
                     // Ищем существующую запись по этой валюте.
                     // Если ее нет, создаем пустую.
                     var resultValue = analytics.GetValueOrSetDefault(
-                        currencyRecord.Key.Code, new PortfolioAnalyticsItem());
+                        currencyRecord.Key, new PortfolioAnalyticsItem());
 
                     // Добавляем бумагу с коэффициентом коррекции.
                     // Создаем копию securitryInfo, чтобы не портить запись в исходном портфеле.
@@ -628,7 +289,7 @@ namespace ndp_invest_helper
             }
 
             // Учитываем наличку.
-            foreach (var cashRecord in cash)
+            foreach (var cashRecord in Cash)
             {
                 var resultValue = analytics.GetValueOrSetDefault(
                     cashRecord.Key, new PortfolioAnalyticsItem());
@@ -659,7 +320,7 @@ namespace ndp_invest_helper
                 foreach (var countryRecord in security.Countries)
                 {
                     var resultValue = analytics.GetValueOrSetDefault(
-                        countryRecord.Key.Code, new PortfolioAnalyticsItem());
+                        countryRecord.Key, new PortfolioAnalyticsItem());
 
                     resultValue.Portfolio.AddSecurity(security, 
                         new SecurityInfo(securityInfo, countryRecord.Value));
@@ -677,27 +338,24 @@ namespace ndp_invest_helper
         /// акция, облигация, фонд, деньги.
         /// </summary>
         /// <param name="unpackEtf">True - раскидывать ETF по составляющим.</param>
-        /// <returns>Группированные по типу активы. Ключ - тип.
-        /// Может быть любая строка, но есть зарезеврированные: 
-        /// share, bond, etf, cash. Остальные будут браться из аттрибута
-        /// what_inside у ETF в файле Securities.xml, если unpackEtf == true.</returns>
+        /// <returns>Группированные по типу активы.</returns>
         public PortfolioAnalyticsResult GroupByType(bool unpackEtf)
         {
             var result = new PortfolioAnalyticsResult();
             var analytics = result.Analytics;
-            analytics["cash"] = new PortfolioAnalyticsItem
+            analytics[AssetType.Cash] = new PortfolioAnalyticsItem
             {
-                Portfolio = new Portfolio(null, this.cash)
+                Portfolio = new Portfolio(null, this.Cash)
             };
 
             PortfolioAnalyticsItem analyticsItem;
 
             // Разбираем бумаги по типам.
-            foreach (var type in SecuritiesManager.TypesDictionary.Keys)
+            foreach (var type in AssetType.Securities)
             {
                 // Выбираем бумаги с типом совпадающим текущему type.
                 var foundSecurities = Securities.
-                    Where(x => x.Key.GetType() == type).
+                    Where(x => x.Key.SecurityType == type.Key).
                     ToDictionary(x => x.Key, x => x.Value);
 
                 // Заполняем результат, считаем долю, сумму.
@@ -706,15 +364,13 @@ namespace ndp_invest_helper
                     Portfolio = new Portfolio(foundSecurities)
                 };
 
-                // Преобразуем тип в строку из словаря и используем её как ключ.
-                var key = SecuritiesManager.TypesDictionary[type];
-                analytics[key] = analyticsItem;
+                analytics[type.Value] = analyticsItem;
             }
 
             // Раскидываем ETF по другим активам, если надо.
             if (unpackEtf)
             {
-                var etfAnalytics = analytics[SecuritiesManager.TypesDictionary[typeof(ETF)]];
+                var etfAnalytics = analytics[AssetType.Etf];
 
                 // Проходимся по всем фондам.
                 foreach (var securityItem in etfAnalytics.Portfolio.Securities)
@@ -742,7 +398,7 @@ namespace ndp_invest_helper
                 }
 
                 // Теперь фонды в чистом виде нам не нужны.
-                analytics.Remove(SecuritiesManager.TypesDictionary[typeof(ETF)]);
+                analytics.Remove(AssetType.Etf);
             }
 
             result.CalculateParts();
@@ -763,13 +419,13 @@ namespace ndp_invest_helper
 
                 foreach (var sectorRecord in security.Sectors)
                 {
-                    var sector = sectorRecord.Key;
+                    var sector = (EconomySector)sectorRecord.Key;
 
                     if (level < sector.Level)
                         sector = SectorsManager.GetParent(sector);
 
                     var resultValue = analytics.GetValueOrSetDefault(
-                        sector.Id, new PortfolioAnalyticsItem());
+                        sector, new PortfolioAnalyticsItem());
 
                     resultValue.Portfolio.AddSecurity(security, 
                         new SecurityInfo(securityInfo, sectorRecord.Value));
@@ -784,7 +440,7 @@ namespace ndp_invest_helper
 
         private decimal CalculateSecuritiesTotal()
         {
-            return securitiesTotal = securities.Sum(x => x.Value.Total);
+            return securitiesTotal = Securities.Sum(x => x.Value.Total);
         }
     }
 }

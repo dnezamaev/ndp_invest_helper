@@ -73,7 +73,7 @@ namespace ndp_invest_helper
                         NumberStyles.Any, CultureInfo.InvariantCulture);
                 }
 
-                secPrice *= CurrenciesManager.RatesToRub[secCurrency];
+                secPrice *= CurrenciesManager.GetRate(secCurrency);
 
                 var securityInfo = new SecurityInfo
                 {

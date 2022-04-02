@@ -128,9 +128,9 @@ CREATE TABLE IF NOT EXISTS "EconomySectors" (
 	"ID"	INTEGER NOT NULL,
 	"Level"	INTEGER NOT NULL,
 	"NameRus"	TEXT NOT NULL,
-	"ParentID"	INTEGER,
-	PRIMARY KEY("ID"),
-	FOREIGN KEY("ParentID") REFERENCES "EconomySectors"("ID")
+	"NameEng"	TEXT NOT NULL,
+	"ParentID"	INTEGER NOT NULL,
+	PRIMARY KEY("ID")
 );
 DROP TABLE IF EXISTS "Tickers";
 CREATE TABLE IF NOT EXISTS "Tickers" (
@@ -148,6 +148,7 @@ CREATE TABLE IF NOT EXISTS "AssetTypes" (
 	PRIMARY KEY("ID")
 );
 
+INSERT INTO "AssetTypes" VALUES (0,'Unknown','Неизвестно');
 INSERT INTO "AssetTypes" VALUES (1,'Share','Акция');
 INSERT INTO "AssetTypes" VALUES (2,'Bond','Облигация');
 INSERT INTO "AssetTypes" VALUES (3,'ETF','Фонд');

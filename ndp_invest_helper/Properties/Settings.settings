@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="CommonDataSource" Type="System.String" Scope="User">
-      <Value Profile="(Default)">SqliteDb</Value>
+      <Value Profile="(Default)">XmlFiles</Value>
     </Setting>
     <Setting Name="BrokerReportsDirectory" Type="System.String" Scope="User">
       <Value Profile="(Default)">data\reports</Value>

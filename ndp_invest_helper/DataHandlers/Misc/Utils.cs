@@ -107,15 +107,15 @@ namespace ndp_invest_helper
         }
 
         public static void HandleSectorAttribute(
-            Dictionary<Sector, decimal> destination,
+            Dictionary<DiversityElement, decimal> destination,
             XElement xTag,
-            string unknownSector)
+            int unknownSector)
         {
-            var sectors = HandleComplexStringXmlAttribute(xTag, "sector", true, unknownSector);
+            var sectors = HandleComplexStringXmlAttribute(xTag, "sector", true, unknownSector.ToString());
 
             foreach (var item in sectors)
             {
-                var sector = SectorsManager.Sectors.Find(x => x.Id == item.Key);
+                var sector = SectorsManager.Sectors.Find(x => x.Id == int.Parse(item.Key));
 
                 if (sector == null)
                     throw new ArgumentException(string.Format(
@@ -126,16 +126,16 @@ namespace ndp_invest_helper
             }
         }
 
-        public static Dictionary<Sector, decimal> HandleSectorAttribute(
+        public static Dictionary<EconomySector, decimal> HandleSectorAttribute(
             XElement xTag,
             string unknownSector)
         {
-            var result = new Dictionary<Sector, decimal>();
+            var result = new Dictionary<EconomySector, decimal>();
             var sectors = HandleComplexStringXmlAttribute(xTag, "sector", true, unknownSector);
 
             foreach (var item in sectors)
             {
-                var sector = SectorsManager.Sectors.Find(x => x.Id == item.Key);
+                var sector = SectorsManager.Sectors.Find(x => x.Id == int.Parse(item.Key));
 
                 if (sector == null)
                     throw new ArgumentException(string.Format(
@@ -149,7 +149,7 @@ namespace ndp_invest_helper
         }
 
         public static void HandleCountryAttribute(
-            Dictionary<Country, decimal> destination,
+            Dictionary<DiversityElement, decimal> destination,
             XElement xTag,
             string unknownCountry)
         {
@@ -169,7 +169,7 @@ namespace ndp_invest_helper
         }
 
         public static void HandleCurrencyAttribute(
-            Dictionary<Currency, decimal> destination,
+            Dictionary<DiversityElement, decimal> destination,
             XElement xTag,
             string unknownCurrency)
         {
@@ -185,6 +185,26 @@ namespace ndp_invest_helper
                         item.Key, xTag.ToString()));
 
                 destination[currency] = item.Value;
+            }
+        }
+
+        public static void HandleAssetTypeAttribute(
+            Dictionary<AssetType, decimal> destination,
+            XElement xTag,
+            string unknownAssetType)
+        {
+            var assets = HandleComplexStringXmlAttribute(xTag, "what_inside", true, unknownAssetType);
+
+            foreach (var item in assets)
+            {
+                var asset = AssetType.All.Values.ToList().Find(x => x.Code == item.Key);
+
+                if (asset == null)
+                    throw new ArgumentException(string.Format(
+                        "Обнаружен неизвестный тип актива {0} в теге {1}",
+                        item.Key, xTag.ToString()));
+
+                destination[asset] = item.Value;
             }
         }
 

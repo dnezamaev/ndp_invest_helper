@@ -6,6 +6,8 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
+using ndp_invest_helper.Models;
+
 namespace ndp_invest_helper.GUI.Krypton
 {
     public partial class PortfolioAnalyticsControl : UserControl
@@ -28,7 +30,7 @@ namespace ndp_invest_helper.GUI.Krypton
         {
             var dataGridView = sender as DataGridView;
             var analyticsResult = dataGridView.Tag as PortfolioAnalyticsResult;
-            var key = dataGridView.Rows[e.RowIndex].Tag as string;
+            var key = dataGridView.Rows[e.RowIndex].Tag as DiversityElement;
 
             if (key == null)
                 return;
@@ -64,8 +66,8 @@ namespace ndp_invest_helper.GUI.Krypton
             var currentResult = investManager.Analytics.CurrentResult;
 
             var sectorNames = SectorsManager.Sectors.ToDictionary(
-                x => x.Id,
-                x => x.Name);
+                x => x.Id.ToString(),
+                x => x.NameRus);
 
             var countryNames = CountriesManager.Countries.ToDictionary(
                 x => x.Code,
@@ -96,17 +98,16 @@ namespace ndp_invest_helper.GUI.Krypton
             }
 
             FillGroupsDataGridView(dataGridView_GroupsByCountry,
-                currentResult.ByCountry, oldResult.ByCountry, countryNames);
+                currentResult.ByCountry, oldResult.ByCountry);
 
             FillGroupsDataGridView(dataGridView_GroupsByCurrency,
-                currentResult.ByCurrency, oldResult.ByCurrency, null);
+                currentResult.ByCurrency, oldResult.ByCurrency);
 
             FillGroupsDataGridView(dataGridView_GroupsBySector,
-                currentResult.BySector, oldResult.BySector, sectorNames);
+                currentResult.BySector, oldResult.BySector);
 
             FillGroupsDataGridView(dataGridView_GroupsByType,
-                currentResult.ByType, oldResult.ByType,
-                SecuritiesManager.SecTypeFriendlyNames);
+                currentResult.ByType, oldResult.ByType);
 
             // Select first row and raise events.
             if (dataGridView_GroupsByCountry.Rows.Count != 0)
@@ -127,8 +128,7 @@ namespace ndp_invest_helper.GUI.Krypton
         (
             DataGridView dataGridView, 
             PortfolioAnalyticsResult newResult,
-            PortfolioAnalyticsResult oldResult,
-            Dictionary<string, string> keyFriendlyNames
+            PortfolioAnalyticsResult oldResult
         )
         {
             dataGridView.Rows.Clear();
@@ -145,11 +145,6 @@ namespace ndp_invest_helper.GUI.Krypton
                 var value = kvp.Value.Part;
                 var diff = 0M;
 
-                var friendlyKey = key;
-
-                if (keyFriendlyNames != null && keyFriendlyNames.ContainsKey(key))
-                    friendlyKey = keyFriendlyNames[key];
-
                 // Если это обновленная аналитика и в старой был такой же ключ,
                 // то подкрашиваем строки цветом:
                 // зеленая при увеличении доли, красная при уменьшении.
@@ -164,7 +159,7 @@ namespace ndp_invest_helper.GUI.Krypton
                             row.DefaultCellStyle.BackColor = Color.LightPink;
                 }
 
-                row.SetValues(friendlyKey, value * 100, diff * 100);
+                row.SetValues(key.FriendlyName, value * 100, diff * 100);
                 row.Tag = kvp.Key;
             }
 

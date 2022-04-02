@@ -18,14 +18,27 @@ namespace ndp_invest_helper
 
         public static Dictionary<string, Currency> ByCode;
 
-        public static Dictionary<string, decimal> RatesToRub;
+        /// <summary>
+        /// All currencies that have not null rate.
+        /// </summary>
+        public static Dictionary<Currency, decimal> RatesToRub;
+
+        public static decimal GetRate(string code)
+        {
+            return RatesToRub[ByCode[code]];
+        }
+
+        public static decimal GetRate(int id)
+        {
+            return RatesToRub[ById[id]];
+        }
 
         private static void Init()
         {
             Currencies = new List<Currency>();
             ById = new Dictionary<int, Currency>();
             ByCode = new Dictionary<string, Currency>();
-            RatesToRub = new Dictionary<string, decimal>();
+            RatesToRub = new Dictionary<Currency, decimal>();
         }
 
         public static void LoadFromXmlText(string text)
@@ -51,7 +64,7 @@ namespace ndp_invest_helper
                     CultureInfo.InvariantCulture, out decimal rateDec))
                 {
                     currency.RateToRub = rateDec;
-                    RatesToRub[currency.Code] = rateDec;
+                    RatesToRub[currency] = rateDec;
                 }
 
                 Currencies.Add(currency);
@@ -90,7 +103,7 @@ namespace ndp_invest_helper
             foreach (var item in Currencies)
             {
                 if (item.RateToRub.HasValue)
-                    RatesToRub[item.Code] = item.RateToRub.Value;
+                    RatesToRub[item] = item.RateToRub.Value;
             }
         }
     }

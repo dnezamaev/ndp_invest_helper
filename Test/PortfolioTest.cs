@@ -158,10 +158,10 @@ namespace Test
                 CountriesManager.ByCode["issuer inner country 2"]]);
 
             Assert.AreEqual(2, issuer.Sectors.Count);
-            Assert.IsTrue(issuer.Sectors.ContainsKey(SectorsManager.ById["2"]));
-            Assert.IsTrue(issuer.Sectors.ContainsKey(SectorsManager.ById["3"]));
-            Assert.AreEqual(0.2M, issuer.Sectors[SectorsManager.ById["2"]]);
-            Assert.AreEqual(0.8M, issuer.Sectors[SectorsManager.ById["3"]]);
+            Assert.IsTrue(issuer.Sectors.ContainsKey(SectorsManager.ById[2]));
+            Assert.IsTrue(issuer.Sectors.ContainsKey(SectorsManager.ById[3]));
+            Assert.AreEqual(0.2M, issuer.Sectors[SectorsManager.ById[2]]);
+            Assert.AreEqual(0.8M, issuer.Sectors[SectorsManager.ById[3]]);
 
             // С заполненным фондом аналогично, у него свои характеристики,
             // переопределяющие эмитента.
@@ -194,16 +194,16 @@ namespace Test
                 CountriesManager.ByCode["???"]]);
 
             Assert.AreEqual(2, fullEtf.Sectors.Count);
-            Assert.IsTrue(fullEtf.Sectors.ContainsKey(SectorsManager.ById["5"]));
+            Assert.IsTrue(fullEtf.Sectors.ContainsKey(SectorsManager.ById[5]));
             Assert.IsTrue(fullEtf.Sectors.ContainsKey(SectorsManager.DefaultSector));
-            Assert.AreEqual(0.3M, fullEtf.Sectors[SectorsManager.ById["5"]]);
+            Assert.AreEqual(0.3M, fullEtf.Sectors[SectorsManager.ById[5]]);
             Assert.AreEqual(0.7M, fullEtf.Sectors[SectorsManager.DefaultSector]);
 
             Assert.AreEqual(2, fullEtf.WhatInside.Count);
-            Assert.IsTrue(fullEtf.WhatInside.ContainsKey("bond"));
-            Assert.IsTrue(fullEtf.WhatInside.ContainsKey("???"));
-            Assert.AreEqual(0.4M, fullEtf.WhatInside["bond"]);
-            Assert.AreEqual(0.6M, fullEtf.WhatInside["???"]);
+            Assert.IsTrue(fullEtf.WhatInside.ContainsKey(AssetType.Bond));
+            Assert.IsTrue(fullEtf.WhatInside.ContainsKey(AssetType.Unknown));
+            Assert.AreEqual(0.4M, fullEtf.WhatInside[AssetType.Bond]);
+            Assert.AreEqual(0.6M, fullEtf.WhatInside[AssetType.Unknown]);
 
             // У пустой бумаги характеристики берутся от эмитента.
             var emptySec = SecuritiesManager.SecuritiesByTicker["EMPTY"];
@@ -219,10 +219,10 @@ namespace Test
                 CountriesManager.ByCode["issuer inner country 2"]]);
 
             Assert.AreEqual(2, emptySec.Sectors.Count);
-            Assert.IsTrue(emptySec.Sectors.ContainsKey(SectorsManager.ById["2"]));
-            Assert.IsTrue(emptySec.Sectors.ContainsKey(SectorsManager.ById["3"]));
-            Assert.AreEqual(0.2M, emptySec.Sectors[SectorsManager.ById["2"]]);
-            Assert.AreEqual(0.8M, emptySec.Sectors[SectorsManager.ById["3"]]);
+            Assert.IsTrue(emptySec.Sectors.ContainsKey(SectorsManager.ById[2]));
+            Assert.IsTrue(emptySec.Sectors.ContainsKey(SectorsManager.ById[3]));
+            Assert.AreEqual(0.2M, emptySec.Sectors[SectorsManager.ById[2]]);
+            Assert.AreEqual(0.8M, emptySec.Sectors[SectorsManager.ById[3]]);
 
             var currencyBond = SecuritiesManager.SecuritiesByIsin["bond with currency"];
 
@@ -305,11 +305,14 @@ namespace Test
                     { etf2, new SecurityInfo { Count = 10, Price = 1000 } }
                 };
 
+            var currency1 = CurrenciesManager.ByCode["cur1"];
+            var currency2 = CurrenciesManager.ByCode["cur2"];
+
             var cashDict =
-                new Dictionary<string, decimal>
+                new Dictionary<Currency, decimal>
                 {
-                    { "cur1", 100 },
-                    { "cur2", 100 },
+                    { currency1, 100 },
+                    { currency2, 100 },
                 };
 
             var portfolio = new Portfolio(secDict, cashDict);
@@ -336,69 +339,76 @@ namespace Test
             var anSector = group.BySector.Analytics;
 
             Assert.AreEqual(3, anCurrency.Count);
-            Assert.IsTrue(anCurrency.ContainsKey("cur1"));
-            Assert.IsTrue(anCurrency.ContainsKey("cur2"));
-            Assert.IsTrue(anCurrency.ContainsKey("???"));
+            Assert.IsTrue(anCurrency.ContainsKey(CurrenciesManager.ByCode["cur1"]));
+            Assert.IsTrue(anCurrency.ContainsKey(CurrenciesManager.ByCode["cur2"]));
+            Assert.IsTrue(anCurrency.ContainsKey(CurrenciesManager.ByCode["???"]));
             Assert.AreEqual(
                 (100 + 10 * 1000 * 1 + 10 * 1000 * 0.1M) / total, 
-                anCurrency["cur1"].Part);
+                anCurrency[CurrenciesManager.ByCode["cur1"]].Part);
             Assert.AreEqual(
                 (100 + 10 * 1000 * 0.5M) / total, 
-                anCurrency["cur2"].Part);
+                anCurrency[CurrenciesManager.ByCode["cur2"]].Part);
             Assert.AreEqual(
                 (10 * 1000 * 0.4M) / total, 
-                anCurrency["???"].Part);
+                anCurrency[CurrenciesManager.ByCode["???"]].Part);
+
+            var country1 = CountriesManager.ByCode["cnt1"];
+            var country2 = CountriesManager.ByCode["cnt2"];
+            var countryUnknown = CountriesManager.ByCode["???"];
 
             Assert.AreEqual(3, anCountry.Count);
-            Assert.IsTrue(anCountry.ContainsKey("cnt1"));
-            Assert.IsTrue(anCountry.ContainsKey("cnt2"));
-            Assert.IsTrue(anCountry.ContainsKey("???"));
+            Assert.IsTrue(anCountry.ContainsKey(country1));
+            Assert.IsTrue(anCountry.ContainsKey(country2));
+            Assert.IsTrue(anCountry.ContainsKey(countryUnknown));
             Assert.AreEqual(
                 (10 * 1000 * 1 + 10 * 1000 * 0.1M) / secTotal,
-                anCountry["cnt1"].Part);
+                anCountry[country1].Part);
             Assert.AreEqual(
                 (10 * 1000 * 0.5M) / secTotal,
-                anCountry["cnt2"].Part);
+                anCountry[country2].Part);
             Assert.AreEqual(
                 (10 * 1000 * 0.4M) / secTotal,
-                anCountry["???"].Part);
+                anCountry[countryUnknown].Part);
+
+            var sector1 = SectorsManager.ById[1];
+            var sector2 = SectorsManager.ById[2];
+            var sector900 = SectorsManager.ById[900];
 
             Assert.AreEqual(3, anSector.Count);
-            Assert.IsTrue(anSector.ContainsKey("1"));
-            Assert.IsTrue(anSector.ContainsKey("2"));
-            Assert.IsTrue(anSector.ContainsKey("900"));
+            Assert.IsTrue(anSector.ContainsKey(sector1));
+            Assert.IsTrue(anSector.ContainsKey(sector2));
+            Assert.IsTrue(anSector.ContainsKey(sector900));
             Assert.AreEqual(
                 (10 * 1000 * 1 + 10 * 1000 * 0.1M) / secTotal,
-                anSector["1"].Part);
+                anSector[sector1].Part);
             Assert.AreEqual(
                 (10 * 1000 * 0.5M) / secTotal,
-                anSector["2"].Part);
+                anSector[sector2].Part);
             Assert.AreEqual(
                 (10 * 1000 * 0.4M) / secTotal,
-                anSector["900"].Part);
+                anSector[sector900].Part);
 
             Assert.AreEqual(5, anType.Count);
-            Assert.IsTrue(anType.ContainsKey("share"));
-            Assert.IsTrue(anType.ContainsKey("bond"));
-            Assert.IsTrue(anType.ContainsKey("gold"));
-            Assert.IsTrue(anType.ContainsKey("cash"));
-            Assert.IsTrue(anType.ContainsKey("???"));
+            Assert.IsTrue(anType.ContainsKey(AssetType.Share));
+            Assert.IsTrue(anType.ContainsKey(AssetType.Bond));
+            Assert.IsTrue(anType.ContainsKey(AssetType.Gold));
+            Assert.IsTrue(anType.ContainsKey(AssetType.Cash));
+            Assert.IsTrue(anType.ContainsKey(AssetType.Unknown));
             Assert.AreEqual(
                 (10 * 1000 * 1 + 10 * 1000 * 0.1M) / total,
-                anType["share"].Part);
+                anType[AssetType.Share].Part);
             Assert.AreEqual(
                 (10 * 1000 * 0.5M) / total,
-                anType["bond"].Part);
+                anType[AssetType.Bond].Part);
             Assert.AreEqual(
                 (10 * 1000 * 0.1M) / total,
-                anType["gold"].Part);
+                anType[AssetType.Gold].Part);
             Assert.AreEqual(
                 (100 + 100M) / total,
-                anType["cash"].Part);
+                anType[AssetType.Cash].Part);
             Assert.AreEqual(
                 (10 * 1000 * 0.3M) / total,
-                anType["???"].Part);
-
+                anType[AssetType.Unknown].Part);
         }
 
     }

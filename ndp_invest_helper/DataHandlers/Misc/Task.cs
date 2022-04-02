@@ -152,7 +152,7 @@ namespace ndp_invest_helper
                 securitiesToRemove = securitiesInResult.Except(securitiesToKeep).ToList();
             }
 
-            currentResult.RemoveSecurities(true, false, "RUB", securitiesToRemove.ToArray());
+            currentResult.RemoveSecurities(true, false, CurrenciesManager.ByCode["RUB"], securitiesToRemove.ToArray());
 
             #endregion
 
@@ -260,13 +260,21 @@ namespace ndp_invest_helper
             if (xKeepOnlyKeys  != null)
             {
                 var keysToKeep = xKeepOnlyKeys.Value.Split(';');
-                keysToRemove = currentResult.Analytics.Keys.Where(
-                    x => ! keysToKeep.Contains(x)
-                    ).ToArray();
+                keysToRemove = currentResult.Analytics.Keys
+                    .Where(x => ! keysToKeep.Contains(x.Code))
+                    .Select(x => x.Code)
+                    .ToArray();
             }
 
             if (keysToRemove != null)
-                currentResult.RemoveKeys(true, keysToRemove);
+            {
+                currentResult.RemoveKeys(
+                    true,
+                    currentResult.Analytics.Keys
+                    .Where(x => keysToRemove.Contains(x.Code))
+                    .ToArray()
+                    );
+            }
 
             #endregion
         }
@@ -358,11 +366,12 @@ namespace ndp_invest_helper
             if (xUseCash != null)
                 useCash = xUseCash.Value.ToString() == "no";
 
-            var currency = "RUB";
+            var currency = CurrenciesManager.ByCode["RUB"];
 
             if (xCurrency != null)
             {
-                currency = xCurrency.Value.ToString();
+                currency = CurrenciesManager.ByCode[xCurrency.Value];
+
                 if (!CurrenciesManager.RatesToRub.ContainsKey(currency))
                     throw new ArgumentException(string.Format(
                         "В действии {0} указан аттрибут currency={1}, " +

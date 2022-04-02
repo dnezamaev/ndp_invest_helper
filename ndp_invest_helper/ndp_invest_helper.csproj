@@ -88,12 +88,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataHandlers\CommonData\CommonDataManager.cs" />
-    <Compile Include="DataHandlers\Models\IDevirsityElement.cs" />
+    <Compile Include="DataHandlers\Models\DiversityElement.cs" />
     <Compile Include="DataHandlers\Models\IDiversified.cs" />
     <Compile Include="DataHandlers\Portfolio\AnalyticsManager.cs" />
     <Compile Include="DataHandlers\CommonData\CountriesManager.cs" />
     <Compile Include="DataHandlers\CommonData\CurrenciesManager.cs" />
     <Compile Include="DataHandlers\CommonData\DatabaseManager.cs" />
+    <Compile Include="DataHandlers\Portfolio\Deal.cs" />
+    <Compile Include="DataHandlers\Portfolio\GrouppingResults.cs" />
+    <Compile Include="DataHandlers\Portfolio\PortfolioAnalyticsItem.cs" />
+    <Compile Include="DataHandlers\Portfolio\PortfolioAnalyticsResult.cs" />
     <Compile Include="GUI\Krypton\AssetsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

@@ -24,7 +24,7 @@ namespace ndp_invest_helper
         /// <summary>
         /// Обнаруженная в отчете наличность.
         /// </summary>
-        public Dictionary<string, decimal> Cash = new Dictionary<string, decimal>();
+        public Dictionary<Currency, decimal> Cash = new Dictionary<Currency, decimal>();
 
         /// <summary>
         /// Обнаруженные в отчете бумаги, о которых нет информации в базе.
@@ -58,7 +58,7 @@ namespace ndp_invest_helper
                     xValue.Value.ToString(), 
                     NumberStyles.Any, CultureInfo.InvariantCulture );
 
-                Cash[xKey.Value] = cashValue;
+                Cash[CurrenciesManager.ByCode[xKey.Value]] = cashValue;
             }
         }
     }

@@ -223,7 +223,7 @@ namespace ndp_invest_helper
             Properties.Settings.Default.Save();
         }
 
-        private static string SettingFilePath
+        public static string SettingFilePath
         {
             get => ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal).FilePath;
         }

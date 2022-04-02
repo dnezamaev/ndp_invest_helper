@@ -57,43 +57,37 @@ namespace ndp_invest_helper.GUI.Krypton
         private void FillDataGridParts()
         {
             var selectedSecIss = (IDiversified)comboBox_SecurityIssuer.SelectedItem;
+            Dictionary<DiversityElement, decimal> parts;
 
             dataGrid_Parts.Rows.Clear();
 
             if (radioButton_Currencies.Checked)
             {
-                foreach (var item in selectedSecIss.Currencies)
-                {
-                    var rowIndex = dataGrid_Parts.Rows.Add();
-                    var row = dataGrid_Parts.Rows[rowIndex];
-
-                    row.SetValues(item.Key.Code, item.Value);
-                    row.Tag = item;
-                }
+                parts = selectedSecIss.Currencies;
             }
             else if (radioButton_Countries.Checked)
             {
-                foreach (var item in selectedSecIss.Countries)
-                {
-                    var rowIndex = dataGrid_Parts.Rows.Add();
-                    var row = dataGrid_Parts.Rows[rowIndex];
-
-                    row.SetValues(item.Key.Code, item.Value);
-                    row.Tag = item.Key;
-                }
+                parts = selectedSecIss.Countries;
             }
             else if (radioButton_Sectors.Checked)
             {
-                foreach (var item in selectedSecIss.Sectors)
-                {
-                    var rowIndex = dataGrid_Parts.Rows.Add();
-                    var row = dataGrid_Parts.Rows[rowIndex];
-
-                    row.SetValues(item.Key.Id, item.Value);
-                    row.Tag = item.Key;
-                }
+                parts = selectedSecIss.Sectors;
+            }
+            else
+            {
+                throw new NotImplementedException();
             }
 
+            foreach (var item in parts)
+            {
+                var rowIndex = dataGrid_Parts.Rows.Add();
+                var row = dataGrid_Parts.Rows[rowIndex];
+
+                row.SetValues(item.Key.FriendlyName, item.Value);
+                row.Tag = item;
+            }
+
+            dataGrid_Parts.Tag = parts;
         }
 
         private void FillDataGridKeys()

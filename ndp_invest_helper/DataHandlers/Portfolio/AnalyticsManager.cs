@@ -50,7 +50,7 @@ namespace ndp_invest_helper
 
             foreach (var item in Settings.Cash)
             {
-                portfolio.AddCash(item.Key, item.Value);
+                portfolio.AddCash(CurrenciesManager.ByCode[item.Key], item.Value);
             }
 
             GrouppingResults.Clear();

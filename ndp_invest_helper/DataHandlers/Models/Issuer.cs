@@ -33,14 +33,14 @@ namespace ndp_invest_helper.Models
         /// </summary>
         public string NameRus { get; set; }
 
-        public Dictionary<Sector, decimal> Sectors { get; set; }
-            = new Dictionary<Sector, decimal>();
+        public Dictionary<DiversityElement, decimal> Sectors { get; set; }
+            = new Dictionary<DiversityElement, decimal>();
 
-        public Dictionary<Country, decimal> Countries { get; set; }
-            = new Dictionary<Country, decimal>();
+        public Dictionary<DiversityElement, decimal> Countries { get; set; }
+            = new Dictionary<DiversityElement, decimal>();
 
-        public Dictionary<Currency, decimal> Currencies { get; set; }
-            = new Dictionary<Currency, decimal>();
+        public Dictionary<DiversityElement, decimal> Currencies { get; set; }
+            = new Dictionary<DiversityElement, decimal>();
 
         public List<Security> Securities { get; set; }
             = new List<Security>();
@@ -57,7 +57,7 @@ namespace ndp_invest_helper.Models
                 if (item.Key == null)
                     continue;
 
-                sb.AppendFormat("{0} = {1}; ", item.Key.Name, item.Value);
+                sb.AppendFormat("{0} = {1}; ", item.Key.NameRus, item.Value);
             }
             sb.AppendLine();
 

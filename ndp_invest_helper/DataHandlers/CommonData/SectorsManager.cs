@@ -5,39 +5,15 @@ using System.IO;
 using System.Text;
 using System.Xml.Linq;
 
+using ndp_invest_helper.Models;
+
 namespace ndp_invest_helper
 {
-    public class Sector
-    {
-        /// <summary>
-        /// Уникальный идентификатор сектора.
-        /// По идее должен быть int, но для единообразия в группировке строка.
-        /// Секторов немного, так что проблем со скоростью/памятью не должно возникнуть.
-        /// Если будет сильно тормозить, можно заменить на свойство с кэшируемым значением.
-        /// </summary>
-        public string Id;
-
-        /// <summary>
-        /// Уровень вложенности. 
-        /// 1 - самый верхний, глобальные сектора экономики.
-        /// 2 - более мелкое деление. И т.д.
-        /// </summary>
-        public int Level;
-
-        /// <summary>
-        /// Идентификатор родительского сектора для секторов с Level > 1.
-        /// Если это сектор верхнего уровня, то 0.
-        /// </summary>
-        public string ParentId;
-
-        public string Name;
-    }
-
     public static class SectorsManager
     {
-        public static List<Sector> Sectors;
+        public static List<EconomySector> Sectors;
 
-        public static Dictionary<string, Sector> ById;
+        public static Dictionary<int, EconomySector> ById;
 
         /// <summary>
         /// Количество уровней вложенности.
@@ -48,25 +24,25 @@ namespace ndp_invest_helper
         /// Номер сектора по умолчанию для неизвестных секторов.
         /// Первый уровень вложенности.
         /// </summary>
-        public const string DefaultSectorIdLevel1 = "900";
+        public const int DefaultSectorIdLevel1 = 900;
 
         /// <summary>
         /// Номер сектора по умолчанию для неизвестных секторов.
         /// Второй уровень вложенности.
         /// </summary>
-        public const string DefaultSectorIdLevel2 = "999";
+        public const int DefaultSectorIdLevel2 = 999;
 
         /// <summary>
         /// Сектор по умолчанию для неизвестных секторов.
         /// </summary>
-        public static Sector DefaultSector { get => ById[DefaultSectorIdLevel2]; }
+        public static EconomySector DefaultSector { get => ById[DefaultSectorIdLevel2]; }
 
         /// <summary>
         /// Получить родительский сектор на один уровень выше.
         /// </summary>
         /// <param name="sector">Сектор, для которого ищем родителя.</param>
         /// <returns>Родительский сектор.</returns>
-        public static Sector GetParent(Sector sector)
+        public static EconomySector GetParent(EconomySector sector)
         {
             return ById[sector.ParentId];
         }
@@ -77,7 +53,7 @@ namespace ndp_invest_helper
         /// <param name="sector">Сектор, для которого ищем родителя.</param>
         /// <param name="parentLevel">Уровень родителя.</param>
         /// <returns>Родительский сектор.</returns>
-        public static Sector GetParent(Sector sector, int parentLevel)
+        public static EconomySector GetParent(EconomySector sector, int parentLevel)
         {
             while (parentLevel < sector.Level)
                 sector = GetParent(sector);
@@ -87,8 +63,8 @@ namespace ndp_invest_helper
 
         private static void Init()
         {
-            Sectors = new List<Sector>();
-            ById = new Dictionary<string, Sector>();
+            Sectors = new List<EconomySector>();
+            ById = new Dictionary<int, EconomySector>();
             LevelsCount = 0;
         }
 
@@ -96,16 +72,7 @@ namespace ndp_invest_helper
         {
             Init();
 
-            Sectors = DatabaseManager.GetFullTable<Models.EconomySector>("EconomySectors")
-                .Select(x =>
-                new Sector
-                {
-                    Id = x.Id.ToString(),
-                    Level = (int)x.Level,
-                    Name = x.NameRus,
-                    ParentId = x.ParentId.ToString()
-                }
-                ).ToList();
+            Sectors = DatabaseManager.GetFullTable<EconomySector>("EconomySectors");
 
             ById = Sectors.ToDictionary(k => k.Id, v => v);
         }
@@ -118,12 +85,13 @@ namespace ndp_invest_helper
 
             foreach (var xSector in xRoot.Elements("row"))
             {
-                var sector = new Sector
+                var sector = new EconomySector
                 {
-                    Id = xSector.Attribute("id").Value,
+                    Id = int.Parse(xSector.Attribute("id").Value),
                     Level = int.Parse(xSector.Attribute("level").Value),
-                    ParentId = xSector.Attribute("parent_id").Value,
-                    Name = xSector.Attribute("name").Value
+                    ParentId = int.Parse(xSector.Attribute("parent_id").Value),
+                    NameRus = xSector.Attribute("name_ru").Value,
+                    NameEng = xSector.Attribute("name_en").Value
                 };
 
                 Sectors.Add(sector);

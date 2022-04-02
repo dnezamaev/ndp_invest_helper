@@ -88,13 +88,14 @@ namespace ndp_invest_helper
         private static void ImportXmlSecurites(SQLiteConnection connection)
         {
             var XmlToDbAssetNames
-                = new Dictionary<string, AssetTypes>()
+                = new Dictionary<string, AssetTypeEnum>()
                 {
-                    {"share", AssetTypes.Share },
-                    {"bond", AssetTypes.Bond },
-                    {"etf", AssetTypes.Etf },
-                    {"gold", AssetTypes.Gold },
-                    {"cash", AssetTypes.Cash },
+                    {"unknown", AssetTypeEnum.Unknown },
+                    {"share", AssetTypeEnum.Share },
+                    {"bond", AssetTypeEnum.Bond },
+                    {"etf", AssetTypeEnum.Etf },
+                    {"gold", AssetTypeEnum.Gold },
+                    {"cash", AssetTypeEnum.Cash },
                 };
 
             int commandResult;
@@ -182,7 +183,7 @@ namespace ndp_invest_helper
                     var param = new
                     {
                         IssuerID = issuerId,
-                        SectorID = int.Parse(item.Key.Id),
+                        SectorID = item.Key.Id,
                         Part = item.Value
                     };
 
@@ -205,11 +206,11 @@ namespace ndp_invest_helper
 
                     int secType;
                     if (security is Share)
-                        secType = (int)AssetTypes.Share;
+                        secType = (int)AssetTypeEnum.Share;
                     else if (security is Bond)
-                        secType = (int)AssetTypes.Bond;
+                        secType = (int)AssetTypeEnum.Bond;
                     else if (security is ETF)
-                        secType = (int)AssetTypes.Etf;
+                        secType = (int)AssetTypeEnum.Etf;
                     else
                         throw new ArgumentException("Unknown security type.");
 
@@ -263,7 +264,7 @@ namespace ndp_invest_helper
                         var param = new
                         {
                             SecurityID = securityId,
-                            SectorID = int.Parse(item.Key.Id),
+                            SectorID = item.Key.Id,
                             Part = item.Value
                         };
 
@@ -283,7 +284,7 @@ namespace ndp_invest_helper
                             var param = new
                             {
                                 FundSecurityId = securityId,
-                                AssetTypeId = (long)XmlToDbAssetNames[item.Key],
+                                AssetTypeId = item.Key.Id,
                                 Part = item.Value
                             };
 
@@ -409,14 +410,15 @@ namespace ndp_invest_helper
         {
             var command = new SQLiteCommand(connection);
             command.CommandText =
-                "INSERT INTO EconomySectors(ID, Level, NameRus, ParentID)" +
-                "VALUES(@ID, @Level, @NameRus, @ParentID)";
+                "INSERT INTO EconomySectors(ID, Level, NameRus, NameEng, ParentID)" +
+                "VALUES(@ID, @Level, @NameRus, @NameEng, @ParentID)";
 
             foreach (var sector in SectorsManager.Sectors)
             {
                 command.Parameters.AddWithValue("@ID", sector.Id);
                 command.Parameters.AddWithValue("@Level", sector.Level);
-                command.Parameters.AddWithValue("@NameRus", sector.Name);
+                command.Parameters.AddWithValue("@NameRus", sector.NameRus);
+                command.Parameters.AddWithValue("@NameEng", sector.NameEng);
                 command.Parameters.AddWithValue("@ParentID", sector.ParentId);
                 command.Prepare();
 

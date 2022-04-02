@@ -28,31 +28,6 @@ namespace ndp_invest_helper
                
         public static Dictionary<string, Security> SecuritiesByTicker;
 
-        /// <summary>
-        /// Словарь: тип актива в sec_type файла securities.xml -> название для отображения.
-        /// </summary>
-        public static readonly Dictionary<string, string> SecTypeFriendlyNames
-            = new Dictionary<string, string>
-            {
-                { "cash", "Деньги" },
-                { "share", "Акции" },
-                { "bond", "Облигации" },
-                { "etf", "Фонды" },
-                { "gold", "Золото" },
-            };
-
-        /// <summary>
-        /// Словарь соответствия типов C# и типов в аттрибутах securities.xml.
-        /// На случай рефакторинга, чтобы не побилась зависимость при переименовании типа.
-        /// </summary>
-        public static readonly Dictionary<Type, string> TypesDictionary
-            = new Dictionary<Type, string> 
-            {
-                { typeof(Share), "share" },
-                { typeof(Bond),  "bond" },
-                { typeof(ETF),    "etf" },
-            };
-
         private static void Init()
         {
             Issuers = new List<Issuer>();
@@ -100,19 +75,19 @@ namespace ndp_invest_helper
                     Currencies = dbCurrencies
                     .Where(x => x.IssuerId == dbIssuer.Id)
                     .ToDictionary(
-                        k => CurrenciesManager.ById[k.CurrencyId],
+                        k => (DiversityElement) CurrenciesManager.ById[k.CurrencyId],
                         v => v.Part),
 
                     Countries = dbCountries
                     .Where(x => x.IssuerId == dbIssuer.Id)
                     .ToDictionary(
-                        k => CountriesManager.ById[k.CountryId],
+                        k => (DiversityElement) CountriesManager.ById[k.CountryId],
                         v => v.Part),
 
                     Sectors = dbSectors
                     .Where(x => x.IssuerId == dbIssuer.Id)
                     .ToDictionary(
-                        k => SectorsManager.ById[k.SectorId],
+                        k => (DiversityElement) SectorsManager.ById[k.SectorId],
                         v => v.Part)
                 };
 
@@ -150,15 +125,15 @@ namespace ndp_invest_helper
             {
                 Security security;
 
-                switch ((AssetTypes)dbSecurity.SecurityType)
+                switch ((AssetTypeEnum)dbSecurity.SecurityType)
                 {
-                    case AssetTypes.Share:
+                    case AssetTypeEnum.Share:
                         security = new Share();
                         break;
-                    case AssetTypes.Bond:
+                    case AssetTypeEnum.Bond:
                         security = new Bond();
                         break;
-                    case AssetTypes.Etf:
+                    case AssetTypeEnum.Etf:
                         security = new ETF();
                         break;
                     default:
@@ -206,7 +181,7 @@ namespace ndp_invest_helper
                 foreach (var sector in dbSecuritySectors)
                 {
                     security.SecuritySectors.Add(
-                        SectorsManager.ById[sector.SectorId.ToString()],
+                        SectorsManager.ById[sector.SectorId],
                         (decimal)sector.Part);
                 }
 
@@ -222,9 +197,7 @@ namespace ndp_invest_helper
                     foreach (var asset in currentEtfAssets)
                     {
                         etf.WhatInside.Add(
-                            dbAssetTypes
-                                .Where(x => x.Id == asset.AssetTypeId)
-                                .First().NameRus,
+                            AssetType.All[(AssetTypeEnum)asset.AssetTypeId],
                             asset.Part);
                     }
                 }
@@ -329,7 +302,7 @@ namespace ndp_invest_helper
 
                 case "etf":
                     security = new ETF();
-                    Utils.HandleComplexStringXmlAttribute(
+                    Utils.HandleAssetTypeAttribute(
                         (security as ETF).WhatInside, xSecurity, "what_inside");
                     break;
                 default:

@@ -41,6 +41,11 @@ namespace ndp_invest_helper.Models
         public Issuer Issuer { get; set; }
 
         /// <summary>
+        /// Тип бумаги.
+        /// </summary>
+        public virtual AssetTypeEnum SecurityType { get => AssetTypeEnum.Unknown; }
+
+        /// <summary>
         /// Является ли бумага полностью заполненной в базе Securities.xml по всем параметрам.
         /// </summary>
         public bool IsCompleted
@@ -56,19 +61,19 @@ namespace ndp_invest_helper.Models
             }
         }
 
-        protected Dictionary<Sector, decimal> sectors =
-            new Dictionary<Sector, decimal>(); 
+        protected Dictionary<DiversityElement, decimal> sectors =
+            new Dictionary<DiversityElement, decimal>(); 
 
-        protected Dictionary<Country, decimal> countries = 
-            new Dictionary<Country, decimal>();
+        protected Dictionary<DiversityElement, decimal> countries = 
+            new Dictionary<DiversityElement, decimal>();
 
-        protected Dictionary<Currency, decimal> currencies = 
-            new Dictionary<Currency, decimal>();
+        protected Dictionary<DiversityElement, decimal> currencies = 
+            new Dictionary<DiversityElement, decimal>();
 
         /// <summary>
         /// Отрасли экономики бумаги или эмитента.
         /// </summary>
-        public Dictionary<Sector, decimal> Sectors
+        public Dictionary<DiversityElement, decimal> Sectors
         {
             get => sectors.Count != 0 ? sectors : Issuer.Sectors;
         }
@@ -76,7 +81,7 @@ namespace ndp_invest_helper.Models
         /// <summary>
         /// Страны бумаги или эмитента.
         /// </summary>
-        public Dictionary<Country, decimal> Countries
+        public Dictionary<DiversityElement, decimal> Countries
         {
             get => countries.Count != 0 ? countries : Issuer.Countries;
         }
@@ -84,7 +89,7 @@ namespace ndp_invest_helper.Models
         /// <summary>
         /// Валюты бумаги или эмитента.
         /// </summary>
-        public Dictionary<Currency, decimal> Currencies
+        public Dictionary<DiversityElement, decimal> Currencies
         {
             get => currencies.Count != 0 ? currencies : Issuer.Currencies;
         }
@@ -92,7 +97,7 @@ namespace ndp_invest_helper.Models
         /// <summary>
         /// Отрасли экономики бумаги.
         /// </summary>
-        public Dictionary<Sector, decimal> SecuritySectors
+        public Dictionary<DiversityElement, decimal> SecuritySectors
         {
             get => sectors;
         }
@@ -100,7 +105,7 @@ namespace ndp_invest_helper.Models
         /// <summary>
         /// Страны бумаги.
         /// </summary>
-        public Dictionary<Country, decimal> SecurityCountries
+        public Dictionary<DiversityElement, decimal> SecurityCountries
         {
             get => countries;
         }
@@ -108,7 +113,7 @@ namespace ndp_invest_helper.Models
         /// <summary>
         /// Валюты бумаги.
         /// </summary>
-        public Dictionary<Currency, decimal> SecurityCurrencies
+        public Dictionary<DiversityElement, decimal> SecurityCurrencies
         {
             get => currencies;
         }
@@ -181,7 +186,7 @@ namespace ndp_invest_helper.Models
             sb.Append(" Sectors={");
             foreach (var item in Sectors)
             {
-                sb.AppendFormat("{0}:{1}, ", item.Key.Name, item.Value);
+                sb.AppendFormat("{0}:{1}, ", item.Key.NameRus, item.Value);
             }
 
             sb.Append("} Countries={");
@@ -241,6 +246,7 @@ namespace ndp_invest_helper.Models
     /// </summary>
     public class Share : Security 
     {
+        public override AssetTypeEnum SecurityType { get => AssetTypeEnum.Share; }
     }
 
     /// <summary>
@@ -248,6 +254,7 @@ namespace ndp_invest_helper.Models
     /// </summary>
     public class Bond : Security
     {
+        public override AssetTypeEnum SecurityType { get => AssetTypeEnum.Bond; }
     }
 
     /// <summary>
@@ -255,18 +262,20 @@ namespace ndp_invest_helper.Models
     /// </summary>
     public class ETF : Security
     {
-        private Dictionary<string, decimal> whatInside
-            = new Dictionary<string, decimal>();
-
         /// <summary>
         /// Состав фонда по типам активов: акции, облигации, золото, деньги и т.п.
         /// Список см. в SecuritiesManager.SecTypeFriendlyNames
         /// </summary>
-        public Dictionary<string, decimal> WhatInside 
-        { 
-            get => whatInside;
-            set => whatInside = value; 
-        }
+        public Dictionary<AssetType, decimal> WhatInside { get; }
+            = new Dictionary<AssetType, decimal>();
+
+        /// <summary>
+        /// Состав фонда по ценным бумагам с долями.
+        /// </summary>
+        public Dictionary<Security, decimal> Securities { get; }
+            = new Dictionary<Security, decimal>();
+
+        public override AssetTypeEnum SecurityType { get => AssetTypeEnum.Etf; }
 
         public override string ToString()
         {
@@ -284,7 +293,7 @@ namespace ndp_invest_helper.Models
     }
 
     /// <summary>
-    /// Динамическая информация о ценной бумаге.
+    /// Динамическая информация о ценной бумаге в портфеле.
     /// </summary>
     public class SecurityInfo
     {
@@ -304,7 +313,7 @@ namespace ndp_invest_helper.Models
         /// </summary>
         /// <param name="currency">Код валюты по ISO 4217.</param>
         /// <returns>Пересчитанная в валюте цена.</returns>
-        public decimal PriceInCurrency(string currency)
+        public decimal PriceInCurrency(Currency currency)
         {
             return  Price / CurrenciesManager.RatesToRub[currency];
         }
@@ -323,16 +332,16 @@ namespace ndp_invest_helper.Models
 
         public SecurityInfo(SecurityInfo securityInfo) 
         {
-            this.Count = securityInfo.Count;
-            this.Price = securityInfo.Price;
-            this.Correction = securityInfo.Correction;
+            Count = securityInfo.Count;
+            Price = securityInfo.Price;
+            Correction = securityInfo.Correction;
         }
 
         public SecurityInfo(SecurityInfo securityInfo, decimal correction) 
         {
-            this.Count = securityInfo.Count;
-            this.Price = securityInfo.Price;
-            this.Correction = correction;
+            Count = securityInfo.Count;
+            Price = securityInfo.Price;
+            Correction = correction;
         }
     }
 

@@ -20,6 +20,10 @@ namespace ndp_invest_helper.GUI.Krypton
         public void FillControls()
         {
             comboBox_BuySell_Security.DataSource = SecuritiesManager.Securities;
+
+            // Fill with currencies with rates.
+            comboBox_BuySell_Currency.DataSource = null;
+            comboBox_BuySell_Currency.DisplayMember = "FriendlyName";
             comboBox_BuySell_Currency.DataSource = CurrenciesManager.RatesToRub.Keys.ToList();
         }
 
@@ -69,18 +73,11 @@ namespace ndp_invest_helper.GUI.Krypton
         /// <summary>
         /// Выбранная в comboBox_BuySell_Currency валюта.
         /// </summary>
-        public string SelectedCurrency 
+        public Currency SelectedCurrency 
         {
             get
             {
-                var selected = comboBox_BuySell_Currency.SelectedItem;
-
-                if (selected == null)
-                {
-                    return null;
-                }
-
-                return selected.ToString();
+                return (Currency)comboBox_BuySell_Currency.SelectedItem;
             }
         }
 
@@ -93,7 +90,7 @@ namespace ndp_invest_helper.GUI.Krypton
             {
                 Security = (Security)comboBox_BuySell_Security.SelectedValue,
                 Price = numericUpDown_BuySell_Price.Value,
-                Currency = (string)comboBox_BuySell_Currency.SelectedValue,
+                Currency = comboBox_BuySell_Currency.SelectedValue as Currency,
                 Buy = sender == buttonBuy,
                 UseCash = true
             };
@@ -139,11 +136,13 @@ namespace ndp_invest_helper.GUI.Krypton
         {
             var secInfo = SelectedSecurityInfo;
 
-            if (secInfo != null)
+            if (secInfo == null || SelectedCurrency == null)
             {
-                numericUpDown_BuySell_Price.Value = secInfo.PriceInCurrency(
-                    comboBox_BuySell_Currency.SelectedItem.ToString());
+                return;
             }
+
+            numericUpDown_BuySell_Price.Value = 
+                secInfo.PriceInCurrency(SelectedCurrency);
         }
 
         private void numericUpDown_BuySell_Total_ValueChanged(object sender, EventArgs e)

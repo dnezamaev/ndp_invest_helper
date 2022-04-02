@@ -25,7 +25,7 @@ namespace ndp_invest_helper.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("SqliteDb")]
+        [global::System.Configuration.DefaultSettingValueAttribute("XmlFiles")]
         public string CommonDataSource {
             get {
                 return ((string)(this["CommonDataSource"]));

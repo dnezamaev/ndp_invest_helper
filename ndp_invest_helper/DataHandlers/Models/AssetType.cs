@@ -3,50 +3,116 @@ using System.Collections.Generic;
 
 namespace ndp_invest_helper.Models
 {
-    public enum AssetTypes
+    public enum AssetTypeEnum
     {
-        Share = 1, Bond, Etf, Gold, Cash
+        Unknown = 0, Share, Bond, Etf, Gold, Cash
     }
 
-    public partial class AssetType
+    public partial class AssetType : DiversityElement
     {
-        public long Id { get; set; }
-        public string NameEng { get; set; }
-        public string NameRus { get; set; }
+        public override string Code { get => NameEng.ToLower(); }
 
-        public static AssetType[] Predefined
-            = new AssetType[]
+        public static AssetType Unknown = new AssetType
+        {
+            Id = (int)AssetTypeEnum.Unknown,
+            NameEng = "Unknown",
+            NameRus = "Неизвестно"
+        };
+
+        public static AssetType Share = new AssetType
+        {
+            Id = (int)AssetTypeEnum.Share,
+            NameEng = "Share",
+            NameRus = "Акция"
+        };
+
+        public static AssetType Bond = new AssetType
+        {
+            Id = (int)AssetTypeEnum.Bond,
+            NameEng = "Bond",
+            NameRus = "Облигация"
+        };
+
+        public static AssetType Etf = new AssetType
+        {
+            Id = (int)AssetTypeEnum.Etf,
+            NameEng = "ETF",
+            NameRus = "Фонд"
+        };
+
+        public static AssetType Gold = new AssetType
+        {
+            Id = (int)AssetTypeEnum.Gold,
+            NameEng = "Gold",
+            NameRus = "Золото"
+        };
+
+        public static AssetType Cash = new AssetType
+        {
+            Id = (int)AssetTypeEnum.Cash,
+            NameEng = "Cash",
+            NameRus = "Деньги"
+        };
+
+        public static Dictionary<AssetTypeEnum, AssetType> All
+            = new Dictionary<AssetTypeEnum, AssetType>()
             {
-                new AssetType
                 {
-                    Id = (long)AssetTypes.Share,
-                    NameEng = "Share",
-                    NameRus = "Акция"
+                    AssetTypeEnum.Unknown,
+                    AssetType.Unknown
                 },
-                new AssetType
                 {
-                    Id = (long)AssetTypes.Bond,
-                    NameEng = "Bond",
-                    NameRus = "Облигация"
+                    AssetTypeEnum.Share,
+                    AssetType.Share
                 },
-                new AssetType
                 {
-                    Id = (long)AssetTypes.Etf,
-                    NameEng = "ETF",
-                    NameRus = "Фонд"
+                    AssetTypeEnum.Bond,
+                    AssetType.Bond
                 },
-                new AssetType
                 {
-                    Id = (long)AssetTypes.Gold,
-                    NameEng = "Gold",
-                    NameRus = "Золото"
+                    AssetTypeEnum.Etf,
+                    AssetType.Etf
                 },
-                new AssetType
                 {
-                    Id = (long)AssetTypes.Cash,
-                    NameEng = "Cash",
-                    NameRus = "Деньги"
+                    AssetTypeEnum.Gold,
+                    AssetType.Gold
+                },
+                {
+                    AssetTypeEnum.Cash,
+                    AssetType.Cash
+                }
+            };
+
+        public static Dictionary<AssetTypeEnum, AssetType> Securities
+            = new Dictionary<AssetTypeEnum, AssetType>()
+            {
+                {
+                    AssetTypeEnum.Share,
+                    AssetType.Share
+                },
+                {
+                    AssetTypeEnum.Bond,
+                    AssetType.Bond
+                },
+                {
+                    AssetTypeEnum.Etf,
+                    AssetType.Etf
                 },
             };
+
+        // In case Predefined will be loaded from database.
+
+        //public static AssetType Unknown { get => Predefined[AssetTypeEnum.Unknown]; }
+
+        //public static AssetType Share { get => Predefined[AssetTypeEnum.Share]; }
+
+        //public static AssetType Bond { get => Predefined[AssetTypeEnum.Bond]; }
+
+        //public static AssetType Etf { get => Predefined[AssetTypeEnum.Etf]; }
+
+        //public static AssetType Gold { get => Predefined[AssetTypeEnum.Gold]; }
+
+        //public static AssetType Cash { get => Predefined[AssetTypeEnum.Cash]; }
+
     }
 }
