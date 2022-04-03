@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ndp_invest_helper.Models
 {
-    public partial class Currency : DiversityElement
+    public partial class Currency : DiversityItem
     {
         public decimal? RateToRub { get; set; }
     }

@@ -46,7 +46,7 @@ namespace ndp_invest_helper
                     var secPrice = decimal.Parse(cells[8].InnerText);
                     var secCurrency = cells[9].InnerText;
 
-                    secPrice *= CurrenciesManager.GetRate(secCurrency);
+                    secPrice *= CommonData.Currencies.GetRate(secCurrency);
 
                     var securityInfo = new SecurityInfo
                     {

@@ -6,64 +6,49 @@ using System.Linq;
 using System.Xml.Linq;
 
 using Country = ndp_invest_helper.Models.Country;
+using ndp_invest_helper.Models;
 
 namespace ndp_invest_helper
 {
-    public static class CountriesManager
+    public class CountriesManager : DiversityManager
     {
-        public static List<Country> Countries;
+        public Dictionary<string, HashSet<string>> ByDevelopment { get; private set; }
+            = new Dictionary<string, HashSet<string>>();
 
-        public static Dictionary<int, Country> ById;
+        public Dictionary<string, HashSet<string>> ByRegion { get; private set; } 
+            = new Dictionary<string, HashSet<string>>();
 
-        public static Dictionary<string, Country> ByCode;
-
-        public static Dictionary<string, HashSet<string>> ByDevelopment;
-
-        public static Dictionary<string, HashSet<string>> ByRegion;
-
-        private static void Init()
+        public override void LoadFromDatabase()
         {
-            Countries = new List<Country>();
-            ById = new Dictionary<int, Country>();
-            ByCode = new Dictionary<string, Country>();
-            ByDevelopment = new Dictionary<string, HashSet<string>>();
-            ByRegion = new Dictionary<string, HashSet<string>>();
-        }
+            Items = DatabaseManager.GetFullTable<Country>("Countries")
+                .Cast<DiversityItem>().ToList();
 
-        public static void LoadFromDatabase()
-        {
-            Init();
-
-            Countries = DatabaseManager.GetFullTable<Country>("Countries");
-
-            ByCode = Countries.ToDictionary(x => x.Code, x => x);
-
-            ById = Countries.ToDictionary(x => x.Id, x => x);
+            FillDictionaries();
 
             ByDevelopment = DatabaseManager
-                .GetFullTable<Models.CountryDevelopmentLevel>("CountryDevelopmentLevels")
+                .GetFullTable<CountryDevelopmentLevel>("CountryDevelopmentLevels")
                 .ToDictionary(
                 x => x.NameRus,
-                x => Countries
-                    .Where(c => c.DevelopmentLevel == x.Id)
+                x => Items
+                    .Where(c => ((Country)c).DevelopmentLevel == x.Id)
                     .Select(c => c.Code)
                     .ToHashSet()
                     );
 
             ByRegion = DatabaseManager
-                .GetFullTable<Models.CountryRegion>("CountryRegions").
+                .GetFullTable<CountryRegion>("CountryRegions").
                 ToDictionary(
                 x => x.NameRus,
-                x => Countries
-                    .Where(c => c.RegionId == x.Id)
+                x => Items
+                    .Where(c => ((Country)c).RegionId == x.Id)
                     .Select(c => c.Code)
                     .ToHashSet()
                     );
         }
 
-        public static void LoadFromXmlText(string text)
+        public override void LoadFromXmlText(string text)
         {
-            Init();
+            Items.Clear();
 
             var xRoot = XElement.Parse(text);
 
@@ -73,15 +58,24 @@ namespace ndp_invest_helper
                 { 
                     Id = int.Parse(xCountry.Attribute("number").Value),
                     Code = xCountry.Attribute("alpha2").Value,
-                    Code3 = xCountry.Attribute("alpha3").Value,
-                    NameRus = xCountry.Attribute("name_ru").Value,
-                    NameRusFull = xCountry.Attribute("name_ru_full").Value,
-                    NameEng = xCountry.Attribute("name_en").Value
                 };
 
-                Countries.Add(country);
-                ByCode[country.Code] = country;
+                var xNameEng = xCountry.Attribute("name_en");
+                country.NameEng = xNameEng == null ? "" : xNameEng.Value;
+
+                var xNameRus = xCountry.Attribute("name_ru");
+                country.NameRus = xNameRus == null ? "" : xNameRus.Value;
+
+                var xCode3 = xCountry.Attribute("alpha3");
+                country.Code3 = xCode3 == null ? "" : xCode3.Value;
+
+                var xNameRusFull = xCountry.Attribute("name_ru_full");
+                country.NameRusFull = xNameRusFull == null ? "" : xNameRusFull.Value;
+
+                Items.Add(country);
             }
+
+            FillDictionaries();
 
             foreach (var xRegion in xRoot.Element("by_region").Elements())
             {
@@ -96,9 +90,14 @@ namespace ndp_invest_helper
             }
         }
 
-        public static void LoadFromXmlFile(string filePath)
+        public override void LoadFromXmlFile(string filePath)
         {
             LoadFromXmlText(File.ReadAllText(filePath));
+        }
+
+        public override void HandleXml(XElement xTag, Dictionary<DiversityItem, decimal> destination)
+        {
+            InnerHandleXml(xTag, "country", destination);
         }
     }
 }

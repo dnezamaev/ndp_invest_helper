@@ -6,7 +6,7 @@ namespace ndp_invest_helper.Models
     /// <summary>
     /// ISO 3166. Id is numeric code. Code is alpha-2 country code.
     /// </summary>
-    public partial class Country : DiversityElement
+    public partial class Country : DiversityItem
     {
         /// <summary>
         /// Alpha-3 country code.

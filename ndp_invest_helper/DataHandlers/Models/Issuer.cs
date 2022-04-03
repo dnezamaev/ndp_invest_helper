@@ -33,14 +33,14 @@ namespace ndp_invest_helper.Models
         /// </summary>
         public string NameRus { get; set; }
 
-        public Dictionary<DiversityElement, decimal> Sectors { get; set; }
-            = new Dictionary<DiversityElement, decimal>();
+        public Dictionary<DiversityItem, decimal> Sectors { get; set; }
+            = new Dictionary<DiversityItem, decimal>();
 
-        public Dictionary<DiversityElement, decimal> Countries { get; set; }
-            = new Dictionary<DiversityElement, decimal>();
+        public Dictionary<DiversityItem, decimal> Countries { get; set; }
+            = new Dictionary<DiversityItem, decimal>();
 
-        public Dictionary<DiversityElement, decimal> Currencies { get; set; }
-            = new Dictionary<DiversityElement, decimal>();
+        public Dictionary<DiversityItem, decimal> Currencies { get; set; } 
+            = new Dictionary<DiversityItem, decimal>();
 
         public List<Security> Securities { get; set; }
             = new List<Security>();

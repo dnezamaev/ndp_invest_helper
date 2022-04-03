@@ -9,16 +9,12 @@ using ndp_invest_helper.Models;
 
 namespace ndp_invest_helper
 {
-    public static class SectorsManager
+    public class SectorsManager : DiversityManager
     {
-        public static List<EconomySector> Sectors;
-
-        public static Dictionary<int, EconomySector> ById;
-
         /// <summary>
         /// Количество уровней вложенности.
         /// </summary>
-        public static int LevelsCount;
+        public int LevelsCount { get; private set; }
 
         /// <summary>
         /// Номер сектора по умолчанию для неизвестных секторов.
@@ -32,19 +28,21 @@ namespace ndp_invest_helper
         /// </summary>
         public const int DefaultSectorIdLevel2 = 999;
 
+        public override DiversityItem Unknown => ById[DefaultSectorIdLevel2];
+
         /// <summary>
         /// Сектор по умолчанию для неизвестных секторов.
         /// </summary>
-        public static EconomySector DefaultSector { get => ById[DefaultSectorIdLevel2]; }
+        public EconomySector DefaultSector { get => (EconomySector)Unknown; }
 
         /// <summary>
         /// Получить родительский сектор на один уровень выше.
         /// </summary>
         /// <param name="sector">Сектор, для которого ищем родителя.</param>
         /// <returns>Родительский сектор.</returns>
-        public static EconomySector GetParent(EconomySector sector)
+        public EconomySector GetParent(EconomySector sector)
         {
-            return ById[sector.ParentId];
+            return (EconomySector)ById[sector.ParentId];
         }
 
         /// <summary>
@@ -53,7 +51,7 @@ namespace ndp_invest_helper
         /// <param name="sector">Сектор, для которого ищем родителя.</param>
         /// <param name="parentLevel">Уровень родителя.</param>
         /// <returns>Родительский сектор.</returns>
-        public static EconomySector GetParent(EconomySector sector, int parentLevel)
+        public EconomySector GetParent(EconomySector sector, int parentLevel)
         {
             while (parentLevel < sector.Level)
                 sector = GetParent(sector);
@@ -61,27 +59,26 @@ namespace ndp_invest_helper
             return sector;
         }
 
-        private static void Init()
+        private void Init()
         {
-            Sectors = new List<EconomySector>();
-            ById = new Dictionary<int, EconomySector>();
             LevelsCount = 0;
         }
 
-        public static void LoadFromDatabase()
+        public override void LoadFromDatabase()
         {
-            Init();
+            Items = DatabaseManager.GetFullTable<EconomySector>("EconomySectors")
+                .Cast<DiversityItem>().ToList();
 
-            Sectors = DatabaseManager.GetFullTable<EconomySector>("EconomySectors");
+            FillDictionaries();
 
-            ById = Sectors.ToDictionary(k => k.Id, v => v);
+            LevelsCount = Items.Max(x => ((EconomySector)x).Level);
         }
 
-        public static void LoadFromXmlFile(string filePath)
+        public override void LoadFromXmlText(string text)
         {
-            Init();
+            Items.Clear();
 
-            var xRoot = XElement.Parse(File.ReadAllText(filePath));
+            var xRoot = XElement.Parse(text);
 
             foreach (var xSector in xRoot.Elements("row"))
             {
@@ -94,12 +91,22 @@ namespace ndp_invest_helper
                     NameEng = xSector.Attribute("name_en").Value
                 };
 
-                Sectors.Add(sector);
-                ById[sector.Id] = sector;
+                Items.Add(sector);
 
                 LevelsCount = Math.Max(LevelsCount, sector.Level);
             }
+
+            FillDictionaries();
+        }
+
+        public override void LoadFromXmlFile(string filePath)
+        {
+            LoadFromXmlText(File.ReadAllText(filePath));
+        }
+
+        public override void HandleXml(XElement xTag, Dictionary<DiversityItem, decimal> destination)
+        {
+            InnerHandleXml(xTag, "sector", destination);
         }
     }
-
 }

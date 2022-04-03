@@ -73,7 +73,7 @@ namespace ndp_invest_helper
                         NumberStyles.Any, CultureInfo.InvariantCulture);
                 }
 
-                secPrice *= CurrenciesManager.GetRate(secCurrency);
+                secPrice *= CommonData.Currencies.GetRate(secCurrency);
 
                 var securityInfo = new SecurityInfo
                 {

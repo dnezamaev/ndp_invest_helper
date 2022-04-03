@@ -27,18 +27,18 @@ namespace ndp_invest_helper
         /// </summary>
         public decimal CashTotal
         {
-            get { return Cash.Sum(kvp => CurrenciesManager.RatesToRub[kvp.Key] * kvp.Value); }
+            get { return Cash.Sum(kvp => CommonData.Currencies.RatesToRub[kvp.Key] * kvp.Value); }
         }
 
         /// <summary>
         /// Общая оценка всех бумаг в рублях.
         /// </summary>
-        private decimal securitiesTotal;
+        public decimal SecuritiesTotal { get; private set; }
 
         /// <summary>
         /// Общая оценка портфеля в рублях.
         /// </summary>
-        public decimal Total { get { return securitiesTotal + CashTotal; } }
+        public decimal Total { get { return SecuritiesTotal + CashTotal; } }
 
         public Portfolio(
             Dictionary<Security, SecurityInfo> securities = null,
@@ -99,7 +99,7 @@ namespace ndp_invest_helper
             thisSecInfo.Correction = securityInfo.Correction;
             var newTotal = thisSecInfo.Total;
 
-            securitiesTotal += newTotal - oldTotal;
+            SecuritiesTotal += newTotal - oldTotal;
         }
 
         /// <summary>
@@ -116,7 +116,7 @@ namespace ndp_invest_helper
             decimal price, bool removeCash, Currency currency)
         {
             SecurityInfo secInfo = null;
-            decimal rubPrice = CurrenciesManager.RatesToRub[currency] * price; // Цена 1 бумаги в рублях.
+            decimal rubPrice = CommonData.Currencies.RatesToRub[currency] * price; // Цена 1 бумаги в рублях.
 
             // Дополняем инфу о бумаге: корректируем цену, количество.
             if (Securities.TryGetValue(security, out secInfo))
@@ -148,12 +148,12 @@ namespace ndp_invest_helper
             Securities[security] = secInfo;
 
             var rubTotal = rubPrice * count; // Сумма сделки в рублях.
-            var currencyTotal = rubTotal / CurrenciesManager.RatesToRub[currency]; // Сумма сделки в валюте.
+            var currencyTotal = rubTotal / CommonData.Currencies.RatesToRub[currency]; // Сумма сделки в валюте.
 
             if (removeCash)
                 AddCash(currency, -currencyTotal);
 
-            securitiesTotal += rubTotal;
+            SecuritiesTotal += rubTotal;
         }
 
         /// <summary>
@@ -178,9 +178,9 @@ namespace ndp_invest_helper
 
             var rubPrice = secInfo.Price; // Цена 1 бумаги в рублях.
             var rubTotal = rubPrice * count.Value; // Сумма сделки в рублях.
-            var currencyTotal = rubTotal / CurrenciesManager.RatesToRub[currency]; // Сумма сделки в валюте.
+            var currencyTotal = rubTotal / CommonData.Currencies.RatesToRub[currency]; // Сумма сделки в валюте.
 
-            securitiesTotal -= rubTotal;
+            SecuritiesTotal -= rubTotal;
 
             if (addCash)
                 AddCash(currency, currencyTotal);
@@ -239,7 +239,7 @@ namespace ndp_invest_helper
                 // Она не имеет смысла, если брать данные с Мосбиржи.
                 portfolioValue.Price = reportRecord.Value.Price;
 
-                this.securitiesTotal += portfolioValue.Total;
+                this.SecuritiesTotal += portfolioValue.Total;
             }
 
             foreach (var cashRecord in report.Cash)
@@ -422,7 +422,7 @@ namespace ndp_invest_helper
                     var sector = (EconomySector)sectorRecord.Key;
 
                     if (level < sector.Level)
-                        sector = SectorsManager.GetParent(sector);
+                        sector = CommonData.Sectors.GetParent(sector);
 
                     var resultValue = analytics.GetValueOrSetDefault(
                         sector, new PortfolioAnalyticsItem());
@@ -436,11 +436,6 @@ namespace ndp_invest_helper
             CheckNotUsedSecurities(result);
 
             return result;
-        }
-
-        private decimal CalculateSecuritiesTotal()
-        {
-            return securitiesTotal = Securities.Sum(x => x.Value.Total);
         }
     }
 }

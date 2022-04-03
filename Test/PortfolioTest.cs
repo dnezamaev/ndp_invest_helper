@@ -15,7 +15,7 @@ namespace Test
         [TestInitialize]
         public void Initialize()
         {
-            SectorsManager.LoadFromXmlFile(@"data\info\sectors.xml");
+            CommonData.Sectors.LoadFromXmlFile(@"data\info\sectors.xml");
         }
 
         [TestMethod]
@@ -102,28 +102,28 @@ namespace Test
             ";
             #endregion
 
-            CurrenciesManager.LoadFromXmlText
+            CommonData.Currencies.LoadFromXmlText
             ( @"
                 <root>
-                <currency code='???' rate='1' name_en='unknown' />
-                <currency code='CUR1' rate='1' name_en='unknown' />
-                <currency code='issuer currency' rate='1' name_en='' />
-                <currency code='issuer inner currency 1' rate='1' name_en='' />
-                <currency code='issuer inner currency 2' rate='1' name_en='' />
-                <currency code='bond currency' rate='1' name_en='' />
+                <currency number='0' code='???' rate='1' name_en='unknown' />
+                <currency number='1' code='CUR1' rate='1' name_en='unknown' />
+                <currency number='2' code='issuer currency' rate='1' name_en='' />
+                <currency number='3' code='issuer inner currency 1' rate='1' name_en='' />
+                <currency number='4' code='issuer inner currency 2' rate='1' name_en='' />
+                <currency number='5' code='bond currency' rate='1' name_en='' />
                 </root>
             " );
 
-            CountriesManager.LoadFromXmlText
+            CommonData.Countries.LoadFromXmlText
             ( @"
                 <root>
                   <countries>
-                    <country key='???' name=''/>
-                    <country key='US' name=''/>
-                    <country key='CN' name=''/>
-                    <country key='issuer country' name=''/>
-                    <country key='issuer inner country 1' name=''/>
-                    <country key='issuer inner country 2' name=''/>
+                    <country number='0' alpha2='???' name=''/>
+                    <country number='1' alpha2='US' name=''/>
+                    <country number='2' alpha2='CN' name=''/>
+                    <country number='3' alpha2='issuer country' name=''/>
+                    <country number='4' alpha2='issuer inner country 1' name=''/>
+                    <country number='5' alpha2='issuer inner country 2' name=''/>
                   </countries>
                   <by_region />
                   <by_development_level />
@@ -139,29 +139,29 @@ namespace Test
 
             Assert.AreEqual(2, issuer.Currencies.Count);
             Assert.IsTrue(issuer.Currencies.Keys.Contains(
-                CurrenciesManager.ByCode["issuer inner currency 1"]));
+                CommonData.Currencies.ByCode["issuer inner currency 1"]));
             Assert.IsTrue(issuer.Currencies.Keys.Contains(
-                CurrenciesManager.ByCode["issuer inner currency 2"]));
+                CommonData.Currencies.ByCode["issuer inner currency 2"]));
             Assert.AreEqual(0.2M, issuer.Currencies[
-                CurrenciesManager.ByCode["issuer inner currency 1"]]);
+                CommonData.Currencies.ByCode["issuer inner currency 1"]]);
             Assert.AreEqual(0.8M, issuer.Currencies[
-                CurrenciesManager.ByCode["issuer inner currency 2"]]);
+                CommonData.Currencies.ByCode["issuer inner currency 2"]]);
 
             Assert.AreEqual(2, issuer.Countries.Count);
             Assert.IsTrue(issuer.Countries.ContainsKey(
-                CountriesManager.ByCode["issuer inner country 1"]));
+                CommonData.Countries.ByCode["issuer inner country 1"]));
             Assert.IsTrue(issuer.Countries.ContainsKey(
-                CountriesManager.ByCode["issuer inner country 2"]));
+                CommonData.Countries.ByCode["issuer inner country 2"]));
             Assert.AreEqual(0.2M, issuer.Countries[
-                CountriesManager.ByCode["issuer inner country 1"]]);
+                CommonData.Countries.ByCode["issuer inner country 1"]]);
             Assert.AreEqual(0.8M, issuer.Countries[
-                CountriesManager.ByCode["issuer inner country 2"]]);
+                CommonData.Countries.ByCode["issuer inner country 2"]]);
 
             Assert.AreEqual(2, issuer.Sectors.Count);
-            Assert.IsTrue(issuer.Sectors.ContainsKey(SectorsManager.ById[2]));
-            Assert.IsTrue(issuer.Sectors.ContainsKey(SectorsManager.ById[3]));
-            Assert.AreEqual(0.2M, issuer.Sectors[SectorsManager.ById[2]]);
-            Assert.AreEqual(0.8M, issuer.Sectors[SectorsManager.ById[3]]);
+            Assert.IsTrue(issuer.Sectors.ContainsKey(CommonData.Sectors.ById[2]));
+            Assert.IsTrue(issuer.Sectors.ContainsKey(CommonData.Sectors.ById[3]));
+            Assert.AreEqual(0.2M, issuer.Sectors[CommonData.Sectors.ById[2]]);
+            Assert.AreEqual(0.8M, issuer.Sectors[CommonData.Sectors.ById[3]]);
 
             // С заполненным фондом аналогично, у него свои характеристики,
             // переопределяющие эмитента.
@@ -175,29 +175,29 @@ namespace Test
 
             Assert.AreEqual(2, fullEtf.Currencies.Count);
             Assert.IsTrue(fullEtf.Currencies.ContainsKey(
-                CurrenciesManager.ByCode["CUR1"]));
+                CommonData.Currencies.ByCode["CUR1"]));
             Assert.IsTrue(fullEtf.Currencies.ContainsKey(
-                CurrenciesManager.ByCode["???"]));
+                CommonData.Currencies.ByCode["???"]));
             Assert.AreEqual(0.1M, fullEtf.Currencies[
-                CurrenciesManager.ByCode["CUR1"]]);
+                CommonData.Currencies.ByCode["CUR1"]]);
             Assert.AreEqual(0.9M, fullEtf.Currencies[
-                CurrenciesManager.ByCode["???"]]);
+                CommonData.Currencies.ByCode["???"]]);
 
             Assert.AreEqual(2, fullEtf.Countries.Count);
             Assert.IsTrue(fullEtf.Countries.ContainsKey(
-                CountriesManager.ByCode["CN"]));
+                CommonData.Countries.ByCode["CN"]));
             Assert.IsTrue(fullEtf.Countries.ContainsKey(
-                CountriesManager.ByCode["???"]));
+                CommonData.Countries.ByCode["???"]));
             Assert.AreEqual(0.2M, fullEtf.Countries[
-                CountriesManager.ByCode["CN"]]);
+                CommonData.Countries.ByCode["CN"]]);
             Assert.AreEqual(0.8M, fullEtf.Countries[
-                CountriesManager.ByCode["???"]]);
+                CommonData.Countries.ByCode["???"]]);
 
             Assert.AreEqual(2, fullEtf.Sectors.Count);
-            Assert.IsTrue(fullEtf.Sectors.ContainsKey(SectorsManager.ById[5]));
-            Assert.IsTrue(fullEtf.Sectors.ContainsKey(SectorsManager.DefaultSector));
-            Assert.AreEqual(0.3M, fullEtf.Sectors[SectorsManager.ById[5]]);
-            Assert.AreEqual(0.7M, fullEtf.Sectors[SectorsManager.DefaultSector]);
+            Assert.IsTrue(fullEtf.Sectors.ContainsKey(CommonData.Sectors.ById[5]));
+            Assert.IsTrue(fullEtf.Sectors.ContainsKey(CommonData.Sectors.DefaultSector));
+            Assert.AreEqual(0.3M, fullEtf.Sectors[CommonData.Sectors.ById[5]]);
+            Assert.AreEqual(0.7M, fullEtf.Sectors[CommonData.Sectors.DefaultSector]);
 
             Assert.AreEqual(2, fullEtf.WhatInside.Count);
             Assert.IsTrue(fullEtf.WhatInside.ContainsKey(AssetType.Bond));
@@ -210,27 +210,27 @@ namespace Test
 
             Assert.AreEqual(2, emptySec.Countries.Count);
             Assert.IsTrue(emptySec.Countries.ContainsKey(
-                CountriesManager.ByCode["issuer inner country 1"]));
+                CommonData.Countries.ByCode["issuer inner country 1"]));
             Assert.IsTrue(emptySec.Countries.ContainsKey(
-                CountriesManager.ByCode["issuer inner country 2"]));
+                CommonData.Countries.ByCode["issuer inner country 2"]));
             Assert.AreEqual(0.2M, emptySec.Countries[
-                CountriesManager.ByCode["issuer inner country 1"]]);
+                CommonData.Countries.ByCode["issuer inner country 1"]]);
             Assert.AreEqual(0.8M, emptySec.Countries[
-                CountriesManager.ByCode["issuer inner country 2"]]);
+                CommonData.Countries.ByCode["issuer inner country 2"]]);
 
             Assert.AreEqual(2, emptySec.Sectors.Count);
-            Assert.IsTrue(emptySec.Sectors.ContainsKey(SectorsManager.ById[2]));
-            Assert.IsTrue(emptySec.Sectors.ContainsKey(SectorsManager.ById[3]));
-            Assert.AreEqual(0.2M, emptySec.Sectors[SectorsManager.ById[2]]);
-            Assert.AreEqual(0.8M, emptySec.Sectors[SectorsManager.ById[3]]);
+            Assert.IsTrue(emptySec.Sectors.ContainsKey(CommonData.Sectors.ById[2]));
+            Assert.IsTrue(emptySec.Sectors.ContainsKey(CommonData.Sectors.ById[3]));
+            Assert.AreEqual(0.2M, emptySec.Sectors[CommonData.Sectors.ById[2]]);
+            Assert.AreEqual(0.8M, emptySec.Sectors[CommonData.Sectors.ById[3]]);
 
             var currencyBond = SecuritiesManager.SecuritiesByIsin["bond with currency"];
 
             Assert.AreEqual(1, currencyBond.Currencies.Count);
             Assert.IsTrue(currencyBond.Currencies.ContainsKey(
-                CurrenciesManager.ByCode["bond currency"]));
+                CommonData.Currencies.ByCode["bond currency"]));
             Assert.AreEqual(1M, currencyBond.Currencies[
-                CurrenciesManager.ByCode["bond currency"]]);
+                CommonData.Currencies.ByCode["bond currency"]]);
         }
 
         [TestMethod]
@@ -272,22 +272,22 @@ namespace Test
             ";
             #endregion
 
-            CurrenciesManager.LoadFromXmlText
+            CommonData.Currencies.LoadFromXmlText
             ( @"
                 <root>
-                <currency code='???' rate='1' name_en='unknown' />
-                <currency code='cur1' rate='1' name_en='cur1' />
-                <currency code='cur2' rate='1' name_en='cur2' />
+                <currency number='1' code='???' rate='1' name_en='unknown' />
+                <currency number='2' code='cur1' rate='1' name_en='cur1' />
+                <currency number='3' code='cur2' rate='1' name_en='cur2' />
                 </root>
             " );
 
-            CountriesManager.LoadFromXmlText
+            CommonData.Countries.LoadFromXmlText
             ( @"
                 <root>
                   <countries>
-                    <country key='???' name='unknown'/>
-                    <country key='cnt1' name='cnt1'/>
-                    <country key='cnt2' name='cnt2'/>
+                    <country alpha2='???' number='1' name='unknown'/>
+                    <country alpha2='cnt1' number='2' name='cnt1'/>
+                    <country alpha2='cnt2' number='3' name='cnt2'/>
                   </countries>
                   <by_region />
                   <by_development_level />
@@ -305,11 +305,10 @@ namespace Test
                     { etf2, new SecurityInfo { Count = 10, Price = 1000 } }
                 };
 
-            var currency1 = CurrenciesManager.ByCode["cur1"];
-            var currency2 = CurrenciesManager.ByCode["cur2"];
+            var currency1 = (Currency)CommonData.Currencies.ByCode["cur1"];
+            var currency2 = (Currency)CommonData.Currencies.ByCode["cur2"];
 
-            var cashDict =
-                new Dictionary<Currency, decimal>
+            var cashDict = new Dictionary<Currency, decimal>
                 {
                     { currency1, 100 },
                     { currency2, 100 },
@@ -339,22 +338,22 @@ namespace Test
             var anSector = group.BySector.Analytics;
 
             Assert.AreEqual(3, anCurrency.Count);
-            Assert.IsTrue(anCurrency.ContainsKey(CurrenciesManager.ByCode["cur1"]));
-            Assert.IsTrue(anCurrency.ContainsKey(CurrenciesManager.ByCode["cur2"]));
-            Assert.IsTrue(anCurrency.ContainsKey(CurrenciesManager.ByCode["???"]));
+            Assert.IsTrue(anCurrency.ContainsKey(CommonData.Currencies.ByCode["cur1"]));
+            Assert.IsTrue(anCurrency.ContainsKey(CommonData.Currencies.ByCode["cur2"]));
+            Assert.IsTrue(anCurrency.ContainsKey(CommonData.Currencies.ByCode["???"]));
             Assert.AreEqual(
                 (100 + 10 * 1000 * 1 + 10 * 1000 * 0.1M) / total, 
-                anCurrency[CurrenciesManager.ByCode["cur1"]].Part);
+                anCurrency[CommonData.Currencies.ByCode["cur1"]].Part);
             Assert.AreEqual(
                 (100 + 10 * 1000 * 0.5M) / total, 
-                anCurrency[CurrenciesManager.ByCode["cur2"]].Part);
+                anCurrency[CommonData.Currencies.ByCode["cur2"]].Part);
             Assert.AreEqual(
                 (10 * 1000 * 0.4M) / total, 
-                anCurrency[CurrenciesManager.ByCode["???"]].Part);
+                anCurrency[CommonData.Currencies.ByCode["???"]].Part);
 
-            var country1 = CountriesManager.ByCode["cnt1"];
-            var country2 = CountriesManager.ByCode["cnt2"];
-            var countryUnknown = CountriesManager.ByCode["???"];
+            var country1 = CommonData.Countries.ByCode["cnt1"];
+            var country2 = CommonData.Countries.ByCode["cnt2"];
+            var countryUnknown = CommonData.Countries.ByCode["???"];
 
             Assert.AreEqual(3, anCountry.Count);
             Assert.IsTrue(anCountry.ContainsKey(country1));
@@ -370,9 +369,9 @@ namespace Test
                 (10 * 1000 * 0.4M) / secTotal,
                 anCountry[countryUnknown].Part);
 
-            var sector1 = SectorsManager.ById[1];
-            var sector2 = SectorsManager.ById[2];
-            var sector900 = SectorsManager.ById[900];
+            var sector1 = CommonData.Sectors.ById[1];
+            var sector2 = CommonData.Sectors.ById[2];
+            var sector900 = CommonData.Sectors.ById[900];
 
             Assert.AreEqual(3, anSector.Count);
             Assert.IsTrue(anSector.ContainsKey(sector1));

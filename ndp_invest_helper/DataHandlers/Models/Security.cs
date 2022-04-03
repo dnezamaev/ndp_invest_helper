@@ -61,19 +61,19 @@ namespace ndp_invest_helper.Models
             }
         }
 
-        protected Dictionary<DiversityElement, decimal> sectors =
-            new Dictionary<DiversityElement, decimal>(); 
+        protected Dictionary<DiversityItem, decimal> sectors =
+            new Dictionary<DiversityItem, decimal>(); 
 
-        protected Dictionary<DiversityElement, decimal> countries = 
-            new Dictionary<DiversityElement, decimal>();
+        protected Dictionary<DiversityItem, decimal> countries = 
+            new Dictionary<DiversityItem, decimal>();
 
-        protected Dictionary<DiversityElement, decimal> currencies = 
-            new Dictionary<DiversityElement, decimal>();
+        protected Dictionary<DiversityItem, decimal> currencies = 
+            new Dictionary<DiversityItem, decimal>();
 
         /// <summary>
         /// Отрасли экономики бумаги или эмитента.
         /// </summary>
-        public Dictionary<DiversityElement, decimal> Sectors
+        public Dictionary<DiversityItem, decimal> Sectors
         {
             get => sectors.Count != 0 ? sectors : Issuer.Sectors;
         }
@@ -81,7 +81,7 @@ namespace ndp_invest_helper.Models
         /// <summary>
         /// Страны бумаги или эмитента.
         /// </summary>
-        public Dictionary<DiversityElement, decimal> Countries
+        public Dictionary<DiversityItem, decimal> Countries
         {
             get => countries.Count != 0 ? countries : Issuer.Countries;
         }
@@ -89,7 +89,7 @@ namespace ndp_invest_helper.Models
         /// <summary>
         /// Валюты бумаги или эмитента.
         /// </summary>
-        public Dictionary<DiversityElement, decimal> Currencies
+        public Dictionary<DiversityItem, decimal> Currencies
         {
             get => currencies.Count != 0 ? currencies : Issuer.Currencies;
         }
@@ -97,7 +97,7 @@ namespace ndp_invest_helper.Models
         /// <summary>
         /// Отрасли экономики бумаги.
         /// </summary>
-        public Dictionary<DiversityElement, decimal> SecuritySectors
+        public Dictionary<DiversityItem, decimal> SecuritySectors
         {
             get => sectors;
         }
@@ -105,7 +105,7 @@ namespace ndp_invest_helper.Models
         /// <summary>
         /// Страны бумаги.
         /// </summary>
-        public Dictionary<DiversityElement, decimal> SecurityCountries
+        public Dictionary<DiversityItem, decimal> SecurityCountries
         {
             get => countries;
         }
@@ -113,7 +113,7 @@ namespace ndp_invest_helper.Models
         /// <summary>
         /// Валюты бумаги.
         /// </summary>
-        public Dictionary<DiversityElement, decimal> SecurityCurrencies
+        public Dictionary<DiversityItem, decimal> SecurityCurrencies
         {
             get => currencies;
         }
@@ -315,7 +315,7 @@ namespace ndp_invest_helper.Models
         /// <returns>Пересчитанная в валюте цена.</returns>
         public decimal PriceInCurrency(Currency currency)
         {
-            return  Price / CurrenciesManager.RatesToRub[currency];
+            return  Price / CommonData.Currencies.RatesToRub[currency];
         }
 
         /// <summary>

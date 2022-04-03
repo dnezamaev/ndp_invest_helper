@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ndp_invest_helper.Models;
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,8 +9,56 @@ using System.Threading.Tasks;
 
 namespace ndp_invest_helper
 {
-    public static class CommonDataManager
+    /// <summary>
+    /// Global common data.
+    /// </summary>
+    public static class CommonData
     {
+        public static CountriesManager countries;
+
+        public static CurrenciesManager currencies;
+
+        public static SectorsManager sectors;
+
+        public static CountriesManager Countries
+        {
+            get
+            {
+                if (countries == null)
+                {
+                    countries = new CountriesManager();
+                }
+
+                return countries;
+            }
+        }
+        
+        public static CurrenciesManager Currencies
+        {
+            get
+            {
+                if (currencies == null)
+                {
+                    currencies = new CurrenciesManager();
+                }
+
+                return currencies;
+            }
+        }
+
+        public static SectorsManager Sectors
+        {
+            get
+            {
+                if (sectors == null)
+                {
+                    sectors = new SectorsManager();
+                }
+
+                return sectors;
+            }
+        }
+        
         private static StringBuilder log = new StringBuilder();
 
         /// <summary>
@@ -36,9 +86,9 @@ namespace ndp_invest_helper
 
         private static void LoadCommonDataFromXml()
         {
-            CurrenciesManager.LoadFromXmlFile(Settings.CurrenciesXmlFilePath);
-            CountriesManager.LoadFromXmlFile(Settings.CountriesXmlFilePath);
-            SectorsManager.LoadFromXmlFile(Settings.SectorsXmlFilePath);
+            Currencies.LoadFromXmlFile(Settings.CurrenciesXmlFilePath);
+            Countries.LoadFromXmlFile(Settings.CountriesXmlFilePath);
+            Sectors.LoadFromXmlFile(Settings.SectorsXmlFilePath);
             SecuritiesManager.LoadFromXmlFile(Settings.SecuritiesXmlFilePath);
         }
 
@@ -54,9 +104,10 @@ namespace ndp_invest_helper
         {
             InitDatabase();
 
-            CurrenciesManager.LoadFromDatabase();
-            CountriesManager.LoadFromDatabase();
-            SectorsManager.LoadFromDatabase();
+            Currencies.LoadFromDatabase();
+            Countries.LoadFromDatabase();
+            Sectors.LoadFromDatabase();
+
             SecuritiesManager.LoadFromDatabase();
         }
 

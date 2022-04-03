@@ -310,7 +310,7 @@ namespace ndp_invest_helper
                 "INSERT INTO Currencies(ID, Code, NameEng, NameRus, RateToRub)" +
                 "VALUES(@ID, @Code, @NameEng, @NameRus, @RateToRub)";
 
-            foreach (var currency in CurrenciesManager.Currencies)
+            foreach (Currency currency in CommonData.Currencies.Items)
             {
                 command.Parameters.AddWithValue("@ID", currency.Id);
                 command.Parameters.AddWithValue("@Code", currency.Code);
@@ -332,12 +332,12 @@ namespace ndp_invest_helper
                 "INSERT INTO Countries(ID, Code, Code3, NameRus, NameRusFull, NameEng)" +
                 "VALUES(@ID, @Code, @Code3, @NameRus, @NameRusFull, @NameEng)";
 
-            var levels = CountriesManager.ByDevelopment
+            var levels = CommonData.Countries.ByDevelopment
                 .OrderBy(x => x.Key).ToArray();
-            var regions = CountriesManager.ByRegion
+            var regions = CommonData.Countries.ByRegion
                 .OrderBy(x => x.Key).ToArray();
 
-            foreach (var country in CountriesManager.Countries)
+            foreach (Country country in CommonData.Countries.Items)
             {
                 insertCommand.Parameters.AddWithValue("@ID", country.Id);
                 insertCommand.Parameters.AddWithValue("@Code", country.Code);
@@ -413,7 +413,7 @@ namespace ndp_invest_helper
                 "INSERT INTO EconomySectors(ID, Level, NameRus, NameEng, ParentID)" +
                 "VALUES(@ID, @Level, @NameRus, @NameEng, @ParentID)";
 
-            foreach (var sector in SectorsManager.Sectors)
+            foreach (EconomySector sector in CommonData.Sectors.Items)
             {
                 command.Parameters.AddWithValue("@ID", sector.Id);
                 command.Parameters.AddWithValue("@Level", sector.Level);

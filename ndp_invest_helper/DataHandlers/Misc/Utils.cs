@@ -106,88 +106,6 @@ namespace ndp_invest_helper
             return result;
         }
 
-        public static void HandleSectorAttribute(
-            Dictionary<DiversityElement, decimal> destination,
-            XElement xTag,
-            int unknownSector)
-        {
-            var sectors = HandleComplexStringXmlAttribute(xTag, "sector", true, unknownSector.ToString());
-
-            foreach (var item in sectors)
-            {
-                var sector = SectorsManager.Sectors.Find(x => x.Id == int.Parse(item.Key));
-
-                if (sector == null)
-                    throw new ArgumentException(string.Format(
-                        "Обнаружен неизвестный сектор {0} в теге {1}",
-                        item.Key, xTag.ToString()));
-
-                destination[sector] = item.Value;
-            }
-        }
-
-        public static Dictionary<EconomySector, decimal> HandleSectorAttribute(
-            XElement xTag,
-            string unknownSector)
-        {
-            var result = new Dictionary<EconomySector, decimal>();
-            var sectors = HandleComplexStringXmlAttribute(xTag, "sector", true, unknownSector);
-
-            foreach (var item in sectors)
-            {
-                var sector = SectorsManager.Sectors.Find(x => x.Id == int.Parse(item.Key));
-
-                if (sector == null)
-                    throw new ArgumentException(string.Format(
-                        "Обнаружен неизвестный сектор {0} в теге {1}",
-                        item.Key, xTag.ToString()));
-
-                result[sector] = item.Value;
-            }
-
-            return result;
-        }
-
-        public static void HandleCountryAttribute(
-            Dictionary<DiversityElement, decimal> destination,
-            XElement xTag,
-            string unknownCountry)
-        {
-            var countries = HandleComplexStringXmlAttribute(xTag, "country", true, unknownCountry);
-
-            foreach (var item in countries)
-            {
-                var country = CountriesManager.ByCode[item.Key];
-
-                if (country == null)
-                    throw new ArgumentException(string.Format(
-                        "Обнаружена неизвестная страна {0} в теге {1}",
-                        item.Key, xTag.ToString()));
-
-                destination[country] = item.Value;
-            }
-        }
-
-        public static void HandleCurrencyAttribute(
-            Dictionary<DiversityElement, decimal> destination,
-            XElement xTag,
-            string unknownCurrency)
-        {
-            var currencies = HandleComplexStringXmlAttribute(xTag, "currency", true, unknownCurrency);
-
-            foreach (var item in currencies)
-            {
-                var currency = CurrenciesManager.Currencies.Find(x => x.Code == item.Key);
-
-                if (currency == null)
-                    throw new ArgumentException(string.Format(
-                        "Обнаружена неизвестная валюта {0} в теге {1}",
-                        item.Key, xTag.ToString()));
-
-                destination[currency] = item.Value;
-            }
-        }
-
         public static void HandleAssetTypeAttribute(
             Dictionary<AssetType, decimal> destination,
             XElement xTag,
@@ -197,7 +115,8 @@ namespace ndp_invest_helper
 
             foreach (var item in assets)
             {
-                var asset = AssetType.All.Values.ToList().Find(x => x.Code == item.Key);
+                var asset = AssetType.All.Values.ToList()
+                    .Find(x => x.Code.ToLower() == item.Key.ToLower());
 
                 if (asset == null)
                     throw new ArgumentException(string.Format(

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ndp_invest_helper.Models;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -50,7 +52,7 @@ namespace ndp_invest_helper
 
             foreach (var item in Settings.Cash)
             {
-                portfolio.AddCash(CurrenciesManager.ByCode[item.Key], item.Value);
+                portfolio.AddCash((Currency)CommonData.Currencies.ByCode[item.Key], item.Value);
             }
 
             GrouppingResults.Clear();
@@ -111,7 +113,7 @@ namespace ndp_invest_helper
                 deal.Currency, deal.Total
                 );
 
-            CommonDataManager.LogAddText(logText);
+            CommonData.LogAddText(logText);
 
             RaiseDealCompleted(deal);
             RaiseAnalyticsResultChanged();

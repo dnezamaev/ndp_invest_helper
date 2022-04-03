@@ -87,8 +87,10 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataHandlers\CommonData\CommonDataManager.cs" />
-    <Compile Include="DataHandlers\Models\DiversityElement.cs" />
+    <Compile Include="DataHandlers\CommonData\CommonData.cs" />
+    <Compile Include="DataHandlers\CommonData\DiversityManager.cs" />
+    <Compile Include="DataHandlers\Models\Diversity.cs" />
+    <Compile Include="DataHandlers\Models\DiversityItem.cs" />
     <Compile Include="DataHandlers\Models\IDiversified.cs" />
     <Compile Include="DataHandlers\Portfolio\AnalyticsManager.cs" />
     <Compile Include="DataHandlers\CommonData\CountriesManager.cs" />
@@ -115,6 +117,12 @@
     </Compile>
     <Compile Include="GUI\Krypton\DbEditorControl.Designer.cs">
       <DependentUpon>DbEditorControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Krypton\DbEditorDiversityControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\Krypton\DbEditorDiversityControl.Designer.cs">
+      <DependentUpon>DbEditorDiversityControl.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\Krypton\DealsControl.cs">
       <SubType>UserControl</SubType>
@@ -198,6 +206,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Krypton\DbEditorControl.resx">
       <DependentUpon>DbEditorControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Krypton\DbEditorDiversityControl.resx">
+      <DependentUpon>DbEditorDiversityControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Krypton\DealsControl.resx">
       <DependentUpon>DealsControl.cs</DependentUpon>

@@ -24,7 +24,7 @@ namespace ndp_invest_helper.GUI.Krypton
             // Fill with currencies with rates.
             comboBox_BuySell_Currency.DataSource = null;
             comboBox_BuySell_Currency.DisplayMember = "FriendlyName";
-            comboBox_BuySell_Currency.DataSource = CurrenciesManager.RatesToRub.Keys.ToList();
+            comboBox_BuySell_Currency.DataSource = CommonData.Currencies.RatesToRub.Keys.ToList();
         }
 
         /// <summary>

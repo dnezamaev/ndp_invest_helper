@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ndp_invest_helper.Models
 {
     /// <summary>
     /// Критерий диверсификации: валюта, сектор экономики, страна, тип актива...
     /// </summary>
-    public abstract class DiversityElement : IEquatable<DiversityElement>
+    public abstract class DiversityItem : IEquatable<DiversityItem>
     {
         public int Id { get; set; }
 
@@ -42,10 +38,10 @@ namespace ndp_invest_helper.Models
 
         public override bool Equals(object obj)
         {
-            return Id == ((DiversityElement)obj).Id;
+            return Id == ((DiversityItem)obj).Id;
         }
 
-        public bool Equals(DiversityElement other)
+        public bool Equals(DiversityItem other)
         {
             return Id == other.Id;
         }

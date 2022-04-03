@@ -152,7 +152,11 @@ namespace ndp_invest_helper
                 securitiesToRemove = securitiesInResult.Except(securitiesToKeep).ToList();
             }
 
-            currentResult.RemoveSecurities(true, false, CurrenciesManager.ByCode["RUB"], securitiesToRemove.ToArray());
+            currentResult.RemoveSecurities(
+                correctParts: true,
+                addCash: false, 
+                (Currency)CommonData.Currencies.ByCode["RUB"], 
+                securitiesToRemove.ToArray());
 
             #endregion
 
@@ -366,13 +370,13 @@ namespace ndp_invest_helper
             if (xUseCash != null)
                 useCash = xUseCash.Value.ToString() == "no";
 
-            var currency = CurrenciesManager.ByCode["RUB"];
+            var currency = (Currency)CommonData.Currencies.ByCode["RUB"];
 
             if (xCurrency != null)
             {
-                currency = CurrenciesManager.ByCode[xCurrency.Value];
+                currency = (Currency)CommonData.Currencies.ByCode[xCurrency.Value];
 
-                if (!CurrenciesManager.RatesToRub.ContainsKey(currency))
+                if (!CommonData.Currencies.RatesToRub.ContainsKey(currency))
                     throw new ArgumentException(string.Format(
                         "В действии {0} указан аттрибут currency={1}, " +
                         "такая валюта не найдена, её стоит добавить в Settings.xml.",

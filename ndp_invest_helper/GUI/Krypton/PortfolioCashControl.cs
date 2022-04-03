@@ -26,7 +26,7 @@ namespace ndp_invest_helper.GUI.Krypton
             dataGrid_Cash.CellValueChanged -= dataGrid_Cash_CellValueChanged;
 
             ColumnCurrencyType.DataSource =
-                CurrenciesManager.Currencies
+                CommonData.Currencies.Items
                 .Select(x => x.Code)
                 .ToList();
 

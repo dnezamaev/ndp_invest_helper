@@ -25,7 +25,7 @@ namespace ndp_invest_helper.GUI.Krypton
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            CommonDataManager.Load();
+            CommonData.Load();
             InitInvestManager();
             InitControls();
             SetEventHandlers();
@@ -223,7 +223,7 @@ namespace ndp_invest_helper.GUI.Krypton
 
         private void toolStripMenuItem_XmlToSqlite_Click(object sender, EventArgs e)
         {
-            CommonDataManager.XmlToSqlite();
+            CommonData.XmlToSqlite();
         }
 
         private void toolStripMenuItem_About_Click(object sender, EventArgs e)
@@ -238,7 +238,7 @@ namespace ndp_invest_helper.GUI.Krypton
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            CommonDataManager.LogSave();
+            CommonData.LogSave();
 
             Settings.Save();
         }
@@ -260,7 +260,7 @@ namespace ndp_invest_helper.GUI.Krypton
 
             if (form.DataReloadRequired)
             {
-                CommonDataManager.Load();
+                CommonData.Load();
                 investManager.RedoAnalytics(false);
             }
 

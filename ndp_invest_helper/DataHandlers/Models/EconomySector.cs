@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ndp_invest_helper.Models
 {
-    public partial class EconomySector : DiversityElement
+    public partial class EconomySector : DiversityItem
     {
         /// <summary>
         /// Уровень вложенности. 

@@ -66,30 +66,29 @@ namespace ndp_invest_helper
 
             foreach (var dbIssuer in dbIssuers)
             {
-                var issuer = new Issuer 
+                var issuer = new Issuer
                 {
                     Id = dbIssuer.Id,
-
-                    NameRus = dbIssuer.NameRus,
-
-                    Currencies = dbCurrencies
-                    .Where(x => x.IssuerId == dbIssuer.Id)
-                    .ToDictionary(
-                        k => (DiversityElement) CurrenciesManager.ById[k.CurrencyId],
-                        v => v.Part),
-
-                    Countries = dbCountries
-                    .Where(x => x.IssuerId == dbIssuer.Id)
-                    .ToDictionary(
-                        k => (DiversityElement) CountriesManager.ById[k.CountryId],
-                        v => v.Part),
-
-                    Sectors = dbSectors
-                    .Where(x => x.IssuerId == dbIssuer.Id)
-                    .ToDictionary(
-                        k => (DiversityElement) SectorsManager.ById[k.SectorId],
-                        v => v.Part)
+                    NameRus = dbIssuer.NameRus
                 };
+
+                issuer.Currencies = dbCurrencies
+                    .Where(x => x.IssuerId == dbIssuer.Id)
+                    .ToDictionary(
+                        k => CommonData.Currencies.ById[k.CurrencyId],
+                        v => v.Part);
+
+                issuer.Countries = dbCountries
+                    .Where(x => x.IssuerId == dbIssuer.Id)
+                    .ToDictionary(
+                        k => CommonData.Countries.ById[k.CountryId],
+                        v => v.Part);
+
+                issuer.Sectors = dbSectors
+                    .Where(x => x.IssuerId == dbIssuer.Id)
+                    .ToDictionary(
+                        k => CommonData.Sectors.ById[k.SectorId],
+                        v => v.Part);
 
                 Issuers.Add(issuer);
             }
@@ -161,7 +160,7 @@ namespace ndp_invest_helper
                 foreach (var country in dbSecurityCountries)
                 {
                     security.SecurityCountries.Add(
-                        CountriesManager.ById[country.CountryId], (decimal)country.Part);
+                        CommonData.Countries.ById[country.CountryId], (decimal)country.Part);
                 }
 
                 var dbSecurityCurrencies = dbCurrencies
@@ -171,7 +170,7 @@ namespace ndp_invest_helper
                 foreach (var currency in dbSecurityCurrencies)
                 {
                     security.SecurityCurrencies.Add(
-                        CurrenciesManager.ById[currency.CurrencyId], (decimal)currency.Part);
+                        CommonData.Currencies.ById[currency.CurrencyId], (decimal)currency.Part);
                 }
 
                 var dbSecuritySectors = dbSectors
@@ -181,7 +180,7 @@ namespace ndp_invest_helper
                 foreach (var sector in dbSecuritySectors)
                 {
                     security.SecuritySectors.Add(
-                        SectorsManager.ById[sector.SectorId],
+                        CommonData.Sectors.ById[sector.SectorId],
                         (decimal)sector.Part);
                 }
 
@@ -221,14 +220,9 @@ namespace ndp_invest_helper
                 };
 
                 // Разбираем страны, валюты, отрасли эмитента.
-                Utils.HandleCountryAttribute(
-                    issuer.Countries, xIssuer, "???");
-
-                Utils.HandleCurrencyAttribute(
-                    issuer.Currencies, xIssuer, "???");
-
-                Utils.HandleSectorAttribute(
-                    issuer.Sectors, xIssuer, SectorsManager.DefaultSectorIdLevel2);
+                CommonData.Countries.HandleXml(xIssuer, issuer.Countries);
+                CommonData.Currencies.HandleXml(xIssuer, issuer.Currencies);
+                CommonData.Sectors.HandleXml(xIssuer, issuer.Sectors);
 
                 // Разбираем бумаги эмитента и заполняем словари быстрого доступа.
                 foreach (var xSecurity in xIssuer.Elements("security"))
@@ -303,7 +297,7 @@ namespace ndp_invest_helper
                 case "etf":
                     security = new ETF();
                     Utils.HandleAssetTypeAttribute(
-                        (security as ETF).WhatInside, xSecurity, "what_inside");
+                        (security as ETF).WhatInside, xSecurity, AssetType.Unknown.Code);
                     break;
                 default:
                     break;
@@ -312,14 +306,9 @@ namespace ndp_invest_helper
             security.Isin = isin;
             security.Ticker = ticker;
 
-            Utils.HandleCountryAttribute(
-                security.SecurityCountries, xSecurity, "???");
-
-            Utils.HandleCurrencyAttribute(
-                security.SecurityCurrencies, xSecurity, "???");
-
-            Utils.HandleSectorAttribute(
-                security.SecuritySectors, xSecurity, SectorsManager.DefaultSectorIdLevel2);
+            CommonData.Countries.HandleXml(xSecurity, security.SecurityCountries);
+            CommonData.Currencies.HandleXml(xSecurity, security.SecurityCurrencies);
+            CommonData.Sectors.HandleXml(xSecurity, security.SecuritySectors);
 
             return security;
         }

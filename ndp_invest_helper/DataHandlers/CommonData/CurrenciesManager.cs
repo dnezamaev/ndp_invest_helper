@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ndp_invest_helper.Models;
+
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -8,55 +10,47 @@ using Currency = ndp_invest_helper.Models.Currency;
 
 namespace ndp_invest_helper
 {
-    public class CurrenciesManager
+    public class CurrenciesManager : DiversityManager
     {
         public const string RubCode = "RUB";
-
-        public static List<Currency> Currencies;
-
-        public static Dictionary<int, Currency> ById;
-
-        public static Dictionary<string, Currency> ByCode;
 
         /// <summary>
         /// All currencies that have not null rate.
         /// </summary>
-        public static Dictionary<Currency, decimal> RatesToRub;
+        public Dictionary<Currency, decimal> RatesToRub { get; private set; }
+            = new Dictionary<Currency, decimal>();
 
-        public static decimal GetRate(string code)
+        public decimal GetRate(string code)
         {
-            return RatesToRub[ByCode[code]];
+            return RatesToRub[(Currency)ByCode[code]];
         }
 
-        public static decimal GetRate(int id)
+        public decimal GetRate(int id)
         {
-            return RatesToRub[ById[id]];
+            return RatesToRub[(Currency)ById[id]];
         }
 
-        private static void Init()
+        public override void LoadFromXmlText(string text)
         {
-            Currencies = new List<Currency>();
-            ById = new Dictionary<int, Currency>();
-            ByCode = new Dictionary<string, Currency>();
-            RatesToRub = new Dictionary<Currency, decimal>();
-        }
-
-        public static void LoadFromXmlText(string text)
-        {
-            Init();
+            Items.Clear();
 
             var xRoot = XElement.Parse(text);
 
             foreach (var xCurrency in xRoot.Elements("currency"))
             {
                 string rateStr = xCurrency.Attribute("rate").Value;
+
                 var currency = new Currency()
                 {
                     Id = int.Parse(xCurrency.Attribute("number").Value),
-                    Code = xCurrency.Attribute("code").Value,
-                    NameEng = xCurrency.Attribute("name_en").Value,
-                    NameRus = xCurrency.Attribute("name_ru").Value,
+                    Code = xCurrency.Attribute("code").Value
                 };
+
+                var xNameEng = xCurrency.Attribute("name_en");
+                currency.NameEng = xNameEng == null ? "" : xNameEng.Value;
+
+                var xNameRus = xCurrency.Attribute("name_ru");
+                currency.NameRus = xNameRus == null ? "" : xNameRus.Value;
 
                 // Has rate? It can be null or incorrect format.
                 if (!string.IsNullOrEmpty(rateStr)
@@ -67,44 +61,40 @@ namespace ndp_invest_helper
                     RatesToRub[currency] = rateDec;
                 }
 
-                Currencies.Add(currency);
-                ById[currency.Id] = currency;
-                ByCode[currency.Code] = currency;
+                Items.Add(currency);
             }
+
+            FillDictionaries();
         }
 
-        public static void LoadFromXmlFile(string filePath)
+        public override void LoadFromXmlFile(string filePath)
         {
             LoadFromXmlText(System.IO.File.ReadAllText(filePath));
         }
 
-        public static void LoadFromDatabase()
+        public override void LoadFromDatabase()
         {
-            Init();
+            Items = DatabaseManager.GetFullTable<Currency>("Currencies").Cast<DiversityItem>().ToList();
 
-            Currencies = DatabaseManager.GetFullTable<Currency>("Currencies");
+            FillDictionaries();
+
             MakeRates();
-
-            ById = Currencies.ToDictionary(
-                k => k.Id,
-                v => v
-                );
-
-            ByCode = Currencies.ToDictionary(
-                k => k.Code,
-                v => v
-                );
         }
 
-        private static void MakeRates()
+        private void MakeRates()
         {
             RatesToRub.Clear();
 
-            foreach (var item in Currencies)
+            foreach (Currency item in Items)
             {
                 if (item.RateToRub.HasValue)
                     RatesToRub[item] = item.RateToRub.Value;
             }
+        }
+
+        public override void HandleXml(XElement xTag, Dictionary<DiversityItem, decimal> destination)
+        {
+            InnerHandleXml(xTag, "currency", destination);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace ndp_invest_helper.Models
         Unknown = 0, Share, Bond, Etf, Gold, Cash
     }
 
-    public partial class AssetType : DiversityElement
+    public partial class AssetType : DiversityItem
     {
         public override string Code { get => NameEng.ToLower(); }
 

@@ -58,7 +58,7 @@ namespace ndp_invest_helper
                     xValue.Value.ToString(), 
                     NumberStyles.Any, CultureInfo.InvariantCulture );
 
-                Cash[CurrenciesManager.ByCode[xKey.Value]] = cashValue;
+                Cash[(Currency)CommonData.Currencies.ByCode[xKey.Value]] = cashValue;
             }
         }
     }

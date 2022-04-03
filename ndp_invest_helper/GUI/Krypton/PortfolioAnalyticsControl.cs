@@ -30,7 +30,7 @@ namespace ndp_invest_helper.GUI.Krypton
         {
             var dataGridView = sender as DataGridView;
             var analyticsResult = dataGridView.Tag as PortfolioAnalyticsResult;
-            var key = dataGridView.Rows[e.RowIndex].Tag as DiversityElement;
+            var key = dataGridView.Rows[e.RowIndex].Tag as DiversityItem;
 
             if (key == null)
                 return;
@@ -64,14 +64,6 @@ namespace ndp_invest_helper.GUI.Krypton
         {
             var grouppingResults = investManager.Analytics.GrouppingResults;
             var currentResult = investManager.Analytics.CurrentResult;
-
-            var sectorNames = SectorsManager.Sectors.ToDictionary(
-                x => x.Id.ToString(),
-                x => x.NameRus);
-
-            var countryNames = CountriesManager.Countries.ToDictionary(
-                x => x.Code,
-                x => x.NameRus);
 
             GrouppingResults oldResult = investManager.Analytics.FirstResult;
 
@@ -168,7 +160,7 @@ namespace ndp_invest_helper.GUI.Krypton
 
             dataGridView.ClearSelection();
 
-            CommonDataManager.LogAddText(newResult.ToString());
+            CommonData.LogAddText(newResult.ToString());
         }
    }
  

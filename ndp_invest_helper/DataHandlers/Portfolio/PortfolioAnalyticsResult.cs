@@ -13,8 +13,8 @@ namespace ndp_invest_helper
     /// </summary>
     public class PortfolioAnalyticsResult
     {
-        public Dictionary<DiversityElement, PortfolioAnalyticsItem> Analytics =
-            new Dictionary<DiversityElement, PortfolioAnalyticsItem>();
+        public Dictionary<DiversityItem, PortfolioAnalyticsItem> Analytics =
+            new Dictionary<DiversityItem, PortfolioAnalyticsItem>();
 
         /// <summary>
         /// Критерий сортировки в ToString(): key/part - по ключу/доле
@@ -57,7 +57,8 @@ namespace ndp_invest_helper
         /// </summary>
         /// <param name="correctParts">Нужно ли пересчитывать доли.</param>
         /// <param name="securities">Ключи элементов для удаления.</param>
-        public void RemoveSecurities(bool correctParts, bool addCash, Currency currency, params Security[] securities)
+        public void RemoveSecurities(
+            bool correctParts, bool addCash, Currency currency, params Security[] securities)
         {
             foreach (var item in Analytics)
             {
@@ -130,7 +131,7 @@ namespace ndp_invest_helper
         /// </summary>
         /// <param name="correctParts">Нужно ли пересчитывать доли.</param>
         /// <param name="keys">Ключи элементов для удаления.</param>
-        public void RemoveKeys(bool correctParts, params DiversityElement[] keys)
+        public void RemoveKeys(bool correctParts, params DiversityItem[] keys)
         {
             foreach (var item in keys)
             {
@@ -192,7 +193,7 @@ namespace ndp_invest_helper
         public override string ToString()
         {
             var sb = new StringBuilder();
-            IEnumerable<KeyValuePair<DiversityElement, PortfolioAnalyticsItem>> sorted = null;
+            IEnumerable<KeyValuePair<DiversityItem, PortfolioAnalyticsItem>> sorted = null;
             
             switch (OrderBy)
             {
