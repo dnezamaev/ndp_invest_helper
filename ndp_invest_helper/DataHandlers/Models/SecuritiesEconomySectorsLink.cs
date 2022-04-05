@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ndp_invest_helper.Models
+namespace ndp_invest_helper.DataHandlers
 {
     public partial class SecuritiesEconomySectorsLink
     {

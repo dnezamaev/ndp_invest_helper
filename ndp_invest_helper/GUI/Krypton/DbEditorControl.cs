@@ -1,6 +1,6 @@
 ﻿using ComponentFactory.Krypton.Navigator;
 
-using ndp_invest_helper.Models;
+using ndp_invest_helper.DataHandlers;
 
 using System;
 using System.Collections.Generic;
@@ -16,6 +16,11 @@ namespace ndp_invest_helper.GUI.Krypton
 {
     public partial class DbEditorControl : UserControl
     {
+        public DbEditorDiversityControl DiversityEditor
+        {
+            get => dbEditorDiversityControl;
+        }
+
         public DbEditorControl()
         {
             InitializeComponent();

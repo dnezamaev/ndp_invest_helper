@@ -5,8 +5,8 @@ using System.Text;
 using System.Linq;
 using System.Xml.Linq;
 
-using Country = ndp_invest_helper.Models.Country;
-using ndp_invest_helper.Models;
+using Country = ndp_invest_helper.DataHandlers.Country;
+using ndp_invest_helper.DataHandlers;
 
 namespace ndp_invest_helper
 {

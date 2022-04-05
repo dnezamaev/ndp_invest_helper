@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Globalization;
 using System.Xml.Linq;
-using ndp_invest_helper.Models;
+using ndp_invest_helper.DataHandlers;
 
 namespace ndp_invest_helper
 {
@@ -104,27 +104,6 @@ namespace ndp_invest_helper
                 subTagKey, subTagValue);
 
             return result;
-        }
-
-        public static void HandleAssetTypeAttribute(
-            Dictionary<AssetType, decimal> destination,
-            XElement xTag,
-            string unknownAssetType)
-        {
-            var assets = HandleComplexStringXmlAttribute(xTag, "what_inside", true, unknownAssetType);
-
-            foreach (var item in assets)
-            {
-                var asset = AssetType.All.Values.ToList()
-                    .Find(x => x.Code.ToLower() == item.Key.ToLower());
-
-                if (asset == null)
-                    throw new ArgumentException(string.Format(
-                        "Обнаружен неизвестный тип актива {0} в теге {1}",
-                        item.Key, xTag.ToString()));
-
-                destination[asset] = item.Value;
-            }
         }
 
         public static string SelectFileWithDialog (

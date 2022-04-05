@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
-using ndp_invest_helper.Models;
+using ndp_invest_helper.DataHandlers;
 
 namespace ndp_invest_helper.GUI.Krypton
 {
@@ -81,7 +81,7 @@ namespace ndp_invest_helper.GUI.Krypton
                         break;
 
                     default:
-                        throw new ArgumentException(
+                        throw new NotImplementedException(
                             "Для параметра ShowDifferenceFrom " +
                             "указано недопустимое значение " +
                             Settings.ShowDifferenceFrom);

@@ -1,5 +1,5 @@
 ﻿using ComponentFactory.Krypton.Navigator;
-using ndp_invest_helper.Models;
+using ndp_invest_helper.DataHandlers;
 using System;
 using System.Linq;
 using System.Windows.Forms;

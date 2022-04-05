@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using System.Collections.Generic;
 
-namespace ndp_invest_helper.Models
+namespace ndp_invest_helper.DataHandlers
 {
     /// <summary>
     /// Организационный тип эмитента: ПАО, ЗАО и т.п.

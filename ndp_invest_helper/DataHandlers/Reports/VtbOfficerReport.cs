@@ -54,7 +54,7 @@ namespace ndp_invest_helper.ReportHandlers
                 // Guess issuer type by searching its type in name.
                 // First letter can be upper or lower, so ignore it.
                 if (shareInfo.Issuer.Contains("убличное акционерное общество"))
-                    shareInfo.TypeOfIssuer = Models.IssuerType.Public;
+                    shareInfo.TypeOfIssuer = DataHandlers.IssuerType.Public;
 
                 shareInfo.AddressFull = lines[i++];
 
@@ -118,14 +118,14 @@ namespace ndp_invest_helper.ReportHandlers
             );
         }
 
-        private Models.ShareType GetShareType(string text)
+        private DataHandlers.ShareType GetShareType(string text)
         {
             switch (text)
             {
                 case "Акция обыкновенная именная":
-                    return Models.ShareType.Common;
+                    return DataHandlers.ShareType.Common;
                 case "Акция привилегированная именная":
-                    return Models.ShareType.Common;
+                    return DataHandlers.ShareType.Common;
                 default:
                     throw new Exception("Неизвестный тип бумаги в отчете госслужащего.");
             }

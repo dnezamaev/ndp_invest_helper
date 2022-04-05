@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using ndp_invest_helper.Models;
+using ndp_invest_helper.DataHandlers;
 
 namespace ndp_invest_helper
 {
@@ -343,7 +343,7 @@ namespace ndp_invest_helper
         {
             var result = new PortfolioAnalyticsResult();
             var analytics = result.Analytics;
-            analytics[AssetType.Cash] = new PortfolioAnalyticsItem
+            analytics[CommonData.Assets.Cash] = new PortfolioAnalyticsItem
             {
                 Portfolio = new Portfolio(null, this.Cash)
             };
@@ -351,7 +351,7 @@ namespace ndp_invest_helper
             PortfolioAnalyticsItem analyticsItem;
 
             // Разбираем бумаги по типам.
-            foreach (var type in AssetType.Securities)
+            foreach (var type in CommonData.Assets.Securities)
             {
                 // Выбираем бумаги с типом совпадающим текущему type.
                 var foundSecurities = Securities.
@@ -370,7 +370,7 @@ namespace ndp_invest_helper
             // Раскидываем ETF по другим активам, если надо.
             if (unpackEtf)
             {
-                var etfAnalytics = analytics[AssetType.Etf];
+                var etfAnalytics = analytics[CommonData.Assets.Etf];
 
                 // Проходимся по всем фондам.
                 foreach (var securityItem in etfAnalytics.Portfolio.Securities)
@@ -378,8 +378,15 @@ namespace ndp_invest_helper
                     var etf = securityItem.Key as ETF;
 
                     // Проходимся по всем внутренностям фонда.
-                    foreach (var whatInside in etf.WhatInside)
+                    foreach (var whatInside in etf.Assets)
                     {
+                        if (whatInside.Key == CommonData.Assets.Etf)
+                        {
+                            throw new NotImplementedException(
+                                $"В составе фонда {etf.BestFriendlyName} указано наличие" +
+                                $" другого фонда. Группировка такого пока не реализована.");
+                        }    
+
                         // Элемент результата (словаря по типам), в который идет фонд.
                         // Если такого нет, то создаем.
                         var analyticsItemDestination =
@@ -398,7 +405,7 @@ namespace ndp_invest_helper
                 }
 
                 // Теперь фонды в чистом виде нам не нужны.
-                analytics.Remove(AssetType.Etf);
+                analytics.Remove(CommonData.Assets.Etf);
             }
 
             result.CalculateParts();

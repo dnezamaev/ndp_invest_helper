@@ -1,4 +1,4 @@
-﻿using ndp_invest_helper.Models;
+﻿using ndp_invest_helper.DataHandlers;
 
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ndp_invest_helper.Models
+namespace ndp_invest_helper.DataHandlers
 {
     //using Diversity = Dictionary<DiversityElement, decimal>;
     /// <summary>

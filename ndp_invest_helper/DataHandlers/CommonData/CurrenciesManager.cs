@@ -1,4 +1,4 @@
-﻿using ndp_invest_helper.Models;
+﻿using ndp_invest_helper.DataHandlers;
 
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
-using Currency = ndp_invest_helper.Models.Currency;
+using Currency = ndp_invest_helper.DataHandlers.Currency;
 
 namespace ndp_invest_helper
 {

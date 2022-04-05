@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using ComponentFactory.Krypton.Navigator;
 using ComponentFactory.Krypton.Docking;
 using System.Linq;
+using ndp_invest_helper.DataHandlers;
 
 namespace ndp_invest_helper.GUI.Krypton
 {
@@ -27,12 +28,15 @@ namespace ndp_invest_helper.GUI.Krypton
         {
             CommonData.Load();
             InitInvestManager();
-            InitControls();
+
+            InitDockingControls();
             SetEventHandlers();
-            FillControls();
+
+            FillAnalyticsControls();
+            FillDbEditorControls();
         }
 
-        private void InitControls()
+        private void InitDockingControls()
         {
             var w = kryptonDockingManager.ManageWorkspace("Workspace", kryptonDockableWorkspace);
             kryptonDockingManager.ManageControl("Control", kryptonPanelMain, w);
@@ -178,6 +182,9 @@ namespace ndp_invest_helper.GUI.Krypton
             investManager = new InvestManager();
         }
 
+        /// <summary>
+        /// Link controls and data managers via events.
+        /// </summary>
         private void SetEventHandlers()
         {
             portfolioAnalyticsControl.CurrentGroupItemChanged +=
@@ -186,16 +193,22 @@ namespace ndp_invest_helper.GUI.Krypton
             assetsControl.AssetSelected +=
                 sec => { buySellControl.SelectedSecurity = sec; };
 
-            // Recalculate all if portfolio cash amount changed.
+            // Recalculate analytics if portfolio cash amount changed.
             portfolioCashControl.CashChanged +=
                 () => { investManager.RedoAnalytics(true); };
+
+            // Recalculate analytics if diversity edited in DB.
+            dbEditorControl.DiversityEditor.DiversityChanged += () =>
+            {
+                investManager.RedoAnalytics(false);
+            };
 
             investManager.Analytics.DealCompleted += InvestManager_DealCompleted;
             investManager.Analytics.LastDealRemoved += InvestManager_LastDealRemoved;
             investManager.Analytics.AllDealsRemoved += InvestManager_AllDealsRemoved;
 
             investManager.Analytics.AnalyticsResultChanged +=
-                () => { FillControls(); };
+                () => { FillAnalyticsControls(); };
         }
 
         private void InvestManager_AllDealsRemoved()
@@ -213,11 +226,16 @@ namespace ndp_invest_helper.GUI.Krypton
             dealsControl.AddDeal(deal);
         }
 
-        private void FillControls()
+        private void FillAnalyticsControls()
         {
             portfolioAnalyticsControl.FillControls();
             buySellControl.FillControls();
             portfolioCashControl.FillControls();
+        }
+
+
+        private void FillDbEditorControls()
+        {
             dbEditorControl.FillControls();
         }
 
@@ -266,7 +284,7 @@ namespace ndp_invest_helper.GUI.Krypton
 
             if (form.AnalyticsFormsReloadRequired)
             {
-                // TODO: refill analytics datagrids
+                FillAnalyticsControls();
             }
         }
     }

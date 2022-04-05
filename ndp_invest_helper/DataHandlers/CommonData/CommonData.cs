@@ -1,65 +1,48 @@
-﻿using ndp_invest_helper.Models;
-
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace ndp_invest_helper
+namespace ndp_invest_helper.DataHandlers
 {
     /// <summary>
     /// Global common data.
     /// </summary>
     public static class CommonData
     {
-        public static CountriesManager countries;
+        public static AssetTypesManager Assets { get; }
+            = new AssetTypesManager();
 
-        public static CurrenciesManager currencies;
+        public static CountriesManager Countries { get; }
+            = new CountriesManager();
 
-        public static SectorsManager sectors;
+        public static CurrenciesManager Currencies { get; }
+            = new CurrenciesManager();
 
-        public static CountriesManager Countries
-        {
-            get
-            {
-                if (countries == null)
-                {
-                    countries = new CountriesManager();
-                }
-
-                return countries;
-            }
-        }
-        
-        public static CurrenciesManager Currencies
-        {
-            get
-            {
-                if (currencies == null)
-                {
-                    currencies = new CurrenciesManager();
-                }
-
-                return currencies;
-            }
-        }
-
-        public static SectorsManager Sectors
-        {
-            get
-            {
-                if (sectors == null)
-                {
-                    sectors = new SectorsManager();
-                }
-
-                return sectors;
-            }
-        }
+        public static SectorsManager Sectors { get; }
+            = new SectorsManager();
         
         private static StringBuilder log = new StringBuilder();
+
+        public static DiversityManager GetManagerForItem(DiversityItem item)
+        {
+            switch (item)
+            {
+                case AssetType _:
+                    return Assets;
+
+                case Currency _:
+                    return Currencies;
+
+                case Country _:
+                    return Countries;
+
+                case EconomySector _:
+                    return Sectors;
+
+                default:
+                    throw new NotImplementedException();
+            }
+        }
 
         /// <summary>
         /// Load all common data: securities, currencies, counties, sectors.

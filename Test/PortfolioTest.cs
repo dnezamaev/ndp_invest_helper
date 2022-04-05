@@ -5,7 +5,7 @@ using System.Xml.Linq;
 using System.Collections.Generic;
 using System.Linq;
 
-using ndp_invest_helper.Models;
+using ndp_invest_helper.DataHandlers;
 
 namespace Test
 {
@@ -199,11 +199,11 @@ namespace Test
             Assert.AreEqual(0.3M, fullEtf.Sectors[CommonData.Sectors.ById[5]]);
             Assert.AreEqual(0.7M, fullEtf.Sectors[CommonData.Sectors.DefaultSector]);
 
-            Assert.AreEqual(2, fullEtf.WhatInside.Count);
-            Assert.IsTrue(fullEtf.WhatInside.ContainsKey(AssetType.Bond));
-            Assert.IsTrue(fullEtf.WhatInside.ContainsKey(AssetType.Unknown));
-            Assert.AreEqual(0.4M, fullEtf.WhatInside[AssetType.Bond]);
-            Assert.AreEqual(0.6M, fullEtf.WhatInside[AssetType.Unknown]);
+            Assert.AreEqual(2, fullEtf.Assets.Count);
+            Assert.IsTrue(fullEtf.Assets.ContainsKey(CommonData.Assets.Bond));
+            Assert.IsTrue(fullEtf.Assets.ContainsKey(CommonData.Assets.Unknown));
+            Assert.AreEqual(0.4M, fullEtf.Assets[CommonData.Assets.Bond]);
+            Assert.AreEqual(0.6M, fullEtf.Assets[CommonData.Assets.Unknown]);
 
             // У пустой бумаги характеристики берутся от эмитента.
             var emptySec = SecuritiesManager.SecuritiesByTicker["EMPTY"];
@@ -388,26 +388,26 @@ namespace Test
                 anSector[sector900].Part);
 
             Assert.AreEqual(5, anType.Count);
-            Assert.IsTrue(anType.ContainsKey(AssetType.Share));
-            Assert.IsTrue(anType.ContainsKey(AssetType.Bond));
-            Assert.IsTrue(anType.ContainsKey(AssetType.Gold));
-            Assert.IsTrue(anType.ContainsKey(AssetType.Cash));
-            Assert.IsTrue(anType.ContainsKey(AssetType.Unknown));
+            Assert.IsTrue(anType.ContainsKey(CommonData.Assets.Share));
+            Assert.IsTrue(anType.ContainsKey(CommonData.Assets.Bond));
+            Assert.IsTrue(anType.ContainsKey(CommonData.Assets.Gold));
+            Assert.IsTrue(anType.ContainsKey(CommonData.Assets.Cash));
+            Assert.IsTrue(anType.ContainsKey(CommonData.Assets.Unknown));
             Assert.AreEqual(
                 (10 * 1000 * 1 + 10 * 1000 * 0.1M) / total,
-                anType[AssetType.Share].Part);
+                anType[CommonData.Assets.Share].Part);
             Assert.AreEqual(
                 (10 * 1000 * 0.5M) / total,
-                anType[AssetType.Bond].Part);
+                anType[CommonData.Assets.Bond].Part);
             Assert.AreEqual(
                 (10 * 1000 * 0.1M) / total,
-                anType[AssetType.Gold].Part);
+                anType[CommonData.Assets.Gold].Part);
             Assert.AreEqual(
                 (100 + 100M) / total,
-                anType[AssetType.Cash].Part);
+                anType[CommonData.Assets.Cash].Part);
             Assert.AreEqual(
                 (10 * 1000 * 0.3M) / total,
-                anType[AssetType.Unknown].Part);
+                anType[CommonData.Assets.Unknown].Part);
         }
 
     }

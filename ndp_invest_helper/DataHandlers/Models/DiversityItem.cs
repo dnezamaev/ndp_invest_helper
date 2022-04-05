@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ndp_invest_helper.Models
+namespace ndp_invest_helper.DataHandlers
 {
     /// <summary>
     /// Критерий диверсификации: валюта, сектор экономики, страна, тип актива...

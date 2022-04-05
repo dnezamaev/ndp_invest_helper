@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using ndp_invest_helper.Models;
+using ndp_invest_helper.DataHandlers;
 
 namespace ndp_invest_helper
 {

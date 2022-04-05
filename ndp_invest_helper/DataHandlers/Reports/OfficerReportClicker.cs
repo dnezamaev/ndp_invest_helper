@@ -5,7 +5,7 @@ using WindowsInput;
 using WindowsInput.Native;
 using System.Threading;
 
-using ndp_invest_helper.Models;
+using ndp_invest_helper.DataHandlers;
 
 namespace ndp_invest_helper.ReportHandlers
 {

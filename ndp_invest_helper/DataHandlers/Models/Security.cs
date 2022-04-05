@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ndp_invest_helper.Models
+namespace ndp_invest_helper.DataHandlers
 {
     /// <summary>
     /// Статическая информация о ценной бумаге.
@@ -56,7 +56,7 @@ namespace ndp_invest_helper.Models
                     Countries.Count == 0 ||
                     Currencies.Count == 0 ||
                     Sectors.Count == 0 ||
-                    (this is ETF && (this as ETF).WhatInside.Count == 0)
+                    (this is ETF && (this as ETF).Assets.Count == 0)
                     );
             }
         }
@@ -264,10 +264,9 @@ namespace ndp_invest_helper.Models
     {
         /// <summary>
         /// Состав фонда по типам активов: акции, облигации, золото, деньги и т.п.
-        /// Список см. в SecuritiesManager.SecTypeFriendlyNames
         /// </summary>
-        public Dictionary<AssetType, decimal> WhatInside { get; }
-            = new Dictionary<AssetType, decimal>();
+        public Dictionary<DiversityItem, decimal> Assets { get; }
+            = new Dictionary<DiversityItem, decimal>();
 
         /// <summary>
         /// Состав фонда по ценным бумагам с долями.
@@ -282,7 +281,7 @@ namespace ndp_invest_helper.Models
             var sb = new StringBuilder(base.ToString());
 
             sb.Append(" What inside={");
-            foreach (var item in WhatInside)
+            foreach (var item in Assets)
             {
                 sb.AppendFormat("{0}:{1}, ", item.Key, item.Value);
             }

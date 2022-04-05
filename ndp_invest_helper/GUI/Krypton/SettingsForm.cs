@@ -64,10 +64,15 @@ namespace ndp_invest_helper.GUI.Krypton
 
         private void comboBox_DataSource_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DataReloadRequired = true;
-
-            Settings.CommonDataSource = CommonDataSourceMenuItems
+            var currentValue = Settings.CommonDataSource;
+            var selectedValue = CommonDataSourceMenuItems
                 [comboBox_DataSource.SelectedIndex].enumValue;
+
+            if (currentValue != selectedValue)
+            {
+                DataReloadRequired = true;
+                Settings.CommonDataSource = selectedValue;
+            }
         }
 
         private void checkBox_Log_CheckedChanged(object sender, EventArgs e)
@@ -77,8 +82,15 @@ namespace ndp_invest_helper.GUI.Krypton
 
         private void comboBox_ShowChangesFrom_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Settings.ShowDifferenceFrom = PortfolioDifferenceSourceMenuItems
+            var currentValue = Settings.ShowDifferenceFrom;
+            var selectedValue = PortfolioDifferenceSourceMenuItems
                 [comboBox_ShowChangesFrom.SelectedIndex].enumValue;
+
+            if (currentValue != selectedValue)
+            {
+                AnalyticsFormsReloadRequired = true;
+                Settings.ShowDifferenceFrom = selectedValue;
+            }
         }
     }
 }

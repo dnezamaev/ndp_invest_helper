@@ -32,6 +32,8 @@ namespace ndp_invest_helper.GUI.Krypton
             this.kryptonSplitContainer1 = new ComponentFactory.Krypton.Toolkit.KryptonSplitContainer();
             this.dataGrid_Parts = new ComponentFactory.Krypton.Toolkit.KryptonDataGridView();
             this.dataGrid_Keys = new ComponentFactory.Krypton.Toolkit.KryptonDataGridView();
+            this.KeysColumn_Key = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.KeysColumn_Text = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.kryptonPanel2 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
             this.radioButton_Assets = new ComponentFactory.Krypton.Toolkit.KryptonRadioButton();
             this.radioButton_Sectors = new ComponentFactory.Krypton.Toolkit.KryptonRadioButton();
@@ -45,9 +47,7 @@ namespace ndp_invest_helper.GUI.Krypton
             this.kryptonPanel3 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
             this.kryptonLabel1 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.PartsColumn_Key = new System.Windows.Forms.DataGridViewLinkColumn();
-            this.PartsColumn_Value = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.KeysColumn_Key = new System.Windows.Forms.DataGridViewLinkColumn();
-            this.KeysColumn_Text = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PartsColumn_Value = new ComponentFactory.Krypton.Toolkit.KryptonDataGridViewNumericUpDownColumn();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer1.Panel1)).BeginInit();
             this.kryptonSplitContainer1.Panel1.SuspendLayout();
@@ -103,6 +103,8 @@ namespace ndp_invest_helper.GUI.Krypton
             this.dataGrid_Parts.RowTemplate.Height = 24;
             this.dataGrid_Parts.Size = new System.Drawing.Size(345, 405);
             this.dataGrid_Parts.TabIndex = 0;
+            this.dataGrid_Parts.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGrid_Parts_CellContentClick);
+            this.dataGrid_Parts.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGrid_Parts_CellValueChanged);
             // 
             // dataGrid_Keys
             // 
@@ -122,6 +124,31 @@ namespace ndp_invest_helper.GUI.Krypton
             this.dataGrid_Keys.RowTemplate.Height = 24;
             this.dataGrid_Keys.Size = new System.Drawing.Size(352, 405);
             this.dataGrid_Keys.TabIndex = 1;
+            this.dataGrid_Keys.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGrid_Keys_CellContentClick);
+            // 
+            // KeysColumn_Key
+            // 
+            this.KeysColumn_Key.ActiveLinkColor = System.Drawing.Color.Blue;
+            this.KeysColumn_Key.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.KeysColumn_Key.FillWeight = 25F;
+            this.KeysColumn_Key.HeaderText = "Ключ";
+            this.KeysColumn_Key.MinimumWidth = 6;
+            this.KeysColumn_Key.Name = "KeysColumn_Key";
+            this.KeysColumn_Key.ReadOnly = true;
+            this.KeysColumn_Key.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.KeysColumn_Key.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.KeysColumn_Key.TrackVisitedState = false;
+            this.KeysColumn_Key.VisitedLinkColor = System.Drawing.Color.Blue;
+            // 
+            // KeysColumn_Text
+            // 
+            this.KeysColumn_Text.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.KeysColumn_Text.FillWeight = 75F;
+            this.KeysColumn_Text.HeaderText = "Название";
+            this.KeysColumn_Text.MinimumWidth = 6;
+            this.KeysColumn_Text.Name = "KeysColumn_Text";
+            this.KeysColumn_Text.ReadOnly = true;
+            this.KeysColumn_Text.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // kryptonPanel2
             // 
@@ -141,7 +168,7 @@ namespace ndp_invest_helper.GUI.Krypton
             this.radioButton_Assets.Size = new System.Drawing.Size(132, 24);
             this.radioButton_Assets.TabIndex = 15;
             this.radioButton_Assets.Values.Text = "Состав активов";
-            this.radioButton_Assets.CheckedChanged += new System.EventHandler(this.radioButton_Currencies_CheckedChanged);
+            this.radioButton_Assets.CheckedChanged += new System.EventHandler(this.radioButton_DivItem_CheckedChanged);
             // 
             // radioButton_Sectors
             // 
@@ -150,7 +177,7 @@ namespace ndp_invest_helper.GUI.Krypton
             this.radioButton_Sectors.Size = new System.Drawing.Size(164, 24);
             this.radioButton_Sectors.TabIndex = 14;
             this.radioButton_Sectors.Values.Text = "Сектора экономики";
-            this.radioButton_Sectors.CheckedChanged += new System.EventHandler(this.radioButton_Currencies_CheckedChanged);
+            this.radioButton_Sectors.CheckedChanged += new System.EventHandler(this.radioButton_DivItem_CheckedChanged);
             // 
             // radioButton_Countries
             // 
@@ -159,7 +186,7 @@ namespace ndp_invest_helper.GUI.Krypton
             this.radioButton_Countries.Size = new System.Drawing.Size(76, 24);
             this.radioButton_Countries.TabIndex = 13;
             this.radioButton_Countries.Values.Text = "Страны";
-            this.radioButton_Countries.CheckedChanged += new System.EventHandler(this.radioButton_Currencies_CheckedChanged);
+            this.radioButton_Countries.CheckedChanged += new System.EventHandler(this.radioButton_DivItem_CheckedChanged);
             // 
             // radioButton_Currencies
             // 
@@ -169,7 +196,7 @@ namespace ndp_invest_helper.GUI.Krypton
             this.radioButton_Currencies.Size = new System.Drawing.Size(78, 24);
             this.radioButton_Currencies.TabIndex = 12;
             this.radioButton_Currencies.Values.Text = "Валюты";
-            this.radioButton_Currencies.CheckedChanged += new System.EventHandler(this.radioButton_Currencies_CheckedChanged);
+            this.radioButton_Currencies.CheckedChanged += new System.EventHandler(this.radioButton_DivItem_CheckedChanged);
             // 
             // kryptonPanel1
             // 
@@ -212,6 +239,7 @@ namespace ndp_invest_helper.GUI.Krypton
             this.comboBox_SecurityIssuer.Name = "comboBox_SecurityIssuer";
             this.comboBox_SecurityIssuer.Size = new System.Drawing.Size(706, 31);
             this.comboBox_SecurityIssuer.TabIndex = 9;
+            this.comboBox_SecurityIssuer.SelectedIndexChanged += new System.EventHandler(this.comboBox_SecurityIssuer_SelectedIndexChanged);
             // 
             // kryptonPage4
             // 
@@ -266,34 +294,19 @@ namespace ndp_invest_helper.GUI.Krypton
             // PartsColumn_Value
             // 
             this.PartsColumn_Value.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.PartsColumn_Value.DecimalPlaces = 2;
             this.PartsColumn_Value.FillWeight = 75F;
             this.PartsColumn_Value.HeaderText = "Доля %";
+            this.PartsColumn_Value.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
             this.PartsColumn_Value.MinimumWidth = 6;
             this.PartsColumn_Value.Name = "PartsColumn_Value";
-            // 
-            // KeysColumn_Key
-            // 
-            this.KeysColumn_Key.ActiveLinkColor = System.Drawing.Color.Blue;
-            this.KeysColumn_Key.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.KeysColumn_Key.FillWeight = 25F;
-            this.KeysColumn_Key.HeaderText = "Ключ";
-            this.KeysColumn_Key.MinimumWidth = 6;
-            this.KeysColumn_Key.Name = "KeysColumn_Key";
-            this.KeysColumn_Key.ReadOnly = true;
-            this.KeysColumn_Key.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.KeysColumn_Key.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.KeysColumn_Key.TrackVisitedState = false;
-            this.KeysColumn_Key.VisitedLinkColor = System.Drawing.Color.Blue;
-            // 
-            // KeysColumn_Text
-            // 
-            this.KeysColumn_Text.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.KeysColumn_Text.FillWeight = 75F;
-            this.KeysColumn_Text.HeaderText = "Название";
-            this.KeysColumn_Text.MinimumWidth = 6;
-            this.KeysColumn_Text.Name = "KeysColumn_Text";
-            this.KeysColumn_Text.ReadOnly = true;
-            this.KeysColumn_Text.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.PartsColumn_Value.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.PartsColumn_Value.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.PartsColumn_Value.Width = 258;
             // 
             // DbEditorDiversityControl
             // 
@@ -340,9 +353,9 @@ namespace ndp_invest_helper.GUI.Krypton
         private ComponentFactory.Krypton.Toolkit.KryptonDataGridView dataGrid_Keys;
         private ComponentFactory.Krypton.Toolkit.KryptonPanel kryptonPanel3;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel1;
-        private System.Windows.Forms.DataGridViewLinkColumn PartsColumn_Key;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PartsColumn_Value;
         private System.Windows.Forms.DataGridViewLinkColumn KeysColumn_Key;
         private System.Windows.Forms.DataGridViewTextBoxColumn KeysColumn_Text;
+        private System.Windows.Forms.DataGridViewLinkColumn PartsColumn_Key;
+        private ComponentFactory.Krypton.Toolkit.KryptonDataGridViewNumericUpDownColumn PartsColumn_Value;
     }
 }

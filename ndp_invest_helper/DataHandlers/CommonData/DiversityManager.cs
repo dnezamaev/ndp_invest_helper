@@ -1,4 +1,4 @@
-﻿using ndp_invest_helper.Models;
+﻿using ndp_invest_helper.DataHandlers;
 
 using System;
 using System.Collections.Generic;
@@ -11,6 +11,8 @@ namespace ndp_invest_helper
     /// </summary>
     public abstract class DiversityManager
     {
+        private DataConnector DataConnector { get; set; }
+
         public List<DiversityItem> Items { get; protected set; }
             = new List<DiversityItem>();
 
@@ -62,6 +64,16 @@ namespace ndp_invest_helper
 
                 destination[item] = kvp.Value;
             }
+        }
+
+        public void UpdateItem(DiversityItem item)
+        {
+            InnerUpdateItem(item);
+        }
+
+        protected virtual void InnerUpdateItem(DiversityItem item)
+        {
+
         }
     }
 }

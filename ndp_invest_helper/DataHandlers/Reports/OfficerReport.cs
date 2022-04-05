@@ -40,11 +40,11 @@ namespace ndp_invest_helper.ReportHandlers
 
         public string Count { get; set; }
 
-        public Models.ShareType TypeOfShare { get; set; }
-            = Models.ShareType.Unknown;
+        public DataHandlers.ShareType TypeOfShare { get; set; }
+            = DataHandlers.ShareType.Unknown;
 
-        public Models.IssuerType TypeOfIssuer { get; set; }
-            = Models.IssuerType.Unknown;
+        public DataHandlers.IssuerType TypeOfIssuer { get; set; }
+            = DataHandlers.IssuerType.Unknown;
     }
 
     public class OfficerReport

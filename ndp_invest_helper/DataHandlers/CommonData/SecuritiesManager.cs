@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using System.Xml.Linq;
-using ndp_invest_helper.Models;
+using ndp_invest_helper.DataHandlers;
 
 // !!! Заметка себе на будущее, когда захочется рефакторинга под красивое ООП.
 // В теории все поля должны быть закрыты и доступны через ReadOnly интерфейсы
@@ -195,8 +195,8 @@ namespace ndp_invest_helper
 
                     foreach (var asset in currentEtfAssets)
                     {
-                        etf.WhatInside.Add(
-                            AssetType.All[(AssetTypeEnum)asset.AssetTypeId],
+                        etf.Assets.Add(
+                            CommonData.Assets.ById[asset.AssetTypeId],
                             asset.Part);
                     }
                 }
@@ -296,8 +296,7 @@ namespace ndp_invest_helper
 
                 case "etf":
                     security = new ETF();
-                    Utils.HandleAssetTypeAttribute(
-                        (security as ETF).WhatInside, xSecurity, AssetType.Unknown.Code);
+                    CommonData.Assets.HandleXml(xSecurity, (security as ETF).Assets);
                     break;
                 default:
                     break;

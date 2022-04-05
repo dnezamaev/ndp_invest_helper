@@ -5,10 +5,15 @@ using System.Linq;
 using System.Configuration;
 
 using Dapper;
-using ndp_invest_helper.Models;
+using ndp_invest_helper.DataHandlers;
 
 namespace ndp_invest_helper
 {
+    public enum DbAction { Insert, Update, Delete }
+
+    /// <summary>
+    /// SQLite DB manager.
+    /// </summary>
     public static class DatabaseManager
     {
         private static string connectionString;
@@ -46,6 +51,106 @@ namespace ndp_invest_helper
                 db.Execute(DbCreateScript);
             }
         }
+
+        /// <summary>
+        /// Append diverity item to security or issuer.
+        /// </summary>
+        /// <param name="subject">Security or issuer where to add.</param>
+        /// <param name="item"></param>
+        public static void HandleDiversityItem(
+            DbAction action, 
+            IDiversified subject, 
+            DiversityItem item,
+            decimal part = 0)
+        {
+            // Yes, its pure evil, but SQLite has no strored procedures,
+            // so making this LEGO constuctor here.
+            string table;
+            string idColumn;
+            string divColumn;
+
+            if (subject is ETF && item is AssetType)
+            {
+                table = "Funds_Assets_Link";
+                idColumn = "FundSecurityID";
+                divColumn = "AssetTypeID";
+            }
+            else
+            {
+                idColumn = subject is Issuer ? "IssuerID" : "SecurityID";
+
+                string tableSubject = subject is Issuer ? "Issuers" : "Securities";
+                string tableObject;
+
+                switch (item)
+                {
+                    case Currency _:
+                        tableObject = "Currencies";
+                        divColumn = "CurrencyID";
+                        break;
+
+                    case Country _:
+                        tableObject = "Countries";
+                        divColumn = "CountryID";
+                        break;
+
+                    case EconomySector _:
+                        tableObject = "EconomySectors";
+                        divColumn = "EconomySectorID";
+                        break;
+                    default:
+                        throw new NotImplementedException();
+                }
+
+                table = $"{tableSubject}_{tableObject}_Link";
+
+                string sqlCommand;
+
+                using (var db = new SQLiteConnection(connectionString))
+                {
+                    switch (action)
+                    {
+                        case DbAction.Insert:
+
+                            sqlCommand = $"INSERT INTO {table} VALUES(@SubjID, @ObjID, @Part)";
+                            db.Execute(
+                                sqlCommand,
+                                new { SubjID = subject.Id, ObjID = item.Id, Part = part }
+                                );
+                            break;
+
+                        case DbAction.Update:
+
+                            sqlCommand = 
+                                $"UPDATE {table} SET " +
+                                $"{divColumn}=@ObjID, " +
+                                $"Part=@Part " +
+                                $"WHERE {idColumn}=@SubjID";
+
+                            db.Execute(
+                                sqlCommand,
+                                new { SubjID = subject.Id, ObjID = item.Id, Part = part }
+                                );
+                            break;
+
+                        case DbAction.Delete:
+
+                            sqlCommand = 
+                                $"DELETE FROM {table} " +
+                                $"WHERE {idColumn}=@SubjID";
+
+                            db.Execute(
+                                sqlCommand,
+                                new { SubjID = subject.Id, ObjID = item.Id, Part = part }
+                                );
+                            break;
+
+                        default:
+                            throw new NotImplementedException();
+                    }
+                }
+            }
+        }
         
         /// <summary>
         /// Запись информации в базу данных.
@@ -69,12 +174,6 @@ namespace ndp_invest_helper
             }
         }
 
-        private static Int64 GetLastInsertRowId(SQLiteConnection connection)
-        {
-            var command = new SQLiteCommand("SELECT last_insert_rowid()", connection);
-            return (Int64)command.ExecuteScalar();
-        }
-
         private static void CheckExecuteResult(
             string command, object parameter, int result, int expectedResult = 1)
         {
@@ -87,17 +186,6 @@ namespace ndp_invest_helper
 
         private static void ImportXmlSecurites(SQLiteConnection connection)
         {
-            var XmlToDbAssetNames
-                = new Dictionary<string, AssetTypeEnum>()
-                {
-                    {"unknown", AssetTypeEnum.Unknown },
-                    {"share", AssetTypeEnum.Share },
-                    {"bond", AssetTypeEnum.Bond },
-                    {"etf", AssetTypeEnum.Etf },
-                    {"gold", AssetTypeEnum.Gold },
-                    {"cash", AssetTypeEnum.Cash },
-                };
-
             int commandResult;
 
             var insertIssuerCommand =
@@ -279,7 +367,7 @@ namespace ndp_invest_helper
                     {
                         var etf = security as ETF;
 
-                        foreach (var item in etf.WhatInside)
+                        foreach (var item in etf.Assets)
                         {
                             var param = new
                             {
