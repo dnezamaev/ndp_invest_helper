@@ -1,4 +1,5 @@
 ﻿using ComponentFactory.Krypton.Navigator;
+using ComponentFactory.Krypton.Toolkit;
 
 using ndp_invest_helper.ReportHandlers;
 
@@ -23,7 +24,7 @@ namespace ndp_invest_helper.GUI.Krypton
                 return;
 
             // TextBox where to store file path.
-            TextBox textBoxFilePath;
+            KryptonTextBox textBoxFilePath;
 
             if (sender == button_Misc_SelectSharesOffcerReport)
             {

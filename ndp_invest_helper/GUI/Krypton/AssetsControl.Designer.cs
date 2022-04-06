@@ -29,7 +29,7 @@ namespace ndp_invest_helper.GUI.Krypton
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView_GroupContent = new System.Windows.Forms.DataGridView();
+            this.dataGridView_GroupContent = new ComponentFactory.Krypton.Toolkit.KryptonDataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_GroupContent)).BeginInit();
@@ -91,7 +91,7 @@ namespace ndp_invest_helper.GUI.Krypton
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView_GroupContent;
+        private ComponentFactory.Krypton.Toolkit.KryptonDataGridView dataGridView_GroupContent;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
     }

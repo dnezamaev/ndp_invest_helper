@@ -53,10 +53,10 @@ namespace ndp_invest_helper.DataHandlers
             switch (Settings.CommonDataSource)
             {
                 case CommonDataSources.SqliteDb:
-                    LoadCommonDataFromSqlite();
+                    LoadFromSqlite();
                     break;
                 case CommonDataSources.XmlFiles:
-                    LoadCommonDataFromXml();
+                    LoadFromXml();
                     break;
                 default:
                     throw new NotImplementedException
@@ -67,7 +67,7 @@ namespace ndp_invest_helper.DataHandlers
             }
         }
 
-        private static void LoadCommonDataFromXml()
+        private static void LoadFromXml()
         {
             Currencies.LoadFromXmlFile(Settings.CurrenciesXmlFilePath);
             Countries.LoadFromXmlFile(Settings.CountriesXmlFilePath);
@@ -83,8 +83,18 @@ namespace ndp_invest_helper.DataHandlers
                 );
         }
 
-        private static void LoadCommonDataFromSqlite()
+        private static void LoadFromSqlite()
         {
+            // Check if database exists. If no, create it from XML.
+            var builder = new System.Data.SqlClient.SqlConnectionStringBuilder(
+                DatabaseManager.ConnectionString);
+
+            if (!File.Exists(builder.DataSource))
+            {
+                LoadFromXml();
+                XmlToSqlite();
+            }
+
             InitDatabase();
 
             Currencies.LoadFromDatabase();

@@ -29,7 +29,7 @@ namespace ndp_invest_helper.GUI.Krypton
         /// </summary>
         private void InitializeComponent()
         {
-            this.listBox_Deals = new System.Windows.Forms.ListBox();
+            this.listBox_Deals = new ComponentFactory.Krypton.Toolkit.KryptonListBox();
             this.SuspendLayout();
             // 
             // listBox_Deals
@@ -38,7 +38,6 @@ namespace ndp_invest_helper.GUI.Krypton
             this.listBox_Deals.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listBox_Deals.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listBox_Deals.FormattingEnabled = true;
-            this.listBox_Deals.ItemHeight = 19;
             this.listBox_Deals.Location = new System.Drawing.Point(0, 0);
             this.listBox_Deals.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.listBox_Deals.Name = "listBox_Deals";
@@ -57,6 +56,6 @@ namespace ndp_invest_helper.GUI.Krypton
 
         #endregion
 
-        private System.Windows.Forms.ListBox listBox_Deals;
+        private ComponentFactory.Krypton.Toolkit.KryptonListBox listBox_Deals;
     }
 }
